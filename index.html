@@ -7,120 +7,48 @@
   <script src="https://unpkg.com/opensheetmusicdisplay@1.8.4/build/opensheetmusicdisplay.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f5f4f0;
-      color: #2c2c2c;
-      min-height: 100vh;
-    }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f4f0; color: #2c2c2c; min-height: 100vh; }
 
-    header {
-      background: #2c1a0e;
-      color: #f0e8d8;
-      padding: 1.1rem 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+    header { background: #2c1a0e; color: #f0e8d8; padding: 1.1rem 2rem; display: flex; align-items: center; gap: 1rem; }
     header h1 { font-size: 1.4rem; font-weight: 600; }
     header span { font-size: .88rem; opacity: .7; }
 
-    .upload-panel {
-      max-width: 660px;
-      margin: 2rem auto;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0,0,0,.08);
-      padding: 1.8rem;
-    }
+    .upload-panel { max-width: 660px; margin: 2rem auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,.08); padding: 1.8rem; }
     .upload-panel h2 { font-size: 1rem; margin-bottom: 1rem; color: #4a3520; }
 
-    .drop-zone {
-      border: 2px dashed #c8b99a;
-      border-radius: 8px;
-      padding: 2rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      transition: background .2s, border-color .2s;
-    }
+    .drop-zone { border: 2px dashed #c8b99a; border-radius: 8px; padding: 2rem 1rem; text-align: center; cursor: pointer; transition: background .2s, border-color .2s; }
     .drop-zone:hover, .drop-zone.dragover { background: #fdf6ec; border-color: #9a7c50; }
     .drop-zone input[type=file] { display: none; }
     .drop-zone .icon { font-size: 2.2rem; margin-bottom: .4rem; }
     .drop-zone p { color: #888; font-size: .9rem; }
     .drop-zone p strong { color: #5a3e1b; }
-    .badge {
-      display: inline-block;
-      background: #f0e8d8;
-      color: #5a3e1b;
-      border-radius: 4px;
-      padding: .1rem .45rem;
-      font-size: .78rem;
-      font-weight: 600;
-      margin: 0 .15rem;
-    }
+    .badge { display: inline-block; background: #f0e8d8; color: #5a3e1b; border-radius: 4px; padding: .1rem .45rem; font-size: .78rem; font-weight: 600; margin: 0 .15rem; }
     #file-name { margin-top: .6rem; font-size: .88rem; color: #5a3e1b; font-weight: 500; }
 
-    .btn-analyze {
-      margin-top: 1rem;
-      width: 100%;
-      padding: .8rem;
-      background: #5a3e1b;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background .2s;
-    }
+    .btn-analyze { margin-top: 1rem; width: 100%; padding: .8rem; background: #5a3e1b; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background .2s; }
     .btn-analyze:hover:not(:disabled) { background: #7a5425; }
     .btn-analyze:disabled { background: #c8b99a; cursor: not-allowed; }
 
-    #status {
-      max-width: 660px;
-      margin: 0 auto .8rem;
-      padding: .75rem 1.1rem;
-      border-radius: 6px;
-      font-size: .9rem;
-      display: none;
-    }
+    /* ── Progress bar ── */
+    #progress-wrap { max-width: 660px; margin: 0 auto .8rem; padding: 0 1.1rem; display: none; }
+    #progress-label { font-size: .88rem; color: #4a3520; margin-bottom: .45rem; display: flex; justify-content: space-between; }
+    #progress-elapsed { color: #999; font-size: .82rem; }
+    #progress-track { background: #e8ddd0; border-radius: 4px; height: 8px; overflow: hidden; }
+    #progress-fill { background: #5a3e1b; height: 100%; width: 0%; border-radius: 4px; transition: width .35s ease; }
+
+    /* ── Status banner ── */
+    #status { max-width: 660px; margin: 0 auto .8rem; padding: .75rem 1.1rem; border-radius: 6px; font-size: .9rem; display: none; }
     #status.info  { background: #e8f4fd; color: #1a6fa0; display: block; }
     #status.error { background: #fdecea; color: #b71c1c; display: block; }
     #status.warn  { background: #fff8e1; color: #795548; display: block; }
 
     /* ── Sheet wrapper ── */
-    #sheet-wrap {
-      max-width: 1200px;
-      margin: 0 auto 3rem;
-      padding: 0 1rem;
-      display: none;
-    }
-    #sheet-container {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 1px 6px rgba(0,0,0,.08);
-      padding: 1.5rem 2rem;
-      overflow-x: auto;
-    }
-
-    /* Style fingering numbers rendered by OSMD */
-    #sheet-container svg text.fingering,
-    #sheet-container svg text[class*="fingering"] {
-      font-size: 11px !important;
-      font-weight: 700 !important;
-      fill: #c0392b !important;
-    }
+    #sheet-wrap { max-width: 1200px; margin: 0 auto 3rem; padding: 0 1rem; display: none; }
+    #sheet-container { background: #fff; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,.08); padding: 1.5rem 2rem; overflow-x: auto; }
+    #sheet-container svg text.fingering, #sheet-container svg text[class*="fingering"] { font-size: 11px !important; font-weight: 700 !important; fill: #c0392b !important; }
 
     /* ── Spinner ── */
-    .spinner {
-      display: inline-block;
-      width: 15px; height: 15px;
-      border: 2px solid rgba(255,255,255,.5);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin .6s linear infinite;
-      vertical-align: middle;
-      margin-right: .4rem;
-    }
+    .spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,.5); border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; vertical-align: middle; margin-right: .4rem; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
@@ -140,10 +68,7 @@
     <div class="icon">🎼</div>
     <p>Drag &amp; drop or <strong>click to browse</strong></p>
     <p style="margin-top:.35rem">
-      <span class="badge">PDF</span>
-      <span class="badge">XML</span>
-      <span class="badge">MXL</span>
-      <span class="badge">MusicXML</span>
+      <span class="badge">PDF</span><span class="badge">XML</span><span class="badge">MXL</span><span class="badge">MusicXML</span>
     </p>
     <div id="file-name"></div>
   </div>
@@ -151,6 +76,10 @@
 </div>
 
 <div id="status"></div>
+<div id="progress-wrap">
+  <div id="progress-label">Uploading… <span id="progress-elapsed">0.0s</span></div>
+  <div id="progress-track"><div id="progress-fill"></div></div>
+</div>
 <div id="sheet-wrap"><div id="sheet-container"></div></div>
 
 <script>
@@ -163,6 +92,10 @@
   const fileNameEl = document.getElementById('file-name');
   const btnAnalyze = document.getElementById('btn-analyze');
   const statusEl   = document.getElementById('status');
+  const progressWrap  = document.getElementById('progress-wrap');
+  const progressLabel = document.getElementById('progress-label').childNodes[0];
+  const progressElapsed = document.getElementById('progress-elapsed');
+  const progressFill  = document.getElementById('progress-fill');
   const sheetWrap  = document.getElementById('sheet-wrap');
   const sheetEl    = document.getElementById('sheet-container');
 
@@ -170,152 +103,152 @@
   let osmd = null;
   let serverReady = false;
 
-  // ── Wake up the Render server as soon as the page loads ──────────────────
+  // ── Warm up Render on page load ───────────────────────────────────────────
   (async function warmUp() {
     if (!API_BASE) { serverReady = true; return; }
-    try {
-      const r = await fetch(`${API_BASE}/health`);
-      if (r.ok) { serverReady = true; return; }
-    } catch (_) {}
+    try { if ((await fetch(`${API_BASE}/health`)).ok) { serverReady = true; return; } } catch (_) {}
     setStatus('warn', '⏳ Server is starting up, please wait…');
     for (let i = 0; i < 8; i++) {
       await new Promise(r => setTimeout(r, 5000));
-      try {
-        const r = await fetch(`${API_BASE}/health`);
-        if (r.ok) { serverReady = true; statusEl.style.display = 'none'; return; }
-      } catch (_) {}
+      try { if ((await fetch(`${API_BASE}/health`)).ok) { serverReady = true; statusEl.style.display = 'none'; return; } } catch (_) {}
     }
-    setStatus('warn', '⚠ Server is slow to start. Try clicking Analyze — it may still work.');
     serverReady = true;
+    setStatus('warn', '⚠ Server slow to start — try Analyze anyway.');
   })();
 
-  // ── File selection ──────────────────────────────────────────────────────
-  fileInput.addEventListener('change', () => {
-    if (fileInput.files[0]) setFile(fileInput.files[0]);
-  });
+  // ── Progress helpers ─────────────────────────────────────────────────────
+  let _pStart = null, _pTimer = null, _pAnimTimer = null;
+
+  function progressShow(label, pct) {
+    if (!_pStart) _pStart = performance.now();
+    progressWrap.style.display = 'block';
+    statusEl.style.display = 'none';
+    progressLabel.textContent = label + ' ';
+    progressFill.style.width = pct + '%';
+    if (!_pTimer) {
+      _pTimer = setInterval(() => {
+        progressElapsed.textContent = ((performance.now() - _pStart) / 1000).toFixed(1) + 's';
+      }, 100);
+    }
+  }
+
+  function progressAnimate(toPct, overMs) {
+    if (_pAnimTimer) clearInterval(_pAnimTimer);
+    const start = parseFloat(progressFill.style.width) || 0;
+    const steps = Math.max(1, toPct - start);
+    const interval = overMs / steps;
+    let cur = start;
+    _pAnimTimer = setInterval(() => {
+      cur = Math.min(toPct, cur + 1);
+      progressFill.style.width = cur + '%';
+      if (cur >= toPct) { clearInterval(_pAnimTimer); _pAnimTimer = null; }
+    }, interval);
+  }
+
+  function progressHide() {
+    if (_pTimer)    { clearInterval(_pTimer);    _pTimer = null; }
+    if (_pAnimTimer){ clearInterval(_pAnimTimer);_pAnimTimer = null; }
+    progressWrap.style.display = 'none';
+    _pStart = null;
+    progressFill.style.width = '0%';
+  }
+
+  // ── File selection ────────────────────────────────────────────────────────
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) setFile(fileInput.files[0]); });
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
   dropZone.addEventListener('drop', e => {
-    e.preventDefault();
-    dropZone.classList.remove('dragover');
+    e.preventDefault(); dropZone.classList.remove('dragover');
     if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
   });
 
   function setFile(file) {
     selectedFile = file;
-    const isPdf = file.name.toLowerCase().endsWith('.pdf');
-    fileNameEl.textContent = (isPdf ? '📄 ' : '🎵 ') + file.name;
+    fileNameEl.textContent = (file.name.toLowerCase().endsWith('.pdf') ? '📄 ' : '🎵 ') + file.name;
     btnAnalyze.disabled = false;
   }
 
-  // ── Analyze ─────────────────────────────────────────────────────────────
-  btnAnalyze.addEventListener('click', async () => {
+  // ── Analyze ───────────────────────────────────────────────────────────────
+  btnAnalyze.addEventListener('click', () => runAnalyze(false));
+
+  async function runAnalyze(wantFull) {
     if (!selectedFile) return;
     const isPdf = selectedFile.name.toLowerCase().endsWith('.pdf');
 
     btnAnalyze.disabled = true;
     btnAnalyze.innerHTML = '<span class="spinner"></span> Processing…';
-
-    if (!serverReady) {
-      setStatus('info', '⏳ Waiting for server to start…');
-      for (let i = 0; i < 6 && !serverReady; i++) {
-        await new Promise(r => setTimeout(r, 5000));
-      }
-    }
-
-    setStatus('info', isPdf
-      ? '⏳ Converting PDF → MusicXML (this takes 20–60 s)…'
-      : '⏳ Parsing score and computing fingerings…');
     sheetWrap.style.display = 'none';
+    if (!serverReady) {
+      progressShow('Waiting for server to start…', 2);
+      for (let i = 0; i < 6 && !serverReady; i++) await new Promise(r => setTimeout(r, 5000));
+    }
+    document.getElementById('load-more-btn')?.remove();
+    statusEl.style.display = 'none';
 
+    const url = `${API_BASE}/analyze${wantFull ? '?full=1' : ''}`;
     const form = new FormData();
     form.append('file', selectedFile);
 
     try {
-      const res = await fetch(`${API_BASE}/analyze`, { method: 'POST', body: form });
+      progressShow(isPdf ? 'Converting PDF…' : 'Uploading score…', 5);
+      progressAnimate(55, isPdf ? 50000 : 4000);
+
+      const res = await fetch(url, { method: 'POST', body: form });
+
+      progressShow('Parsing server response…', 60);
       const data = await res.json();
 
-      if (data.error) {
-        setStatus('error', '⚠ ' + data.error);
-        return;
-      }
+      if (data.error) { progressHide(); setStatus('error', '⚠ ' + data.error); return; }
 
-      setStatus('info', '🎼 Rendering score… please wait');
-      await new Promise(resolve => setTimeout(resolve, 60));
-      await renderSheet(data.preview_xml, data.musicxml);
-      statusEl.style.display = 'none';
+      progressShow('Loading into renderer…', 70);
+      await tick();
+
+      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheetEl, {
+        backend: 'svg', autoResize: false,
+        drawTitle: true, drawSubtitle: true, drawComposer: true,
+        drawPartNames: true, drawMeasureNumbers: true,
+        drawFingerings: true, fingeringInsideStafflines: false,
+        pageFormat: 'Endless', pageBackgroundColor: '#ffffff',
+      });
+      sheetEl.innerHTML = '';
+      await osmd.load(data.musicxml);
+
+      progressShow('Rendering…', 85);
+      await tick();
+
+      osmd.render();
+      styleFingerings();
+      sheetWrap.style.display = 'block';
+      progressHide();
+
+      if (!wantFull) addLoadMoreButton();
 
     } catch (err) {
+      progressHide();
       setStatus('error', '⚠ ' + err.message + ' — please try again');
     } finally {
       btnAnalyze.disabled = false;
       btnAnalyze.textContent = 'Analyze';
     }
-  });
-
-  // ── Render with OSMD ─────────────────────────────────────────────────────
-  async function renderSheet(previewXml, fullXml) {
-    sheetEl.innerHTML = '';
-    document.getElementById('load-more-btn')?.remove();
-
-    if (!window.opensheetmusicdisplay) {
-      setStatus('error', '⚠ Music renderer not loaded yet. Please try again in a moment.');
-      return;
-    }
-
-    osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheetEl, {
-      backend: 'svg',
-      autoResize: false,
-      drawTitle: true,
-      drawSubtitle: true,
-      drawComposer: true,
-      drawPartNames: true,
-      drawMeasureNumbers: true,
-      drawFingerings: true,
-      fingeringInsideStafflines: false,
-      pageFormat: 'Endless',
-      pageBackgroundColor: '#ffffff',
-    });
-
-    // Load small preview XML — fast because it's only 50 measures (~180 KB)
-    await osmd.load(previewXml);
-    osmd.render();
-    sheetWrap.style.display = 'block';
-    styleFingerings();
-
-    if (fullXml && fullXml !== previewXml) {
-      addLoadMoreButton(fullXml);
-    }
   }
 
-  function addLoadMoreButton(fullXml) {
+  function tick() { return new Promise(r => setTimeout(r, 60)); }
+
+  // ── Load full score ───────────────────────────────────────────────────────
+  function addLoadMoreButton() {
     const btn = document.createElement('button');
     btn.id = 'load-more-btn';
-    btn.textContent = 'Show full score — rendering takes ~15 s';
-    btn.style.cssText = [
-      'display:block', 'margin:1rem auto 2rem', 'padding:.7rem 1.4rem',
-      'background:#5a3e1b', 'color:#fff', 'border:none', 'border-radius:6px',
-      'font-size:.95rem', 'cursor:pointer',
-    ].join(';');
-    btn.onclick = async () => {
-      btn.disabled = true;
-      btn.textContent = '⏳ Rendering full score… please wait';
-      await new Promise(r => setTimeout(r, 60));
-      sheetEl.innerHTML = '';
-      await osmd.load(fullXml);
-      osmd.render();
-      styleFingerings();
-      btn.remove();
-    };
+    btn.textContent = 'Show full score (takes ~15 s)';
+    btn.style.cssText = 'display:block;margin:1rem auto 2rem;padding:.7rem 1.4rem;background:#5a3e1b;color:#fff;border:none;border-radius:6px;font-size:.95rem;cursor:pointer';
+    btn.onclick = () => { btn.remove(); runAnalyze(true); };
     sheetWrap.appendChild(btn);
   }
 
+  // ── Helpers ───────────────────────────────────────────────────────────────
   function styleFingerings() {
     sheetEl.querySelectorAll('svg text').forEach(t => {
       if (/^[0-4]$/.test(t.textContent.trim())) {
-        t.style.fill = '#c0392b';
-        t.style.fontWeight = '900';
-        t.style.fontSize = '10px';
+        t.style.fill = '#c0392b'; t.style.fontWeight = '900'; t.style.fontSize = '10px';
       }
     });
   }

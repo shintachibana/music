@@ -32,7 +32,7 @@ AUDIVERIS_BIN = os.environ.get(
 JAVA_BIN_DIR = os.environ.get('JAVA_BIN_DIR', '/opt/homebrew/opt/openjdk@25/bin')
 
 _STEP_SEMITONE = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
-PREVIEW_MEASURES = 50
+PREVIEW_MEASURES = 20
 
 
 def _pitch_to_midi(step: str, alter: float, octave: int) -> int:
@@ -221,7 +221,8 @@ def analyze():
             xml_str = _read_xml_from_path(tmp.name)
 
         full_xml, preview_xml = _process(xml_str)
-        return jsonify({'musicxml': full_xml, 'preview_xml': preview_xml})
+        want_full = request.args.get('full') == '1'
+        return jsonify({'musicxml': full_xml if want_full else preview_xml})
 
     except Exception as e:
         import traceback
