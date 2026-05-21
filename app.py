@@ -78,6 +78,11 @@ def _parse_score(path: str) -> list[dict]:
     return results
 
 
+@app.route('/health')
+def health():
+    return jsonify({'status': 'ok'})
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
