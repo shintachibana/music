@@ -241,9 +241,8 @@
       }
 
       setStatus('info', '🎼 Rendering score… please wait');
-      // Yield to the browser so the status message paints before OSMD blocks
       await new Promise(resolve => setTimeout(resolve, 60));
-      await renderSheet(data.musicxml);
+      await renderSheet(data.preview_xml, data.musicxml);
       statusEl.style.display = 'none';
 
     } catch (err) {
@@ -255,13 +254,9 @@
   });
 
   // ── Render with OSMD ─────────────────────────────────────────────────────
-  const INITIAL_MEASURES = 50;
-  let currentXml = null;
-
-  async function renderSheet(xmlString) {
+  async function renderSheet(previewXml, fullXml) {
     sheetEl.innerHTML = '';
     document.getElementById('load-more-btn')?.remove();
-    currentXml = xmlString;
 
     if (!window.opensheetmusicdisplay) {
       setStatus('error', '⚠ Music renderer not loaded yet. Please try again in a moment.');
@@ -282,26 +277,21 @@
       pageBackgroundColor: '#ffffff',
     });
 
-    await osmd.load(xmlString);
-    const total = osmd.Sheet?.SourceMeasures?.length || 0;
-
-    if (total > INITIAL_MEASURES) {
-      osmd.setOptions({ drawUpToMeasure: INITIAL_MEASURES });
-    }
-
+    // Load small preview XML — fast because it's only 50 measures (~180 KB)
+    await osmd.load(previewXml);
     osmd.render();
     sheetWrap.style.display = 'block';
     styleFingerings();
 
-    if (total > INITIAL_MEASURES) {
-      addLoadMoreButton(total);
+    if (fullXml && fullXml !== previewXml) {
+      addLoadMoreButton(fullXml);
     }
   }
 
-  function addLoadMoreButton(total) {
+  function addLoadMoreButton(fullXml) {
     const btn = document.createElement('button');
     btn.id = 'load-more-btn';
-    btn.textContent = `Show full score (${total} measures) — rendering takes ~15 s`;
+    btn.textContent = 'Show full score — rendering takes ~15 s';
     btn.style.cssText = [
       'display:block', 'margin:1rem auto 2rem', 'padding:.7rem 1.4rem',
       'background:#5a3e1b', 'color:#fff', 'border:none', 'border-radius:6px',
@@ -309,9 +299,10 @@
     ].join(';');
     btn.onclick = async () => {
       btn.disabled = true;
-      btn.textContent = '⏳ Rendering full score… please wait (~15 s)';
+      btn.textContent = '⏳ Rendering full score… please wait';
       await new Promise(r => setTimeout(r, 60));
-      osmd.setOptions({ drawUpToMeasure: 9999 });
+      sheetEl.innerHTML = '';
+      await osmd.load(fullXml);
       osmd.render();
       styleFingerings();
       btn.remove();

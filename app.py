@@ -32,6 +32,7 @@ AUDIVERIS_BIN = os.environ.get(
 JAVA_BIN_DIR = os.environ.get('JAVA_BIN_DIR', '/opt/homebrew/opt/openjdk@25/bin')
 
 _STEP_SEMITONE = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
+PREVIEW_MEASURES = 50
 
 
 def _pitch_to_midi(step: str, alter: float, octave: int) -> int:
@@ -167,7 +168,17 @@ def _process(xml_str: str) -> str:
                     _add_fingering_to_note_el(note_el, int(finger_num))
 
     _strip_for_display(root)
-    return header + '\n' + ET.tostring(root, encoding='unicode')
+
+    full_xml = header + '\n' + ET.tostring(root, encoding='unicode')
+
+    # Build a small preview (first PREVIEW_MEASURES measures) for fast browser load
+    for part_el in root.findall('part'):
+        measures = part_el.findall('measure')
+        for m in measures[PREVIEW_MEASURES:]:
+            part_el.remove(m)
+    preview_xml = header + '\n' + ET.tostring(root, encoding='unicode')
+
+    return full_xml, preview_xml
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
@@ -209,8 +220,8 @@ def analyze():
         else:
             xml_str = _read_xml_from_path(tmp.name)
 
-        fingered_xml = _process(xml_str)
-        return jsonify({'musicxml': fingered_xml})
+        full_xml, preview_xml = _process(xml_str)
+        return jsonify({'musicxml': full_xml, 'preview_xml': preview_xml})
 
     except Exception as e:
         import traceback
