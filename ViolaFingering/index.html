@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viola Fingering Advisor</title>
+  <script src="https://unpkg.com/opensheetmusicdisplay@1.8.4/build/opensheetmusicdisplay.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f4f0; color: #2c2c2c; min-height: 100vh; }
+
+    header { background: #2c1a0e; color: #f0e8d8; padding: 1.1rem 2rem; display: flex; align-items: center; gap: 1rem; }
+    header h1 { font-size: 1.4rem; font-weight: 600; }
+    header span { font-size: .88rem; opacity: .7; }
+
+    .upload-panel { max-width: 660px; margin: 2rem auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,.08); padding: 1.8rem; }
+    .upload-panel h2 { font-size: 1rem; margin-bottom: 1rem; color: #4a3520; }
+    .drop-zone { border: 2px dashed #c8b99a; border-radius: 8px; padding: 2rem 1rem; text-align: center; cursor: pointer; transition: background .2s, border-color .2s; }
+    .drop-zone:hover, .drop-zone.dragover { background: #fdf6ec; border-color: #9a7c50; }
+    .drop-zone input[type=file] { display: none; }
+    .drop-zone .icon { font-size: 2.2rem; margin-bottom: .4rem; }
+    .drop-zone p { color: #888; font-size: .9rem; }
+    .drop-zone p strong { color: #5a3e1b; }
+    .badge { display: inline-block; background: #f0e8d8; color: #5a3e1b; border-radius: 4px; padding: .1rem .45rem; font-size: .78rem; font-weight: 600; margin: 0 .15rem; }
+    #file-name { margin-top: .6rem; font-size: .88rem; color: #5a3e1b; font-weight: 500; }
+    .btn-analyze { margin-top: 1rem; width: 100%; padding: .8rem; background: #5a3e1b; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background .2s; }
+    .btn-analyze:hover:not(:disabled) { background: #7a5425; }
+    .btn-analyze:disabled { background: #c8b99a; cursor: not-allowed; }
+
+    /* ── Progress bar ── */
+    #progress-wrap { max-width: 660px; margin: 0 auto .8rem; padding: 0 1.1rem; display: none; }
+    #progress-label { font-size: .88rem; color: #4a3520; margin-bottom: .45rem; display: flex; justify-content: space-between; }
+    #progress-elapsed { color: #999; font-size: .82rem; }
+    #progress-track { background: #e8ddd0; border-radius: 4px; height: 8px; overflow: hidden; }
+    #progress-fill { background: #5a3e1b; height: 100%; width: 0%; border-radius: 4px; transition: width .35s ease; }
+
+    /* ── Status / error ── */
+    #status { max-width: 660px; margin: 0 auto .8rem; padding: .75rem 1.1rem; border-radius: 6px; font-size: .9rem; display: none; }
+    #status.info  { background: #e8f4fd; color: #1a6fa0; display: block; }
+    #status.error { background: #fdecea; color: #b71c1c; display: block; }
+    #status.warn  { background: #fff8e1; color: #795548; display: block; }
+
+    /* ── Fingering table ── */
+    #notes-wrap { max-width: 1200px; margin: 0 auto 1.5rem; padding: 0 1rem; display: none; }
+    .notes-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,.08); overflow: hidden; }
+    .notes-header { background: #f8f5f0; padding: .7rem 1.2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ede8e0; flex-wrap: wrap; gap: .5rem; }
+    .notes-header span { font-size: .88rem; color: #5a3e1b; font-weight: 600; }
+    .notes-header .btn-notation { padding: .45rem 1rem; background: #5a3e1b; color: #fff; border: none; border-radius: 5px; font-size: .85rem; cursor: pointer; }
+    .notes-header .btn-notation:hover { background: #7a5425; }
+    .notes-header .btn-notation:disabled { background: #c8b99a; cursor: not-allowed; }
+    .notes-body { padding: .6rem 1.2rem .8rem; max-height: 400px; overflow-y: auto; }
+    .mrow { display: flex; align-items: baseline; gap: .3rem; padding: .25rem 0; border-bottom: 1px solid #f5f0e8; flex-wrap: wrap; }
+    .mrow:last-child { border-bottom: none; }
+    .mnum { font-size: .75rem; color: #aaa; min-width: 2.6rem; flex-shrink: 0; }
+    .nchip { display: inline-flex; align-items: center; gap: .15rem; background: #f8f5f0; border-radius: 4px; padding: .15rem .4rem; font-size: .82rem; font-family: 'Courier New', monospace; }
+    .nchip .fi { font-weight: 900; font-size: .9rem; }
+    .fi-0 { color: #888; }
+    .fi-1 { color: #1a7a1a; }
+    .fi-2 { color: #1a4fa0; }
+    .fi-3 { color: #c76b00; }
+    .fi-4 { color: #b71c1c; }
+
+    /* ── Sheet notation ── */
+    #sheet-wrap { max-width: 1200px; margin: 0 auto 3rem; padding: 0 1rem; display: none; }
+    #sheet-container { background: #fff; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,.08); padding: 1.5rem 2rem; overflow-x: auto; }
+    #sheet-container svg text.fingering, #sheet-container svg text[class*="fingering"] { font-size: 11px !important; font-weight: 700 !important; fill: #c0392b !important; }
+
+    /* ── Spinner ── */
+    .spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,.5); border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; vertical-align: middle; margin-right: .4rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🎻 Viola Fingering Advisor</h1>
+    <span>Upload a music score — PDF or MusicXML — to get fingering suggestions</span>
+  </div>
+</header>
+
+<div class="upload-panel">
+  <h2>Upload Score</h2>
+  <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+    <input type="file" id="file-input" accept=".pdf,.xml,.mxl,.musicxml" />
+    <div class="icon">🎼</div>
+    <p>Drag &amp; drop or <strong>click to browse</strong></p>
+    <p style="margin-top:.35rem">
+      <span class="badge">PDF</span><span class="badge">XML</span><span class="badge">MXL</span><span class="badge">MusicXML</span>
+    </p>
+    <div id="file-name"></div>
+  </div>
+  <button class="btn-analyze" id="btn-analyze" disabled>Analyze</button>
+</div>
+
+<div id="status"></div>
+<div id="progress-wrap">
+  <div id="progress-label">Uploading… <span id="progress-elapsed">0.0s</span></div>
+  <div id="progress-track"><div id="progress-fill"></div></div>
+</div>
+
+<div id="notes-wrap">
+  <div class="notes-card">
+    <div class="notes-header">
+      <span id="notes-title">Fingering analysis — first 20 measures</span>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn-notation" id="btn-show-preview">View score notation (20 measures)</button>
+        <button class="btn-notation" id="btn-download">⬇ Download full fingered score</button>
+      </div>
+    </div>
+    <div class="notes-body" id="notes-body"></div>
+  </div>
+</div>
+
+<div id="sheet-wrap"><div id="sheet-container"></div></div>
+
+<script>
+  const API_BASE = window.location.hostname === 'shintachibana.github.io'
+    ? 'https://viola-fingering.onrender.com'
+    : '';
+
+  const dropZone   = document.getElementById('drop-zone');
+  const fileInput  = document.getElementById('file-input');
+  const fileNameEl = document.getElementById('file-name');
+  const btnAnalyze = document.getElementById('btn-analyze');
+  const statusEl   = document.getElementById('status');
+  const progressWrap    = document.getElementById('progress-wrap');
+  const progressLabel   = document.getElementById('progress-label').childNodes[0];
+  const progressElapsed = document.getElementById('progress-elapsed');
+  const progressFill    = document.getElementById('progress-fill');
+  const notesWrap  = document.getElementById('notes-wrap');
+  const notesBody  = document.getElementById('notes-body');
+  const sheetWrap  = document.getElementById('sheet-wrap');
+  const sheetEl    = document.getElementById('sheet-container');
+
+  let selectedFile = null;
+  let osmd = null;
+  let cachedPreviewXml = null;
+  let serverReady = false;
+
+  // ── Warm up Render on page load ───────────────────────────────────────────
+  (async function warmUp() {
+    if (!API_BASE) { serverReady = true; return; }
+    try { if ((await fetch(`${API_BASE}/health`)).ok) { serverReady = true; return; } } catch (_) {}
+    setStatus('warn', '⏳ Server is starting up, please wait…');
+    for (let i = 0; i < 8; i++) {
+      await new Promise(r => setTimeout(r, 5000));
+      try { if ((await fetch(`${API_BASE}/health`)).ok) { serverReady = true; statusEl.style.display = 'none'; return; } } catch (_) {}
+    }
+    serverReady = true;
+    setStatus('warn', '⚠ Server slow to start — try Analyze anyway.');
+  })();
+
+  // ── Progress helpers ──────────────────────────────────────────────────────
+  let _pStart = null, _pTimer = null, _pAnimTimer = null;
+
+  function progressShow(label, pct) {
+    if (!_pStart) _pStart = performance.now();
+    progressWrap.style.display = 'block';
+    statusEl.style.display = 'none';
+    progressLabel.textContent = label + ' ';
+    progressFill.style.width = pct + '%';
+    if (!_pTimer) {
+      _pTimer = setInterval(() => {
+        progressElapsed.textContent = ((performance.now() - _pStart) / 1000).toFixed(1) + 's';
+      }, 100);
+    }
+  }
+  function progressAnimate(toPct, overMs) {
+    if (_pAnimTimer) clearInterval(_pAnimTimer);
+    const start = parseFloat(progressFill.style.width) || 0;
+    const steps = Math.max(1, toPct - start);
+    const interval = overMs / steps;
+    let cur = start;
+    _pAnimTimer = setInterval(() => {
+      cur = Math.min(toPct, cur + 1);
+      progressFill.style.width = cur + '%';
+      if (cur >= toPct) { clearInterval(_pAnimTimer); _pAnimTimer = null; }
+    }, interval);
+  }
+  function progressHide() {
+    if (_pTimer)     { clearInterval(_pTimer);     _pTimer = null; }
+    if (_pAnimTimer) { clearInterval(_pAnimTimer); _pAnimTimer = null; }
+    progressWrap.style.display = 'none';
+    _pStart = null;
+    progressFill.style.width = '0%';
+  }
+
+  // ── File selection ────────────────────────────────────────────────────────
+  fileInput.addEventListener('change', () => { if (fileInput.files[0]) setFile(fileInput.files[0]); });
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault(); dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
+  });
+  function setFile(file) {
+    selectedFile = file;
+    fileNameEl.textContent = (file.name.toLowerCase().endsWith('.pdf') ? '📄 ' : '🎵 ') + file.name;
+    btnAnalyze.disabled = false;
+  }
+
+  // ── Analyze ───────────────────────────────────────────────────────────────
+  btnAnalyze.addEventListener('click', async () => {
+    if (!selectedFile) return;
+    const isPdf = selectedFile.name.toLowerCase().endsWith('.pdf');
+    btnAnalyze.disabled = true;
+    btnAnalyze.innerHTML = '<span class="spinner"></span> Processing…';
+    notesWrap.style.display = 'none';
+    sheetWrap.style.display = 'none';
+    cachedPreviewXml = null;
+    statusEl.style.display = 'none';
+
+    const form = new FormData();
+    form.append('file', selectedFile);
+
+    try {
+      progressShow(isPdf ? 'Converting PDF…' : 'Uploading score…', 5);
+      progressAnimate(55, isPdf ? 50000 : 4000);
+
+      const res  = await fetch(`${API_BASE}/analyze`, { method: 'POST', body: form });
+
+      progressShow('Computing fingerings…', 62);
+      const data = await res.json();
+
+      if (data.error) { progressHide(); setStatus('error', '⚠ ' + data.error); return; }
+
+      cachedPreviewXml = data.musicxml;
+      progressShow('Done', 100);
+      await tick();
+      progressHide();
+
+      renderNotesTable(data.notes);
+      notesWrap.style.display = 'block';
+
+    } catch (err) {
+      progressHide();
+      setStatus('error', '⚠ ' + err.message + ' — please try again');
+    } finally {
+      btnAnalyze.disabled = false;
+      btnAnalyze.textContent = 'Analyze';
+    }
+  });
+
+  // ── Fingering table ───────────────────────────────────────────────────────
+  const FINGER_CLASS = ['fi-0','fi-1','fi-2','fi-3','fi-4'];
+
+  function renderNotesTable(notes) {
+    if (!notes || !notes.length) return;
+    const byMeasure = {};
+    notes.forEach(([m, pitch, finger]) => {
+      if (!byMeasure[m]) byMeasure[m] = [];
+      byMeasure[m].push({ pitch, finger });
+    });
+    const html = Object.entries(byMeasure).map(([m, ns]) => {
+      const chips = ns.map(({ pitch, finger }) => {
+        const fc = finger !== null ? FINGER_CLASS[+finger] || '' : '';
+        const fi = finger !== null ? `<span class="fi ${fc}">${finger}</span>` : '';
+        return `<span class="nchip">${pitch}${fi}</span>`;
+      }).join('');
+      return `<div class="mrow"><span class="mnum">m.${m}</span>${chips}</div>`;
+    }).join('');
+    notesBody.innerHTML = html;
+  }
+
+  // ── Notation buttons ──────────────────────────────────────────────────────
+  document.getElementById('btn-show-preview').addEventListener('click', async function() {
+    if (!cachedPreviewXml) return;
+    await loadNotation(cachedPreviewXml);
+  });
+
+  // ── Download full fingered score ──────────────────────────────────────────
+  document.getElementById('btn-download').addEventListener('click', async function() {
+    if (!selectedFile) return;
+    const btn = this;
+    btn.disabled = true;
+    const orig = btn.textContent;
+    btn.textContent = '⏳ Preparing download…';
+
+    try {
+      progressShow('Fetching full fingered score…', 5);
+      progressAnimate(80, 4000);
+
+      const form = new FormData();
+      form.append('file', selectedFile);
+      const res  = await fetch(`${API_BASE}/analyze?full=1`, { method: 'POST', body: form });
+      const data = await res.json();
+
+      if (data.error) { progressHide(); setStatus('error', '⚠ ' + data.error); return; }
+
+      progressShow('Preparing file…', 95);
+      await tick();
+
+      const blob = new Blob([data.musicxml], { type: 'application/xml' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = selectedFile.name.replace(/\.[^.]+$/, '_fingered.xml');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      progressHide();
+
+    } catch (err) {
+      progressHide();
+      setStatus('error', '⚠ ' + err.message + ' — please try again');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = orig;
+    }
+  });
+
+  async function loadNotation(xmlString) {
+    const btns = document.querySelectorAll('.btn-notation');
+    btns.forEach(b => b.disabled = true);
+    sheetWrap.style.display = 'none';
+
+    try {
+      progressShow('Loading into renderer… (may take ~10 s)', 70);
+      await tick();
+
+      sheetEl.innerHTML = '';
+      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheetEl, {
+        backend: 'svg', autoResize: false,
+        drawTitle: true, drawSubtitle: true, drawComposer: true,
+        drawPartNames: true, drawMeasureNumbers: true,
+        drawFingerings: true, fingeringInsideStafflines: false,
+        pageFormat: 'Endless', pageBackgroundColor: '#ffffff',
+      });
+      await osmd.load(xmlString);
+
+      progressShow('Rendering notation… (browser may freeze briefly)', 85);
+      await tick();
+
+      osmd.render();
+      styleFingerings();
+      sheetWrap.style.display = 'block';
+      progressHide();
+      sheetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    } catch (err) {
+      progressHide();
+      setStatus('error', '⚠ ' + err.message + ' — please try again');
+    } finally {
+      btns.forEach(b => b.disabled = false);
+    }
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function tick() { return new Promise(r => setTimeout(r, 60)); }
+
+  function styleFingerings() {
+    sheetEl.querySelectorAll('svg text').forEach(t => {
+      if (/^[0-4]$/.test(t.textContent.trim())) {
+        t.style.fill = '#c0392b'; t.style.fontWeight = '900'; t.style.fontSize = '10px';
+      }
+    });
+  }
+
+  function setStatus(cls, msg) {
+    statusEl.className = cls;
+    statusEl.textContent = msg;
+  }
+</script>
+</body>
+</html>
