@@ -15,7 +15,6 @@
 
     .upload-panel { max-width: 660px; margin: 2rem auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,.08); padding: 1.8rem; }
     .upload-panel h2 { font-size: 1rem; margin-bottom: 1rem; color: #4a3520; }
-
     .drop-zone { border: 2px dashed #c8b99a; border-radius: 8px; padding: 2rem 1rem; text-align: center; cursor: pointer; transition: background .2s, border-color .2s; }
     .drop-zone:hover, .drop-zone.dragover { background: #fdf6ec; border-color: #9a7c50; }
     .drop-zone input[type=file] { display: none; }
@@ -24,7 +23,6 @@
     .drop-zone p strong { color: #5a3e1b; }
     .badge { display: inline-block; background: #f0e8d8; color: #5a3e1b; border-radius: 4px; padding: .1rem .45rem; font-size: .78rem; font-weight: 600; margin: 0 .15rem; }
     #file-name { margin-top: .6rem; font-size: .88rem; color: #5a3e1b; font-weight: 500; }
-
     .btn-analyze { margin-top: 1rem; width: 100%; padding: .8rem; background: #5a3e1b; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background .2s; }
     .btn-analyze:hover:not(:disabled) { background: #7a5425; }
     .btn-analyze:disabled { background: #c8b99a; cursor: not-allowed; }
@@ -36,13 +34,33 @@
     #progress-track { background: #e8ddd0; border-radius: 4px; height: 8px; overflow: hidden; }
     #progress-fill { background: #5a3e1b; height: 100%; width: 0%; border-radius: 4px; transition: width .35s ease; }
 
-    /* ── Status banner ── */
+    /* ── Status / error ── */
     #status { max-width: 660px; margin: 0 auto .8rem; padding: .75rem 1.1rem; border-radius: 6px; font-size: .9rem; display: none; }
     #status.info  { background: #e8f4fd; color: #1a6fa0; display: block; }
     #status.error { background: #fdecea; color: #b71c1c; display: block; }
     #status.warn  { background: #fff8e1; color: #795548; display: block; }
 
-    /* ── Sheet wrapper ── */
+    /* ── Fingering table ── */
+    #notes-wrap { max-width: 1200px; margin: 0 auto 1.5rem; padding: 0 1rem; display: none; }
+    .notes-card { background: #fff; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,.08); overflow: hidden; }
+    .notes-header { background: #f8f5f0; padding: .7rem 1.2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ede8e0; flex-wrap: wrap; gap: .5rem; }
+    .notes-header span { font-size: .88rem; color: #5a3e1b; font-weight: 600; }
+    .notes-header .btn-notation { padding: .45rem 1rem; background: #5a3e1b; color: #fff; border: none; border-radius: 5px; font-size: .85rem; cursor: pointer; }
+    .notes-header .btn-notation:hover { background: #7a5425; }
+    .notes-header .btn-notation:disabled { background: #c8b99a; cursor: not-allowed; }
+    .notes-body { padding: .6rem 1.2rem .8rem; max-height: 400px; overflow-y: auto; }
+    .mrow { display: flex; align-items: baseline; gap: .3rem; padding: .25rem 0; border-bottom: 1px solid #f5f0e8; flex-wrap: wrap; }
+    .mrow:last-child { border-bottom: none; }
+    .mnum { font-size: .75rem; color: #aaa; min-width: 2.6rem; flex-shrink: 0; }
+    .nchip { display: inline-flex; align-items: center; gap: .15rem; background: #f8f5f0; border-radius: 4px; padding: .15rem .4rem; font-size: .82rem; font-family: 'Courier New', monospace; }
+    .nchip .fi { font-weight: 900; font-size: .9rem; }
+    .fi-0 { color: #888; }
+    .fi-1 { color: #1a7a1a; }
+    .fi-2 { color: #1a4fa0; }
+    .fi-3 { color: #c76b00; }
+    .fi-4 { color: #b71c1c; }
+
+    /* ── Sheet notation ── */
     #sheet-wrap { max-width: 1200px; margin: 0 auto 3rem; padding: 0 1rem; display: none; }
     #sheet-container { background: #fff; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,.08); padding: 1.5rem 2rem; overflow-x: auto; }
     #sheet-container svg text.fingering, #sheet-container svg text[class*="fingering"] { font-size: 11px !important; font-weight: 700 !important; fill: #c0392b !important; }
@@ -80,7 +98,20 @@
   <div id="progress-label">Uploading… <span id="progress-elapsed">0.0s</span></div>
   <div id="progress-track"><div id="progress-fill"></div></div>
 </div>
-<div id="full-score-wrap"></div>
+
+<div id="notes-wrap">
+  <div class="notes-card">
+    <div class="notes-header">
+      <span id="notes-title">Fingering analysis — first 20 measures</span>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <button class="btn-notation" id="btn-show-preview">View score notation (20 measures)</button>
+        <button class="btn-notation" id="btn-show-full">View full score notation</button>
+      </div>
+    </div>
+    <div class="notes-body" id="notes-body"></div>
+  </div>
+</div>
+
 <div id="sheet-wrap"><div id="sheet-container"></div></div>
 
 <script>
@@ -93,17 +124,20 @@
   const fileNameEl = document.getElementById('file-name');
   const btnAnalyze = document.getElementById('btn-analyze');
   const statusEl   = document.getElementById('status');
-  const progressWrap  = document.getElementById('progress-wrap');
-  const progressLabel = document.getElementById('progress-label').childNodes[0];
+  const progressWrap    = document.getElementById('progress-wrap');
+  const progressLabel   = document.getElementById('progress-label').childNodes[0];
   const progressElapsed = document.getElementById('progress-elapsed');
-  const progressFill  = document.getElementById('progress-fill');
+  const progressFill    = document.getElementById('progress-fill');
+  const notesWrap  = document.getElementById('notes-wrap');
+  const notesBody  = document.getElementById('notes-body');
   const sheetWrap  = document.getElementById('sheet-wrap');
   const sheetEl    = document.getElementById('sheet-container');
 
   let selectedFile = null;
   let osmd = null;
+  let cachedPreviewXml = null;
 
-  // ── Progress helpers ─────────────────────────────────────────────────────
+  // ── Progress helpers ──────────────────────────────────────────────────────
   let _pStart = null, _pTimer = null, _pAnimTimer = null;
 
   function progressShow(label, pct) {
@@ -118,7 +152,6 @@
       }, 100);
     }
   }
-
   function progressAnimate(toPct, overMs) {
     if (_pAnimTimer) clearInterval(_pAnimTimer);
     const start = parseFloat(progressFill.style.width) || 0;
@@ -131,10 +164,9 @@
       if (cur >= toPct) { clearInterval(_pAnimTimer); _pAnimTimer = null; }
     }, interval);
   }
-
   function progressHide() {
-    if (_pTimer)    { clearInterval(_pTimer);    _pTimer = null; }
-    if (_pAnimTimer){ clearInterval(_pAnimTimer);_pAnimTimer = null; }
+    if (_pTimer)     { clearInterval(_pTimer);     _pTimer = null; }
+    if (_pAnimTimer) { clearInterval(_pAnimTimer); _pAnimTimer = null; }
     progressWrap.style.display = 'none';
     _pStart = null;
     progressFill.style.width = '0%';
@@ -148,7 +180,6 @@
     e.preventDefault(); dropZone.classList.remove('dragover');
     if (e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]);
   });
-
   function setFile(file) {
     selectedFile = file;
     fileNameEl.textContent = (file.name.toLowerCase().endsWith('.pdf') ? '📄 ' : '🎵 ') + file.name;
@@ -156,19 +187,16 @@
   }
 
   // ── Analyze ───────────────────────────────────────────────────────────────
-  btnAnalyze.addEventListener('click', () => runAnalyze(false));
-
-  async function runAnalyze(wantFull) {
+  btnAnalyze.addEventListener('click', async () => {
     if (!selectedFile) return;
     const isPdf = selectedFile.name.toLowerCase().endsWith('.pdf');
-
     btnAnalyze.disabled = true;
     btnAnalyze.innerHTML = '<span class="spinner"></span> Processing…';
+    notesWrap.style.display = 'none';
     sheetWrap.style.display = 'none';
-    document.getElementById('full-score-wrap').innerHTML = '';
+    cachedPreviewXml = null;
     statusEl.style.display = 'none';
 
-    const url = `${API_BASE}/analyze${wantFull ? '?full=1' : ''}`;
     const form = new FormData();
     form.append('file', selectedFile);
 
@@ -176,38 +204,20 @@
       progressShow(isPdf ? 'Converting PDF…' : 'Uploading score…', 5);
       progressAnimate(55, isPdf ? 50000 : 4000);
 
-      const res = await fetch(url, { method: 'POST', body: form });
+      const res  = await fetch(`${API_BASE}/analyze`, { method: 'POST', body: form });
 
-      progressShow('Parsing server response…', 60);
+      progressShow('Computing fingerings…', 62);
       const data = await res.json();
 
       if (data.error) { progressHide(); setStatus('error', '⚠ ' + data.error); return; }
 
-      progressShow('Loading into renderer…', 70);
+      cachedPreviewXml = data.musicxml;
+      progressShow('Done', 100);
       await tick();
-
-      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheetEl, {
-        backend: 'svg', autoResize: false,
-        drawTitle: true, drawSubtitle: true, drawComposer: true,
-        drawPartNames: true, drawMeasureNumbers: true,
-        drawFingerings: true, fingeringInsideStafflines: false,
-        pageFormat: 'Endless', pageBackgroundColor: '#ffffff',
-      });
-      sheetEl.innerHTML = '';
-      await osmd.load(data.musicxml);
-
-      const renderLabel = wantFull
-        ? 'Rendering full score… browser may freeze briefly'
-        : 'Rendering…';
-      progressShow(renderLabel, 85);
-      await tick();
-
-      osmd.render();
-      styleFingerings();
-      sheetWrap.style.display = 'block';
       progressHide();
 
-      if (!wantFull) addLoadMoreButton();
+      renderNotesTable(data.notes);
+      notesWrap.style.display = 'block';
 
     } catch (err) {
       progressHide();
@@ -216,23 +226,94 @@
       btnAnalyze.disabled = false;
       btnAnalyze.textContent = 'Analyze';
     }
+  });
+
+  // ── Fingering table ───────────────────────────────────────────────────────
+  const FINGER_CLASS = ['fi-0','fi-1','fi-2','fi-3','fi-4'];
+
+  function renderNotesTable(notes) {
+    if (!notes || !notes.length) return;
+    const byMeasure = {};
+    notes.forEach(([m, pitch, finger]) => {
+      if (!byMeasure[m]) byMeasure[m] = [];
+      byMeasure[m].push({ pitch, finger });
+    });
+    const html = Object.entries(byMeasure).map(([m, ns]) => {
+      const chips = ns.map(({ pitch, finger }) => {
+        const fc = finger !== null ? FINGER_CLASS[+finger] || '' : '';
+        const fi = finger !== null ? `<span class="fi ${fc}">${finger}</span>` : '';
+        return `<span class="nchip">${pitch}${fi}</span>`;
+      }).join('');
+      return `<div class="mrow"><span class="mnum">m.${m}</span>${chips}</div>`;
+    }).join('');
+    notesBody.innerHTML = html;
   }
 
-  function tick() { return new Promise(r => setTimeout(r, 60)); }
+  // ── Notation buttons ──────────────────────────────────────────────────────
+  document.getElementById('btn-show-preview').addEventListener('click', async function() {
+    if (!cachedPreviewXml) return;
+    await loadNotation(cachedPreviewXml, this);
+  });
 
-  // ── Load full score button (placed ABOVE the sheet) ───────────────────────
-  function addLoadMoreButton() {
-    const wrap = document.getElementById('full-score-wrap');
-    wrap.innerHTML = '';
-    const btn = document.createElement('button');
-    btn.id = 'load-more-btn';
-    btn.textContent = 'Show full score';
-    btn.style.cssText = 'display:block;margin:.5rem auto 1rem;padding:.7rem 1.8rem;background:#5a3e1b;color:#fff;border:none;border-radius:6px;font-size:.95rem;cursor:pointer';
-    btn.onclick = () => { wrap.innerHTML = ''; runAnalyze(true); };
-    wrap.appendChild(btn);
+  document.getElementById('btn-show-full').addEventListener('click', async function() {
+    if (!selectedFile) return;
+    await loadNotation(null, this);   // null = fetch full from server
+  });
+
+  async function loadNotation(preloadedXml, triggerBtn) {
+    const btns = document.querySelectorAll('.btn-notation');
+    btns.forEach(b => b.disabled = true);
+    sheetWrap.style.display = 'none';
+
+    try {
+      let xmlString = preloadedXml;
+
+      if (!xmlString) {
+        // Fetch full score from server
+        const form = new FormData();
+        form.append('file', selectedFile);
+        progressShow('Uploading for full score…', 5);
+        progressAnimate(55, 4000);
+        const res  = await fetch(`${API_BASE}/analyze?full=1`, { method: 'POST', body: form });
+        progressShow('Received full score…', 62);
+        const data = await res.json();
+        if (data.error) { progressHide(); setStatus('error', '⚠ ' + data.error); return; }
+        xmlString = data.musicxml;
+      }
+
+      progressShow('Loading into renderer…', 70);
+      await tick();
+
+      sheetEl.innerHTML = '';
+      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheetEl, {
+        backend: 'svg', autoResize: false,
+        drawTitle: true, drawSubtitle: true, drawComposer: true,
+        drawPartNames: true, drawMeasureNumbers: true,
+        drawFingerings: true, fingeringInsideStafflines: false,
+        pageFormat: 'Endless', pageBackgroundColor: '#ffffff',
+      });
+      await osmd.load(xmlString);
+
+      progressShow('Rendering notation… (browser may freeze briefly)', 85);
+      await tick();
+
+      osmd.render();
+      styleFingerings();
+      sheetWrap.style.display = 'block';
+      progressHide();
+      sheetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    } catch (err) {
+      progressHide();
+      setStatus('error', '⚠ ' + err.message + ' — please try again');
+    } finally {
+      btns.forEach(b => b.disabled = false);
+    }
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
+  function tick() { return new Promise(r => setTimeout(r, 60)); }
+
   function styleFingerings() {
     sheetEl.querySelectorAll('svg text').forEach(t => {
       if (/^[0-4]$/.test(t.textContent.trim())) {

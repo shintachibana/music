@@ -126,10 +126,41 @@ def _add_fingering_to_note_el(note_el: ET.Element, finger_num: int) -> None:
     ET.SubElement(technical, 'fingering').text = str(finger_num)
 
 
-def _process(xml_str: str) -> str:
+def _extract_notes_table(root) -> list:
+    """Return [[measure, pitch_str, finger_str], ...] for the first PREVIEW_MEASURES measures."""
+    rows = []
+    for part_el in root.findall('part'):
+        for measure_el in part_el.findall('measure')[:PREVIEW_MEASURES]:
+            try:
+                m = int(measure_el.get('number', 0))
+            except ValueError:
+                m = 0
+            for note_el in measure_el.findall('note'):
+                if note_el.find('rest') is not None:
+                    continue
+                pitch_el = note_el.find('pitch')
+                if pitch_el is None:
+                    continue
+                step   = pitch_el.findtext('step', '?')
+                alter  = float(pitch_el.findtext('alter', '0') or '0')
+                octave = pitch_el.findtext('octave', '?')
+                acc    = '#' if alter > 0 else ('b' if alter < 0 else '')
+                finger = None
+                notations = note_el.find('notations')
+                if notations is not None:
+                    technical = notations.find('technical')
+                    if technical is not None:
+                        f_el = technical.find('fingering')
+                        if f_el is not None:
+                            finger = f_el.text
+                rows.append([m, step + acc + octave, finger])
+    return rows
+
+
+def _process(xml_str: str):
     """
-    Parse MusicXML with ElementTree, run fingering DP, inject results.
-    Returns fingered MusicXML string. No music21 dependency.
+    Parse MusicXML, run fingering DP, inject results.
+    Returns (full_xml, preview_xml, notes_table).
     """
     header_match = re.match(r'(<\?xml[^?]*\?>)', xml_str)
     header = header_match.group(1) if header_match else '<?xml version="1.0" encoding="UTF-8"?>'
@@ -169,16 +200,15 @@ def _process(xml_str: str) -> str:
 
     _strip_for_display(root)
 
-    full_xml = header + '\n' + ET.tostring(root, encoding='unicode')
+    full_xml    = header + '\n' + ET.tostring(root, encoding='unicode')
+    notes_table = _extract_notes_table(root)
 
-    # Build a small preview (first PREVIEW_MEASURES measures) for fast browser load
     for part_el in root.findall('part'):
-        measures = part_el.findall('measure')
-        for m in measures[PREVIEW_MEASURES:]:
+        for m in part_el.findall('measure')[PREVIEW_MEASURES:]:
             part_el.remove(m)
     preview_xml = header + '\n' + ET.tostring(root, encoding='unicode')
 
-    return full_xml, preview_xml
+    return full_xml, preview_xml, notes_table
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
@@ -220,9 +250,10 @@ def analyze():
         else:
             xml_str = _read_xml_from_path(tmp.name)
 
-        full_xml, preview_xml = _process(xml_str)
-        want_full = request.args.get('full') == '1'
-        return jsonify({'musicxml': full_xml if want_full else preview_xml})
+        full_xml, preview_xml, notes_table = _process(xml_str)
+        if request.args.get('full') == '1':
+            return jsonify({'musicxml': full_xml})
+        return jsonify({'musicxml': preview_xml, 'notes': notes_table})
 
     except Exception as e:
         import traceback
