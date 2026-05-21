@@ -80,6 +80,7 @@
   <div id="progress-label">Uploading… <span id="progress-elapsed">0.0s</span></div>
   <div id="progress-track"><div id="progress-fill"></div></div>
 </div>
+<div id="full-score-wrap"></div>
 <div id="sheet-wrap"><div id="sheet-container"></div></div>
 
 <script>
@@ -213,7 +214,10 @@
       sheetEl.innerHTML = '';
       await osmd.load(data.musicxml);
 
-      progressShow('Rendering…', 85);
+      const renderLabel = wantFull
+        ? 'Rendering full score… browser may freeze briefly'
+        : 'Rendering…';
+      progressShow(renderLabel, 85);
       await tick();
 
       osmd.render();
@@ -234,14 +238,16 @@
 
   function tick() { return new Promise(r => setTimeout(r, 60)); }
 
-  // ── Load full score ───────────────────────────────────────────────────────
+  // ── Load full score button (placed ABOVE the sheet) ───────────────────────
   function addLoadMoreButton() {
+    const wrap = document.getElementById('full-score-wrap');
+    wrap.innerHTML = '';
     const btn = document.createElement('button');
     btn.id = 'load-more-btn';
-    btn.textContent = 'Show full score (takes ~15 s)';
-    btn.style.cssText = 'display:block;margin:1rem auto 2rem;padding:.7rem 1.4rem;background:#5a3e1b;color:#fff;border:none;border-radius:6px;font-size:.95rem;cursor:pointer';
-    btn.onclick = () => { btn.remove(); runAnalyze(true); };
-    sheetWrap.appendChild(btn);
+    btn.textContent = 'Show full score';
+    btn.style.cssText = 'display:block;margin:.5rem auto 1rem;padding:.7rem 1.8rem;background:#5a3e1b;color:#fff;border:none;border-radius:6px;font-size:.95rem;cursor:pointer';
+    btn.onclick = () => { wrap.innerHTML = ''; runAnalyze(true); };
+    wrap.appendChild(btn);
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
