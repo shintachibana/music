@@ -87,6 +87,33 @@ def _read_xml_from_path(path: str) -> str:
 
 # ── Fingering injection ───────────────────────────────────────────────────────
 
+_STRIP_NOTATIONS = {'slur', 'tied', 'articulations', 'ornaments', 'fermata', 'dynamics'}
+
+
+def _strip_for_display(root: ET.Element) -> None:
+    """Remove visually expensive MusicXML elements that OSMD renders but we don't need."""
+    for part_el in root.findall('part'):
+        for measure_el in part_el.findall('measure'):
+            for el in list(measure_el.findall('direction')):
+                measure_el.remove(el)
+            for note_el in measure_el.findall('note'):
+                notations = note_el.find('notations')
+                if notations is None:
+                    continue
+                for tag in _STRIP_NOTATIONS:
+                    for el in list(notations.findall(tag)):
+                        notations.remove(el)
+                technical = notations.find('technical')
+                if technical is not None:
+                    for child in list(technical):
+                        if child.tag != 'fingering':
+                            technical.remove(child)
+                    if len(technical) == 0:
+                        notations.remove(technical)
+                if len(notations) == 0:
+                    note_el.remove(notations)
+
+
 def _add_fingering_to_note_el(note_el: ET.Element, finger_num: int) -> None:
     """Inject <notations><technical><fingering>N</fingering> into a note element."""
     notations = note_el.find('notations')
@@ -139,6 +166,7 @@ def _process(xml_str: str) -> str:
                 if finger_num is not None and finger_num != '?':
                     _add_fingering_to_note_el(note_el, int(finger_num))
 
+    _strip_for_display(root)
     return header + '\n' + ET.tostring(root, encoding='unicode')
 
 

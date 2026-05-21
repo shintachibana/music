@@ -177,7 +177,6 @@
       const r = await fetch(`${API_BASE}/health`);
       if (r.ok) { serverReady = true; return; }
     } catch (_) {}
-    // Server was cold — retry every 5 s for up to 40 s
     setStatus('warn', '⏳ Server is starting up, please wait…');
     for (let i = 0; i < 8; i++) {
       await new Promise(r => setTimeout(r, 5000));
@@ -217,7 +216,6 @@
     btnAnalyze.disabled = true;
     btnAnalyze.innerHTML = '<span class="spinner"></span> Processing…';
 
-    // If warmup is still running, wait for it (max 30 s)
     if (!serverReady) {
       setStatus('info', '⏳ Waiting for server to start…');
       for (let i = 0; i < 6 && !serverReady; i++) {
@@ -243,6 +241,7 @@
       }
 
       setStatus('info', '🎼 Rendering score… please wait');
+      // Yield to the browser so the status message paints before OSMD blocks
       await new Promise(resolve => setTimeout(resolve, 60));
       await renderSheet(data.musicxml);
       statusEl.style.display = 'none';
@@ -256,38 +255,73 @@
   });
 
   // ── Render with OSMD ─────────────────────────────────────────────────────
+  const INITIAL_MEASURES = 50;
+  let currentXml = null;
+
   async function renderSheet(xmlString) {
     sheetEl.innerHTML = '';
+    document.getElementById('load-more-btn')?.remove();
+    currentXml = xmlString;
 
     if (!window.opensheetmusicdisplay) {
       setStatus('error', '⚠ Music renderer not loaded yet. Please try again in a moment.');
       return;
     }
 
-    if (!osmd) {
-      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheetEl, {
-        backend: 'svg',
-        autoResize: false,
-        drawTitle: true,
-        drawSubtitle: true,
-        drawComposer: true,
-        drawPartNames: true,
-        drawMeasureNumbers: true,
-        drawFingerings: true,
-        fingeringInsideStafflines: false,
-        pageFormat: 'Endless',
-        pageBackgroundColor: '#ffffff',
-      });
-    }
+    osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheetEl, {
+      backend: 'svg',
+      autoResize: false,
+      drawTitle: true,
+      drawSubtitle: true,
+      drawComposer: true,
+      drawPartNames: true,
+      drawMeasureNumbers: true,
+      drawFingerings: true,
+      fingeringInsideStafflines: false,
+      pageFormat: 'Endless',
+      pageBackgroundColor: '#ffffff',
+    });
 
     await osmd.load(xmlString);
+    const total = osmd.Sheet?.SourceMeasures?.length || 0;
+
+    if (total > INITIAL_MEASURES) {
+      osmd.setOptions({ drawUpToMeasure: INITIAL_MEASURES });
+    }
+
     osmd.render();
-
     sheetWrap.style.display = 'block';
+    styleFingerings();
 
+    if (total > INITIAL_MEASURES) {
+      addLoadMoreButton(total);
+    }
+  }
+
+  function addLoadMoreButton(total) {
+    const btn = document.createElement('button');
+    btn.id = 'load-more-btn';
+    btn.textContent = `Show full score (${total} measures) — rendering takes ~15 s`;
+    btn.style.cssText = [
+      'display:block', 'margin:1rem auto 2rem', 'padding:.7rem 1.4rem',
+      'background:#5a3e1b', 'color:#fff', 'border:none', 'border-radius:6px',
+      'font-size:.95rem', 'cursor:pointer',
+    ].join(';');
+    btn.onclick = async () => {
+      btn.disabled = true;
+      btn.textContent = '⏳ Rendering full score… please wait (~15 s)';
+      await new Promise(r => setTimeout(r, 60));
+      osmd.setOptions({ drawUpToMeasure: 9999 });
+      osmd.render();
+      styleFingerings();
+      btn.remove();
+    };
+    sheetWrap.appendChild(btn);
+  }
+
+  function styleFingerings() {
     sheetEl.querySelectorAll('svg text').forEach(t => {
-      const txt = t.textContent.trim();
-      if (/^[0-4]$/.test(txt)) {
+      if (/^[0-4]$/.test(t.textContent.trim())) {
         t.style.fill = '#c0392b';
         t.style.fontWeight = '900';
         t.style.fontSize = '10px';
