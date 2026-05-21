@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Viola Fingering Advisor</title>
+  <script src="https://unpkg.com/opensheetmusicdisplay@1.8.4/build/opensheetmusicdisplay.min.js"></script>
   <style>
-    /* ── Reset & base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -14,51 +14,56 @@
       min-height: 100vh;
     }
 
-    /* ── Header ── */
     header {
       background: #2c1a0e;
       color: #f0e8d8;
-      padding: 1.2rem 2rem;
+      padding: 1.1rem 2rem;
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-    header h1 { font-size: 1.5rem; font-weight: 600; }
-    header span { font-size: 0.9rem; opacity: 0.7; }
+    header h1 { font-size: 1.4rem; font-weight: 600; }
+    header span { font-size: .88rem; opacity: .7; }
 
-    /* ── Upload panel ── */
     .upload-panel {
-      max-width: 680px;
-      margin: 2.5rem auto;
+      max-width: 660px;
+      margin: 2rem auto;
       background: #fff;
       border-radius: 10px;
       box-shadow: 0 2px 12px rgba(0,0,0,.08);
-      padding: 2rem;
+      padding: 1.8rem;
     }
-    .upload-panel h2 { font-size: 1.1rem; margin-bottom: 1rem; color: #4a3520; }
+    .upload-panel h2 { font-size: 1rem; margin-bottom: 1rem; color: #4a3520; }
 
     .drop-zone {
       border: 2px dashed #c8b99a;
       border-radius: 8px;
-      padding: 2.5rem 1rem;
+      padding: 2rem 1rem;
       text-align: center;
       cursor: pointer;
       transition: background .2s, border-color .2s;
     }
-    .drop-zone:hover, .drop-zone.dragover {
-      background: #fdf6ec;
-      border-color: #9a7c50;
-    }
+    .drop-zone:hover, .drop-zone.dragover { background: #fdf6ec; border-color: #9a7c50; }
     .drop-zone input[type=file] { display: none; }
-    .drop-zone .icon { font-size: 2.5rem; margin-bottom: .5rem; }
-    .drop-zone p { color: #888; font-size: .95rem; }
+    .drop-zone .icon { font-size: 2.2rem; margin-bottom: .4rem; }
+    .drop-zone p { color: #888; font-size: .9rem; }
     .drop-zone p strong { color: #5a3e1b; }
-    #file-name { margin-top: .7rem; font-size: .9rem; color: #5a3e1b; font-weight: 500; }
+    .badge {
+      display: inline-block;
+      background: #f0e8d8;
+      color: #5a3e1b;
+      border-radius: 4px;
+      padding: .1rem .45rem;
+      font-size: .78rem;
+      font-weight: 600;
+      margin: 0 .15rem;
+    }
+    #file-name { margin-top: .6rem; font-size: .88rem; color: #5a3e1b; font-weight: 500; }
 
     .btn-analyze {
-      margin-top: 1.2rem;
+      margin-top: 1rem;
       width: 100%;
-      padding: .85rem;
+      padding: .8rem;
       background: #5a3e1b;
       color: #fff;
       border: none;
@@ -70,147 +75,67 @@
     .btn-analyze:hover:not(:disabled) { background: #7a5425; }
     .btn-analyze:disabled { background: #c8b99a; cursor: not-allowed; }
 
-    /* ── Status / error ── */
     #status {
-      max-width: 680px;
-      margin: 0 auto 1rem;
-      padding: .8rem 1.2rem;
+      max-width: 660px;
+      margin: 0 auto .8rem;
+      padding: .75rem 1.1rem;
       border-radius: 6px;
-      font-size: .93rem;
+      font-size: .9rem;
       display: none;
     }
     #status.info  { background: #e8f4fd; color: #1a6fa0; display: block; }
     #status.error { background: #fdecea; color: #b71c1c; display: block; }
+    #status.warn  { background: #fff8e1; color: #795548; display: block; }
 
-    /* ── Part tabs ── */
-    #results { max-width: 1200px; margin: 0 auto 3rem; padding: 0 1rem; }
-    .tabs { display: flex; gap: .4rem; margin-bottom: 1rem; flex-wrap: wrap; }
-    .tab-btn {
-      padding: .5rem 1.2rem;
-      border: 2px solid #c8b99a;
-      border-radius: 20px;
-      background: #fff;
-      cursor: pointer;
-      font-size: .9rem;
-      color: #5a3e1b;
-      transition: all .15s;
+    /* ── Stats bar ── */
+    #stats-bar {
+      max-width: 1200px;
+      margin: 0 auto .8rem;
+      padding: 0 1rem;
+      display: none;
     }
-    .tab-btn.active { background: #5a3e1b; color: #fff; border-color: #5a3e1b; }
-
-    /* ── Legend ── */
-    .legend {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
+    .stats-inner {
       background: #fff;
       border-radius: 8px;
-      padding: .7rem 1.2rem;
+      padding: .7rem 1.4rem;
       box-shadow: 0 1px 4px rgba(0,0,0,.06);
-    }
-    .legend-item { display: flex; align-items: center; gap: .4rem; font-size: .88rem; }
-    .swatch {
-      width: 18px; height: 18px; border-radius: 4px;
-    }
-    .sw-C { background: #7b3f00; }
-    .sw-G { background: #c76b00; }
-    .sw-D { background: #1a4fa0; }
-    .sw-A { background: #1a7a1a; }
-
-    /* ── Measures grid ── */
-    .measures-container { display: flex; flex-direction: column; gap: .8rem; }
-
-    .measure-block {
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.06);
-      overflow: hidden;
-    }
-    .measure-header {
-      background: #f0e8d8;
-      padding: .35rem .9rem;
-      font-size: .82rem;
-      font-weight: 600;
-      color: #5a3e1b;
-      letter-spacing: .04em;
-    }
-
-    /* ── Notes row ── */
-    .notes-row {
       display: flex;
+      gap: 1.8rem;
       flex-wrap: wrap;
-      gap: 0;
-      padding: .5rem .5rem;
-    }
-
-    .note-card {
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      min-width: 68px;
-      padding: .45rem .6rem;
-      margin: .2rem;
-      border-radius: 6px;
-      color: #fff;
-      position: relative;
-      box-shadow: 0 1px 3px rgba(0,0,0,.18);
     }
-    .note-card.rest {
-      background: #e0dbd4;
-      color: #888;
-      border: 1px dashed #c0b9b0;
-      box-shadow: none;
+    .stat { font-size: .88rem; }
+    .stat strong { color: #5a3e1b; font-size: 1.1rem; display: block; }
+
+    /* ── Sheet wrapper ── */
+    #sheet-wrap {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      padding: 0 1rem;
+      display: none;
     }
-    .note-card.tied::before {
-      content: '⌒';
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1rem;
-      color: #aaa;
-    }
-
-    .note-card.str-C { background: #7b3f00; }
-    .note-card.str-G { background: #c76b00; }
-    .note-card.str-D { background: #1a4fa0; }
-    .note-card.str-A { background: #1a7a1a; }
-
-    .nc-pitch   { font-size: 1rem; font-weight: 700; line-height: 1; }
-    .nc-finger  { font-size: 1.3rem; font-weight: 900; margin: .15rem 0; line-height: 1; }
-    .nc-string  { font-size: .72rem; opacity: .85; }
-    .nc-pos     { font-size: .68rem; opacity: .75; }
-    .nc-beat    { font-size: .65rem; opacity: .65; margin-top: .1rem; }
-
-    .beat-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.5);
-      display: inline-block;
-      margin: 0 1px;
-    }
-    .beat-dot.strong { background: rgba(255,255,255,.9); }
-
-    /* ── Summary stats ── */
-    .summary {
+    #sheet-container {
       background: #fff;
       border-radius: 8px;
-      padding: 1rem 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,.06);
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
+      box-shadow: 0 1px 6px rgba(0,0,0,.08);
+      padding: 1.5rem 2rem;
+      overflow-x: auto;
     }
-    .stat { font-size: .9rem; }
-    .stat strong { color: #5a3e1b; font-size: 1.2rem; display: block; }
+
+    /* Style fingering numbers rendered by OSMD */
+    #sheet-container svg text.fingering,
+    #sheet-container svg text[class*="fingering"] {
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      fill: #c0392b !important;
+    }
 
     /* ── Spinner ── */
     .spinner {
       display: inline-block;
-      width: 16px; height: 16px;
-      border: 2px solid #fff;
-      border-top-color: transparent;
+      width: 15px; height: 15px;
+      border: 2px solid rgba(255,255,255,.5);
+      border-top-color: #fff;
       border-radius: 50%;
       animation: spin .6s linear infinite;
       vertical-align: middle;
@@ -224,45 +149,53 @@
 <header>
   <div>
     <h1>🎻 Viola Fingering Advisor</h1>
-    <span>Upload a MusicXML file to get string &amp; finger suggestions</span>
+    <span>Upload a music score — PDF or MusicXML — to get fingering suggestions</span>
   </div>
 </header>
 
 <div class="upload-panel">
-  <h2>Upload MusicXML Score</h2>
+  <h2>Upload Score</h2>
   <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-    <input type="file" id="file-input" accept=".xml,.mxl,.musicxml" />
+    <input type="file" id="file-input" accept=".pdf,.xml,.mxl,.musicxml" />
     <div class="icon">🎼</div>
-    <p>Drag &amp; drop your file here, or <strong>click to browse</strong></p>
-    <p style="font-size:.82rem;margin-top:.3rem">Supported: .xml &nbsp;·&nbsp; .mxl &nbsp;·&nbsp; .musicxml</p>
+    <p>Drag &amp; drop or <strong>click to browse</strong></p>
+    <p style="margin-top:.35rem">
+      <span class="badge">PDF</span>
+      <span class="badge">XML</span>
+      <span class="badge">MXL</span>
+      <span class="badge">MusicXML</span>
+    </p>
     <div id="file-name"></div>
   </div>
   <button class="btn-analyze" id="btn-analyze" disabled>Analyze</button>
 </div>
 
 <div id="status"></div>
-<div id="results"></div>
+<div id="stats-bar"><div class="stats-inner" id="stats-inner"></div></div>
+<div id="sheet-wrap"><div id="sheet-container"></div></div>
 
 <script>
+  const API_BASE = window.location.hostname === 'shintachibana.github.io'
+    ? 'https://viola-fingering-tatti.onrender.com'
+    : '';
+
   const dropZone   = document.getElementById('drop-zone');
   const fileInput  = document.getElementById('file-input');
   const fileNameEl = document.getElementById('file-name');
   const btnAnalyze = document.getElementById('btn-analyze');
   const statusEl   = document.getElementById('status');
-  const resultsEl  = document.getElementById('results');
-
-  // When served from GitHub Pages use the Render backend; locally use relative URL
-  const API_BASE = window.location.hostname === 'shintachibana.github.io'
-    ? 'https://viola-fingering.onrender.com'
-    : '';
+  const statsBar   = document.getElementById('stats-bar');
+  const statsInner = document.getElementById('stats-inner');
+  const sheetWrap  = document.getElementById('sheet-wrap');
+  const sheetEl    = document.getElementById('sheet-container');
 
   let selectedFile = null;
+  let osmd = null;
 
   // ── File selection ──────────────────────────────────────────────────────
   fileInput.addEventListener('change', () => {
     if (fileInput.files[0]) setFile(fileInput.files[0]);
   });
-
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
   dropZone.addEventListener('drop', e => {
@@ -273,19 +206,23 @@
 
   function setFile(file) {
     selectedFile = file;
-    fileNameEl.textContent = '📄 ' + file.name;
+    const isPdf = file.name.toLowerCase().endsWith('.pdf');
+    fileNameEl.textContent = (isPdf ? '📄 ' : '🎵 ') + file.name;
     btnAnalyze.disabled = false;
   }
 
   // ── Analyze ─────────────────────────────────────────────────────────────
   btnAnalyze.addEventListener('click', async () => {
     if (!selectedFile) return;
+    const isPdf = selectedFile.name.toLowerCase().endsWith('.pdf');
 
     btnAnalyze.disabled = true;
-    btnAnalyze.innerHTML = '<span class="spinner"></span> Analyzing…';
-    statusEl.className = 'info';
-    statusEl.textContent = 'Parsing MusicXML and computing fingerings…';
-    resultsEl.innerHTML = '';
+    btnAnalyze.innerHTML = '<span class="spinner"></span> Processing…';
+    setStatus('info', isPdf
+      ? '⏳ Converting PDF → MusicXML (this takes 20–60 s)…'
+      : '⏳ Parsing score and computing fingerings…');
+    statsBar.style.display = 'none';
+    sheetWrap.style.display = 'none';
 
     const form = new FormData();
     form.append('file', selectedFile);
@@ -295,129 +232,98 @@
       const data = await res.json();
 
       if (data.error) {
-        statusEl.className = 'error';
-        statusEl.textContent = '⚠ ' + data.error;
-      } else {
-        statusEl.style.display = 'none';
-        renderResults(data.results);
+        setStatus('error', '⚠ ' + data.error);
+        return;
       }
+
+      setStatus('info', '🎼 Rendering score…');
+      await renderSheet(data.musicxml);
+      showStats(data.results);
+      statusEl.style.display = 'none';
+
     } catch (err) {
-      statusEl.className = 'error';
-      statusEl.textContent = '⚠ Network error: ' + err.message;
+      setStatus('error', '⚠ Network error: ' + err.message);
     } finally {
       btnAnalyze.disabled = false;
       btnAnalyze.textContent = 'Analyze';
     }
   });
 
-  // ── Render ───────────────────────────────────────────────────────────────
-  function renderResults(parts) {
-    if (!parts || parts.length === 0) {
-      statusEl.className = 'error';
-      statusEl.textContent = 'No notes found in the file.';
+  // ── Render with OSMD ─────────────────────────────────────────────────────
+  async function renderSheet(xmlString) {
+    sheetEl.innerHTML = '';
+
+    if (!window.opensheetmusicdisplay) {
+      setStatus('error', '⚠ Music renderer not loaded yet. Please try again in a moment.');
       return;
     }
 
-    let html = '';
-
-    // Tabs (only if multiple parts)
-    if (parts.length > 1) {
-      html += '<div class="tabs" id="part-tabs">';
-      parts.forEach((p, i) => {
-        html += `<button class="tab-btn${i===0?' active':''}" onclick="showPart(${i})">${esc(p.part_name)}</button>`;
+    if (!osmd) {
+      osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(sheetEl, {
+        backend: 'svg',
+        autoResize: false,
+        drawTitle: true,
+        drawSubtitle: true,
+        drawComposer: true,
+        drawPartNames: true,
+        drawMeasureNumbers: true,
+        drawFingerings: true,
+        fingeringInsideStafflines: false,
+        pageFormat: 'Endless',
+        pageBackgroundColor: '#ffffff',
       });
-      html += '</div>';
     }
 
-    parts.forEach((part, pi) => {
-      const notes  = part.notes.filter(n => n.type === 'note');
-      const totalN = notes.length;
-      const strCounts = {};
-      notes.forEach(n => { strCounts[n.string] = (strCounts[n.string]||0)+1; });
-      const posSet = new Set(notes.map(n => n.position));
+    await osmd.load(xmlString);
+    osmd.render();
 
-      const display = pi === 0 ? 'block' : 'none';
-      html += `<div class="part-panel" id="part-${pi}" style="display:${display}">`;
+    sheetWrap.style.display = 'block';
 
-      // Summary
-      html += `<div class="summary">
-        <div class="stat"><strong>${totalN}</strong> notes</div>`;
-      ['C','G','D','A'].forEach(s => {
-        if (strCounts[s]) html += `<div class="stat"><strong style="color:${strColor(s)}">${strCounts[s]}</strong> on ${s} string</div>`;
-      });
-      html += `<div class="stat"><strong>${posSet.size}</strong> position${posSet.size!==1?'s':''} used</div>
-      </div>`;
+    // Style fingering numbers in the rendered SVG (red, bold)
+    sheetEl.querySelectorAll('svg text').forEach(t => {
+      const txt = t.textContent.trim();
+      if (/^[0-4]$/.test(txt)) {
+        t.style.fill = '#c0392b';
+        t.style.fontWeight = '900';
+        t.style.fontSize = '10px';
+      }
+    });
+  }
 
-      // Legend
-      html += `<div class="legend">
-        <strong style="font-size:.88rem;color:#5a3e1b;margin-right:.5rem">Strings:</strong>
-        ${['C','G','D','A'].map(s => `<div class="legend-item"><div class="swatch sw-${s}"></div>${s} string</div>`).join('')}
-        <div class="legend-item" style="margin-left:1rem">⌒ = tied note</div>
-      </div>`;
+  // ── Stats ────────────────────────────────────────────────────────────────
+  function showStats(results) {
+    if (!results || !results.length) return;
 
-      // Group by measure
-      const byMeasure = {};
+    let totalNotes = 0, totalFingered = 0, totalUnknown = 0;
+    const strCounts = {};
+
+    results.forEach(part => {
       part.notes.forEach(n => {
-        const m = n.measure ?? 0;
-        if (!byMeasure[m]) byMeasure[m] = [];
-        byMeasure[m].push(n);
+        if (n.type !== 'note') return;
+        totalNotes++;
+        if (n.finger === '?') { totalUnknown++; return; }
+        totalFingered++;
+        strCounts[n.string] = (strCounts[n.string] || 0) + 1;
       });
-
-      html += '<div class="measures-container">';
-      Object.keys(byMeasure).sort((a,b)=>+a-+b).forEach(m => {
-        html += `<div class="measure-block">
-          <div class="measure-header">Measure ${m}</div>
-          <div class="notes-row">`;
-        byMeasure[m].forEach(n => {
-          if (n.type === 'rest') {
-            html += `<div class="note-card rest">
-              <div class="nc-pitch">𝄽</div>
-              <div class="nc-string">rest</div>
-              <div class="nc-beat">beat ${beatStr(n.beat)}</div>
-            </div>`;
-          } else {
-            const tieClass = n.tied ? ' tied' : '';
-            html += `<div class="note-card str-${n.string}${tieClass}">
-              <div class="nc-pitch">${esc(n.pitch)}</div>
-              <div class="nc-finger">${n.finger}</div>
-              <div class="nc-string">${n.string} str</div>
-              <div class="nc-pos">${n.position}</div>
-              <div class="nc-beat">${beatDots(n.beat)}</div>
-            </div>`;
-          }
-        });
-        html += '</div></div>';
-      });
-
-      html += '</div></div>';
     });
 
-    resultsEl.innerHTML = html;
+    const strColors = { C: '#7b3f00', G: '#c76b00', D: '#1a4fa0', A: '#1a7a1a' };
+    let html = `<div class="stat"><strong>${totalNotes}</strong> notes</div>`;
+    ['A', 'D', 'G', 'C'].forEach(s => {
+      if (strCounts[s]) {
+        html += `<div class="stat"><strong style="color:${strColors[s]}">${strCounts[s]}</strong> ${s} str</div>`;
+      }
+    });
+    if (totalUnknown) {
+      html += `<div class="stat"><strong style="color:#999">${totalUnknown}</strong> out-of-range</div>`;
+    }
+    statsInner.innerHTML = html;
+    statsBar.style.display = 'block';
   }
 
-  function showPart(idx) {
-    document.querySelectorAll('.part-panel').forEach((el,i) => el.style.display = i===idx?'block':'none');
-    document.querySelectorAll('.tab-btn').forEach((el,i) => el.classList.toggle('active', i===idx));
-  }
-
-  function strColor(s) {
-    return {C:'#7b3f00', G:'#c76b00', D:'#1a4fa0', A:'#1a7a1a'}[s] || '#666';
-  }
-
-  function beatStr(b) {
-    return Number.isInteger(b) ? b : b.toFixed(2).replace(/\.?0+$/,'');
-  }
-
-  function beatDots(beat) {
-    // Show up to 4 dots representing quarter-note beats
-    const b = Math.round(beat);
-    let dots = '';
-    for (let i=1; i<=4; i++) dots += `<span class="beat-dot${i===b?' strong':''}"></span>`;
-    return dots;
-  }
-
-  function esc(s) {
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  function setStatus(cls, msg) {
+    statusEl.className = cls;
+    statusEl.textContent = msg;
   }
 </script>
 </body>
