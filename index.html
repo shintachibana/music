@@ -105,7 +105,7 @@
       <span id="notes-title">Fingering analysis — first 20 measures</span>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap">
         <button class="btn-notation" id="btn-show-preview">View score notation (20 measures)</button>
-        <button class="btn-notation" id="btn-show-full">View full score notation</button>
+        <button class="btn-notation" id="btn-download">⬇ Download full fingered score</button>
       </div>
     </div>
     <div class="notes-body" id="notes-body"></div>
@@ -266,36 +266,58 @@
   // ── Notation buttons ──────────────────────────────────────────────────────
   document.getElementById('btn-show-preview').addEventListener('click', async function() {
     if (!cachedPreviewXml) return;
-    await loadNotation(cachedPreviewXml, this);
+    await loadNotation(cachedPreviewXml);
   });
 
-  document.getElementById('btn-show-full').addEventListener('click', async function() {
+  // ── Download full fingered score ──────────────────────────────────────────
+  document.getElementById('btn-download').addEventListener('click', async function() {
     if (!selectedFile) return;
-    await loadNotation(null, this);   // null = fetch full from server
+    const btn = this;
+    btn.disabled = true;
+    const orig = btn.textContent;
+    btn.textContent = '⏳ Preparing download…';
+
+    try {
+      progressShow('Fetching full fingered score…', 5);
+      progressAnimate(80, 4000);
+
+      const form = new FormData();
+      form.append('file', selectedFile);
+      const res  = await fetch(`${API_BASE}/analyze?full=1`, { method: 'POST', body: form });
+      const data = await res.json();
+
+      if (data.error) { progressHide(); setStatus('error', '⚠ ' + data.error); return; }
+
+      progressShow('Preparing file…', 95);
+      await tick();
+
+      const blob = new Blob([data.musicxml], { type: 'application/xml' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = selectedFile.name.replace(/\.[^.]+$/, '_fingered.xml');
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      progressHide();
+
+    } catch (err) {
+      progressHide();
+      setStatus('error', '⚠ ' + err.message + ' — please try again');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = orig;
+    }
   });
 
-  async function loadNotation(preloadedXml, triggerBtn) {
+  async function loadNotation(xmlString) {
     const btns = document.querySelectorAll('.btn-notation');
     btns.forEach(b => b.disabled = true);
     sheetWrap.style.display = 'none';
 
     try {
-      let xmlString = preloadedXml;
-
-      if (!xmlString) {
-        // Fetch full score from server
-        const form = new FormData();
-        form.append('file', selectedFile);
-        progressShow('Uploading for full score…', 5);
-        progressAnimate(55, 4000);
-        const res  = await fetch(`${API_BASE}/analyze?full=1`, { method: 'POST', body: form });
-        progressShow('Received full score…', 62);
-        const data = await res.json();
-        if (data.error) { progressHide(); setStatus('error', '⚠ ' + data.error); return; }
-        xmlString = data.musicxml;
-      }
-
-      progressShow('Loading into renderer…', 70);
+      progressShow('Loading into renderer… (may take ~10 s)', 70);
       await tick();
 
       sheetEl.innerHTML = '';
