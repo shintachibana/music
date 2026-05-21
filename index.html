@@ -87,26 +87,6 @@
     #status.error { background: #fdecea; color: #b71c1c; display: block; }
     #status.warn  { background: #fff8e1; color: #795548; display: block; }
 
-    /* ── Stats bar ── */
-    #stats-bar {
-      max-width: 1200px;
-      margin: 0 auto .8rem;
-      padding: 0 1rem;
-      display: none;
-    }
-    .stats-inner {
-      background: #fff;
-      border-radius: 8px;
-      padding: .7rem 1.4rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,.06);
-      display: flex;
-      gap: 1.8rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .stat { font-size: .88rem; }
-    .stat strong { color: #5a3e1b; font-size: 1.1rem; display: block; }
-
     /* ── Sheet wrapper ── */
     #sheet-wrap {
       max-width: 1200px;
@@ -171,7 +151,6 @@
 </div>
 
 <div id="status"></div>
-<div id="stats-bar"><div class="stats-inner" id="stats-inner"></div></div>
 <div id="sheet-wrap"><div id="sheet-container"></div></div>
 
 <script>
@@ -184,13 +163,32 @@
   const fileNameEl = document.getElementById('file-name');
   const btnAnalyze = document.getElementById('btn-analyze');
   const statusEl   = document.getElementById('status');
-  const statsBar   = document.getElementById('stats-bar');
-  const statsInner = document.getElementById('stats-inner');
   const sheetWrap  = document.getElementById('sheet-wrap');
   const sheetEl    = document.getElementById('sheet-container');
 
   let selectedFile = null;
   let osmd = null;
+  let serverReady = false;
+
+  // ── Wake up the Render server as soon as the page loads ──────────────────
+  (async function warmUp() {
+    if (!API_BASE) { serverReady = true; return; }
+    try {
+      const r = await fetch(`${API_BASE}/health`);
+      if (r.ok) { serverReady = true; return; }
+    } catch (_) {}
+    // Server was cold — retry every 5 s for up to 40 s
+    setStatus('warn', '⏳ Server is starting up, please wait…');
+    for (let i = 0; i < 8; i++) {
+      await new Promise(r => setTimeout(r, 5000));
+      try {
+        const r = await fetch(`${API_BASE}/health`);
+        if (r.ok) { serverReady = true; statusEl.style.display = 'none'; return; }
+      } catch (_) {}
+    }
+    setStatus('warn', '⚠ Server is slow to start. Try clicking Analyze — it may still work.');
+    serverReady = true;
+  })();
 
   // ── File selection ──────────────────────────────────────────────────────
   fileInput.addEventListener('change', () => {
@@ -218,10 +216,18 @@
 
     btnAnalyze.disabled = true;
     btnAnalyze.innerHTML = '<span class="spinner"></span> Processing…';
+
+    // If warmup is still running, wait for it (max 30 s)
+    if (!serverReady) {
+      setStatus('info', '⏳ Waiting for server to start…');
+      for (let i = 0; i < 6 && !serverReady; i++) {
+        await new Promise(r => setTimeout(r, 5000));
+      }
+    }
+
     setStatus('info', isPdf
       ? '⏳ Converting PDF → MusicXML (this takes 20–60 s)…'
       : '⏳ Parsing score and computing fingerings…');
-    statsBar.style.display = 'none';
     sheetWrap.style.display = 'none';
 
     const form = new FormData();
@@ -236,13 +242,13 @@
         return;
       }
 
-      setStatus('info', '🎼 Rendering score…');
+      setStatus('info', '🎼 Rendering score… please wait');
+      await new Promise(resolve => setTimeout(resolve, 60));
       await renderSheet(data.musicxml);
-      showStats(data.results);
       statusEl.style.display = 'none';
 
     } catch (err) {
-      setStatus('error', '⚠ Network error: ' + err.message);
+      setStatus('error', '⚠ ' + err.message + ' — please try again');
     } finally {
       btnAnalyze.disabled = false;
       btnAnalyze.textContent = 'Analyze';
@@ -279,7 +285,6 @@
 
     sheetWrap.style.display = 'block';
 
-    // Style fingering numbers in the rendered SVG (red, bold)
     sheetEl.querySelectorAll('svg text').forEach(t => {
       const txt = t.textContent.trim();
       if (/^[0-4]$/.test(txt)) {
@@ -288,37 +293,6 @@
         t.style.fontSize = '10px';
       }
     });
-  }
-
-  // ── Stats ────────────────────────────────────────────────────────────────
-  function showStats(results) {
-    if (!results || !results.length) return;
-
-    let totalNotes = 0, totalFingered = 0, totalUnknown = 0;
-    const strCounts = {};
-
-    results.forEach(part => {
-      part.notes.forEach(n => {
-        if (n.type !== 'note') return;
-        totalNotes++;
-        if (n.finger === '?') { totalUnknown++; return; }
-        totalFingered++;
-        strCounts[n.string] = (strCounts[n.string] || 0) + 1;
-      });
-    });
-
-    const strColors = { C: '#7b3f00', G: '#c76b00', D: '#1a4fa0', A: '#1a7a1a' };
-    let html = `<div class="stat"><strong>${totalNotes}</strong> notes</div>`;
-    ['A', 'D', 'G', 'C'].forEach(s => {
-      if (strCounts[s]) {
-        html += `<div class="stat"><strong style="color:${strColors[s]}">${strCounts[s]}</strong> ${s} str</div>`;
-      }
-    });
-    if (totalUnknown) {
-      html += `<div class="stat"><strong style="color:#999">${totalUnknown}</strong> out-of-range</div>`;
-    }
-    statsInner.innerHTML = html;
-    statsBar.style.display = 'block';
   }
 
   function setStatus(cls, msg) {
