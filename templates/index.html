@@ -251,6 +251,11 @@
   const statusEl   = document.getElementById('status');
   const resultsEl  = document.getElementById('results');
 
+  // When served from GitHub Pages use the Render backend; locally use relative URL
+  const API_BASE = window.location.hostname === 'shintachibana.github.io'
+    ? 'https://viola-fingering.onrender.com'
+    : '';
+
   let selectedFile = null;
 
   // ── File selection ──────────────────────────────────────────────────────
@@ -286,7 +291,7 @@
     form.append('file', selectedFile);
 
     try {
-      const res = await fetch('/analyze', { method: 'POST', body: form });
+      const res = await fetch(`${API_BASE}/analyze`, { method: 'POST', body: form });
       const data = await res.json();
 
       if (data.error) {

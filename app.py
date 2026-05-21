@@ -3,11 +3,17 @@
 import os
 import tempfile
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 from music21 import converter, note, chord
 
 from fingering import find_best_fingering
 
 app = Flask(__name__)
+CORS(app, origins=[
+    'https://shintachibana.github.io',
+    'http://127.0.0.1:5001',
+    'http://localhost:5001',
+])
 ALLOWED_EXT = {'.xml', '.mxl', '.musicxml'}
 
 
