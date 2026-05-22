@@ -4,13 +4,11 @@ Reads Concerts_in_Japan.html, sums conductor appearances per ranked work,
 and (when run with --write) injects a new <td> into each ranking row.
 """
 import re
-import subprocess
 import sys
 
 REPO = "Berliner Philharmoniker"
 CONCERTS = f"{REPO}/Concerts_in_Japan.html"
 RANKING = f"{REPO}/Program_Ranking.html"
-BASELINE_REF = "HEAD~1"  # commit whose Performances column is the source of truth
 
 
 def strip_tags(s: str) -> str:
@@ -99,43 +97,39 @@ def main():
     )
 
     # 2. Append a 4th <td> to each data row with the per-conductor breakdown
-    # Load authoritative totals from the baseline ref (so we never overwrite them)
-    proc = subprocess.run(
-        ["git", "show", f"{BASELINE_REF}:{RANKING}"],
-        capture_output=True, text=True, check=True,
-    )
-    baseline_totals = {}
-    for m in re.finditer(
-        r"<tr><td>\d+</td><td>([^<]+)</td><td>(\d+)</td></tr>", proc.stdout
-    ):
-        baseline_totals[m.group(1)] = int(m.group(2))
+    # Build the new tbody from scratch: sort by (descending total, work name) and renumber.
+    works_in_table = [w for _, w, _ in re.findall(
+        r"<tr><td>(\d+)</td><td>([^<]+)</td><td>(\d+)</td>", new_ranking
+    )]
+    # Dedup but preserve first-occurrence order (not used for sorting, just for completeness)
+    seen = set()
+    ordered_works = []
+    for w in works_in_table:
+        if w not in seen:
+            seen.add(w)
+            ordered_works.append(w)
 
-    def replace_row(m):
-        rank, work = m.group(1), m.group(2)
-        breakdown = dict(counts.get(work, {}))
-        total = baseline_totals.get(work, sum(breakdown.values()))
-        identified = sum(breakdown.values())
-        if total > identified:
-            breakdown["Unknown"] = total - identified
+    def row_total(work):
+        return sum(counts.get(work, {}).values())
+
+    sorted_entries = sorted(ordered_works, key=lambda w: (-row_total(w), w))
+
+    new_rows = []
+    for new_rank, work in enumerate(sorted_entries, start=1):
+        breakdown = counts.get(work, {})
+        total = sum(breakdown.values())
         lines = [
             f"{c}: {n}"
-            for c, n in sorted(
-                breakdown.items(),
-                key=lambda x: (x[0] == "Unknown", -x[1], x[0]),
-            )
+            for c, n in sorted(breakdown.items(), key=lambda x: (-x[1], x[0]))
         ]
         cell = "<br>".join(lines) if lines else "—"
-        return (
-            f"<tr><td>{rank}</td><td>{work}</td><td>{total}</td>"
-            f"<td>{cell}</td></tr>"
+        new_rows.append(
+            f"<tr><td>{new_rank}</td><td>{work}</td>"
+            f"<td>{total}</td><td>{cell}</td></tr>"
         )
 
-    # Matches the 3-column legacy form OR the 4-column form already written.
-    new_ranking = re.sub(
-        r"<tr><td>(\d+)</td><td>([^<]+)</td><td>\d+</td>(?:<td>[^<]*(?:<br>[^<]*)*</td>)?</tr>",
-        replace_row,
-        new_ranking,
-    )
+    new_tbody = "<tbody>\n" + "\n".join(new_rows) + "\n</tbody>"
+    new_ranking = re.sub(r"<tbody>.*?</tbody>", new_tbody, new_ranking, flags=re.DOTALL)
 
     with open(RANKING, "w", encoding="utf-8") as f:
         f.write(new_ranking)
