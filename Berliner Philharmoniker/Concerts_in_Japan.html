@@ -16,9 +16,9 @@ body {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%232774B8' fill-opacity='0.13'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%23C2842C' fill-opacity='0.18'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%232774B8' fill-opacity='0.13'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%23C2842C' fill-opacity='0.18'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%23B5365B' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23C2842C' fill-opacity='0.18'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%232774B8' fill-opacity='0.13'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat;
 }
-h1 { font-size: 20px; margin-bottom: 4px; }
+h1 { font-size: 20px; margin: 0 0 8px; text-align: center; }
 p { margin: 0 0 12px; color: #555; font-size: 12px; }
-.wrap { overflow-x: auto; max-height: calc(100vh - 80px); overflow-y: auto; }
+.wrap { overflow-x: auto; max-height: calc(100vh - 80px); overflow-y: auto; margin-top: 24px; }
 table { border-collapse: collapse; width: 100%; min-width: 1400px; }
 thead th {
   position: sticky;
@@ -62,7 +62,7 @@ thead select option { background: #fff; color: #222; }
 </head>
 <body>
 <h1>Berliner Philharmoniker — Concerts in Japan (1957–2025)</h1>
-<p><button id="resetFilters" style="padding:2px 10px;font-size:12px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:3px;">Reset filters</button> <a href="Program_Ranking.html" style="display:inline-block;padding:3px 12px;font-size:12px;background:#16A34A;color:#fff;text-decoration:none;border-radius:3px;margin-left:6px;">View Program Ranking →</a></p>
+<p><button id="sortToggle" style="padding:2px 10px;font-size:12px;cursor:pointer;background:#9F1239;color:#fff;border:none;border-radius:3px;margin-right:6px;">Sort descending ▼</button><button id="resetFilters" style="padding:2px 10px;font-size:12px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:3px;">Reset filters</button> <a href="Program_Ranking.html" style="display:inline-block;padding:3px 12px;font-size:12px;background:#16A34A;color:#fff;text-decoration:none;border-radius:3px;margin-left:6px;">View Program Ranking →</a></p>
 <div class="wrap">
 <table>
 <thead>
@@ -307,6 +307,14 @@ thead select option { background: #fff; color: #222; }
     document.querySelectorAll('thead select.filter').forEach(function (s) { s.value = ''; });
     document.querySelectorAll('thead input.filter').forEach(function (i) { i.value = ''; });
     applyFilters();
+  });
+  var sortDesc = false;
+  document.getElementById('sortToggle').addEventListener('click', function () {
+    sortDesc = !sortDesc;
+    this.textContent = sortDesc ? 'Sort ascending ▲' : 'Sort descending ▼';
+    var tbody = document.querySelector('tbody');
+    var order = sortDesc ? rows.slice().reverse() : rows;
+    order.forEach(function (r) { tbody.appendChild(r); });
   });
   function applyFilters() {
     var selects = Array.from(document.querySelectorAll('thead select.filter'))
