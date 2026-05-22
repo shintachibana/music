@@ -47,11 +47,23 @@ thead select, thead input[type="text"] {
 }
 thead input[type="text"]::placeholder { color: #a8c4dc; }
 thead select option { background: #fff; color: #222; }
+#statsSection { margin-top: 32px; max-width: 800px; }
+#statsSection h2 { font-size: 17px; color: #1F4E79; margin: 0 0 10px; }
+.stats-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.stats-table thead th { background: #1F4E79; color: #fff; padding: 7px 12px; border: 1px solid #163d61; text-align: left; white-space: nowrap; }
+.stats-table thead th:first-child, .stats-table td:first-child { text-align: center; width: 44px; }
+.stats-table thead th:last-child, .stats-table td:last-child { text-align: center; width: 110px; }
+.stats-table tbody tr:nth-child(odd)  { background: #fff; }
+.stats-table tbody tr:nth-child(even) { background: #eef3f8; }
+.stats-table tbody tr:hover { background: #d6e4f0; }
+.stats-table td { padding: 5px 12px; border: 1px solid #ccc; }
+.stats-table td:first-child { font-weight: bold; color: #555; }
+.stats-table td:last-child { font-weight: bold; }
 </style>
 </head>
 <body>
 <h1>Berliner Philharmoniker — Concerts in Japan (1957–2025)</h1>
-<p>Chronological record of all 25 confirmed tours. Program titles in German; all other information in English. <button id="resetFilters" style="margin-left:8px;padding:2px 10px;font-size:12px;cursor:pointer;background:#1F4E79;color:#fff;border:none;border-radius:3px;">Reset filters</button></p>
+<p><button id="resetFilters" style="padding:2px 10px;font-size:12px;cursor:pointer;background:#1F4E79;color:#fff;border:none;border-radius:3px;">Reset filters</button></p>
 <div class="wrap">
 <table>
 <thead>
@@ -266,6 +278,7 @@ thead select option { background: #fff; color: #222; }
 </tbody>
 </table>
 </div>
+<div id="statsSection"></div>
 <script>
 (function () {
   var rows = Array.from(document.querySelectorAll('tbody tr'));
@@ -314,6 +327,70 @@ thead select option { background: #fff; color: #222; }
       row.style.display = show ? '' : 'none';
     });
   }
+})();
+</script>
+<script>
+(function () {
+  var PROG_COL = 6;
+  var counts = {};
+
+  function normalize(s) {
+    return s
+      .replace(/\s+op\.\s*\d+[a-z]?/gi, '')
+      .replace(/\s+KV\s*\d+/gi, '')
+      .replace(/\s+BWV\s*\d+/gi, '')
+      .replace(/\s+D\.\s*\d+/gi, '')
+      .replace(/\s+Sz\.\s*\d+/gi, '')
+      .replace(/\s+WWV\s*\d+/gi, '')
+      .replace(/\s+M\.\s*\d+/gi, '')
+      .replace(/\s*\([^)]*\)/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  Array.from(document.querySelectorAll('tbody tr')).forEach(function (row) {
+    var cell = row.cells[PROG_COL];
+    if (!cell) return;
+    var text = cell.textContent.trim();
+    // Skip rows with vague / undocumented programs
+    if (/various|not (fully )?documented|not mentioned/i.test(text)) return;
+
+    var lastComposer = '';
+    text.split('·').forEach(function (piece) {
+      piece = piece.trim();
+      if (!piece) return;
+
+      var ci = piece.indexOf(':');
+      if (ci > 0) {
+        var composer = piece.substring(0, ci).trim();
+        var work = piece.substring(ci + 1).trim();
+        // Skip cycle/range entries that can't be counted as a single work
+        if (/zyklus|abend \d+|nr\.\s*\d+[–\-]\d+/i.test(work)) return;
+        lastComposer = composer;
+        var key = normalize(composer + ': ' + work);
+        if (key.length > 8) counts[key] = (counts[key] || 0) + 1;
+      } else if (lastComposer && piece.length > 4) {
+        if (/zyklus|abend \d+/i.test(piece)) return;
+        var key = normalize(lastComposer + ': ' + piece);
+        if (key.length > 8) counts[key] = (counts[key] || 0) + 1;
+      }
+    });
+  });
+
+  var sorted = Object.keys(counts)
+    .map(function (k) { return { work: k, n: counts[k] }; })
+    .filter(function (x) { return x.n > 1; })
+    .sort(function (a, b) { return b.n !== a.n ? b.n - a.n : a.work.localeCompare(b.work); });
+
+  if (!sorted.length) return;
+
+  var html = '<h2>Most Performed Works</h2>'
+    + '<table class="stats-table"><thead><tr><th>#</th><th>Composer &amp; Work</th><th>Performances</th></tr></thead><tbody>';
+  sorted.forEach(function (item, i) {
+    html += '<tr><td>' + (i + 1) + '</td><td>' + item.work.replace(/&/g, '&amp;') + '</td><td>' + item.n + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('statsSection').innerHTML = html;
 })();
 </script>
 </body>
