@@ -69,9 +69,11 @@ def normalize_work(w: str) -> str:
     w = re.sub(r"\s+D\.\s*\d+", "", w)
     w = re.sub(r"\s+M\.\s*\d+", "", w)
     w = re.sub(r"\s+WWV\s*\d+", "", w)
-    # Strip trailing parenthetical (nickname or format annotation)
-    w = re.sub(r"\s*\([^)]*\)\s*$", "", w)
-    w = w.strip()
+    # Strip trailing parentheticals repeatedly (nickname, format, conductor)
+    prev = None
+    while prev != w:
+        prev = w
+        w = re.sub(r"\s*\([^)]*\)\s*$", "", w).strip()
     return CANONICAL.get(w, w)
 
 
