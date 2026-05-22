@@ -79,7 +79,7 @@ thead select option { background: #fff; color: #222; }
 </head>
 <body>
 <h1>Berliner Philharmoniker — Concerts in Japan (1957–today)</h1>
-<p class="toolbar"><button id="sortToggle" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#9F1239;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(159,18,57,0.25);">Sort descending ▼</button><button id="resetFilters" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Reset filters</button><a href="Program_Ranking.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#16A34A;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(21,128,61,0.25);">View Program Ranking →</a><a href="index.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#D97706;color:#fff;text-decoration:none;border-radius:4px;box-shadow:0 1px 3px rgba(180,83,9,0.25);">Berliner Philharmoniker</a></p>
+<p class="toolbar"><button id="sortToggle" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#9F1239;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(159,18,57,0.25);">Sort ascending ▲</button><button id="resetFilters" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Reset filters</button><a href="Program_Ranking.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#16A34A;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(21,128,61,0.25);">View Program Ranking →</a><a href="index.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#D97706;color:#fff;text-decoration:none;border-radius:4px;box-shadow:0 1px 3px rgba(180,83,9,0.25);">Berliner Philharmoniker</a></p>
 <div class="wrap">
 <table>
 <thead>
@@ -325,7 +325,11 @@ thead select option { background: #fff; color: #222; }
     document.querySelectorAll('thead input.filter').forEach(function (i) { i.value = ''; });
     applyFilters();
   });
-  var sortDesc = false;
+  var sortDesc = true;
+  (function applyInitialSort() {
+    var tbody = document.querySelector('tbody');
+    rows.slice().reverse().forEach(function (r) { tbody.appendChild(r); });
+  })();
   document.getElementById('sortToggle').addEventListener('click', function () {
     sortDesc = !sortDesc;
     this.textContent = sortDesc ? 'Sort ascending ▲' : 'Sort descending ▼';
