@@ -18,10 +18,13 @@ body {
 .container { max-width: 700px; margin: 0 auto; }
 h1 { font-size: 20px; margin-bottom: 4px; color: #15803D; }
 p.sub { color: #666; font-size: 13px; margin-bottom: 18px; }
-a.back { display: inline-block; margin-bottom: 18px; font-size: 13px; color: #15803D; text-decoration: none; }
-a.back:hover { text-decoration: underline; }
-a.nav-button { display: inline-block; padding: 6px 14px; margin-bottom: 24px; font-size: 13px; background: #16A34A; color: #fff; text-decoration: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(21,128,61,0.25); }
+.toolbar { margin-bottom: 24px; }
+button.sort-toggle { padding: 6px 14px; margin-right: 8px; font-size: 13px; cursor: pointer; background: #9F1239; color: #fff; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(159,18,57,0.25); }
+button.sort-toggle:hover { background: #831234; }
+a.nav-button { display: inline-block; padding: 6px 14px; margin-right: 8px; font-size: 13px; background: #16A34A; color: #fff; text-decoration: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(21,128,61,0.25); }
 a.nav-button:hover { background: #15803D; }
+a.nav-button.orange { background: #D97706; box-shadow: 0 1px 3px rgba(180,83,9,0.25); }
+a.nav-button.orange:hover { background: #B45309; }
 table { border-collapse: collapse; width: 100%; font-size: 13px; background: #fff; }
 thead th { background: #16A34A; color: #fff; padding: 8px 12px; border: 1px solid #15803D; text-align: left; white-space: nowrap; }
 tbody tr:nth-child(even) { background: #ECFBEF; }
@@ -33,10 +36,9 @@ th:last-child, td:last-child { text-align: center; width: 110px; }
 </head>
 <body>
 <div class="container">
-<a class="back" href="index.html">&#8592; Berliner Philharmoniker</a>
 <h1>Berliner Philharmoniker Concerts in Japan</h1>
 <p class="sub">Program Ranking — works performed more than once across all Japan tours (1957–2025). Each concert at one location counts as one performance.</p>
-<a class="nav-button" href="Concerts_in_Japan.html">View Concerts List →</a>
+<p class="toolbar"><button id="sortToggle" class="sort-toggle">Sort descending ▼</button><a class="nav-button" href="Concerts_in_Japan.html">View Concerts List →</a><a class="nav-button orange" href="index.html">Berliner Philharmoniker</a></p>
 <table>
 <thead><tr><th>#</th><th>Composer &amp; Work</th><th>Performances</th></tr></thead>
 <tbody>
@@ -113,5 +115,18 @@ th:last-child, td:last-child { text-align: center; width: 110px; }
 </tbody>
 </table>
 </div>
+<script>
+(function () {
+  var rows = Array.from(document.querySelectorAll('tbody tr'));
+  var sortDesc = false;
+  document.getElementById('sortToggle').addEventListener('click', function () {
+    sortDesc = !sortDesc;
+    this.textContent = sortDesc ? 'Sort ascending ▲' : 'Sort descending ▼';
+    var tbody = document.querySelector('tbody');
+    var order = sortDesc ? rows.slice().reverse() : rows;
+    order.forEach(function (r) { tbody.appendChild(r); });
+  });
+})();
+</script>
 </body>
 </html>
