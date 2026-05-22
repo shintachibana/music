@@ -51,7 +51,7 @@ thead select option { background: #fff; color: #222; }
 </head>
 <body>
 <h1>Berliner Philharmoniker — Concerts in Japan (1957–2025)</h1>
-<p>Chronological record of all 25 confirmed tours. Program titles in German; all other information in English.</p>
+<p>Chronological record of all 25 confirmed tours. Program titles in German; all other information in English. <button id="resetFilters" style="margin-left:8px;padding:2px 10px;font-size:12px;cursor:pointer;background:#1F4E79;color:#fff;border:none;border-radius:3px;">Reset filters</button></p>
 <div class="wrap">
 <table>
 <thead>
@@ -289,6 +289,13 @@ thead select option { background: #fff; color: #222; }
   // Text inputs fire on every keystroke
   document.querySelectorAll('thead input.filter').forEach(function (inp) {
     inp.addEventListener('input', applyFilters);
+  });
+
+  // Reset button
+  document.getElementById('resetFilters').addEventListener('click', function () {
+    document.querySelectorAll('thead select.filter').forEach(function (s) { s.value = ''; });
+    document.querySelectorAll('thead input.filter').forEach(function (i) { i.value = ''; });
+    applyFilters();
   });
 
   function applyFilters() {
