@@ -69,6 +69,7 @@ def normalize_work(w: str) -> str:
     w = re.sub(r"\s+D\.\s*\d+", "", w)
     w = re.sub(r"\s+M\.\s*\d+", "", w)
     w = re.sub(r"\s+WWV\s*\d+", "", w)
+    w = re.sub(r"\s+WAB\s*\d+", "", w)
     # Strip trailing parentheticals repeatedly (nickname, format, conductor)
     prev = None
     while prev != w:
