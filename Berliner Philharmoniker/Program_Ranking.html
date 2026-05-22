@@ -16,8 +16,25 @@ body {
   background-repeat: repeat;
 }
 .container { max-width: 1000px; margin: 0 auto; }
-h1 { font-size: 20px; margin: 24px 0 36px; color: #000; text-align: center; }
-.toolbar { margin-bottom: 24px; }
+h1 {
+  font-size: 20px;
+  margin: 0;
+  padding: 24px 0 28px;
+  color: #000;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: #F4FBF6;
+}
+.toolbar {
+  position: sticky;
+  top: 76px;
+  z-index: 4;
+  background-color: #F4FBF6;
+  margin: 0;
+  padding: 4px 0 20px;
+}
 button.sort-toggle { padding: 6px 14px; margin-right: 8px; font-size: 13px; cursor: pointer; background: #9F1239; color: #fff; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(159,18,57,0.25); }
 button.sort-toggle:hover { background: #831234; }
 a.nav-button { display: inline-block; padding: 6px 14px; margin-right: 8px; font-size: 13px; background: #16A34A; color: #fff; text-decoration: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(21,128,61,0.25); }
@@ -27,7 +44,7 @@ a.nav-button.orange:hover { background: #B45309; }
 a.nav-button.blue { background: #2774B8; box-shadow: 0 1px 3px rgba(39,116,184,0.25); }
 a.nav-button.blue:hover { background: #1F5B95; }
 table { border-collapse: collapse; width: 100%; font-size: 13px; background: #fff; }
-thead th { background: #16A34A; color: #fff; padding: 8px 12px; border: 1px solid #15803D; text-align: left; white-space: nowrap; }
+thead th { position: sticky; top: 134px; z-index: 2; background: #16A34A; color: #fff; padding: 8px 12px; border: 1px solid #15803D; text-align: left; white-space: nowrap; }
 tbody tr:nth-child(even) { background: #ECFBEF; }
 tbody tr:hover { background: #FFF4D9; }
 tbody td { padding: 6px 12px; border: 1px solid #cfe3d6; vertical-align: top; }
