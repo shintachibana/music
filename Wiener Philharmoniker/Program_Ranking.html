@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiener Philharmoniker — Program Ranking</title>
+<style>
+html, body { min-height: 100%; }
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 60px 20px;
+  color: #222;
+  background-color: #F1F5F9;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%23475569' fill-opacity='0.14'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%23B8860B' fill-opacity='0.16'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%23475569' fill-opacity='0.14'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.14'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%23B8860B' fill-opacity='0.16'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23475569' fill-opacity='0.14'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%239F1239' fill-opacity='0.14'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+.container { max-width: 1000px; margin: 0 auto; }
+h1 {
+  font-size: 20px;
+  margin: 0;
+  padding: 24px 0 28px;
+  color: #000;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: #F1F5F9;
+}
+.toolbar {
+  position: sticky;
+  top: 76px;
+  z-index: 4;
+  background-color: #F1F5F9;
+  margin: 0;
+  padding: 4px 0 20px;
+}
+button.sort-toggle { padding: 6px 14px; margin-right: 8px; font-size: 13px; cursor: pointer; background: #9F1239; color: #fff; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(159,18,57,0.25); }
+button.sort-toggle:hover { background: #831234; }
+a.nav-button { display: inline-block; padding: 6px 14px; margin-right: 8px; font-size: 13px; background: #475569; color: #fff; text-decoration: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(71,85,105,0.25); }
+a.nav-button:hover { background: #334155; }
+a.nav-button.burgundy { background: #9F1239; box-shadow: 0 1px 3px rgba(159,18,57,0.25); }
+a.nav-button.burgundy:hover { background: #831234; }
+a.nav-button.gold { background: #B8860B; box-shadow: 0 1px 3px rgba(184,134,11,0.25); }
+a.nav-button.gold:hover { background: #946C0A; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; background: #fff; }
+thead th { position: sticky; top: 134px; z-index: 2; background: #475569; color: #fff; padding: 8px 12px; border: 1px solid #334155; text-align: left; white-space: nowrap; }
+tbody tr:nth-child(even) { background: #E2E8F0; }
+tbody tr:hover { background: #FFF4D9; }
+tbody td { padding: 6px 12px; border: 1px solid #cbd5e1; vertical-align: top; }
+th:first-child, td:first-child { text-align: center; width: 44px; }
+th:nth-child(3), td:nth-child(3) { text-align: center; width: 110px; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Wiener Philharmoniker — Program Ranking</h1>
+<p class="toolbar"><button id="sortToggle" class="sort-toggle">Sort descending ▼</button><a class="nav-button gold" href="Concerts_in_Japan.html">View Concerts List →</a><a class="nav-button burgundy" href="index.html">Wiener Philharmoniker</a></p>
+<table>
+<thead><tr><th>#</th><th>Composer &amp; Work</th><th>Performances</th><th>Performances by Conductor</th></tr></thead>
+<tbody>
+<!-- Ranking to be populated -->
+</tbody>
+</table>
+</div>
+<script>
+(function () {
+  var rows = Array.from(document.querySelectorAll('tbody tr'));
+  var sortDesc = false;
+  document.getElementById('sortToggle').addEventListener('click', function () {
+    sortDesc = !sortDesc;
+    this.textContent = sortDesc ? 'Sort ascending ▲' : 'Sort descending ▼';
+    var tbody = document.querySelector('tbody');
+    var order = sortDesc ? rows.slice().reverse() : rows;
+    order.forEach(function (r) { tbody.appendChild(r); });
+  });
+})();
+</script>
+</body>
+</html>

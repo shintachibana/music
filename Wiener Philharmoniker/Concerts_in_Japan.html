@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiener Philharmoniker — Concerts in Japan</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  margin: 0;
+  padding: 16px;
+  color: #222;
+  background-color: #FBF7E8;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%23B8860B' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%239F1239' fill-opacity='0.14'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%23B8860B' fill-opacity='0.15'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%23475569' fill-opacity='0.13'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%239F1239' fill-opacity='0.14'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23B8860B' fill-opacity='0.15'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%23475569' fill-opacity='0.13'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+h1 {
+  font-size: 20px;
+  margin: 0;
+  padding: 24px 0 28px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: #FBF7E8;
+}
+p { margin: 0 0 12px; color: #555; font-size: 12px; }
+.toolbar {
+  position: sticky;
+  top: 76px;
+  z-index: 4;
+  background-color: #FBF7E8;
+  margin: 0;
+  padding: 4px 0 20px;
+}
+.wrap { overflow-x: auto; max-height: calc(100vh - 80px); overflow-y: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 1400px; }
+thead th {
+  position: sticky;
+  top: 0;
+  background: #B8860B;
+  color: #fff;
+  font-weight: bold;
+  padding: 8px 10px;
+  border: 1px solid #946C0A;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 2;
+}
+tbody tr:nth-child(odd)  { background: #fff; }
+tbody tr:nth-child(even) { background: #FAEFC8; }
+tbody tr:hover { background: #F4E5DA; }
+td { padding: 5px 10px; border: 1px solid #ccc; vertical-align: middle; line-height: 1.4; }
+td:nth-child(1) { white-space: nowrap; font-weight: bold; text-align: center; }
+td:nth-child(2) { white-space: nowrap; text-align: center; }
+td:nth-child(3) { white-space: nowrap; text-align: center; }
+em { font-style: italic; }
+td a { color: #946C0A; text-decoration: none; border-bottom: 1px dotted #B8860B; }
+td a:hover { color: #6F4F08; border-bottom-style: solid; }
+thead select, thead input[type="text"] {
+  display: block;
+  margin-top: 5px;
+  width: 100%;
+  background: #946C0A;
+  color: #fff;
+  border: 1px solid #6F4F08;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+thead input[type="text"]::placeholder { color: #E8D89A; }
+thead select option { background: #fff; color: #222; }
+</style>
+</head>
+<body>
+<h1>Wiener Philharmoniker — Concerts in Japan (1956–today)</h1>
+<p class="toolbar"><button id="sortToggle" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#9F1239;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(159,18,57,0.25);">Sort ascending ▲</button><button id="resetFilters" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#B8860B;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(184,134,11,0.25);">Reset filters</button><a href="Program_Ranking.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#475569;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(71,85,105,0.25);">View Program Ranking →</a><a href="index.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#9F1239;color:#fff;text-decoration:none;border-radius:4px;box-shadow:0 1px 3px rgba(159,18,57,0.25);">Wiener Philharmoniker</a></p>
+<div class="wrap">
+<table>
+<thead>
+<tr>
+  <th>Year<br><select class="filter" data-col="0"><option value="">All</option></select></th>
+  <th>Month</th><th>Date</th>
+  <th>City (Concert Hall)<br><input class="filter" type="text" data-col="3" placeholder="filter…"></th>
+  <th>Conductor<br><select class="filter" data-col="4"><option value="">All</option></select></th>
+  <th>Program</th><th>Soloists</th><th>Reception / Notes</th>
+</tr>
+</thead>
+<tbody>
+<!-- Tour data to be populated -->
+</tbody>
+</table>
+</div>
+<script>
+(function () {
+  var rows = Array.from(document.querySelectorAll('tbody tr'));
+  document.querySelectorAll('thead select.filter').forEach(function (sel) {
+    var col = +sel.dataset.col;
+    var seen = {};
+    rows.forEach(function (row) {
+      var v = row.cells[col] ? row.cells[col].textContent.trim() : '';
+      if (v) seen[v] = true;
+    });
+    Object.keys(seen).sort().forEach(function (v) {
+      var opt = document.createElement('option');
+      opt.value = v; opt.textContent = v;
+      sel.appendChild(opt);
+    });
+    sel.addEventListener('change', applyFilters);
+  });
+  document.querySelectorAll('thead input.filter').forEach(function (inp) {
+    inp.addEventListener('input', applyFilters);
+  });
+  document.getElementById('resetFilters').addEventListener('click', function () {
+    document.querySelectorAll('thead select.filter').forEach(function (s) { s.value = ''; });
+    document.querySelectorAll('thead input.filter').forEach(function (i) { i.value = ''; });
+    applyFilters();
+  });
+  var sortDesc = true;
+  (function applyInitialSort() {
+    var tbody = document.querySelector('tbody');
+    rows.slice().reverse().forEach(function (r) { tbody.appendChild(r); });
+  })();
+  document.getElementById('sortToggle').addEventListener('click', function () {
+    sortDesc = !sortDesc;
+    this.textContent = sortDesc ? 'Sort ascending ▲' : 'Sort descending ▼';
+    var tbody = document.querySelector('tbody');
+    var order = sortDesc ? rows.slice().reverse() : rows;
+    order.forEach(function (r) { tbody.appendChild(r); });
+  });
+  function applyFilters() {
+    var selects = Array.from(document.querySelectorAll('thead select.filter'))
+      .map(function (s) { return { col: +s.dataset.col, val: s.value, exact: true }; })
+      .filter(function (f) { return f.val !== ''; });
+    var inputs = Array.from(document.querySelectorAll('thead input.filter'))
+      .map(function (i) { return { col: +i.dataset.col, val: i.value.toLowerCase(), exact: false }; })
+      .filter(function (f) { return f.val !== ''; });
+    var active = selects.concat(inputs);
+    rows.forEach(function (row) {
+      var show = active.every(function (f) {
+        var text = row.cells[f.col] ? row.cells[f.col].textContent.trim() : '';
+        return f.exact ? text === f.val : text.toLowerCase().indexOf(f.val) !== -1;
+      });
+      row.style.display = show ? '' : 'none';
+    });
+  }
+})();
+</script>
+</body>
+</html>
