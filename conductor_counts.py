@@ -115,16 +115,21 @@ def main():
     sorted_entries = sorted(ordered_works, key=lambda w: (-row_total(w), w))
 
     new_rows = []
-    for new_rank, work in enumerate(sorted_entries, start=1):
+    prev_total = None
+    current_rank = 0
+    for position, work in enumerate(sorted_entries, start=1):
         breakdown = counts.get(work, {})
         total = sum(breakdown.values())
+        if total != prev_total:
+            current_rank = position
+            prev_total = total
         lines = [
             f"{c}: {n}"
             for c, n in sorted(breakdown.items(), key=lambda x: (-x[1], x[0]))
         ]
         cell = "<br>".join(lines) if lines else "—"
         new_rows.append(
-            f"<tr><td>{new_rank}</td><td>{work}</td>"
+            f"<tr><td>{current_rank}</td><td>{work}</td>"
             f"<td>{total}</td><td>{cell}</td></tr>"
         )
 
