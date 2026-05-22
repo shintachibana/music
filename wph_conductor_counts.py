@@ -144,14 +144,19 @@ def main():
         return 0
 
     new_rows = []
-    for i, (work, total, conductors) in enumerate(ranked, 1):
+    prev_total = None
+    current_rank = 0
+    for position, (work, total, conductors) in enumerate(ranked, 1):
+        if total != prev_total:
+            current_rank = position
+            prev_total = total
         lines = [
             f"{c}: {n}"
             for c, n in sorted(conductors.items(), key=lambda x: (-x[1], x[0]))
         ]
         cell = "<br>".join(lines)
         new_rows.append(
-            f"<tr><td>{i}</td><td>{work}</td><td>{total}</td><td>{cell}</td></tr>"
+            f"<tr><td>{current_rank}</td><td>{work}</td><td>{total}</td><td>{cell}</td></tr>"
         )
 
     new_tbody = "<tbody>\n" + "\n".join(new_rows) + "\n</tbody>"
