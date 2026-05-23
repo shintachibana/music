@@ -100,36 +100,17 @@ def build_page(orchestra: str, totals: dict) -> str:
         accent_rgba = "rgba(159,18,57,0.25)"
         notes_pattern_color = "%239F1239"
 
-    sorted_pairs = sorted(totals.items(), key=lambda x: -x[1])
-    max_count = sorted_pairs[0][1]
-    # side(n) = sqrt(n / max) * 240 → largest composer is a 240-px square,
-    # area scales linearly with performances.
-    def side_px(n: int) -> int:
-        return max(56, round(math.sqrt(n / max_count) * 240))
-
-    tiles = []
-    for composer, count in sorted_pairs:
-        side  = side_px(count)
+    # JSON-like data emitted into the page; D3 squarify treemap will lay it out.
+    import json
+    children = []
+    for composer, count in sorted(totals.items(), key=lambda x: -x[1]):
         img_filename = COMPOSER_IMAGE.get(composer)
-        if img_filename:
-            bg_url = wiki_image(img_filename, width=max(320, side * 2))
-            bg_css = f'background-image: url("{bg_url}");'
-        else:
-            bg_css = f'background: {accent};'
-        # Show label only on squares big enough to fit text
-        show_label = side >= 70
-        label_html = (
-            f'<div class="label"><div class="name">{composer}</div>'
-            f'<div class="count">{count}</div></div>'
-        ) if show_label else (
-            f'<div class="label hidden"><div class="name">{composer}</div>'
-            f'<div class="count">{count}</div></div>'
-        )
-        title_attr = f'{composer} — {count} performances'
-        tiles.append(
-            f'<div class="tile" style="width:{side}px;height:{side}px;{bg_css}" '
-            f'title="{title_attr}">{label_html}</div>'
-        )
+        children.append({
+            "name": composer,
+            "value": count,
+            "img": wiki_image(img_filename, width=480) if img_filename else "",
+        })
+    data_json = json.dumps({"name": "root", "children": children}, ensure_ascii=False)
 
     total_perf = sum(totals.values())
     total_composers = len(totals)
@@ -192,37 +173,55 @@ h1 {{
 }}
 .toolbar a:hover {{ background: {accent_d}; }}
 
-.chart {{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 6px;
-  max-width: 1200px;
+#chart-wrap {{
+  max-width: 1140px;
   margin: 0 auto;
 }}
-.tile {{
+#chart {{
   position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}}
+.tile {{
+  position: absolute;
   background-size: cover;
   background-position: center top;
-  border-radius: 4px;
   overflow: hidden;
   cursor: default;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  transition: box-shadow 0.15s ease;
+  border: 1px solid {bgcol};
 }}
-.tile:hover {{ box-shadow: 0 3px 12px rgba(0,0,0,0.32); }}
+.tile:hover {{
+  z-index: 5;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}}
 .tile .label {{
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.05));
+  background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.0));
   color: #fff;
-  padding: 4px 6px;
-  font-size: 11px;
-  line-height: 1.2;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  padding: 6px 8px 5px;
+  line-height: 1.18;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  pointer-events: none;
 }}
-.tile .label.hidden {{ display: none; }}
-.tile .name {{ font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }}
-.tile .count {{ font-size: 14px; font-weight: 700; }}
+.tile .name {{
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}}
+.tile .count {{
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}}
+.tile.large .name  {{ font-size: 18px; }}
+.tile.large .count {{ font-size: 32px; }}
+.tile.med   .name  {{ font-size: 13px; }}
+.tile.med   .count {{ font-size: 20px; }}
+.tile.small .name  {{ font-size: 10.5px; }}
+.tile.small .count {{ font-size: 14px; }}
+.tile.tiny  .label {{ display: none; }}
 
 .footnote {{
   max-width: 800px;
@@ -236,21 +235,72 @@ h1 {{
 </head>
 <body>
 <h1>{title}</h1>
-<p class="subhead">Each square's area is proportional to that composer's total performances on the orchestra's documented Japan tours. {total_composers} composers, {total_perf} performances total.</p>
+<p class="subhead">Each cell's area is proportional to that composer's total performances on the orchestra's documented Japan tours. {total_composers} composers, {total_perf} performances total — laid out by a squarified treemap algorithm.</p>
 <p class="toolbar">
   <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
   <a href="Program_Ranking.html">Program Ranking →</a>
   <a href="index.html">{title.split(' — ')[0]}</a>
 </p>
 
-<div class="chart">
-{chr(10).join(tiles)}
+<div id="chart-wrap">
+  <div id="chart"></div>
 </div>
 
 <p class="footnote">
 Portraits via <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>.
-Hover over a square for the composer's exact count.
+Hover over any tile for the composer's exact count.
 </p>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script>
+const data = {data_json};
+
+function render() {{
+  const container = document.getElementById('chart');
+  container.innerHTML = '';
+  const W = container.clientWidth;
+  const H = container.clientHeight;
+
+  const root = d3.hierarchy(data)
+    .sum(d => d.value)
+    .sort((a, b) => b.value - a.value);
+
+  d3.treemap()
+    .size([W, H])
+    .paddingInner(2)
+    .tile(d3.treemapSquarify.ratio(1))
+    (root);
+
+  root.leaves().forEach(d => {{
+    const w = d.x1 - d.x0;
+    const h = d.y1 - d.y0;
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    if (w >= 130 && h >= 100) tile.classList.add('large');
+    else if (w >= 80 && h >= 60) tile.classList.add('med');
+    else if (w >= 50 && h >= 40) tile.classList.add('small');
+    else tile.classList.add('tiny');
+    tile.style.left   = d.x0 + 'px';
+    tile.style.top    = d.y0 + 'px';
+    tile.style.width  = w + 'px';
+    tile.style.height = h + 'px';
+    if (d.data.img) tile.style.backgroundImage = `url("${{d.data.img}}")`;
+    tile.title = `${{d.data.name}} — ${{d.data.value}} performances`;
+    tile.innerHTML = `<div class="label">
+      <div class="name">${{d.data.name}}</div>
+      <div class="count">${{d.data.value}}</div>
+    </div>`;
+    container.appendChild(tile);
+  }});
+}}
+
+render();
+window.addEventListener('resize', () => {{
+  // Debounce so resize isn't laggy
+  clearTimeout(window._chartResizeTimer);
+  window._chartResizeTimer = setTimeout(render, 100);
+}});
+</script>
 </body>
 </html>
 """

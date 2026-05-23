@@ -43,37 +43,55 @@ h1 {
 }
 .toolbar a:hover { background: #B45309; }
 
-.chart {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 6px;
-  max-width: 1200px;
+#chart-wrap {
+  max-width: 1140px;
   margin: 0 auto;
 }
-.tile {
+#chart {
   position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}
+.tile {
+  position: absolute;
   background-size: cover;
   background-position: center top;
-  border-radius: 4px;
   overflow: hidden;
   cursor: default;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  transition: box-shadow 0.15s ease;
+  border: 1px solid #FFF8EC;
 }
-.tile:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.32); }
+.tile:hover {
+  z-index: 5;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
 .tile .label {
   position: absolute;
   left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.05));
+  background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.0));
   color: #fff;
-  padding: 4px 6px;
-  font-size: 11px;
-  line-height: 1.2;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  padding: 6px 8px 5px;
+  line-height: 1.18;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  pointer-events: none;
 }
-.tile .label.hidden { display: none; }
-.tile .name { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.tile .count { font-size: 14px; font-weight: 700; }
+.tile .name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tile .count {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.tile.large .name  { font-size: 18px; }
+.tile.large .count { font-size: 32px; }
+.tile.med   .name  { font-size: 13px; }
+.tile.med   .count { font-size: 20px; }
+.tile.small .name  { font-size: 10.5px; }
+.tile.small .count { font-size: 14px; }
+.tile.tiny  .label { display: none; }
 
 .footnote {
   max-width: 800px;
@@ -87,47 +105,71 @@ h1 {
 </head>
 <body>
 <h1>Berliner Philharmoniker — Performances by Composer</h1>
-<p class="subhead">Each square's area is proportional to that composer's total performances on the orchestra's documented Japan tours. 28 composers, 293 performances total.</p>
+<p class="subhead">Each cell's area is proportional to that composer's total performances on the orchestra's documented Japan tours. 28 composers, 293 performances total — laid out by a squarified treemap algorithm.</p>
 <p class="toolbar">
   <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
   <a href="Program_Ranking.html">Program Ranking →</a>
   <a href="index.html">Berliner Philharmoniker</a>
 </p>
 
-<div class="chart">
-<div class="tile" style="width:240px;height:240px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Beethoven.jpg?width=480");" title="Beethoven — 77 performances"><div class="label"><div class="name">Beethoven</div><div class="count">77</div></div></div>
-<div class="tile" style="width:197px;height:197px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/JohannesBrahms.jpg?width=394");" title="Brahms — 52 performances"><div class="label"><div class="name">Brahms</div><div class="count">52</div></div></div>
-<div class="tile" style="width:113px;height:113px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Wolfgang-amadeus-mozart_1.jpg?width=320");" title="Mozart — 17 performances"><div class="label"><div class="name">Mozart</div><div class="count">17</div></div></div>
-<div class="tile" style="width:109px;height:109px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Richard_Strauss_in_1894.jpg?width=320");" title="R. Strauss — 16 performances"><div class="label"><div class="name">R. Strauss</div><div class="count">16</div></div></div>
-<div class="tile" style="width:95px;height:95px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/RichardWagner.jpg?width=320");" title="Wagner — 12 performances"><div class="label"><div class="name">Wagner</div><div class="count">12</div></div></div>
-<div class="tile" style="width:95px;height:95px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Gustav_Mahler_1909.jpg?width=320");" title="Mahler — 12 performances"><div class="label"><div class="name">Mahler</div><div class="count">12</div></div></div>
-<div class="tile" style="width:86px;height:86px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Achille-Claude_Debussy.jpg?width=320");" title="Debussy — 10 performances"><div class="label"><div class="name">Debussy</div><div class="count">10</div></div></div>
-<div class="tile" style="width:86px;height:86px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Portr%C3%A4t_des_Komponisten_Pjotr_I._Tschaikowski_(1840-1893).jpg?width=320");" title="Tschaikowsky — 10 performances"><div class="label"><div class="name">Tschaikowsky</div><div class="count">10</div></div></div>
-<div class="tile" style="width:82px;height:82px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Anton_Bruckner_1885_grayscale.jpg?width=320");" title="Bruckner — 9 performances"><div class="label"><div class="name">Bruckner</div><div class="count">9</div></div></div>
-<div class="tile" style="width:77px;height:77px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Alban_Berg_(1885-1935)%2C_by_Schmutzer_1934.png?width=320");" title="Berg — 8 performances"><div class="label"><div class="name">Berg</div><div class="count">8</div></div></div>
-<div class="tile" style="width:77px;height:77px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Maurice_Ravel_1925.jpg?width=320");" title="Ravel — 8 performances"><div class="label"><div class="name">Ravel</div><div class="count">8</div></div></div>
-<div class="tile" style="width:77px;height:77px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Robert_Schumann_1839.jpg?width=320");" title="Schumann — 8 performances"><div class="label"><div class="name">Schumann</div><div class="count">8</div></div></div>
-<div class="tile" style="width:77px;height:77px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Igor_Stravinsky_LOC_32392u.jpg?width=320");" title="Strawinsky — 8 performances"><div class="label"><div class="name">Strawinsky</div><div class="count">8</div></div></div>
-<div class="tile" style="width:72px;height:72px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Antonin_Dvorak.jpg?width=320");" title="Dvořák — 7 performances"><div class="label"><div class="name">Dvořák</div><div class="count">7</div></div></div>
-<div class="tile" style="width:67px;height:67px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Joseph_Haydn.jpg?width=320");" title="Haydn — 6 performances"><div class="label hidden"><div class="name">Haydn</div><div class="count">6</div></div></div>
-<div class="tile" style="width:61px;height:61px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Max_Reger.jpg?width=320");" title="Reger — 5 performances"><div class="label hidden"><div class="name">Reger</div><div class="count">5</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Prokofiev_01.jpg?width=320");" title="Prokofjew — 4 performances"><div class="label hidden"><div class="name">Prokofjew</div><div class="count">4</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Modest_Mussorgsky%2C_1870.jpg?width=320");" title="Mussorgsky — 3 performances"><div class="label hidden"><div class="name">Mussorgsky</div><div class="count">3</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg?width=320");" title="Schubert — 3 performances"><div class="label hidden"><div class="name">Schubert</div><div class="count">3</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Bela_Bartok_1927.jpg?width=320");" title="Bartók — 2 performances"><div class="label hidden"><div class="name">Bartók</div><div class="count">2</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Leonard_Bernstein_by_Jack_Mitchell.jpg?width=320");" title="Bernstein — 2 performances"><div class="label hidden"><div class="name">Bernstein</div><div class="count">2</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Pierre_Boulez_(2004).jpg?width=320");" title="Boulez — 2 performances"><div class="label hidden"><div class="name">Boulez</div><div class="count">2</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Leo%C5%A1_Jan%C3%A1%C4%8Dek_(1854-1928).jpg?width=320");" title="Janáček — 2 performances"><div class="label hidden"><div class="name">Janáček</div><div class="count">2</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Magnus_Lindberg.jpg?width=320");" title="Magnus Lindberg — 2 performances"><div class="label hidden"><div class="name">Magnus Lindberg</div><div class="count">2</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Rachmaninoff_LOC_31550.jpg?width=320");" title="Rachmaninow — 2 performances"><div class="label hidden"><div class="name">Rachmaninow</div><div class="count">2</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Ottorino_Respighi.jpg?width=320");" title="Respighi — 2 performances"><div class="label hidden"><div class="name">Respighi</div><div class="count">2</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Unsuk_Chin_2012.jpg?width=320");" title="Unsuk Chin — 2 performances"><div class="label hidden"><div class="name">Unsuk Chin</div><div class="count">2</div></div></div>
-<div class="tile" style="width:56px;height:56px;background-image: url("https://en.wikipedia.org/wiki/Special:FilePath/Giuseppe_Verdi.jpg?width=320");" title="Verdi — 2 performances"><div class="label hidden"><div class="name">Verdi</div><div class="count">2</div></div></div>
+<div id="chart-wrap">
+  <div id="chart"></div>
 </div>
 
 <p class="footnote">
 Portraits via <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>.
-Hover over a square for the composer's exact count.
+Hover over any tile for the composer's exact count.
 </p>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script>
+const data = {"name": "root", "children": [{"name": "Beethoven", "value": 77, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Beethoven.jpg?width=480"}, {"name": "Brahms", "value": 52, "img": "https://en.wikipedia.org/wiki/Special:FilePath/JohannesBrahms.jpg?width=480"}, {"name": "Mozart", "value": 17, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Wolfgang-amadeus-mozart_1.jpg?width=480"}, {"name": "R. Strauss", "value": 16, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Richard_Strauss_in_1894.jpg?width=480"}, {"name": "Wagner", "value": 12, "img": "https://en.wikipedia.org/wiki/Special:FilePath/RichardWagner.jpg?width=480"}, {"name": "Mahler", "value": 12, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Gustav_Mahler_1909.jpg?width=480"}, {"name": "Debussy", "value": 10, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Achille-Claude_Debussy.jpg?width=480"}, {"name": "Tschaikowsky", "value": 10, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Portr%C3%A4t_des_Komponisten_Pjotr_I._Tschaikowski_(1840-1893).jpg?width=480"}, {"name": "Bruckner", "value": 9, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Anton_Bruckner_1885_grayscale.jpg?width=480"}, {"name": "Berg", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Alban_Berg_(1885-1935)%2C_by_Schmutzer_1934.png?width=480"}, {"name": "Ravel", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Maurice_Ravel_1925.jpg?width=480"}, {"name": "Schumann", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Robert_Schumann_1839.jpg?width=480"}, {"name": "Strawinsky", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Igor_Stravinsky_LOC_32392u.jpg?width=480"}, {"name": "Dvořák", "value": 7, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Antonin_Dvorak.jpg?width=480"}, {"name": "Haydn", "value": 6, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Joseph_Haydn.jpg?width=480"}, {"name": "Reger", "value": 5, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Max_Reger.jpg?width=480"}, {"name": "Prokofjew", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Prokofiev_01.jpg?width=480"}, {"name": "Mussorgsky", "value": 3, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Modest_Mussorgsky%2C_1870.jpg?width=480"}, {"name": "Schubert", "value": 3, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg?width=480"}, {"name": "Bartók", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Bela_Bartok_1927.jpg?width=480"}, {"name": "Bernstein", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Leonard_Bernstein_by_Jack_Mitchell.jpg?width=480"}, {"name": "Boulez", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Pierre_Boulez_(2004).jpg?width=480"}, {"name": "Janáček", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Leo%C5%A1_Jan%C3%A1%C4%8Dek_(1854-1928).jpg?width=480"}, {"name": "Magnus Lindberg", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Magnus_Lindberg.jpg?width=480"}, {"name": "Rachmaninow", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Rachmaninoff_LOC_31550.jpg?width=480"}, {"name": "Respighi", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Ottorino_Respighi.jpg?width=480"}, {"name": "Unsuk Chin", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Unsuk_Chin_2012.jpg?width=480"}, {"name": "Verdi", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Giuseppe_Verdi.jpg?width=480"}]};
+
+function render() {
+  const container = document.getElementById('chart');
+  container.innerHTML = '';
+  const W = container.clientWidth;
+  const H = container.clientHeight;
+
+  const root = d3.hierarchy(data)
+    .sum(d => d.value)
+    .sort((a, b) => b.value - a.value);
+
+  d3.treemap()
+    .size([W, H])
+    .paddingInner(2)
+    .tile(d3.treemapSquarify.ratio(1))
+    (root);
+
+  root.leaves().forEach(d => {
+    const w = d.x1 - d.x0;
+    const h = d.y1 - d.y0;
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    if (w >= 130 && h >= 100) tile.classList.add('large');
+    else if (w >= 80 && h >= 60) tile.classList.add('med');
+    else if (w >= 50 && h >= 40) tile.classList.add('small');
+    else tile.classList.add('tiny');
+    tile.style.left   = d.x0 + 'px';
+    tile.style.top    = d.y0 + 'px';
+    tile.style.width  = w + 'px';
+    tile.style.height = h + 'px';
+    if (d.data.img) tile.style.backgroundImage = `url("${d.data.img}")`;
+    tile.title = `${d.data.name} — ${d.data.value} performances`;
+    tile.innerHTML = `<div class="label">
+      <div class="name">${d.data.name}</div>
+      <div class="count">${d.data.value}</div>
+    </div>`;
+    container.appendChild(tile);
+  });
+}
+
+render();
+window.addEventListener('resize', () => {
+  // Debounce so resize isn't laggy
+  clearTimeout(window._chartResizeTimer);
+  window._chartResizeTimer = setTimeout(render, 100);
+});
+</script>
 </body>
 </html>
