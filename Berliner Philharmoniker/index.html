@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Berliner Philharmoniker</title>
+<meta property="og:title" content="Berliner Philharmoniker — Resources and concert records in Japan">
+<meta property="og:description" content="Concert history, program rankings, composer chart, and roster pages for the BPO's Japan tours (1957–today).">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://en.wikipedia.org/wiki/Special:FilePath/Berliner%20Philharmoniker%20at%20Brandenburg%20Gate%20asv2019-08-24%20img20.jpg?width=1200">
+<meta property="og:url" content="https://shintachibana.github.io/music/Berliner%20Philharmoniker/">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 html, body { min-height: 100%; }
 body {
@@ -63,8 +69,11 @@ p { color: #666; font-size: 14px; margin-bottom: 8px; }
 @media (max-width: 480px) {
   .collage { grid-template-columns: repeat(2, 1fr); }
 }
-.button-list a { display: inline-block; padding: 10px 20px; background: #D97706; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; box-shadow: 0 1px 3px rgba(180,83,9,0.25); }
+.button-list a { display: inline-block; padding: 10px 20px; background: #D97706; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; box-shadow: 0 1px 3px rgba(180,83,9,0.25); transition: background 0.15s ease, box-shadow 0.15s ease; }
 .button-list a:hover { background: #B45309; }
+.button-list a.primary { padding: 13px 26px; font-size: 15px; font-weight: 700; background: #B45309; box-shadow: 0 2px 8px rgba(180,83,9,0.45); }
+.button-list a.primary:hover { background: #92400E; }
+.button-list a.primary::after { content: "  →"; font-weight: 400; }
 </style>
 </head>
 <body>
@@ -73,7 +82,7 @@ p { color: #666; font-size: 14px; margin-bottom: 8px; }
 <p>Resources and concert records in Japan.</p>
 <p class="credit">Founded 1882 · Chefdirigent Kirill Petrenko since 2019.</p>
 <div class="button-list" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;margin:0 0 24px;">
-  <a href="Concerts_in_Japan.html">Concerts in Japan (1957–today)</a>
+  <a class="primary" href="Concerts_in_Japan.html">Concerts in Japan (1957–today)</a>
   <a href="Program_Ranking.html">Concerts in Japan Program Ranking</a>
   <a href="Composer_Chart.html">Performances by Composer</a>
   <div style="display:flex;flex-wrap:wrap;gap:12px;">
