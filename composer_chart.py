@@ -34,7 +34,7 @@ COMPOSER_IMAGE = {
     "Prokofjew":       "Sergei_Prokofiev_circa_1918_over_Chair_Bain.jpg",
     # Wikipedia uses his signature as the article's main image — override
     # with the famous Repin portrait for a real face.
-    "Mussorgsky":      "Ilya_Repin_-_Portrait_of_the_Composer_Modest_Petrovich_Mussorgsky_-_Google_Art_Project.jpg",
+    "Mussorgsky":      "Mussorgsky Repin.jpg",
     "Schubert":        "Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg",
     "Bartók":          "Bartók_Béla_1927.jpg",
     "Bernstein":       "Leonard_Bernstein_by_Jack_Mitchell_(high_quality).jpg",
