@@ -18,15 +18,28 @@ body {
 .container { max-width: 600px; margin: 0 auto; }
 h1 { font-size: 22px; margin-bottom: 8px; color: #000; }
 p { color: #666; font-size: 14px; margin-bottom: 32px; }
-a { display: inline-block; padding: 10px 20px; background: #D97706; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; box-shadow: 0 1px 3px rgba(180,83,9,0.25); }
-a:hover { background: #B45309; }
+.hero { margin: 0 0 8px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
+.hero img { display: block; width: 100%; height: auto; }
+.hero-caption { font-size: 11px; color: #888; margin: 0 0 28px; text-align: right; }
+.hero-caption a { all: unset; color: #888; text-decoration: underline; cursor: pointer; }
+.hero-caption a:hover { color: #555; }
+.button-list a { display: inline-block; padding: 10px 20px; background: #D97706; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; box-shadow: 0 1px 3px rgba(180,83,9,0.25); }
+.button-list a:hover { background: #B45309; }
 </style>
 </head>
 <body>
 <div class="container">
 <h1>Berliner Philharmoniker</h1>
 <p>Resources and concert records.</p>
-<div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+<div class="hero">
+  <img src="https://en.wikipedia.org/wiki/Special:FilePath/Berliner%20Philharmoniker%20at%20Brandenburg%20Gate%20asv2019-08-24%20img20.jpg?width=960"
+       alt="Berliner Philharmoniker performing an open-air concert at the Brandenburg Gate in August 2019, conducted by Kirill Petrenko.">
+</div>
+<p class="hero-caption">
+  Open-air concert at the Brandenburg Gate, 24 August 2019 — Kirill Petrenko. Photo
+  <a href="https://commons.wikimedia.org/wiki/File:Berliner_Philharmoniker_at_Brandenburg_Gate_asv2019-08-24_img20.jpg" target="_blank" rel="noopener">A. Savin / Wikimedia Commons, FAL</a>.
+</p>
+<div class="button-list" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
   <a href="Concerts_in_Japan.html">Concerts in Japan (1957–today)</a>
   <a href="Program_Ranking.html">Concerts in Japan Program Ranking</a>
   <a href="Composer_Chart.html">Performances by Composer</a>

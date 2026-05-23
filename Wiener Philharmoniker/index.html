@@ -18,15 +18,28 @@ body {
 .container { max-width: 600px; margin: 0 auto; }
 h1 { font-size: 22px; margin-bottom: 8px; color: #000; }
 p { color: #666; font-size: 14px; margin-bottom: 32px; }
-a { display: inline-block; padding: 10px 20px; background: #9F1239; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; box-shadow: 0 1px 3px rgba(159,18,57,0.25); }
-a:hover { background: #831234; }
+.hero { margin: 0 0 8px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
+.hero img { display: block; width: 100%; height: auto; }
+.hero-caption { font-size: 11px; color: #888; margin: 0 0 28px; text-align: right; }
+.hero-caption a { all: unset; color: #888; text-decoration: underline; cursor: pointer; }
+.hero-caption a:hover { color: #555; }
+.button-list a { display: inline-block; padding: 10px 20px; background: #9F1239; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; box-shadow: 0 1px 3px rgba(159,18,57,0.25); }
+.button-list a:hover { background: #831234; }
 </style>
 </head>
 <body>
 <div class="container">
 <h1>Wiener Philharmoniker</h1>
 <p>Resources and concert records.</p>
-<div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
+<div class="hero">
+  <img src="https://en.wikipedia.org/wiki/Special:FilePath/Schoenbrunn%20philharmoniker%202012.jpg?width=960"
+       alt="Wiener Philharmoniker performing the Sommernachtskonzert in front of Schloss Schönbrunn, 2012.">
+</div>
+<p class="hero-caption">
+  Sommernachtskonzert in front of Schloss Schönbrunn, 2012. Photo
+  <a href="https://commons.wikimedia.org/wiki/File:Schoenbrunn_philharmoniker_2012.jpg" target="_blank" rel="noopener">Superbass / Wikimedia Commons, CC BY-SA 3.0</a>.
+</p>
+<div class="button-list" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
   <a href="Concerts_in_Japan.html">Concerts in Japan (1956–today)</a>
   <a href="Program_Ranking.html">Concerts in Japan Program Ranking</a>
   <a href="Composer_Chart.html">Performances by Composer</a>
