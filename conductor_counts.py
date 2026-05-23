@@ -43,11 +43,18 @@ def main():
     with open(RANKING, encoding="utf-8") as f:
         ranking = f.read()
 
-    # Pull the ranking work names (col 2 of each ranking row)
+    # Pull the ranking work names (col 2 of each ranking row).
+    # Tolerate an optional <a>…</a> wrapper around the work name (used for
+    # Wikipedia links). Capture the opening anchor tag so we can re-apply
+    # the same link when we rebuild each row — otherwise every regenerate
+    # would silently strip the Wikipedia links.
     ranking_rows = re.findall(
-        r"<tr><td>(\d+)</td><td>([^<]+)</td><td>(\d+)</td>", ranking
+        r"<tr><td>(\d+)</td><td>(<a [^>]*>)?([^<]+)(?:</a>)?</td><td>(\d+)</td>",
+        ranking,
     )
-    ranking_works = [r[1] for r in ranking_rows]
+    # ranking_rows tuples are (rank, anchor_open_or_empty, work, total).
+    work_link = {r[2]: r[1] for r in ranking_rows if r[1]}  # work → <a …> tag
+    ranking_works = [r[2] for r in ranking_rows]
     # Longest-prefix match priority
     sorted_works = sorted(set(ranking_works), key=len, reverse=True)
 
@@ -75,7 +82,7 @@ def main():
 
     # --check: print counts vs ranking totals to verify
     if "--check" in sys.argv:
-        for rank, work, total in ranking_rows:
+        for rank, _link, work, total in ranking_rows:
             actual_total = sum(counts[work].values())
             mark = "OK" if actual_total == int(total) else f"MISMATCH (expected {total})"
             print(f"#{rank} {work}: total={actual_total} {mark}")
@@ -98,8 +105,9 @@ def main():
 
     # 2. Append a 4th <td> to each data row with the per-conductor breakdown
     # Build the new tbody from scratch: sort by (descending total, work name) and renumber.
-    works_in_table = [w for _, w, _ in re.findall(
-        r"<tr><td>(\d+)</td><td>([^<]+)</td><td>(\d+)</td>", new_ranking
+    works_in_table = [t[2] for t in re.findall(
+        r"<tr><td>(\d+)</td><td>(<a [^>]*>)?([^<]+)(?:</a>)?</td><td>(\d+)</td>",
+        new_ranking,
     )]
     # Dedup but preserve first-occurrence order (not used for sorting, just for completeness)
     seen = set()
@@ -128,8 +136,11 @@ def main():
             for c, n in sorted(breakdown.items(), key=lambda x: (-x[1], x[0]))
         ]
         cell = "<br>".join(lines) if lines else "—"
+        # Re-apply the Wikipedia anchor wrapper if this work had one.
+        anchor = work_link.get(work, "")
+        work_html = f"{anchor}{work}</a>" if anchor else work
         new_rows.append(
-            f"<tr><td>{current_rank}</td><td>{work}</td>"
+            f"<tr><td>{current_rank}</td><td>{work_html}</td>"
             f"<td>{total}</td><td>{cell}</td></tr>"
         )
 

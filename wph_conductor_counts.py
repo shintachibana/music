@@ -112,6 +112,19 @@ def main():
     tbody = tbody_match.group(1)
     rows = re.findall(r"<tr>.*?</tr>", tbody, re.DOTALL)
 
+    # Capture any existing Wikipedia anchor wrappers in the ranking file so
+    # we can re-apply them when rebuilding the tbody (otherwise every regen
+    # silently strips the link layer). Key by work name — multiple works
+    # can share the same anchor (e.g. Tristan und Isolde linked from both
+    # the opera and the Vorspiel+Liebestod row), so a flat anchor→work dict
+    # would lose entries to overwrite.
+    work_link = {}
+    for anchor, work in re.findall(
+        r"<tr><td>\d+</td><td>(<a [^>]*>)([^<]+)</a></td>",
+        ranking,
+    ):
+        work_link[work] = anchor
+
     work_counts = {}
 
     for row in rows:
@@ -155,8 +168,10 @@ def main():
             for c, n in sorted(conductors.items(), key=lambda x: (-x[1], x[0]))
         ]
         cell = "<br>".join(lines)
+        anchor = work_link.get(work, "")
+        work_html = f"{anchor}{work}</a>" if anchor else work
         new_rows.append(
-            f"<tr><td>{current_rank}</td><td>{work}</td><td>{total}</td><td>{cell}</td></tr>"
+            f"<tr><td>{current_rank}</td><td>{work_html}</td><td>{total}</td><td>{cell}</td></tr>"
         )
 
     new_tbody = "<tbody>\n" + "\n".join(new_rows) + "\n</tbody>"
