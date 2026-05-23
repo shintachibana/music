@@ -216,6 +216,11 @@ h1 {{
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
+  border: 2px solid {accent};
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.4);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.10);
 }}
 .tile {{
   position: absolute;
