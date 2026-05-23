@@ -10,37 +10,42 @@ import sys
 from urllib.parse import quote
 
 # Composer name (as it appears in the ranking page) → Wikimedia Commons filename.
-# Resolves through https://en.wikipedia.org/wiki/Special:FilePath/<file>?width=N
-# which redirects to the real upload.wikimedia.org URL — stable across renames.
+# Resolved by querying Wikipedia's REST API for each composer's article and
+# pulling the infobox image. Filenames stored raw (Unicode, parens, etc.) —
+# wiki_image() URL-encodes them at use time.
 COMPOSER_IMAGE = {
-    "Beethoven":       "Beethoven.jpg",
-    "Brahms":          "JohannesBrahms.jpg",
-    "Mozart":          "Wolfgang-amadeus-mozart_1.jpg",
-    "R. Strauss":      "Richard_Strauss_in_1894.jpg",
+    # BPO data
+    "Beethoven":       "Joseph_Karl_Stieler's_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg",
+    "Brahms":          "JohannesBrahms_(cropped).jpg",
+    "Mozart":          "The_Mozart_Family_-_Wolfgang_Amadeus_Mozart_headshot.jpg",
+    "R. Strauss":      "1904_Richard_Strauss_(cropped).jpg",
     "Wagner":          "RichardWagner.jpg",
-    "Mahler":          "Gustav_Mahler_1909.jpg",
-    "Debussy":         "Achille-Claude_Debussy.jpg",
-    "Tschaikowsky":    "Porträt_des_Komponisten_Pjotr_I._Tschaikowski_(1840-1893).jpg",
-    "Bruckner":        "Anton_Bruckner_1885_grayscale.jpg",
-    "Berg":            "Alban_Berg_(1885-1935),_by_Schmutzer_1934.png",
+    "Mahler":          "Photo_of_Gustav_Mahler_by_Moritz_Nähr_01.jpg",
+    "Debussy":         "Claude_Debussy_by_Atelier_Nadar.jpg",
+    "Tschaikowsky":    "Tchaikovsky_by_Reutlinger_(cropped).jpg",
+    "Bruckner":        "Anton_Bruckner.jpg",
+    "Berg":            "Alban_Berg_(1885–1935)_~1930_©_Max_Fenichel_(1885–1942).jpg",
     "Ravel":           "Maurice_Ravel_1925.jpg",
     "Schumann":        "Robert_Schumann_1839.jpg",
     "Strawinsky":      "Igor_Stravinsky_LOC_32392u.jpg",
-    "Dvořák":          "Antonin_Dvorak.jpg",
+    "Dvořák":          "Dvorak.jpg",
     "Haydn":           "Joseph_Haydn.jpg",
-    "Reger":           "Max_Reger.jpg",
-    "Prokofjew":       "Sergei_Prokofiev_01.jpg",
-    "Mussorgsky":      "Modest_Mussorgsky,_1870.jpg",
+    "Reger":           "Max_Reger_playing_piano.jpg",
+    "Prokofjew":       "Sergei_Prokofiev_circa_1918_over_Chair_Bain.jpg",
+    # Wikipedia uses his signature as the article's main image — override
+    # with the famous Repin portrait for a real face.
+    "Mussorgsky":      "Ilya_Repin_-_Portrait_of_the_Composer_Modest_Petrovich_Mussorgsky_-_Google_Art_Project.jpg",
     "Schubert":        "Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg",
-    "Bartók":          "Bela_Bartok_1927.jpg",
-    "Bernstein":       "Leonard_Bernstein_by_Jack_Mitchell.jpg",
-    "Boulez":          "Pierre_Boulez_(2004).jpg",
-    "Janáček":         "Leoš_Janáček_(1854-1928).jpg",
-    "Magnus Lindberg": "Magnus_Lindberg.jpg",
-    "Rachmaninow":     "Sergei_Rachmaninoff_LOC_31550.jpg",
-    "Respighi":        "Ottorino_Respighi.jpg",
-    "Unsuk Chin":      "Unsuk_Chin_2012.jpg",
-    "Verdi":           "Giuseppe_Verdi.jpg",
+    "Bartók":          "Bartók_Béla_1927.jpg",
+    "Bernstein":       "Leonard_Bernstein_by_Jack_Mitchell_(high_quality).jpg",
+    "Boulez":          "Pierre_Boulez_(1968).jpg",
+    "Janáček":         "Leoš_Janáček_el_1914.png",
+    "Magnus Lindberg": "Magnus_Lindberg_3811.jpg",
+    "Rachmaninow":     "Sergei_Rachmaninoff_cph.3a40575.jpg",
+    "Respighi":        "Ottorino_Respighi,_1927_(cropped).jpg",
+    "Unsuk Chin":      "Unsuk Chin.jpg",
+    "Verdi":           "Giuseppe_Verdi_by_Ferdinand_Mulnier_BW.jpg",
+    # WPO-only composers (resolved similarly)
     "Bach":            "Johann_Sebastian_Bach.jpg",
     "Mendelssohn":     "Felix_Mendelssohn_Bartholdy.jpg",
     "Hikaru Hayashi":  "Hikaru_Hayashi.jpg",
