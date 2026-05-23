@@ -37,6 +37,10 @@ def is_placeholder(w: str) -> bool:
         return True
     if low.startswith("german/austrian core"):
         return True
+    # "J. Strauss: dance selections" / "Josef Strauss: dance selections" —
+    # encore grab-bags from gala concerts, not a single named work.
+    if low.endswith(": dance selections"):
+        return True
     return False
 
 
