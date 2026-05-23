@@ -50,6 +50,7 @@ COMPOSER_IMAGE = {
     "Mendelssohn":     "Felix_Mendelssohn_Bartholdy.jpg",
     "Hikaru Hayashi":  "Hikaru_Hayashi.jpg",
     "J. Strauss II":   "Johann_Strauss_II_by_Fritz_Luckhardt.jpg",
+    "J. Strauss":      "Johann_Strauss_II_by_Fritz_Luckhardt.jpg",
     "Josef Strauss":   "Josef_Strauss.jpg",
     "Rossini":         "Étienne_Carjat,_Portrait_of_Gioachino_Rossini_-_Google_Art_Project.jpg",
     "Liszt":           "Franz_Liszt_by_Pierre_Petit.jpg",

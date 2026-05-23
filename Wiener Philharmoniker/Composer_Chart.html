@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiener Philharmoniker — Performances by Composer</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  margin: 0;
+  padding: 60px 20px;
+  color: #222;
+  background-color: #FBF1F4;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%239F1239' fill-opacity='0.16'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.15'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%239F1239' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.14'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%230F766E' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%239F1239' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%239F1239' fill-opacity='0.14'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+h1 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0 0 8px;
+  text-align: center;
+  color: #000;
+}
+.subhead {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 24px;
+}
+.toolbar { text-align: center; margin-bottom: 28px; }
+.toolbar a {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 13px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 0 4px;
+  color: #fff;
+  background: #9F1239;
+  box-shadow: 0 1px 3px rgba(159,18,57,0.25);
+}
+.toolbar a:hover { background: #831234; }
+
+#chart-wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+#chart {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border: 2px solid #9F1239;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.4);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.10);
+}
+.tile {
+  position: absolute;
+  background-size: cover;
+  background-position: center 22%;  /* favour the upper-middle so faces stay centred */
+  overflow: hidden;
+  cursor: default;
+  transition: box-shadow 0.15s ease;
+  border: 1px solid #FBF1F4;
+}
+.tile:hover {
+  z-index: 5;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
+.tile .label {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.0));
+  color: #fff;
+  padding: 5px 7px 4px;
+  line-height: 1.12;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  pointer-events: none;
+}
+.tile .name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tile .count {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.tile.hide-label .label { display: none; }
+
+/* Hover tooltip listing each composer's works */
+#tooltip {
+  position: fixed;
+  z-index: 100;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.32);
+  padding: 12px 14px 10px;
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #222;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+#tooltip.visible { opacity: 1; }
+#tooltip h3 {
+  margin: 0 0 8px;
+  padding: 0 0 6px;
+  border-bottom: 2px solid #9F1239;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+#tooltip h3 .composer-total {
+  color: #9F1239;
+  font-size: 18px;
+}
+#tooltip ol {
+  margin: 0;
+  padding-left: 22px;
+}
+#tooltip li { margin: 1px 0; }
+#tooltip .work-count {
+  float: right;
+  font-weight: 700;
+  color: #831234;
+  margin-left: 8px;
+}
+
+.footnote {
+  max-width: 800px;
+  margin: 32px auto 0;
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<h1>Wiener Philharmoniker — Performances by Composer</h1>
+<p class="subhead">Each cell's area is proportional to that composer's total performances on the orchestra's documented Japan tours. 40 composers, 696 performances total — laid out by a squarified treemap algorithm.</p>
+<p class="toolbar">
+  <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
+  <a href="Program_Ranking.html">Program Ranking →</a>
+  <a href="index.html">Wiener Philharmoniker</a>
+</p>
+
+<div id="chart-wrap">
+  <div id="chart"></div>
+</div>
+
+<div id="tooltip" role="tooltip"></div>
+
+<p class="footnote">
+Portraits via <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>.
+Hover over any tile for the full list of works by that composer.
+</p>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script>
+const data = {"name": "root", "children": [{"name": "Beethoven", "value": 134, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg?width=480", "works": [["Sinfonie Nr. 7 A-Dur", 29], ["Sinfonie Nr. 3 Es-Dur", 19], ["Sinfonie Nr. 5 c-Moll", 16], ["Sinfonie Nr. 6 F-Dur", 15], ["Sinfonie Nr. 4 B-Dur", 13], ["Coriolan-Ouvertüre", 9], ["Sinfonie Nr. 8 F-Dur", 7], ["Klavierkonzert Nr. 3 c-Moll", 4], ["Ouvertüre Leonore Nr. 3", 4], ["Sinfonie Nr. 1 C-Dur", 4], ["Sinfonie Nr. 2 D-Dur", 4], ["Sinfonie Nr. 9 d-Moll", 4], ["Die Geschöpfe des Prometheus, Ouvertüre", 3], ["Egmont-Ouvertüre", 3]]}, {"name": "Mozart", "value": 107, "img": "https://en.wikipedia.org/wiki/Special:FilePath/The_Mozart_Family_-_Wolfgang_Amadeus_Mozart_headshot.jpg?width=480", "works": [["Sinfonie Nr. 41 C-Dur", 15], ["Sinfonie Nr. 40 g-Moll", 13], ["Sinfonie Nr. 39 Es-Dur", 9], ["Sinfonie Nr. 38 D-Dur", 8], ["Fagottkonzert B-Dur", 6], ["Sinfonia concertante Es-Dur", 6], ["Sinfonie Nr. 29 A-Dur", 6], ["Sinfonie Nr. 35 D-Dur", 6], ["Serenade Nr. 13 G-Dur", 5], ["Divertimento Nr. 2 D-Dur", 4], ["Hornkonzert Nr. 3 Es-Dur", 4], ["Ouvertüre Die Entführung aus dem Serail", 4], ["Sinfonie Nr. 36 C-Dur", 4], ["Sinfonie Nr. 25 g-Moll", 3], ["Flötenkonzert Nr. 1 G-Dur", 2], ["Klavierkonzert Nr. 23 A-Dur", 2], ["Klavierkonzert Nr. 25 C-Dur", 2], ["Le nozze di Figaro, Ouvertüre", 2], ["Sinfonie Nr. 33 B-Dur", 2], ["Sinfonie Nr. 34 C-Dur", 2], ["Violinkonzert Nr. 5 A-Dur", 2]]}, {"name": "Schubert", "value": 71, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg?width=480", "works": [["Sinfonie Nr. 8 h-Moll", 37], ["Sinfonie Nr. 9 C-Dur", 11], ["Sinfonie Nr. 5 B-Dur", 7], ["Rosamunde-Ouvertüre", 5], ["Sinfonie Nr. 4 c-Moll", 4], ["Sinfonie Nr. 6 C-Dur", 4], ["Sinfonie Nr. 3 D-Dur", 3]]}, {"name": "R. Strauss", "value": 60, "img": "https://en.wikipedia.org/wiki/Special:FilePath/1904_Richard_Strauss_(cropped).jpg?width=480", "works": [["Till Eulenspiegels lustige Streiche", 18], ["Don Juan", 12], ["Ein Heldenleben", 10], ["Der Rosenkavalier", 6], ["Tod und Verklärung", 6], ["Also sprach Zarathustra", 4], ["Don Quixote", 2], ["Eine Alpensinfonie", 2]]}, {"name": "Brahms", "value": 57, "img": "https://en.wikipedia.org/wiki/Special:FilePath/JohannesBrahms_(cropped).jpg?width=480", "works": [["Sinfonie Nr. 4 e-Moll", 15], ["Sinfonie Nr. 1 c-Moll", 12], ["Sinfonie Nr. 2 D-Dur", 11], ["Haydn-Variationen", 5], ["Doppelkonzert für Violine und Violoncello a-Moll", 4], ["Sinfonie Nr. 3 F-Dur", 3], ["Variationen über ein Thema von Haydn", 3], ["Tragische Ouvertüre", 2], ["Violinkonzert D-Dur", 2]]}, {"name": "J. Strauss II", "value": 36, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Johann_Strauss_II_by_Fritz_Luckhardt.jpg?width=480", "works": [["Annen-Polka", 5], ["Kaiser-Walzer", 5], ["Wiener Blut, Walzer", 4], ["Libellen-Polka mazur", 3], ["Ouvertüre Der Zigeunerbaron", 3], ["Ouvertüre Die Fledermaus", 3], ["Ouvertüre Waldmeister", 3], ["Perpetuum mobile", 3], ["Pizzicato-Polka", 3], ["Egyptischer Marsch", 2], ["Künstlerleben, Walzer", 2]]}, {"name": "Dvořák", "value": 22, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Dvorak.jpg?width=480", "works": [["Sinfonie Nr. 9 e-Moll", 13], ["Sinfonie Nr. 8 G-Dur", 6], ["Sinfonie Nr. 7 d-Moll", 3]]}, {"name": "Bruckner", "value": 18, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Anton_Bruckner.jpg?width=480", "works": [["Sinfonie Nr. 7 E-Dur", 6], ["Sinfonie Nr. 4 Es-Dur", 5], ["Sinfonie Nr. 5 B-Dur", 4], ["Sinfonie Nr. 8 c-Moll", 3]]}, {"name": "Wagner", "value": 16, "img": "https://en.wikipedia.org/wiki/Special:FilePath/RichardWagner.jpg?width=480", "works": [["Siegfried-Idyll", 6], ["Götterdämmerung, Orchesterstücke", 3], ["Tristan und Isolde, Vorspiel und Liebestod", 3], ["Tannhäuser, Ouvertüre", 2], ["Tristan und Isolde, Liebestod", 2]]}, {"name": "Rossini", "value": 13, "img": "https://en.wikipedia.org/wiki/Special:FilePath/%C3%89tienne_Carjat%2C_Portrait_of_Gioachino_Rossini_-_Google_Art_Project.jpg?width=480", "works": [["Ouvertüre Semiramide", 8], ["Il viaggio a Reims", 5]]}, {"name": "Haydn", "value": 13, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Joseph_Haydn.jpg?width=480", "works": [["Sinfonie Nr. 104 D-Dur", 7], ["Sinfonie Nr. 60 C-Dur", 4], ["Sinfonie Nr. 67 F-Dur Hob. I:67", 2]]}, {"name": "Mahler", "value": 13, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Photo_of_Gustav_Mahler_by_Moritz_N%C3%A4hr_01.jpg?width=480", "works": [["Sinfonie Nr. 5 cis-Moll", 5], ["Sinfonie Nr. 1 D-Dur", 4], ["Sinfonie Nr. 4 G-Dur", 2], ["Sinfonie Nr. 9 D-Dur", 2]]}, {"name": "Schumann", "value": 11, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Robert_Schumann_1839.jpg?width=480", "works": [["Klavierkonzert a-Moll", 4], ["Sinfonie Nr. 3 Es-Dur", 4], ["Sinfonie Nr. 2 C-Dur", 3]]}, {"name": "Strawinsky", "value": 10, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Igor_Stravinsky_LOC_32392u.jpg?width=480", "works": [["Divertimento aus Le baiser de la fée", 5], ["Petruschka", 3], ["Suite aus L'oiseau de feu", 2]]}, {"name": "Webern", "value": 10, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Anton_Webern.jpg?width=480", "works": [["Fünf Stücke für Orchester", 4], ["Konzert für neun Instrumente", 2], ["Passacaglia", 2], ["Sechs Stücke für Orchester", 2]]}, {"name": "Bach", "value": 9, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Johann_Sebastian_Bach.jpg?width=480", "works": [["Orchestersuite Nr. 2 h-Moll", 6], ["Ricercar a 6 aus Das musikalische Opfer", 3]]}, {"name": "Tschaikowsky", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Tchaikovsky_by_Reutlinger_(cropped).jpg?width=480", "works": [["Sinfonie Nr. 5 e-Moll", 5], ["Sinfonie Nr. 6 h-Moll", 3]]}, {"name": "Verdi", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Giuseppe_Verdi_by_Ferdinand_Mulnier_BW.jpg?width=480", "works": [["I vespri siciliani, Ballettmusik Le quattro stagioni", 4], ["Ouvertüre Giovanna d'Arco", 4]]}, {"name": "Josef Strauss", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Josef_Strauss.jpg?width=480", "works": [["Jockey-Polka", 3], ["Mein Lebenslauf ist Lieb' und Lust, Walzer", 3], ["dance selections", 2]]}, {"name": "Schostakowitsch", "value": 6, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Dmitri_Shostakovich_credit_Deutsche_Fotothek_adjusted.jpg?width=480", "works": [["Sinfonie Nr. 5 d-Moll", 3], ["Sinfonie Nr. 9 Es-Dur", 3]]}, {"name": "Mendelssohn", "value": 5, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Felix_Mendelssohn_Bartholdy.jpg?width=480", "works": [["Sinfonie Nr. 4 A-Dur", 5]]}, {"name": "Mussorgsky", "value": 5, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Mussorgsky%20Repin.jpg?width=480", "works": [["Chowanschtschina, Vorspiel zum 1. Akt", 3], ["Eine Nacht auf dem kahlen Berge", 2]]}, {"name": "Bartók", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Bart%C3%B3k_B%C3%A9la_1927.jpg?width=480", "works": [["Suite aus Der wunderbare Mandarin", 4]]}, {"name": "Liszt", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Franz_Liszt_by_Pierre_Petit.jpg?width=480", "works": [["Klavierkonzert Nr. 1 Es-Dur", 4]]}, {"name": "Wolf", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Hugo_Wolf_3.jpg?width=480", "works": [["Italienische Serenade", 4]]}, {"name": "Debussy", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Claude_Debussy_by_Atelier_Nadar.jpg?width=480", "works": [["La mer", 2], ["aus Nocturnes", 2]]}, {"name": "Prokofjew", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Prokofiev_circa_1918_over_Chair_Bain.jpg?width=480", "works": [["Sinfonie Nr. 1 D-Dur", 2], ["Violinkonzert Nr. 1 D-Dur", 2]]}, {"name": "Ravel", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Maurice_Ravel_1925.jpg?width=480", "works": [["Daphnis et Chloé, Suite Nr. 2", 2], ["Rapsodie espagnole", 2]]}, {"name": "Rimsky-Korsakow", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Valentin_Serov_-_Portrait_of_the_Composer_Nikolai_Rimsky-Korsakov_-_Google_Art_Project.jpg?width=480", "works": [["Russische Ostern, Ouvertüre", 2], ["Scheherazade", 2]]}, {"name": "Sibelius", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Jean_Sibelius%2C_1939.jpg?width=480", "works": [["Der Schwan von Tuonela", 2], ["Sinfonie Nr. 2 D-Dur", 2]]}, {"name": "Takemitsu", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Toru_Takemitsu_1961.jpg?width=480", "works": [["Nostalghia", 2], ["Visions", 2]]}, {"name": "Berg", "value": 3, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Alban_Berg_(1885%E2%80%931935)_~1930_%C2%A9_Max_Fenichel_(1885%E2%80%931942).jpg?width=480", "works": [["Wozzeck", 3]]}, {"name": "Saint-Saëns", "value": 3, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Saint-Sa%C3%ABns%2C_Camille_-_Petit_1900.jpg?width=480", "works": [["Klavierkonzert Nr. 2 g-Moll", 3]]}, {"name": "Chopin", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Frederic_Chopin_photo.jpeg?width=480", "works": [["Klavierkonzert Nr. 1 e-Moll", 2]]}, {"name": "Falla", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Manuel_de_Falla.jpg?width=480", "works": [["El sombrero de tres picos, Suite Nr. 2", 2]]}, {"name": "Hindemith", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Paul_Hindemith_1923.jpg?width=480", "works": [["Nobilissima visione, Suite", 2]]}, {"name": "J. Strauss", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Johann_Strauss_II_by_Fritz_Luckhardt.jpg?width=480", "works": [["dance selections", 2]]}, {"name": "Rachmaninow", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Rachmaninoff_cph.3a40575.jpg?width=480", "works": [["Klavierkonzert Nr. 3 d-Moll", 2]]}, {"name": "Reznicek", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Emil_Nikolaus_von_Reznicek_-_Eichberg.jpg?width=480", "works": [["Ouvertüre Donna Diana", 2]]}, {"name": "Schönberg", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Arnold_Sch%C3%B6nberg_1948.jpg?width=480", "works": [["Fünf Stücke für Orchester", 2]]}]};
+
+const tooltipEl = document.getElementById('tooltip');
+
+function showTooltip(d, evt) {
+  const works = (d.data.works || []).map(([w, n]) =>
+    `<li>${w}<span class="work-count">${n}</span></li>`).join('');
+  tooltipEl.innerHTML = `
+    <h3>${d.data.name}<span class="composer-total">${d.data.value}</span></h3>
+    <ol>${works || '<li><em>(no works recorded)</em></li>'}</ol>`;
+  moveTooltip(evt);
+  tooltipEl.classList.add('visible');
+}
+
+function hideTooltip() { tooltipEl.classList.remove('visible'); }
+
+function moveTooltip(evt) {
+  const pad = 14;
+  const ttW = tooltipEl.offsetWidth, ttH = tooltipEl.offsetHeight;
+  const vW = window.innerWidth, vH = window.innerHeight;
+  let x = evt.clientX + pad;
+  let y = evt.clientY + pad;
+  if (x + ttW > vW - 8) x = evt.clientX - ttW - pad;
+  if (y + ttH > vH - 8) y = evt.clientY - ttH - pad;
+  if (x < 8) x = 8;
+  if (y < 8) y = 8;
+  tooltipEl.style.left = x + 'px';
+  tooltipEl.style.top  = y + 'px';
+}
+
+function render() {
+  const container = document.getElementById('chart');
+  container.innerHTML = '';
+  const W = container.clientWidth;
+  const H = container.clientHeight;
+
+  const root = d3.hierarchy(data)
+    .sum(d => d.value)
+    .sort((a, b) => b.value - a.value);
+
+  d3.treemap()
+    .size([W, H])
+    .paddingInner(2)
+    .tile(d3.treemapSquarify.ratio(1))
+    (root);
+
+  root.leaves().forEach(d => {
+    const w = d.x1 - d.x0;
+    const h = d.y1 - d.y0;
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.style.left   = d.x0 + 'px';
+    tile.style.top    = d.y0 + 'px';
+    tile.style.width  = w + 'px';
+    tile.style.height = h + 'px';
+    if (d.data.img) tile.style.backgroundImage = `url("${d.data.img}")`;
+
+    // Font sizes scale continuously with tile dimensions
+    const geomMean = Math.sqrt(w * h);
+    let countSize = Math.max(11, Math.min(44, geomMean * 0.13));
+    let nameSize  = Math.max(9,  Math.min(20, geomMean * 0.072));
+    // For very narrow tiles, cap by width to avoid overflow
+    const wCapName  = w * 0.22;
+    const wCapCount = w * 0.40;
+    if (nameSize  > wCapName)  nameSize  = wCapName;
+    if (countSize > wCapCount) countSize = wCapCount;
+    // Hide label entirely if there's no room for legible text
+    if (geomMean < 38 || w < 40 || h < 32) {
+      tile.classList.add('hide-label');
+    }
+
+    tile.innerHTML = `<div class="label" style="padding:${Math.max(2, h*0.04)}px ${Math.max(3, w*0.04)}px ${Math.max(2, h*0.025)}px;">
+      <div class="name"  style="font-size:${nameSize.toFixed(1)}px;">${d.data.name}</div>
+      <div class="count" style="font-size:${countSize.toFixed(1)}px;line-height:1;">${d.data.value}</div>
+    </div>`;
+
+    tile.addEventListener('mouseenter', (evt) => showTooltip(d, evt));
+    tile.addEventListener('mousemove',  moveTooltip);
+    tile.addEventListener('mouseleave', hideTooltip);
+
+    container.appendChild(tile);
+  });
+}
+
+render();
+window.addEventListener('resize', () => {
+  // Debounce so resize isn't laggy
+  clearTimeout(window._chartResizeTimer);
+  window._chartResizeTimer = setTimeout(render, 100);
+});
+</script>
+</body>
+</html>
