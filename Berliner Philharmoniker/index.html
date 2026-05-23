@@ -18,11 +18,33 @@ body {
 .container { max-width: 600px; margin: 0 auto; }
 h1 { font-size: 22px; margin-bottom: 8px; color: #000; }
 p { color: #666; font-size: 14px; margin-bottom: 32px; }
-.hero { margin: 0 0 8px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
-.hero img { display: block; width: 100%; height: auto; }
-.hero-caption { font-size: 11px; color: #888; margin: 0 0 28px; text-align: right; }
-.hero-caption a { all: unset; color: #888; text-decoration: underline; cursor: pointer; }
-.hero-caption a:hover { color: #555; }
+.collage {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin: 0 0 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.20);
+}
+.collage .tile {
+  display: block;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-position: center;
+  background-color: #1a1a1a;
+  transition: filter 0.2s ease;
+  filter: saturate(0.95);
+}
+.collage .tile:hover { filter: saturate(1.15) brightness(1.05); }
+.collage .wide { grid-column: span 2; aspect-ratio: 2; }
+.collage .crop-top { background-position: center 18%; }
+.collage-caption { font-size: 11px; color: #888; margin: 0 0 28px; text-align: right; }
+.collage-caption a { color: #888; text-decoration: underline; }
+.collage-caption a:hover { color: #555; }
+@media (max-width: 480px) {
+  .collage { grid-template-columns: repeat(2, 1fr); }
+}
 .button-list a { display: inline-block; padding: 10px 20px; background: #D97706; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; box-shadow: 0 1px 3px rgba(180,83,9,0.25); }
 .button-list a:hover { background: #B45309; }
 </style>
@@ -31,13 +53,52 @@ p { color: #666; font-size: 14px; margin-bottom: 32px; }
 <div class="container">
 <h1>Berliner Philharmoniker</h1>
 <p>Resources and concert records.</p>
-<div class="hero">
-  <img src="https://en.wikipedia.org/wiki/Special:FilePath/Berliner%20Philharmoniker%20at%20Brandenburg%20Gate%20asv2019-08-24%20img20.jpg?width=960"
-       alt="Berliner Philharmoniker performing an open-air concert at the Brandenburg Gate in August 2019, conducted by Kirill Petrenko.">
+<div class="collage">
+  <a class="tile wide" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Orquestra_Filharm%C3%B2nica_de_Berl%C3%ADn_-_Ilustraci%C3%B3_Catalana.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Orquestra%20Filharm%C3%B2nica%20de%20Berl%C3%ADn%20-%20Ilustraci%C3%B3%20Catalana.jpg?width=960')"
+     aria-label="Illustració Catalana, early-20th-century engraving of the Berliner Philharmoniker (public domain)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Berlin_Philharmonic_in_Helsinki_1941_(5364C;_JOKAHBL3C_B76-1).tif"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Berlin%20Philharmonic%20in%20Helsinki%201941%20(5364C%3B%20JOKAHBL3C%20B76-1).tif?width=480')"
+     aria-label="Berliner Philharmoniker on tour in Helsinki, 1941 (photo Hugo Sundström, CC BY 4.0)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-L0607-504,_Berlin,_Furtw%C3%A4ngler_dirigiert_Konzert_in_AEG-Werk.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Bundesarchiv%20Bild%20183-L0607-504%2C%20Berlin%2C%20Furtw%C3%A4ngler%20dirigiert%20Konzert%20in%20AEG-Werk.jpg?width=480')"
+     aria-label="Wilhelm Furtwängler conducting the Berliner Philharmoniker in the AEG factory hall, 1942 (Bundesarchiv, CC BY-SA 3.0 DE)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Berliner_Philharmonie_Tiergartenstra%C3%9Fe_Berlin.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Berliner%20Philharmonie%20Tiergartenstra%C3%9Fe%20Berlin.jpg?width=480')"
+     aria-label="The Berliner Philharmonie, Hans Scharoun's golden-clad concert hall (Singlespeedfahrer, CC0)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Philharmonie_-_int%C3%A9rieur_(Berlin).jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Philharmonie%20-%20int%C3%A9rieur%20(Berlin).jpg?width=480')"
+     aria-label="Interior of the Philharmonie main auditorium, vineyard-style terraced seating (Gzen92, CC BY-SA 4.0)"></a>
+  <a class="tile crop-top" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Berlin_Philharmonie_Hauptorgel.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Berlin%20Philharmonie%20Hauptorgel.jpg?width=480')"
+     aria-label="The Schuke main organ of the Berliner Philharmonie (Christoph Gaiser, free use)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Berliner_Philharmoniker_at_Brandenburg_Gate_asv2019-08-24_img20.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Berliner%20Philharmoniker%20at%20Brandenburg%20Gate%20asv2019-08-24%20img20.jpg?width=480')"
+     aria-label="Open-air concert at the Brandenburg Gate, August 2019 — Kirill Petrenko conducting (A. Savin, FAL)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Berliner_Philharmoniker_at_Brandenburg_Gate_asv2019-08-24_img04.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Berliner%20Philharmoniker%20at%20Brandenburg%20Gate%20asv2019-08-24%20img04.jpg?width=480')"
+     aria-label="Brandenburg Gate concert audience, 2019 (A. Savin, FAL)"></a>
+  <a class="tile crop-top" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Berliner_Philharmoniker_at_Brandenburg_Gate_asv2019-08-24_img12.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Berliner%20Philharmoniker%20at%20Brandenburg%20Gate%20asv2019-08-24%20img12.jpg?width=480')"
+     aria-label="Brandenburg Gate concert stage view, 2019 (A. Savin, FAL)"></a>
+  <a class="tile wide" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Berlin_Philharmonie_Ukraine-Konzert_asv2022-07_img1_(cropped).jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Berlin%20Philharmonie%20Ukraine-Konzert%20asv2022-07%20img1%20(cropped).jpg?width=960')"
+     aria-label="Ukraine benefit concert in the Philharmonie, July 2022 (A. Savin, FAL)"></a>
 </div>
-<p class="hero-caption">
-  Open-air concert at the Brandenburg Gate, 24 August 2019 — Kirill Petrenko. Photo
-  <a href="https://commons.wikimedia.org/wiki/File:Berliner_Philharmoniker_at_Brandenburg_Gate_asv2019-08-24_img20.jpg" target="_blank" rel="noopener">A. Savin / Wikimedia Commons, FAL</a>.
+<p class="collage-caption">
+  Historical and contemporary photographs of the Berliner Philharmoniker via
+  <a href="https://commons.wikimedia.org/wiki/Category:Berliner_Philharmoniker" target="_blank" rel="noopener">Wikimedia Commons</a>.
+  Click any image for source and full credits.
 </p>
 <div class="button-list" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
   <a href="Concerts_in_Japan.html">Concerts in Japan (1957–today)</a>

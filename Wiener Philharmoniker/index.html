@@ -18,11 +18,33 @@ body {
 .container { max-width: 600px; margin: 0 auto; }
 h1 { font-size: 22px; margin-bottom: 8px; color: #000; }
 p { color: #666; font-size: 14px; margin-bottom: 32px; }
-.hero { margin: 0 0 8px; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.18); }
-.hero img { display: block; width: 100%; height: auto; }
-.hero-caption { font-size: 11px; color: #888; margin: 0 0 28px; text-align: right; }
-.hero-caption a { all: unset; color: #888; text-decoration: underline; cursor: pointer; }
-.hero-caption a:hover { color: #555; }
+.collage {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin: 0 0 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.20);
+}
+.collage .tile {
+  display: block;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-position: center;
+  background-color: #1a1a1a;
+  transition: filter 0.2s ease;
+  filter: saturate(0.95);
+}
+.collage .tile:hover { filter: saturate(1.15) brightness(1.05); }
+.collage .wide { grid-column: span 2; aspect-ratio: 2; }
+.collage .crop-top { background-position: center 18%; }
+.collage-caption { font-size: 11px; color: #888; margin: 0 0 28px; text-align: right; }
+.collage-caption a { color: #888; text-decoration: underline; }
+.collage-caption a:hover { color: #555; }
+@media (max-width: 480px) {
+  .collage { grid-template-columns: repeat(2, 1fr); }
+}
 .button-list a { display: inline-block; padding: 10px 20px; background: #9F1239; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; box-shadow: 0 1px 3px rgba(159,18,57,0.25); }
 .button-list a:hover { background: #831234; }
 </style>
@@ -31,13 +53,52 @@ p { color: #666; font-size: 14px; margin-bottom: 32px; }
 <div class="container">
 <h1>Wiener Philharmoniker</h1>
 <p>Resources and concert records.</p>
-<div class="hero">
-  <img src="https://en.wikipedia.org/wiki/Special:FilePath/Schoenbrunn%20philharmoniker%202012.jpg?width=960"
-       alt="Wiener Philharmoniker performing the Sommernachtskonzert in front of Schloss Schönbrunn, 2012.">
+<div class="collage">
+  <a class="tile wide" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Schoenbrunn_philharmoniker_2012.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Schoenbrunn%20philharmoniker%202012.jpg?width=960')"
+     aria-label="Sommernachtskonzert in front of Schloss Schönbrunn, 2012 (Superbass, CC BY-SA 3.0)"></a>
+  <a class="tile crop-top" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Vienna_Philharmonic-1842-03-28.png"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Vienna%20Philharmonic-1842-03-28.png?width=480')"
+     aria-label="Poster for the Wiener Philharmoniker's founding concert, 28 March 1842 (public domain)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Wiener_Philharmoniker_at_Mahler%27s_time.png"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Wiener%20Philharmoniker%20at%20Mahler%27s%20time.png?width=480')"
+     aria-label="The Wiener Philharmoniker at the time of Gustav Mahler's directorship, late 1890s (public domain)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Hermann_Schmeidel_dirigiert_die_Wiener_Philharmoniker_in_Leoben_(Obersteirische_Musikwoche_1921).jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Hermann%20Schmeidel%20dirigiert%20die%20Wiener%20Philharmoniker%20in%20Leoben%20(Obersteirische%20Musikwoche%201921).jpg?width=480')"
+     aria-label="Hermann Schmeidel conducting the Wiener Philharmoniker at the Obersteirische Musikwoche, Leoben, 1921 (public domain)"></a>
+  <a class="tile crop-top" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Arturo_Toscanini_conducts_the_Vienna_Philharmonic_1936_Otto_Skall.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Arturo%20Toscanini%20conducts%20the%20Vienna%20Philharmonic%201936%20Otto%20Skall.jpg?width=480')"
+     aria-label="Arturo Toscanini conducting the Wiener Philharmoniker, 1936 (photo Otto Skall, public domain)"></a>
+  <a class="tile crop-top" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Sauer-emil-von-foto-georg-fayer-in-kralik-heinrich-die-wiener-philharmoniker-wien-frick-1938-o-s.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Sauer-emil-von-foto-georg-fayer-in-kralik-heinrich-die-wiener-philharmoniker-wien-frick-1938-o-s.jpg?width=480')"
+     aria-label="Group portrait from Heinrich Kralik's Die Wiener Philharmoniker, 1938 (photo Georg Fayer, public domain)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:GoldenerSaalPhilharmonikerball.JPG"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/GoldenerSaalPhilharmonikerball.JPG?width=480')"
+     aria-label="Philharmonikerball in the Goldener Saal of the Wiener Musikverein (PAKES86, public domain)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Wiener_Philharmoniker_und_Riccardo_Muti.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Wiener%20Philharmoniker%20und%20Riccardo%20Muti.jpg?width=480')"
+     aria-label="The Wiener Philharmoniker with Riccardo Muti (Ankallim, CC BY-SA 4.0)"></a>
+  <a class="tile" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Vienna_Philharmonic_Orchestra,_Carnegie_Hall,_conducted_by_Michael_Tilson_Thomas_(47258679582).jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Vienna%20Philharmonic%20Orchestra%2C%20Carnegie%20Hall%2C%20conducted%20by%20Michael%20Tilson%20Thomas%20(47258679582).jpg?width=480')"
+     aria-label="Wiener Philharmoniker at Carnegie Hall, Michael Tilson Thomas conducting, 2019 (Steven Pisano, CC BY 2.0)"></a>
+  <a class="tile wide" target="_blank" rel="noopener"
+     href="https://commons.wikimedia.org/wiki/File:Musikverein_Goldener_Saal.jpg"
+     style="background-image:url('https://en.wikipedia.org/wiki/Special:FilePath/Musikverein%20Goldener%20Saal.jpg?width=960')"
+     aria-label="The Goldener Saal of the Wiener Musikverein, the orchestra's home concert hall (Hieke, CC BY-SA 3.0)"></a>
 </div>
-<p class="hero-caption">
-  Sommernachtskonzert in front of Schloss Schönbrunn, 2012. Photo
-  <a href="https://commons.wikimedia.org/wiki/File:Schoenbrunn_philharmoniker_2012.jpg" target="_blank" rel="noopener">Superbass / Wikimedia Commons, CC BY-SA 3.0</a>.
+<p class="collage-caption">
+  Historical and contemporary photographs of the Wiener Philharmoniker via
+  <a href="https://commons.wikimedia.org/wiki/Category:Wiener_Philharmoniker" target="_blank" rel="noopener">Wikimedia Commons</a>.
+  Click any image for source and full credits.
 </p>
 <div class="button-list" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;">
   <a href="Concerts_in_Japan.html">Concerts in Japan (1956–today)</a>
