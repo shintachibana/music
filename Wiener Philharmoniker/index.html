@@ -22,6 +22,9 @@ body {
   background-repeat: repeat;
 }
 .container { max-width: 600px; margin: 0 auto; }
+.cross-link { position: absolute; top: 12px; right: 18px; font-size: 12px; color: #888; text-decoration: none; }
+.cross-link:hover { color: #831234; text-decoration: underline; }
+.cross-link::after { content: "  →"; }
 h1 { font-size: 22px; margin: 0 0 8px; color: #000; }
 p { color: #666; font-size: 14px; margin-bottom: 8px; }
 .collage {
@@ -77,6 +80,7 @@ p { color: #666; font-size: 14px; margin-bottom: 8px; }
 </style>
 </head>
 <body>
+<a class="cross-link" href="https://shintachibana.github.io/music/Berliner%20Philharmoniker/index.html">Berliner Philharmoniker</a>
 <div class="container">
 <h1>Wiener Philharmoniker</h1>
 <p>Resources and concert records in Japan.</p>
