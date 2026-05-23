@@ -89,7 +89,35 @@ def aggregate(ranking_html: str) -> dict:
     return totals
 
 
-def build_page(orchestra: str, totals: dict) -> str:
+def aggregate_with_works(ranking_html: str) -> dict:
+    """Return {composer: {"total": int, "works": [(work, count), …]}}.
+
+    Used for the hover tooltip that lists each composer's individual works.
+    """
+    rx = re.compile(
+        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?([^<]+?)(?:</a>)?</td><td>(\d+)</td>'
+    )
+    out: dict[str, dict] = {}
+    for m in rx.finditer(ranking_html):
+        full = m.group(1).strip()
+        count = int(m.group(2))
+        if ":" not in full:
+            continue
+        composer_raw, work = full.split(":", 1)
+        composer = composer_raw.strip()
+        composer = composer.split("/")[0].strip()
+        composer = re.sub(r"\s*\([^)]*\)", "", composer).strip()
+        work = work.strip()
+        slot = out.setdefault(composer, {"total": 0, "works": []})
+        slot["works"].append((work, count))
+        slot["total"] += count
+    # Sort each composer's works by descending count
+    for slot in out.values():
+        slot["works"].sort(key=lambda x: -x[1])
+    return out
+
+
+def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
     if orchestra == "bpo":
         title  = "Berliner Philharmoniker — Performances by Composer"
         bgcol  = "#FFF8EC"
@@ -110,10 +138,12 @@ def build_page(orchestra: str, totals: dict) -> str:
     children = []
     for composer, count in sorted(totals.items(), key=lambda x: -x[1]):
         img_filename = COMPOSER_IMAGE.get(composer)
+        works = composer_details.get(composer, {}).get("works", [])
         children.append({
             "name": composer,
             "value": count,
             "img": wiki_image(img_filename, width=480) if img_filename else "",
+            "works": works,
         })
     data_json = json.dumps({"name": "root", "children": children}, ensure_ascii=False)
 
@@ -190,7 +220,7 @@ h1 {{
 .tile {{
   position: absolute;
   background-size: cover;
-  background-position: center top;
+  background-position: center 22%;  /* favour the upper-middle so faces stay centred */
   overflow: hidden;
   cursor: default;
   transition: box-shadow 0.15s ease;
@@ -205,8 +235,8 @@ h1 {{
   left: 0; right: 0; bottom: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.0));
   color: #fff;
-  padding: 6px 8px 5px;
-  line-height: 1.18;
+  padding: 5px 7px 4px;
+  line-height: 1.12;
   text-shadow: 0 1px 2px rgba(0,0,0,0.7);
   pointer-events: none;
 }}
@@ -220,13 +250,52 @@ h1 {{
   font-weight: 800;
   letter-spacing: -0.5px;
 }}
-.tile.large .name  {{ font-size: 18px; }}
-.tile.large .count {{ font-size: 32px; }}
-.tile.med   .name  {{ font-size: 13px; }}
-.tile.med   .count {{ font-size: 20px; }}
-.tile.small .name  {{ font-size: 10.5px; }}
-.tile.small .count {{ font-size: 14px; }}
-.tile.tiny  .label {{ display: none; }}
+.tile.hide-label .label {{ display: none; }}
+
+/* Hover tooltip listing each composer's works */
+#tooltip {{
+  position: fixed;
+  z-index: 100;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.32);
+  padding: 12px 14px 10px;
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #222;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}}
+#tooltip.visible {{ opacity: 1; }}
+#tooltip h3 {{
+  margin: 0 0 8px;
+  padding: 0 0 6px;
+  border-bottom: 2px solid {accent};
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}}
+#tooltip h3 .composer-total {{
+  color: {accent};
+  font-size: 18px;
+}}
+#tooltip ol {{
+  margin: 0;
+  padding-left: 22px;
+}}
+#tooltip li {{ margin: 1px 0; }}
+#tooltip .work-count {{
+  float: right;
+  font-weight: 700;
+  color: {accent_d};
+  margin-left: 8px;
+}}
 
 .footnote {{
   max-width: 800px;
@@ -251,14 +320,44 @@ h1 {{
   <div id="chart"></div>
 </div>
 
+<div id="tooltip" role="tooltip"></div>
+
 <p class="footnote">
 Portraits via <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>.
-Hover over any tile for the composer's exact count.
+Hover over any tile for the full list of works by that composer.
 </p>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script>
 const data = {data_json};
+
+const tooltipEl = document.getElementById('tooltip');
+
+function showTooltip(d, evt) {{
+  const works = (d.data.works || []).map(([w, n]) =>
+    `<li>${{w}}<span class="work-count">${{n}}</span></li>`).join('');
+  tooltipEl.innerHTML = `
+    <h3>${{d.data.name}}<span class="composer-total">${{d.data.value}}</span></h3>
+    <ol>${{works || '<li><em>(no works recorded)</em></li>'}}</ol>`;
+  moveTooltip(evt);
+  tooltipEl.classList.add('visible');
+}}
+
+function hideTooltip() {{ tooltipEl.classList.remove('visible'); }}
+
+function moveTooltip(evt) {{
+  const pad = 14;
+  const ttW = tooltipEl.offsetWidth, ttH = tooltipEl.offsetHeight;
+  const vW = window.innerWidth, vH = window.innerHeight;
+  let x = evt.clientX + pad;
+  let y = evt.clientY + pad;
+  if (x + ttW > vW - 8) x = evt.clientX - ttW - pad;
+  if (y + ttH > vH - 8) y = evt.clientY - ttH - pad;
+  if (x < 8) x = 8;
+  if (y < 8) y = 8;
+  tooltipEl.style.left = x + 'px';
+  tooltipEl.style.top  = y + 'px';
+}}
 
 function render() {{
   const container = document.getElementById('chart');
@@ -281,20 +380,35 @@ function render() {{
     const h = d.y1 - d.y0;
     const tile = document.createElement('div');
     tile.className = 'tile';
-    if (w >= 130 && h >= 100) tile.classList.add('large');
-    else if (w >= 80 && h >= 60) tile.classList.add('med');
-    else if (w >= 50 && h >= 40) tile.classList.add('small');
-    else tile.classList.add('tiny');
     tile.style.left   = d.x0 + 'px';
     tile.style.top    = d.y0 + 'px';
     tile.style.width  = w + 'px';
     tile.style.height = h + 'px';
     if (d.data.img) tile.style.backgroundImage = `url("${{d.data.img}}")`;
-    tile.title = `${{d.data.name}} — ${{d.data.value}} performances`;
-    tile.innerHTML = `<div class="label">
-      <div class="name">${{d.data.name}}</div>
-      <div class="count">${{d.data.value}}</div>
+
+    // Font sizes scale continuously with tile dimensions
+    const geomMean = Math.sqrt(w * h);
+    let countSize = Math.max(11, Math.min(44, geomMean * 0.13));
+    let nameSize  = Math.max(9,  Math.min(20, geomMean * 0.072));
+    // For very narrow tiles, cap by width to avoid overflow
+    const wCapName  = w * 0.22;
+    const wCapCount = w * 0.40;
+    if (nameSize  > wCapName)  nameSize  = wCapName;
+    if (countSize > wCapCount) countSize = wCapCount;
+    // Hide label entirely if there's no room for legible text
+    if (geomMean < 38 || w < 40 || h < 32) {{
+      tile.classList.add('hide-label');
+    }}
+
+    tile.innerHTML = `<div class="label" style="padding:${{Math.max(2, h*0.04)}}px ${{Math.max(3, w*0.04)}}px ${{Math.max(2, h*0.025)}}px;">
+      <div class="name"  style="font-size:${{nameSize.toFixed(1)}}px;">${{d.data.name}}</div>
+      <div class="count" style="font-size:${{countSize.toFixed(1)}}px;line-height:1;">${{d.data.value}}</div>
     </div>`;
+
+    tile.addEventListener('mouseenter', (evt) => showTooltip(d, evt));
+    tile.addEventListener('mousemove',  moveTooltip);
+    tile.addEventListener('mouseleave', hideTooltip);
+
     container.appendChild(tile);
   }});
 }}
@@ -326,8 +440,9 @@ def main():
     with open(ranking_path, encoding="utf-8") as f:
         html = f.read()
     totals = aggregate(html)
+    composer_details = aggregate_with_works(html)
 
-    page = build_page(orchestra, totals)
+    page = build_page(orchestra, totals, composer_details)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(page)
 

@@ -55,7 +55,7 @@ h1 {
 .tile {
   position: absolute;
   background-size: cover;
-  background-position: center top;
+  background-position: center 22%;  /* favour the upper-middle so faces stay centred */
   overflow: hidden;
   cursor: default;
   transition: box-shadow 0.15s ease;
@@ -70,8 +70,8 @@ h1 {
   left: 0; right: 0; bottom: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.0));
   color: #fff;
-  padding: 6px 8px 5px;
-  line-height: 1.18;
+  padding: 5px 7px 4px;
+  line-height: 1.12;
   text-shadow: 0 1px 2px rgba(0,0,0,0.7);
   pointer-events: none;
 }
@@ -85,13 +85,52 @@ h1 {
   font-weight: 800;
   letter-spacing: -0.5px;
 }
-.tile.large .name  { font-size: 18px; }
-.tile.large .count { font-size: 32px; }
-.tile.med   .name  { font-size: 13px; }
-.tile.med   .count { font-size: 20px; }
-.tile.small .name  { font-size: 10.5px; }
-.tile.small .count { font-size: 14px; }
-.tile.tiny  .label { display: none; }
+.tile.hide-label .label { display: none; }
+
+/* Hover tooltip listing each composer's works */
+#tooltip {
+  position: fixed;
+  z-index: 100;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.32);
+  padding: 12px 14px 10px;
+  width: 320px;
+  max-height: 70vh;
+  overflow-y: auto;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #222;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+#tooltip.visible { opacity: 1; }
+#tooltip h3 {
+  margin: 0 0 8px;
+  padding: 0 0 6px;
+  border-bottom: 2px solid #D97706;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+#tooltip h3 .composer-total {
+  color: #D97706;
+  font-size: 18px;
+}
+#tooltip ol {
+  margin: 0;
+  padding-left: 22px;
+}
+#tooltip li { margin: 1px 0; }
+#tooltip .work-count {
+  float: right;
+  font-weight: 700;
+  color: #B45309;
+  margin-left: 8px;
+}
 
 .footnote {
   max-width: 800px;
@@ -116,14 +155,44 @@ h1 {
   <div id="chart"></div>
 </div>
 
+<div id="tooltip" role="tooltip"></div>
+
 <p class="footnote">
 Portraits via <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>.
-Hover over any tile for the composer's exact count.
+Hover over any tile for the full list of works by that composer.
 </p>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script>
-const data = {"name": "root", "children": [{"name": "Beethoven", "value": 77, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg?width=480"}, {"name": "Brahms", "value": 52, "img": "https://en.wikipedia.org/wiki/Special:FilePath/JohannesBrahms_(cropped).jpg?width=480"}, {"name": "Mozart", "value": 17, "img": "https://en.wikipedia.org/wiki/Special:FilePath/The_Mozart_Family_-_Wolfgang_Amadeus_Mozart_headshot.jpg?width=480"}, {"name": "R. Strauss", "value": 16, "img": "https://en.wikipedia.org/wiki/Special:FilePath/1904_Richard_Strauss_(cropped).jpg?width=480"}, {"name": "Wagner", "value": 12, "img": "https://en.wikipedia.org/wiki/Special:FilePath/RichardWagner.jpg?width=480"}, {"name": "Mahler", "value": 12, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Photo_of_Gustav_Mahler_by_Moritz_N%C3%A4hr_01.jpg?width=480"}, {"name": "Debussy", "value": 10, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Claude_Debussy_by_Atelier_Nadar.jpg?width=480"}, {"name": "Tschaikowsky", "value": 10, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Tchaikovsky_by_Reutlinger_(cropped).jpg?width=480"}, {"name": "Bruckner", "value": 9, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Anton_Bruckner.jpg?width=480"}, {"name": "Berg", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Alban_Berg_(1885%E2%80%931935)_~1930_%C2%A9_Max_Fenichel_(1885%E2%80%931942).jpg?width=480"}, {"name": "Ravel", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Maurice_Ravel_1925.jpg?width=480"}, {"name": "Schumann", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Robert_Schumann_1839.jpg?width=480"}, {"name": "Strawinsky", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Igor_Stravinsky_LOC_32392u.jpg?width=480"}, {"name": "Dvořák", "value": 7, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Dvorak.jpg?width=480"}, {"name": "Haydn", "value": 6, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Joseph_Haydn.jpg?width=480"}, {"name": "Reger", "value": 5, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Max_Reger_playing_piano.jpg?width=480"}, {"name": "Prokofjew", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Prokofiev_circa_1918_over_Chair_Bain.jpg?width=480"}, {"name": "Mussorgsky", "value": 3, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Ilya_Repin_-_Portrait_of_the_Composer_Modest_Petrovich_Mussorgsky_-_Google_Art_Project.jpg?width=480"}, {"name": "Schubert", "value": 3, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg?width=480"}, {"name": "Bartók", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Bart%C3%B3k_B%C3%A9la_1927.jpg?width=480"}, {"name": "Bernstein", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Leonard_Bernstein_by_Jack_Mitchell_(high_quality).jpg?width=480"}, {"name": "Boulez", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Pierre_Boulez_(1968).jpg?width=480"}, {"name": "Janáček", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Leo%C5%A1_Jan%C3%A1%C4%8Dek_el_1914.png?width=480"}, {"name": "Magnus Lindberg", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Magnus_Lindberg_3811.jpg?width=480"}, {"name": "Rachmaninow", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Rachmaninoff_cph.3a40575.jpg?width=480"}, {"name": "Respighi", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Ottorino_Respighi%2C_1927_(cropped).jpg?width=480"}, {"name": "Unsuk Chin", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Unsuk%20Chin.jpg?width=480"}, {"name": "Verdi", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Giuseppe_Verdi_by_Ferdinand_Mulnier_BW.jpg?width=480"}]};
+const data = {"name": "root", "children": [{"name": "Beethoven", "value": 77, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Joseph_Karl_Stieler%27s_Beethoven_mit_dem_Manuskript_der_Missa_solemnis.jpg?width=480", "works": [["Sinfonie Nr. 5 c-Moll", 13], ["Sinfonie Nr. 6 F-Dur", 11], ["Sinfonie Nr. 3 Es-Dur", 9], ["Sinfonie Nr. 9 d-Moll", 8], ["Sinfonie Nr. 4 B-Dur", 6], ["Sinfonie Nr. 1 C-Dur", 5], ["Sinfonie Nr. 7 A-Dur", 5], ["Sinfonie Nr. 2 D-Dur", 4], ["Violinkonzert D-Dur", 4], ["Fidelio", 3], ["Sinfonie Nr. 8 F-Dur", 3], ["Egmont", 2], ["Egmont-Ouvertüre", 2], ["Klavierkonzert Nr. 1 C-Dur", 2]]}, {"name": "Brahms", "value": 52, "img": "https://en.wikipedia.org/wiki/Special:FilePath/JohannesBrahms_(cropped).jpg?width=480", "works": [["Sinfonie Nr. 1 c-Moll", 13], ["Sinfonie Nr. 4 e-Moll", 12], ["Sinfonie Nr. 2 D-Dur", 11], ["Sinfonie Nr. 3 F-Dur", 10], ["Variationen über ein Thema von Haydn", 3], ["Violinkonzert D-Dur", 3]]}, {"name": "Mozart", "value": 17, "img": "https://en.wikipedia.org/wiki/Special:FilePath/The_Mozart_Family_-_Wolfgang_Amadeus_Mozart_headshot.jpg?width=480", "works": [["Sinfonie Nr. 29 A-Dur", 7], ["Divertimento", 3], ["Sinfonia concertante Es-Dur", 3], ["Sinfonie Nr. 39 Es-Dur", 2], ["Sinfonie Nr. 41 C-Dur", 2]]}, {"name": "R. Strauss", "value": 16, "img": "https://en.wikipedia.org/wiki/Special:FilePath/1904_Richard_Strauss_(cropped).jpg?width=480", "works": [["Ein Heldenleben", 7], ["Don Juan", 4], ["Don Quixote", 3], ["Also sprach Zarathustra", 2]]}, {"name": "Wagner", "value": 12, "img": "https://en.wikipedia.org/wiki/Special:FilePath/RichardWagner.jpg?width=480", "works": [["Tristan und Isolde, Vorspiel und Liebestod", 5], ["Tristan und Isolde", 3], ["Siegfried-Idyll", 2], ["Tannhäuser-Ouvertüre", 2]]}, {"name": "Mahler", "value": 12, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Photo_of_Gustav_Mahler_by_Moritz_N%C3%A4hr_01.jpg?width=480", "works": [["Sinfonie Nr. 9 D-Dur", 4], ["Rückert-Lieder", 3], ["Sinfonie Nr. 2 c-Moll", 3], ["Sinfonie Nr. 5 cis-Moll", 2]]}, {"name": "Debussy", "value": 10, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Claude_Debussy_by_Atelier_Nadar.jpg?width=480", "works": [["La mer", 6], ["Prélude à l'après-midi d'un faune", 4]]}, {"name": "Tschaikowsky", "value": 10, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Tchaikovsky_by_Reutlinger_(cropped).jpg?width=480", "works": [["Sinfonie Nr. 5 e-Moll", 6], ["Sinfonie Nr. 4 f-Moll", 2], ["Sinfonie Nr. 6 h-Moll", 2]]}, {"name": "Bruckner", "value": 9, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Anton_Bruckner.jpg?width=480", "works": [["Sinfonie Nr. 8 c-Moll", 6], ["Sinfonie Nr. 7 E-Dur", 3]]}, {"name": "Berg", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Alban_Berg_(1885%E2%80%931935)_~1930_%C2%A9_Max_Fenichel_(1885%E2%80%931942).jpg?width=480", "works": [["Drei Orchesterstücke", 5], ["Drei Stücke für Orchester", 3]]}, {"name": "Ravel", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Maurice_Ravel_1925.jpg?width=480", "works": [["Daphnis et Chloé, Suite Nr. 2", 4], ["Boléro", 2], ["Rhapsodie espagnole", 2]]}, {"name": "Schumann", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Robert_Schumann_1839.jpg?width=480", "works": [["Manfred-Ouvertüre", 4], ["Sinfonie Nr. 1 B-Dur", 4]]}, {"name": "Strawinsky", "value": 8, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Igor_Stravinsky_LOC_32392u.jpg?width=480", "works": [["Le sacre du printemps", 4], ["Petruschka", 4]]}, {"name": "Dvořák", "value": 7, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Dvorak.jpg?width=480", "works": [["Sinfonie Nr. 8 G-Dur", 5], ["Symphonische Dichtung Die Waldtaube", 2]]}, {"name": "Haydn", "value": 6, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Joseph_Haydn.jpg?width=480", "works": [["Sinfonie Nr. 86 D-Dur", 3], ["Sinfonie Nr. 92 G-Dur", 3]]}, {"name": "Reger", "value": 5, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Max_Reger_playing_piano.jpg?width=480", "works": [["Mozart-Variationen", 5]]}, {"name": "Prokofjew", "value": 4, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Prokofiev_circa_1918_over_Chair_Bain.jpg?width=480", "works": [["Violinkonzert Nr. 1 D-Dur", 4]]}, {"name": "Mussorgsky", "value": 3, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Ilya_Repin_-_Portrait_of_the_Composer_Modest_Petrovich_Mussorgsky_-_Google_Art_Project.jpg?width=480", "works": [["Bilder einer Ausstellung", 3]]}, {"name": "Schubert", "value": 3, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Franz_Schubert_by_Wilhelm_August_Rieder_1875.jpg?width=480", "works": [["Sinfonie Nr. 8 h-Moll", 3]]}, {"name": "Bartók", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Bart%C3%B3k_B%C3%A9la_1927.jpg?width=480", "works": [["Suite aus Der wunderbare Mandarin", 2]]}, {"name": "Bernstein", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Leonard_Bernstein_by_Jack_Mitchell_(high_quality).jpg?width=480", "works": [["West Side Story, Symphonische Tänze", 2]]}, {"name": "Boulez", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Pierre_Boulez_(1968).jpg?width=480", "works": [["Notations I–IV, VII", 2]]}, {"name": "Janáček", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Leo%C5%A1_Jan%C3%A1%C4%8Dek_el_1914.png?width=480", "works": [["Lašské tance", 2]]}, {"name": "Magnus Lindberg", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Magnus_Lindberg_3811.jpg?width=480", "works": [["Aura", 2]]}, {"name": "Rachmaninow", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Sergei_Rachmaninoff_cph.3a40575.jpg?width=480", "works": [["Sinfonie Nr. 3 a-Moll", 2]]}, {"name": "Respighi", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Ottorino_Respighi%2C_1927_(cropped).jpg?width=480", "works": [["Pini di Roma", 2]]}, {"name": "Unsuk Chin", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Unsuk%20Chin.jpg?width=480", "works": [["Chorós Chordón", 2]]}, {"name": "Verdi", "value": 2, "img": "https://en.wikipedia.org/wiki/Special:FilePath/Giuseppe_Verdi_by_Ferdinand_Mulnier_BW.jpg?width=480", "works": [["Requiem", 2]]}]};
+
+const tooltipEl = document.getElementById('tooltip');
+
+function showTooltip(d, evt) {
+  const works = (d.data.works || []).map(([w, n]) =>
+    `<li>${w}<span class="work-count">${n}</span></li>`).join('');
+  tooltipEl.innerHTML = `
+    <h3>${d.data.name}<span class="composer-total">${d.data.value}</span></h3>
+    <ol>${works || '<li><em>(no works recorded)</em></li>'}</ol>`;
+  moveTooltip(evt);
+  tooltipEl.classList.add('visible');
+}
+
+function hideTooltip() { tooltipEl.classList.remove('visible'); }
+
+function moveTooltip(evt) {
+  const pad = 14;
+  const ttW = tooltipEl.offsetWidth, ttH = tooltipEl.offsetHeight;
+  const vW = window.innerWidth, vH = window.innerHeight;
+  let x = evt.clientX + pad;
+  let y = evt.clientY + pad;
+  if (x + ttW > vW - 8) x = evt.clientX - ttW - pad;
+  if (y + ttH > vH - 8) y = evt.clientY - ttH - pad;
+  if (x < 8) x = 8;
+  if (y < 8) y = 8;
+  tooltipEl.style.left = x + 'px';
+  tooltipEl.style.top  = y + 'px';
+}
 
 function render() {
   const container = document.getElementById('chart');
@@ -146,20 +215,35 @@ function render() {
     const h = d.y1 - d.y0;
     const tile = document.createElement('div');
     tile.className = 'tile';
-    if (w >= 130 && h >= 100) tile.classList.add('large');
-    else if (w >= 80 && h >= 60) tile.classList.add('med');
-    else if (w >= 50 && h >= 40) tile.classList.add('small');
-    else tile.classList.add('tiny');
     tile.style.left   = d.x0 + 'px';
     tile.style.top    = d.y0 + 'px';
     tile.style.width  = w + 'px';
     tile.style.height = h + 'px';
     if (d.data.img) tile.style.backgroundImage = `url("${d.data.img}")`;
-    tile.title = `${d.data.name} — ${d.data.value} performances`;
-    tile.innerHTML = `<div class="label">
-      <div class="name">${d.data.name}</div>
-      <div class="count">${d.data.value}</div>
+
+    // Font sizes scale continuously with tile dimensions
+    const geomMean = Math.sqrt(w * h);
+    let countSize = Math.max(11, Math.min(44, geomMean * 0.13));
+    let nameSize  = Math.max(9,  Math.min(20, geomMean * 0.072));
+    // For very narrow tiles, cap by width to avoid overflow
+    const wCapName  = w * 0.22;
+    const wCapCount = w * 0.40;
+    if (nameSize  > wCapName)  nameSize  = wCapName;
+    if (countSize > wCapCount) countSize = wCapCount;
+    // Hide label entirely if there's no room for legible text
+    if (geomMean < 38 || w < 40 || h < 32) {
+      tile.classList.add('hide-label');
+    }
+
+    tile.innerHTML = `<div class="label" style="padding:${Math.max(2, h*0.04)}px ${Math.max(3, w*0.04)}px ${Math.max(2, h*0.025)}px;">
+      <div class="name"  style="font-size:${nameSize.toFixed(1)}px;">${d.data.name}</div>
+      <div class="count" style="font-size:${countSize.toFixed(1)}px;line-height:1;">${d.data.value}</div>
     </div>`;
+
+    tile.addEventListener('mouseenter', (evt) => showTooltip(d, evt));
+    tile.addEventListener('mousemove',  moveTooltip);
+    tile.addEventListener('mouseleave', hideTooltip);
+
     container.appendChild(tile);
   });
 }
