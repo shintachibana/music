@@ -100,7 +100,7 @@ h1 {
   border-radius: 6px;
   box-shadow: 0 6px 22px rgba(0,0,0,0.32);
   padding: 12px 14px 10px;
-  width: 320px;
+  width: 400px;
   max-height: 70vh;
   overflow-y: auto;
   font-size: 12.5px;
@@ -125,16 +125,33 @@ h1 {
   color: #D97706;
   font-size: 18px;
 }
-#tooltip ol {
+#tooltip ul {
   margin: 0;
-  padding-left: 22px;
+  padding: 0;
+  list-style: none;
 }
-#tooltip li { margin: 1px 0; }
+#tooltip li {
+  margin: 1px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+#tooltip .work-rank {
+  flex: 0 0 auto;
+  min-width: 1.8em;
+  text-align: right;
+  color: #888;
+  font-variant-numeric: tabular-nums;
+}
+#tooltip .work-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 #tooltip .work-count {
-  float: right;
+  flex: 0 0 auto;
   font-weight: 700;
   color: #B45309;
-  margin-left: 8px;
+  font-variant-numeric: tabular-nums;
 }
 
 .footnote {
@@ -174,11 +191,25 @@ const data = {"name": "root", "children": [{"name": "Beethoven", "value": 77, "i
 const tooltipEl = document.getElementById('tooltip');
 
 function showTooltip(d, evt) {
-  const works = (d.data.works || []).map(([w, n]) =>
-    `<li>${w}<span class="work-count">${n}</span></li>`).join('');
+  // Competition-style tied ranks: works sharing a count share a rank,
+  // and the next distinct count skips ahead.
+  const works = d.data.works || [];
+  let prevCount = null;
+  let prevRank = 0;
+  const items = works.map(([w, n], i) => {
+    let rank;
+    if (n === prevCount) {
+      rank = prevRank;
+    } else {
+      rank = i + 1;
+      prevCount = n;
+      prevRank = rank;
+    }
+    return `<li><span class="work-rank">${rank}.</span><span class="work-title">${w}</span><span class="work-count">${n}</span></li>`;
+  }).join('');
   tooltipEl.innerHTML = `
     <h3>${d.data.name}<span class="composer-total">${d.data.value}</span></h3>
-    <ol>${works || '<li><em>(no works recorded)</em></li>'}</ol>`;
+    <ul>${items || '<li><em>(no works recorded)</em></li>'}</ul>`;
   moveTooltip(evt);
   tooltipEl.classList.add('visible');
 }
