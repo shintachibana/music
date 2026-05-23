@@ -1,0 +1,44 @@
+name: Auto-refresh Program Rankings
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Berliner Philharmoniker/Concerts_in_Japan.html'
+      - 'Wiener Philharmoniker/Concerts_in_Japan.html'
+      - 'conductor_counts.py'
+      - 'wph_conductor_counts.py'
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Regenerate BPO Program_Ranking
+        run: python conductor_counts.py --write
+
+      - name: Regenerate WPO Program_Ranking
+        run: python wph_conductor_counts.py
+
+      - name: Commit any changes back to main
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "Berliner Philharmoniker/Program_Ranking.html" \
+                  "Wiener Philharmoniker/Program_Ranking.html"
+          if git diff --cached --quiet; then
+            echo "Rankings already up to date — no commit needed."
+          else
+            git commit -m "Auto-refresh Program Rankings"
+            git push
+          fi
