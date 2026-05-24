@@ -242,10 +242,10 @@ def build_cat_map(concerts: str) -> dict:
     samples = {}
     for row in re.findall(r"<tr>.*?</tr>", tbody_m.group(1), re.DOTALL):
         tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
-        if len(tds) < 6:
+        if len(tds) < 5:
             continue
         composer = None
-        for line in re.split(r"<br\s*/?>", tds[5]):
+        for line in re.split(r"<br\s*/?>", tds[4]):
             plain = strip_tags(line).strip()
             if not plain:
                 continue
@@ -388,10 +388,10 @@ def main():
 
     for row in rows:
         tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
-        if len(tds) < 6:
+        if len(tds) < 5:
             continue
-        conductor = strip_tags(tds[4]).strip()
-        program = tds[5]
+        conductor = strip_tags(tds[3]).strip()
+        program = tds[4]
         for w in expand_program(program):
             normalized = normalize_work(w)
             if is_placeholder(normalized):
