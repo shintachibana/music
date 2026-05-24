@@ -80,6 +80,11 @@ CANONICAL: dict[str, str] = {
     "Mozart: Sinfonie Nr. 41":                                  "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
     "Mozart: Sinfonie Nr. 41 C-Dur":                            "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
     "Mozart: Sinfonie Nr. 41 C-Dur, Jupiter":                   "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
+    # Brahms titled works
+    "Brahms: Variationen über ein Thema von Haydn":             "Brahms: <em>Variationen über ein Thema von Haydn</em>",
+    "Brahms: Haydn-Variationen":                                "Brahms: <em>Variationen über ein Thema von Haydn</em>",
+    "Brahms: Tragische Ouvertüre":                              "Brahms: <em>Tragische Ouvertüre</em>",
+    "Brahms: Akademische Festouvertüre":                        "Brahms: <em>Akademische Festouvertüre</em>",
     # Mussorgsky's Pictures has appeared on BPO Japan tours only in
     # Ravel's orchestration — credit the arranger in the display name.
     "Mussorgsky: Bilder einer Ausstellung":            "Mussorgsky: <em>Bilder einer Ausstellung</em> (Bearbeitung von Maurice Ravel)",
