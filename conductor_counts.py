@@ -72,8 +72,8 @@ CANONICAL: dict[str, str] = {
     "Tschaikowsky: Sinfonie Nr. 6 h-Moll, Pathétique":          "Tschaikowsky: Sinfonie Nr. 6 h-Moll, <em>Pathétique</em>",
     # Mussorgsky's Pictures has appeared on BPO Japan tours only in
     # Ravel's orchestration — credit the arranger in the display name.
-    "Mussorgsky: Bilder einer Ausstellung":            "Mussorgsky: Bilder einer Ausstellung (Bearbeitung von Maurice Ravel)",
-    "Mussorgsky/Ravel: Bilder einer Ausstellung":      "Mussorgsky: Bilder einer Ausstellung (Bearbeitung von Maurice Ravel)",
+    "Mussorgsky: Bilder einer Ausstellung":            "Mussorgsky: <em>Bilder einer Ausstellung</em> (Bearbeitung von Maurice Ravel)",
+    "Mussorgsky/Ravel: Bilder einer Ausstellung":      "Mussorgsky: <em>Bilder einer Ausstellung</em> (Bearbeitung von Maurice Ravel)",
 }
 
 
