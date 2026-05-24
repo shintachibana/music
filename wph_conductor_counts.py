@@ -198,6 +198,7 @@ CANONICAL = {
     "J. Strauss II: Libellen-Polka mazur":             "J. Strauss II: <em>Libellen-Polka mazur</em>",
     "J. Strauss II: Perpetuum mobile":                 "J. Strauss II: <em>Perpetuum mobile</em>",
     "J. Strauss II: Pizzicato-Polka":                  "J. Strauss II: <em>Pizzicato-Polka</em>",
+    "J. Strauss II: Neue Pizzicato-Polka":             "J. Strauss II: <em>Neue Pizzicato-Polka</em>",
     "J. Strauss II: Egyptischer Marsch":               "J. Strauss II: <em>Egyptischer Marsch</em>",
     "J. Strauss II: Künstlerleben, Walzer":            "J. Strauss II: <em>Künstlerleben</em>, Walzer",
     "J. Strauss II: Ouvertüre Der Zigeunerbaron":      "J. Strauss II: Ouvertüre <em>Der Zigeunerbaron</em>",
