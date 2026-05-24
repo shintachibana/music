@@ -80,6 +80,29 @@ def wiki_image(filename: str, width: int = 320) -> str:
     )
 
 
+def placeholder_initials(composer: str, bg_hex: str, accent_dark_hex: str) -> str:
+    """Build a data:image/svg+xml URI showing the composer's initials over an
+    accent-coloured background — used when no portrait is mapped."""
+    # Drop punctuation, split, take first letter of up to two words.
+    parts = [p for p in re.split(r"[\s\-]+", composer) if p]
+    initials = "".join(p[0] for p in parts[:2]).upper() if parts else composer[:1].upper()
+    bg = bg_hex.lstrip("#")
+    fg = accent_dark_hex.lstrip("#")
+    svg = (
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>"
+        f"<defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'>"
+        f"<stop offset='0%' stop-color='#{bg}' stop-opacity='0.95'/>"
+        f"<stop offset='100%' stop-color='#{fg}' stop-opacity='1'/>"
+        f"</linearGradient></defs>"
+        f"<rect width='100' height='100' fill='url(#g)'/>"
+        f"<text x='50' y='62' text-anchor='middle' font-family='Georgia,serif' "
+        f"font-size='42' font-weight='600' fill='#ffffff' "
+        f"style='letter-spacing:1px'>{initials}</text>"
+        "</svg>"
+    )
+    return "data:image/svg+xml;utf8," + quote(svg, safe="")
+
+
 def aggregate(ranking_html: str) -> dict:
     """Return {composer: total_performances} parsed from a Program_Ranking page."""
     # Lazy .+? so that work cells containing their own markup (e.g.
@@ -148,10 +171,14 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
     for composer, count in sorted(totals.items(), key=lambda x: -x[1]):
         img_filename = COMPOSER_IMAGE.get(composer)
         works = composer_details.get(composer, {}).get("works", [])
+        if img_filename:
+            img = wiki_image(img_filename, width=480)
+        else:
+            img = placeholder_initials(composer, accent, accent_d)
         children.append({
             "name": composer,
             "value": count,
-            "img": wiki_image(img_filename, width=480) if img_filename else "",
+            "img": img,
             "works": works,
         })
     data_json = json.dumps({"name": "root", "children": children}, ensure_ascii=False)
