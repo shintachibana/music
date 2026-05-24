@@ -70,6 +70,10 @@ COMPOSER_IMAGE = {
     "Weber":           "Caroline_Bardua_-_Bildnis_des_Komponisten_Carl_Maria_von_Weber.jpg",
     "Smetana":         "Smetana_LCCN2014716851_(cropped).jpg",
     # Hikaru Hayashi — no portrait found on Commons; tile falls back to accent colour.
+    # WPO 1842 founder (his Nicolai-Konzert opened the VPO's first concert)
+    "Nicolai":         "Otto_Nicolai.jpg",
+    # Henri Tomasi — Trombone Concerto played twice by Nelsons/Küblböck 2010
+    "Henri Tomasi":    "Henri_Tomasi_portrait_corse.jpg",
 }
 
 
