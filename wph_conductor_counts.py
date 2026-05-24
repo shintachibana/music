@@ -81,6 +81,16 @@ CANONICAL = {
     "Mendelssohn: Sinfonie Nr. 4 A-Dur":               "Mendelssohn: Sinfonie Nr. 4 A-Dur, <em>Italienische</em>",
     "Bruckner: Sinfonie Nr. 4":                        "Bruckner: Sinfonie Nr. 4 Es-Dur, <em>Romantische</em>",
     "Bruckner: Sinfonie Nr. 4 Es-Dur":                 "Bruckner: Sinfonie Nr. 4 Es-Dur, <em>Romantische</em>",
+    "Mozart: Sinfonie Nr. 36":                         "Mozart: Sinfonie Nr. 36 C-Dur, <em>Linzer</em>",
+    "Mozart: Sinfonie Nr. 36 C-Dur":                   "Mozart: Sinfonie Nr. 36 C-Dur, <em>Linzer</em>",
+    "Schubert: Sinfonie Nr. 4":                        "Schubert: Sinfonie Nr. 4 c-Moll, <em>Tragische</em>",
+    "Schubert: Sinfonie Nr. 4 c-Moll":                 "Schubert: Sinfonie Nr. 4 c-Moll, <em>Tragische</em>",
+    "Schubert: Sinfonie Nr. 6":                        "Schubert: Sinfonie Nr. 6 C-Dur, <em>Kleine</em>",
+    "Schubert: Sinfonie Nr. 6 C-Dur":                  "Schubert: Sinfonie Nr. 6 C-Dur, <em>Kleine</em>",
+    "Schumann: Sinfonie Nr. 3":                        "Schumann: Sinfonie Nr. 3 Es-Dur, <em>Rheinische</em>",
+    "Schumann: Sinfonie Nr. 3 Es-Dur":                 "Schumann: Sinfonie Nr. 3 Es-Dur, <em>Rheinische</em>",
+    "Prokofjew: Sinfonie Nr. 1":                       "Prokofjew: Sinfonie Nr. 1 D-Dur, <em>Klassische</em>",
+    "Prokofjew: Sinfonie Nr. 1 D-Dur":                 "Prokofjew: Sinfonie Nr. 1 D-Dur, <em>Klassische</em>",
     # Brahms titled works
     "Brahms: Haydn-Variationen":                       "Brahms: <em>Variationen über ein Thema von Haydn</em>",
     "Brahms: Variationen über ein Thema von Haydn":    "Brahms: <em>Variationen über ein Thema von Haydn</em>",
@@ -192,23 +202,117 @@ CANONICAL = {
 }
 
 
+CAT_RE = re.compile(
+    r"\b(op\.\s*\d+[a-z]?|KV\s*\d+[a-z]?|BWV\s*\d+|D\.\s*\d+|"
+    r"Hob\.\s*[IV]+:\d+|WAB\s*\d+|Sz\.\s*\d+|TrV\s*\d+|HWV\s*\d+)\b"
+)
+
+KNOWN_COMPOSERS = (
+    "Bach (arr. Webern)", "Bach", "Bartók", "Beethoven", "Berg", "Berlioz",
+    "Bernstein", "Boulez", "Brahms", "Britten", "Bruckner", "Chopin",
+    "Debussy", "Dukas", "Dvořák", "Falla", "Fortner", "Glinka", "Grieg",
+    "Haydn", "Hindemith", "Honegger", "Janáček", "Liszt", "Magnus Lindberg",
+    "Mahler", "Mendelssohn", "Mozart", "Mussorgsky (arr. Schostakowitsch)",
+    "Mussorgsky/Ravel", "Mussorgsky", "Nielsen", "Prokofjew", "R. Strauss",
+    "Rachmaninow", "Ravel", "Reger", "Respighi", "Reznicek", "Rimsky-Korsakow",
+    "Rossini", "Saint-Saëns", "Schönberg", "Schostakowitsch", "Schubert",
+    "Schumann", "Sibelius", "Smetana", "Strawinsky", "Takemitsu",
+    "Tschaikowsky", "Unsuk Chin", "Verdi", "Wagner", "Weber", "Webern",
+    "Wolf", "J. Strauss II", "J. Strauss", "Josef Strauss", "Adès", "Hayashi",
+)
+
+# Populated by main() from the concerts file.
+CAT_MAP: dict = {}
+
+
+def build_cat_map(concerts: str) -> dict:
+    """Walk the concerts page → {(composer, work_base): catalogue_suffix}.
+    Most common catalogue suffix wins per (composer, work_base)."""
+    from collections import Counter
+    tbody_m = re.search(r"<tbody>(.*?)</tbody>", concerts, re.DOTALL)
+    if not tbody_m:
+        return {}
+    samples = {}
+    for row in re.findall(r"<tr>.*?</tr>", tbody_m.group(1), re.DOTALL):
+        tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
+        if len(tds) < 6:
+            continue
+        composer = None
+        for line in re.split(r"<br\s*/?>", tds[5]):
+            plain = strip_tags(line).strip()
+            if not plain:
+                continue
+            prefix = next((c for c in KNOWN_COMPOSERS if plain.startswith(c + ": ")), None)
+            if prefix:
+                composer = prefix
+                work = plain[len(prefix) + 2:]
+            else:
+                work = plain
+            if not composer:
+                continue
+            cat = CAT_RE.search(work)
+            if not cat:
+                continue
+            base = work[:cat.start()].rstrip()
+            base = re.sub(r",\s*[A-Za-zÉ][^,]*$", "", base).strip()
+            base = re.sub(r"\s*\([^)]*\)\s*$", "", base).strip()
+            samples.setdefault((composer, base), Counter())[cat.group(1)] += 1
+    return {k: v.most_common(1)[0][0] for k, v in samples.items()}
+
+
+def append_catalogue(display: str) -> str:
+    """If display lacks a catalogue suffix but CAT_MAP has one, insert it
+    BEFORE any trailing comma-style nickname so the order reads
+    'WORK op. N, <em>Nickname</em>'."""
+    plain = strip_tags(display)
+    if CAT_RE.search(plain):
+        return display
+    composer = next((c for c in KNOWN_COMPOSERS if plain.startswith(c + ": ")), None)
+    if not composer:
+        return display
+    base = plain[len(composer) + 2:]
+    base = re.sub(r",\s*[A-Za-zÉ][^,]*$", "", base).strip()
+    base = re.sub(r"\s*\([^)]*\)\s*$", "", base).strip()
+    cat = CAT_MAP.get((composer, base))
+    if not cat:
+        return display
+    nick_m = re.search(r",\s*<em>[^<]+</em>\s*$", display)
+    if nick_m:
+        return display[:nick_m.start()] + " " + cat + display[nick_m.start():]
+    nick_m = re.search(r",\s*[A-ZÉ][^,]*$", display)
+    if nick_m:
+        return display[:nick_m.start()] + " " + cat + display[nick_m.start():]
+    return display + " " + cat
+
+
 def normalize_work(w: str) -> str:
     w = strip_tags(w).strip()
     # Strip catalog numbers
     w = re.sub(r"\s+op\.\s*\d+[a-z]?", "", w)
-    w = re.sub(r"\s+KV\s*\d+", "", w)
+    w = re.sub(r"\s+KV\s*\d+[a-z]?", "", w)
     w = re.sub(r"\s+BWV\s*\d+", "", w)
     w = re.sub(r"\s+Sz\.\s*\d+", "", w)
     w = re.sub(r"\s+D\.\s*\d+", "", w)
     w = re.sub(r"\s+M\.\s*\d+", "", w)
     w = re.sub(r"\s+WWV\s*\d+", "", w)
     w = re.sub(r"\s+WAB\s*\d+", "", w)
+    w = re.sub(r"\s+Hob\.\s*I:?\d+", "", w)
+    w = re.sub(r"\s+HWV\s*\d+", "", w)
+    w = re.sub(r"\s+TrV\s*\d+", "", w)
     # Strip trailing parentheticals repeatedly (nickname, format, conductor)
     prev = None
     while prev != w:
         prev = w
         w = re.sub(r"\s*\([^)]*\)\s*$", "", w).strip()
-    return CANONICAL.get(w, w)
+    if w in CANONICAL:
+        return append_catalogue(CANONICAL[w])
+    # Try once more with any trailing ", <Nickname>" comma-suffix removed —
+    # so "Beethoven: Sinfonie Nr. 3 Es-Dur, Eroica" collapses to the same
+    # CANONICAL row as "Beethoven: Sinfonie Nr. 3 Es-Dur".
+    bare = re.sub(r",\s*[A-ZÉ][^,]*$", "", w).strip()
+    if bare != w and bare in CANONICAL:
+        return append_catalogue(CANONICAL[bare])
+    return append_catalogue(w)
 
 
 def expand_program(program_html: str):
@@ -238,6 +342,9 @@ def main():
     with open(RANKING, encoding="utf-8") as f:
         ranking = f.read()
 
+    global CAT_MAP
+    CAT_MAP = build_cat_map(concerts)
+
     tbody_match = re.search(r"<tbody>(.*?)</tbody>", concerts, re.DOTALL)
     if not tbody_match:
         print("Could not find <tbody> in concerts file", file=sys.stderr)
@@ -257,6 +364,18 @@ def main():
         ranking,
     ):
         work_link[work] = anchor
+        # Alias: catalogue-appended form so the anchor follows new opus suffixes
+        appended = append_catalogue(work)
+        if appended != work:
+            work_link[appended] = anchor
+        # Alias: historical "em-before-catalogue" → "catalogue-before-em"
+        m = re.search(
+            r",\s*(<em>[^<]+</em>)\s+(\b(?:op\.|KV|BWV|D\.|Hob\.|WAB|Sz\.|TrV|HWV)\s*\d+(?:[a-z]|:?\d+)*\b)",
+            work,
+        )
+        if m:
+            reordered = work[:m.start()] + " " + m.group(2) + ", " + m.group(1) + work[m.end():]
+            work_link[reordered] = anchor
 
     work_counts = {}
 
