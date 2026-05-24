@@ -118,6 +118,8 @@ CANONICAL: dict[str, str] = {
     "Mahler: Rückert-Lieder": "Mahler: <em>Rückert-Lieder</em>",
     # Schumann
     "Schumann: Manfred-Ouvertüre": "Schumann: <em>Manfred</em>-Ouvertüre",
+    "Schumann: Sinfonie Nr. 1 B-Dur, Frühling":           "Schumann: Sinfonie Nr. 1 B-Dur, <em>Frühling</em>",
+    "Schumann: Sinfonie Nr. 1 B-Dur":                     "Schumann: Sinfonie Nr. 1 B-Dur, <em>Frühling</em>",
     # Ravel
     "Ravel: Daphnis et Chloé, Suite Nr. 2": "Ravel: <em>Daphnis et Chloé</em>, Suite Nr. 2",
     "Ravel: La valse": "Ravel: <em>La valse</em>",
