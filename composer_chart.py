@@ -82,8 +82,10 @@ def wiki_image(filename: str, width: int = 320) -> str:
 
 def aggregate(ranking_html: str) -> dict:
     """Return {composer: total_performances} parsed from a Program_Ranking page."""
+    # Lazy .+? so that work cells containing their own markup (e.g.
+    # <em>Unvollendete</em>) still match through to the count column.
     rx = re.compile(
-        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?([^<:]+):[^<]+?(?:</a>)?</td><td>(\d+)</td>'
+        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?([^<:]+):.+?(?:</a>)?</td><td>(\d+)</td>'
     )
     totals: dict[str, int] = {}
     for m in rx.finditer(ranking_html):
@@ -98,9 +100,11 @@ def aggregate_with_works(ranking_html: str) -> dict:
     """Return {composer: {"total": int, "works": [(work, count), …]}}.
 
     Used for the hover tooltip that lists each composer's individual works.
+    Work names retain inline <em> markup so the tooltip stays italic-styled
+    consistently with the ranking page.
     """
     rx = re.compile(
-        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?([^<]+?)(?:</a>)?</td><td>(\d+)</td>'
+        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?(.+?)(?:</a>)?</td><td>(\d+)</td>'
     )
     out: dict[str, dict] = {}
     for m in rx.finditer(ranking_html):

@@ -53,17 +53,23 @@ CANONICAL: dict[str, str] = {
     "Brahms: Klavierkonzert Nr. 1": "Brahms: Klavierkonzert Nr. 1 d-Moll",
     "Brahms: Klavierkonzert Nr. 2": "Brahms: Klavierkonzert Nr. 2 B-Dur",
     # Works with widely-used nicknames — collapse name-only and name+nickname
-    # variants so both feed the same ranking row.
-    "Beethoven: Sinfonie Nr. 3":                       "Beethoven: Sinfonie Nr. 3 Es-Dur, Eroica",
-    "Beethoven: Sinfonie Nr. 3 Es-Dur":                "Beethoven: Sinfonie Nr. 3 Es-Dur, Eroica",
-    "Beethoven: Sinfonie Nr. 6":                       "Beethoven: Sinfonie Nr. 6 F-Dur, Pastorale",
-    "Beethoven: Sinfonie Nr. 6 F-Dur":                 "Beethoven: Sinfonie Nr. 6 F-Dur, Pastorale",
-    "Beethoven: Sinfonie Nr. 9":                       "Beethoven: Sinfonie Nr. 9 d-Moll, Choral",
-    "Beethoven: Sinfonie Nr. 9 d-Moll":                "Beethoven: Sinfonie Nr. 9 d-Moll, Choral",
-    "Schubert: Sinfonie Nr. 8":                        "Schubert: Sinfonie Nr. 8 h-Moll, Unvollendete",
-    "Schubert: Sinfonie Nr. 8 h-Moll":                 "Schubert: Sinfonie Nr. 8 h-Moll, Unvollendete",
-    "Tschaikowsky: Sinfonie Nr. 6":                    "Tschaikowsky: Sinfonie Nr. 6 h-Moll, Pathétique",
-    "Tschaikowsky: Sinfonie Nr. 6 h-Moll":             "Tschaikowsky: Sinfonie Nr. 6 h-Moll, Pathétique",
+    # variants so both feed the same ranking row. Nicknames are wrapped in
+    # <em> for italic display; Schubert 8 also gets its D. 759 catalogue number.
+    "Beethoven: Sinfonie Nr. 3":                                "Beethoven: Sinfonie Nr. 3 Es-Dur, <em>Eroica</em>",
+    "Beethoven: Sinfonie Nr. 3 Es-Dur":                         "Beethoven: Sinfonie Nr. 3 Es-Dur, <em>Eroica</em>",
+    "Beethoven: Sinfonie Nr. 3 Es-Dur, Eroica":                 "Beethoven: Sinfonie Nr. 3 Es-Dur, <em>Eroica</em>",
+    "Beethoven: Sinfonie Nr. 6":                                "Beethoven: Sinfonie Nr. 6 F-Dur, <em>Pastorale</em>",
+    "Beethoven: Sinfonie Nr. 6 F-Dur":                          "Beethoven: Sinfonie Nr. 6 F-Dur, <em>Pastorale</em>",
+    "Beethoven: Sinfonie Nr. 6 F-Dur, Pastorale":               "Beethoven: Sinfonie Nr. 6 F-Dur, <em>Pastorale</em>",
+    "Beethoven: Sinfonie Nr. 9":                                "Beethoven: Sinfonie Nr. 9 d-Moll, <em>Choral</em>",
+    "Beethoven: Sinfonie Nr. 9 d-Moll":                         "Beethoven: Sinfonie Nr. 9 d-Moll, <em>Choral</em>",
+    "Beethoven: Sinfonie Nr. 9 d-Moll, Choral":                 "Beethoven: Sinfonie Nr. 9 d-Moll, <em>Choral</em>",
+    "Schubert: Sinfonie Nr. 8":                                 "Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em> D. 759",
+    "Schubert: Sinfonie Nr. 8 h-Moll":                          "Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em> D. 759",
+    "Schubert: Sinfonie Nr. 8 h-Moll, Unvollendete":            "Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em> D. 759",
+    "Tschaikowsky: Sinfonie Nr. 6":                             "Tschaikowsky: Sinfonie Nr. 6 h-Moll, <em>Pathétique</em>",
+    "Tschaikowsky: Sinfonie Nr. 6 h-Moll":                      "Tschaikowsky: Sinfonie Nr. 6 h-Moll, <em>Pathétique</em>",
+    "Tschaikowsky: Sinfonie Nr. 6 h-Moll, Pathétique":          "Tschaikowsky: Sinfonie Nr. 6 h-Moll, <em>Pathétique</em>",
     # Mussorgsky's Pictures has appeared on BPO Japan tours only in
     # Ravel's orchestration — credit the arranger in the display name.
     "Mussorgsky: Bilder einer Ausstellung":            "Mussorgsky: Bilder einer Ausstellung (Bearbeitung von Maurice Ravel)",
@@ -122,10 +128,11 @@ def main():
         ranking = f.read()
 
     # Preserve any existing <a> wrappers on the ranking so the Wikipedia
-    # link layer survives regeneration.
+    # link layer survives regeneration. The lazy .+? handles work names
+    # that include their own HTML markup (e.g. <em>Unvollendete</em>).
     work_link: dict[str, str] = {}
     for anchor, work in re.findall(
-        r"<tr><td>\d+</td><td>(<a [^>]*>)([^<]+)</a></td>",
+        r"<tr><td>\d+</td><td>(<a [^>]*>)(.+?)</a></td>",
         ranking,
     ):
         work_link[work] = anchor
