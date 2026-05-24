@@ -66,6 +66,9 @@ COMPOSER_IMAGE = {
     "Chopin":          "Frederic_Chopin_photo.jpeg",
     "Reznicek":        "Emilreznicekportrait.jpg",
     "Takemitsu":       "TakemitsuToru.jpg",
+    # 1957 BPO/Karajan tour additions
+    "Weber":           "Caroline_Bardua_-_Bildnis_des_Komponisten_Carl_Maria_von_Weber.jpg",
+    "Smetana":         "Smetana_LCCN2014716851_(cropped).jpg",
     # Hikaru Hayashi — no portrait found on Commons; tile falls back to accent colour.
 }
 
