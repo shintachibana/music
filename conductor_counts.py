@@ -85,6 +85,73 @@ CANONICAL: dict[str, str] = {
     "Brahms: Haydn-Variationen":                                "Brahms: <em>Variationen über ein Thema von Haydn</em>",
     "Brahms: Tragische Ouvertüre":                              "Brahms: <em>Tragische Ouvertüre</em>",
     "Brahms: Akademische Festouvertüre":                        "Brahms: <em>Akademische Festouvertüre</em>",
+    # Beethoven incidental music + overtures
+    "Beethoven: Coriolan-Ouvertüre":                            "Beethoven: <em>Coriolan</em>-Ouvertüre",
+    "Beethoven: Egmont":                                        "Beethoven: <em>Egmont</em>",
+    "Beethoven: Egmont-Ouvertüre":                              "Beethoven: <em>Egmont</em>-Ouvertüre",
+    "Beethoven: Fidelio":                                       "Beethoven: <em>Fidelio</em>",
+    "Beethoven: Leonore-Ouvertüre Nr. 3":                       "Beethoven: <em>Leonore</em>-Ouvertüre Nr. 3",
+    # R. Strauss tone poems
+    "R. Strauss: Ein Heldenleben":                              "R. Strauss: <em>Ein Heldenleben</em>",
+    "R. Strauss: Don Juan":                                     "R. Strauss: <em>Don Juan</em>",
+    "R. Strauss: Don Quixote":                                  "R. Strauss: <em>Don Quixote</em>",
+    "R. Strauss: Also sprach Zarathustra":                      "R. Strauss: <em>Also sprach Zarathustra</em>",
+    "R. Strauss: Till Eulenspiegels lustige Streiche":          "R. Strauss: <em>Till Eulenspiegels lustige Streiche</em>",
+    # Debussy
+    "Debussy: La mer":                                          "Debussy: <em>La mer</em>",
+    "Debussy: Prélude à l'après-midi d'un faune":               "Debussy: <em>Prélude à l'après-midi d'un faune</em>",
+    "Debussy: Nocturnes":                                       "Debussy: <em>Nocturnes</em>",
+    # Stravinsky ballets / orchestral works
+    "Strawinsky: L'oiseau de feu, Suite":                       "Strawinsky: <em>L'oiseau de feu</em>, Suite",
+    "Strawinsky: Le sacre du printemps":                        "Strawinsky: <em>Le sacre du printemps</em>",
+    "Strawinsky: Petruschka":                                   "Strawinsky: <em>Petruschka</em>",
+    # Dvořák
+    "Dvořák: Sinfonie Nr. 9 e-Moll, Aus der Neuen Welt":        "Dvořák: Sinfonie Nr. 9 e-Moll, <em>Aus der Neuen Welt</em>",
+    "Dvořák: Symphonische Dichtung Die Waldtaube":              "Dvořák: Symphonische Dichtung <em>Die Waldtaube</em>",
+    # Wagner operas
+    "Wagner: Die Meistersinger von Nürnberg, Vorspiel zum 1. Akt": "Wagner: <em>Die Meistersinger von Nürnberg</em>, Vorspiel zum 1. Akt",
+    "Wagner: Tristan und Isolde":                               "Wagner: <em>Tristan und Isolde</em>",
+    "Wagner: Tristan und Isolde, Vorspiel und Liebestod":       "Wagner: <em>Tristan und Isolde</em>, Vorspiel und Liebestod",
+    "Wagner: Tannhäuser-Ouvertüre":                             "Wagner: <em>Tannhäuser</em>-Ouvertüre",
+    "Wagner: Siegfried-Idyll":                                  "Wagner: <em>Siegfried-Idyll</em>",
+    # Mahler song cycles
+    "Mahler: Rückert-Lieder":                                   "Mahler: <em>Rückert-Lieder</em>",
+    # Schumann
+    "Schumann: Manfred-Ouvertüre":                              "Schumann: <em>Manfred</em>-Ouvertüre",
+    # Ravel
+    "Ravel: Daphnis et Chloé, Suite Nr. 2":                     "Ravel: <em>Daphnis et Chloé</em>, Suite Nr. 2",
+    "Ravel: La valse":                                          "Ravel: <em>La valse</em>",
+    "Ravel: Boléro":                                            "Ravel: <em>Boléro</em>",
+    "Ravel: Rhapsodie espagnole":                               "Ravel: <em>Rhapsodie espagnole</em>",
+    # Bartók
+    "Bartók: Suite aus Der wunderbare Mandarin":                "Bartók: Suite aus <em>Der wunderbare Mandarin</em>",
+    # Bernstein
+    "Bernstein: West Side Story, Symphonische Tänze":           "Bernstein: <em>West Side Story</em>, Symphonische Tänze",
+    # Hindemith
+    "Hindemith: Sinfonie Mathis der Maler":                     "Hindemith: Sinfonie <em>Mathis der Maler</em>",
+    # Janáček
+    "Janáček: Lašské tance":                                    "Janáček: <em>Lašské tance</em>",
+    # Smetana
+    "Smetana: Die Moldau":                                      "Smetana: <em>Die Moldau</em>",
+    # Mussorgsky (standalone, not the Bilder pictures already handled)
+    "Mussorgsky: Eine Nacht auf dem kahlen Berge":              "Mussorgsky: <em>Eine Nacht auf dem kahlen Berge</em>",
+    # Respighi
+    "Respighi: Pini di Roma":                                   "Respighi: <em>Pini di Roma</em>",
+    # Magnus Lindberg
+    "Magnus Lindberg: Aura":                                    "Magnus Lindberg: <em>Aura</em>",
+    # Unsuk Chin
+    "Unsuk Chin: Chorós Chordón":                               "Unsuk Chin: <em>Chorós Chordón</em>",
+    # Boulez
+    "Boulez: Notations I–IV, VII":                              "Boulez: <em>Notations I–IV, VII</em>",
+    # Reger
+    "Reger: Mozart-Variationen":                                "Reger: <em>Mozart-Variationen</em>",
+    # Berg
+    "Berg: Drei Orchesterstücke":                               "Berg: <em>Drei Orchesterstücke</em>",
+    "Berg: Drei Stücke für Orchester":                          "Berg: <em>Drei Stücke für Orchester</em>",
+    # Weber
+    "Weber: Oberon, Ouvertüre":                                 "Weber: <em>Oberon</em>, Ouvertüre",
+    # Verdi
+    "Verdi: Requiem":                                           "Verdi: <em>Requiem</em>",
     # Mussorgsky's Pictures has appeared on BPO Japan tours only in
     # Ravel's orchestration — credit the arranger in the display name.
     "Mussorgsky: Bilder einer Ausstellung":            "Mussorgsky: <em>Bilder einer Ausstellung</em> (Bearbeitung von Maurice Ravel)",
