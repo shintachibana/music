@@ -35,9 +35,9 @@ p { margin: 0 0 12px; color: #555; font-size: 12px; }
   margin: 0;
   padding: 4px 0 20px;
 }
-.wrap { overflow-x: auto; max-height: calc(100vh - 80px); overflow-y: auto; }
-table { border-collapse: collapse; width: 100%; min-width: 1800px; }
-th:nth-child(6), td:nth-child(6) { min-width: 480px; }
+.wrap { overflow: visible; }
+table { border-collapse: collapse; width: max-content; }
+td:nth-child(6) { white-space: nowrap; }
 thead th {
   position: sticky;
   top: 0;
