@@ -42,19 +42,28 @@ CANONICAL: dict[str, str] = {
     # Beethoven symphonies — sometimes appear with or without op. number
     "Beethoven: Sinfonie Nr. 1": "Beethoven: Sinfonie Nr. 1 C-Dur",
     "Beethoven: Sinfonie Nr. 2": "Beethoven: Sinfonie Nr. 2 D-Dur",
-    "Beethoven: Sinfonie Nr. 3": "Beethoven: Sinfonie Nr. 3 Es-Dur",
     "Beethoven: Sinfonie Nr. 4": "Beethoven: Sinfonie Nr. 4 B-Dur",
     "Beethoven: Sinfonie Nr. 5": "Beethoven: Sinfonie Nr. 5 c-Moll",
-    "Beethoven: Sinfonie Nr. 6": "Beethoven: Sinfonie Nr. 6 F-Dur",
     "Beethoven: Sinfonie Nr. 7": "Beethoven: Sinfonie Nr. 7 A-Dur",
     "Beethoven: Sinfonie Nr. 8": "Beethoven: Sinfonie Nr. 8 F-Dur",
-    "Beethoven: Sinfonie Nr. 9": "Beethoven: Sinfonie Nr. 9 d-Moll",
     "Brahms: Sinfonie Nr. 1": "Brahms: Sinfonie Nr. 1 c-Moll",
     "Brahms: Sinfonie Nr. 2": "Brahms: Sinfonie Nr. 2 D-Dur",
     "Brahms: Sinfonie Nr. 3": "Brahms: Sinfonie Nr. 3 F-Dur",
     "Brahms: Sinfonie Nr. 4": "Brahms: Sinfonie Nr. 4 e-Moll",
     "Brahms: Klavierkonzert Nr. 1": "Brahms: Klavierkonzert Nr. 1 d-Moll",
     "Brahms: Klavierkonzert Nr. 2": "Brahms: Klavierkonzert Nr. 2 B-Dur",
+    # Works with widely-used nicknames — collapse name-only and name+nickname
+    # variants so both feed the same ranking row.
+    "Beethoven: Sinfonie Nr. 3":                       "Beethoven: Sinfonie Nr. 3 Es-Dur, Eroica",
+    "Beethoven: Sinfonie Nr. 3 Es-Dur":                "Beethoven: Sinfonie Nr. 3 Es-Dur, Eroica",
+    "Beethoven: Sinfonie Nr. 6":                       "Beethoven: Sinfonie Nr. 6 F-Dur, Pastorale",
+    "Beethoven: Sinfonie Nr. 6 F-Dur":                 "Beethoven: Sinfonie Nr. 6 F-Dur, Pastorale",
+    "Beethoven: Sinfonie Nr. 9":                       "Beethoven: Sinfonie Nr. 9 d-Moll, Choral",
+    "Beethoven: Sinfonie Nr. 9 d-Moll":                "Beethoven: Sinfonie Nr. 9 d-Moll, Choral",
+    "Schubert: Sinfonie Nr. 8":                        "Schubert: Sinfonie Nr. 8 h-Moll, Unvollendete",
+    "Schubert: Sinfonie Nr. 8 h-Moll":                 "Schubert: Sinfonie Nr. 8 h-Moll, Unvollendete",
+    "Tschaikowsky: Sinfonie Nr. 6":                    "Tschaikowsky: Sinfonie Nr. 6 h-Moll, Pathétique",
+    "Tschaikowsky: Sinfonie Nr. 6 h-Moll":             "Tschaikowsky: Sinfonie Nr. 6 h-Moll, Pathétique",
 }
 
 
