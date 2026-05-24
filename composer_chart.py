@@ -80,24 +80,25 @@ def wiki_image(filename: str, width: int = 320) -> str:
     )
 
 
-def placeholder_initials(composer: str, bg_hex: str, accent_dark_hex: str) -> str:
-    """Build a data:image/svg+xml URI showing the composer's initials over an
-    accent-coloured background — used when no portrait is mapped."""
-    # Drop punctuation, split, take first letter of up to two words.
-    parts = [p for p in re.split(r"[\s\-]+", composer) if p]
-    initials = "".join(p[0] for p in parts[:2]).upper() if parts else composer[:1].upper()
+def placeholder_silhouette(bg_hex: str, accent_dark_hex: str) -> str:
+    """Generic head-and-shoulders silhouette over an accent-coloured
+    gradient — used when no real portrait is available for a composer."""
     bg = bg_hex.lstrip("#")
     fg = accent_dark_hex.lstrip("#")
     svg = (
         "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>"
-        f"<defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'>"
+        "<defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'>"
         f"<stop offset='0%' stop-color='#{bg}' stop-opacity='0.95'/>"
         f"<stop offset='100%' stop-color='#{fg}' stop-opacity='1'/>"
-        f"</linearGradient></defs>"
-        f"<rect width='100' height='100' fill='url(#g)'/>"
-        f"<text x='50' y='62' text-anchor='middle' font-family='Georgia,serif' "
-        f"font-size='42' font-weight='600' fill='#ffffff' "
-        f"style='letter-spacing:1px'>{initials}</text>"
+        "</linearGradient></defs>"
+        "<rect width='100' height='100' fill='url(#g)'/>"
+        # head + shoulders silhouette
+        "<circle cx='50' cy='38' r='15' fill='rgba(255,255,255,0.88)'/>"
+        "<path d='M20,100 C20,74 31,60 50,60 C69,60 80,74 80,100 Z' "
+        "fill='rgba(255,255,255,0.88)'/>"
+        # small treble-clef accent in the upper right corner
+        "<text x='80' y='28' font-family='Georgia,serif' font-size='22' "
+        "fill='rgba(255,255,255,0.55)'>♪</text>"
         "</svg>"
     )
     return "data:image/svg+xml;utf8," + quote(svg, safe="")
@@ -174,7 +175,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         if img_filename:
             img = wiki_image(img_filename, width=480)
         else:
-            img = placeholder_initials(composer, accent, accent_d)
+            img = placeholder_silhouette(accent, accent_d)
         children.append({
             "name": composer,
             "value": count,
