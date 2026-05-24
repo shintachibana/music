@@ -70,6 +70,16 @@ CANONICAL: dict[str, str] = {
     "Tschaikowsky: Sinfonie Nr. 6":                             "Tschaikowsky: Sinfonie Nr. 6 h-Moll, <em>Pathétique</em>",
     "Tschaikowsky: Sinfonie Nr. 6 h-Moll":                      "Tschaikowsky: Sinfonie Nr. 6 h-Moll, <em>Pathétique</em>",
     "Tschaikowsky: Sinfonie Nr. 6 h-Moll, Pathétique":          "Tschaikowsky: Sinfonie Nr. 6 h-Moll, <em>Pathétique</em>",
+    # Mozart symphonies with universally-used nicknames
+    "Mozart: Sinfonie Nr. 35":                                  "Mozart: Sinfonie Nr. 35 D-Dur, <em>Haffner</em>",
+    "Mozart: Sinfonie Nr. 35 D-Dur":                            "Mozart: Sinfonie Nr. 35 D-Dur, <em>Haffner</em>",
+    "Mozart: Sinfonie Nr. 35 D-Dur, Haffner":                   "Mozart: Sinfonie Nr. 35 D-Dur, <em>Haffner</em>",
+    "Mozart: Sinfonie Nr. 38":                                  "Mozart: Sinfonie Nr. 38 D-Dur, <em>Prager</em>",
+    "Mozart: Sinfonie Nr. 38 D-Dur":                            "Mozart: Sinfonie Nr. 38 D-Dur, <em>Prager</em>",
+    "Mozart: Sinfonie Nr. 38 D-Dur, Prager":                    "Mozart: Sinfonie Nr. 38 D-Dur, <em>Prager</em>",
+    "Mozart: Sinfonie Nr. 41":                                  "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
+    "Mozart: Sinfonie Nr. 41 C-Dur":                            "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
+    "Mozart: Sinfonie Nr. 41 C-Dur, Jupiter":                   "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
     # Mussorgsky's Pictures has appeared on BPO Japan tours only in
     # Ravel's orchestration — credit the arranger in the display name.
     "Mussorgsky: Bilder einer Ausstellung":            "Mussorgsky: <em>Bilder einer Ausstellung</em> (Bearbeitung von Maurice Ravel)",
