@@ -16,36 +16,33 @@ body {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%23D97706' fill-opacity='0.16'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.15'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%23D97706' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.14'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%230F766E' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23D97706' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%239F1239' fill-opacity='0.14'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat;
 }
-h1 {
-  font-size: 20px;
-  margin: 0;
-  padding: 12px 0 8px;
-  text-align: center;
-  color: #000;
+.page-header {
   position: sticky;
   top: 0;
   z-index: 5;
   background-color: #FFF8EC;
+  margin: 0 -20px 20px;
+  padding: 12px 20px 14px;
+  box-shadow: 0 2px 0 #FFF8EC;
+}
+h1 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0 0 6px;
+  text-align: center;
+  color: #000;
 }
 .subhead {
   text-align: center;
   font-size: 13px;
   color: #555;
   margin: 0;
-  padding: 0 0 12px;
-  position: sticky;
-  top: 50px;
-  z-index: 4;
-  background-color: #FFF8EC;
+  padding: 0 0 10px;
 }
 .toolbar {
   text-align: center;
-  margin: 0 0 20px;
-  padding: 6px 0 14px;
-  position: sticky;
-  top: 90px;
-  z-index: 3;
-  background-color: #FFF8EC;
+  margin: 0;
+  padding: 0;
 }
 .toolbar a {
   display: inline-block;
@@ -182,6 +179,7 @@ h1 {
 </style>
 </head>
 <body>
+<div class="page-header">
 <h1>Berliner Philharmoniker — Performances by Composer</h1>
 <p class="subhead">Each cell's area is proportional to that composer's total performances on the orchestra's documented Japan tours. 38 composers, 416 performances total — laid out by a squarified treemap algorithm.</p>
 <p class="toolbar">
@@ -189,6 +187,7 @@ h1 {
   <a href="Program_Ranking.html">Program Ranking →</a>
   <a href="index.html">Berliner Philharmoniker</a>
 </p>
+</div>
 
 <div id="chart-wrap">
   <div id="chart"></div>

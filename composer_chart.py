@@ -239,36 +239,33 @@ body {{
   background-image: url("{music_svg}");
   background-repeat: repeat;
 }}
-h1 {{
-  font-size: 20px;
-  margin: 0;
-  padding: 12px 0 8px;
-  text-align: center;
-  color: #000;
+.page-header {{
   position: sticky;
   top: 0;
   z-index: 5;
   background-color: {bgcol};
+  margin: 0 -20px 20px;
+  padding: 12px 20px 14px;
+  box-shadow: 0 2px 0 {bgcol};
+}}
+h1 {{
+  font-size: 20px;
+  margin: 0;
+  padding: 0 0 6px;
+  text-align: center;
+  color: #000;
 }}
 .subhead {{
   text-align: center;
   font-size: 13px;
   color: #555;
   margin: 0;
-  padding: 0 0 12px;
-  position: sticky;
-  top: 50px;
-  z-index: 4;
-  background-color: {bgcol};
+  padding: 0 0 10px;
 }}
 .toolbar {{
   text-align: center;
-  margin: 0 0 20px;
-  padding: 6px 0 14px;
-  position: sticky;
-  top: 90px;
-  z-index: 3;
-  background-color: {bgcol};
+  margin: 0;
+  padding: 0;
 }}
 .toolbar a {{
   display: inline-block;
@@ -405,6 +402,7 @@ h1 {{
 </style>
 </head>
 <body>
+<div class="page-header">
 <h1>{title}</h1>
 <p class="subhead">Each cell's area is proportional to that composer's total performances on the orchestra's documented Japan tours. {total_composers} composers, {total_perf} performances total — laid out by a squarified treemap algorithm.</p>
 <p class="toolbar">
@@ -412,6 +410,7 @@ h1 {{
   <a href="Program_Ranking.html">Program Ranking →</a>
   <a href="index.html">{title.split(' — ')[0]}</a>
 </p>
+</div>
 
 <div id="chart-wrap">
   <div id="chart"></div>
