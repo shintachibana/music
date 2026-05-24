@@ -16,29 +16,26 @@ body {
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%232774B8' fill-opacity='0.13'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%23C2842C' fill-opacity='0.18'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%232774B8' fill-opacity='0.13'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%23C2842C' fill-opacity='0.18'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%23B5365B' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23C2842C' fill-opacity='0.18'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%232774B8' fill-opacity='0.13'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat;
 }
-h1 {
-  font-size: 20px;
-  margin: 0;
-  padding: 24px 0 28px;
-  text-align: center;
+.page-header {
   position: sticky;
   top: 0;
   z-index: 5;
   background-color: #FDFBF2;
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%232774B8' fill-opacity='0.13'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%23C2842C' fill-opacity='0.18'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%232774B8' fill-opacity='0.13'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%23C2842C' fill-opacity='0.18'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%23B5365B' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23C2842C' fill-opacity='0.18'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%232774B8' fill-opacity='0.13'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat;
+  margin: -16px -20px 0;
+  padding: 16px 20px 12px;
+}
+h1 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0 0 10px;
+  text-align: center;
 }
 p { margin: 0 0 12px; color: #555; font-size: 12px; }
 .toolbar {
-  position: sticky;
-  top: 76px;
-  z-index: 4;
-  background-color: #FDFBF2;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%232774B8' fill-opacity='0.13'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%23C2842C' fill-opacity='0.18'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%232774B8' fill-opacity='0.13'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%23C2842C' fill-opacity='0.18'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%23B5365B' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23C2842C' fill-opacity='0.18'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%232774B8' fill-opacity='0.13'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-position: 0 -76px;
   margin: 0;
-  padding: 4px 0 20px;
+  padding: 0;
 }
 .wrap { overflow: visible; }
 table { border-collapse: collapse; width: max-content; }
@@ -56,7 +53,7 @@ tr.notes-panel.open { display: table-row; }
 tr.notes-panel td { padding: 14px 22px; background: #FFF8E7; border-top: none; line-height: 1.55; color: #444; font-size: 12.5px; text-align: left; white-space: normal; max-width: 1100px; }
 thead th {
   position: sticky;
-  top: 132px;
+  top: 88px;
   background: #2774B8;
   color: #fff;
   font-weight: bold;
@@ -94,8 +91,10 @@ thead select option { background: #fff; color: #222; }
 </style>
 </head>
 <body>
+<div class="page-header">
 <h1>Berliner Philharmoniker — Concerts in Japan (1957–today)</h1>
 <p class="toolbar"><button id="sortToggle" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Sort ascending ▲</button><button id="resetFilters" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Reset filters</button><a href="Program_Ranking.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">View Program Ranking →</a><a href="Composer_Chart.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Performances by Composer →</a><a href="index.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Berliner Philharmoniker</a></p>
+</div>
 <div class="wrap">
 <table>
 <thead>
