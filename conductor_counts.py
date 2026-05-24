@@ -80,6 +80,11 @@ CANONICAL: dict[str, str] = {
     "Mozart: Sinfonie Nr. 41": "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
     "Mozart: Sinfonie Nr. 41 C-Dur": "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
     "Mozart: Sinfonie Nr. 41 C-Dur, Jupiter": "Mozart: Sinfonie Nr. 41 C-Dur, <em>Jupiter</em>",
+    # Haydn / Mahler titled symphonies
+    "Haydn: Sinfonie Nr. 92":           "Haydn: Sinfonie Nr. 92 G-Dur, <em>Oxford</em>",
+    "Haydn: Sinfonie Nr. 92 G-Dur":     "Haydn: Sinfonie Nr. 92 G-Dur, <em>Oxford</em>",
+    "Mahler: Sinfonie Nr. 2":           "Mahler: Sinfonie Nr. 2 c-Moll, <em>Auferstehung</em>",
+    "Mahler: Sinfonie Nr. 2 c-Moll":    "Mahler: Sinfonie Nr. 2 c-Moll, <em>Auferstehung</em>",
     # Brahms titled works
     "Brahms: Variationen über ein Thema von Haydn": "Brahms: <em>Variationen über ein Thema von Haydn</em>",
     "Brahms: Haydn-Variationen": "Brahms: <em>Variationen über ein Thema von Haydn</em>",
@@ -278,8 +283,15 @@ def normalize_work(w: str) -> str:
     while prev != w:
         prev = w
         w = re.sub(r"\s*\([^)]*\)\s*$", "", w).strip()
-    canonical = CANONICAL.get(w, w)
-    return append_catalogue(canonical)
+    if w in CANONICAL:
+        return append_catalogue(CANONICAL[w])
+    # Try once more with any trailing ", <Nickname>" comma-suffix removed —
+    # so "Haydn: Sinfonie Nr. 92 G-Dur, Oxford" collapses to the same
+    # CANONICAL row as "Haydn: Sinfonie Nr. 92 G-Dur".
+    bare = re.sub(r",\s*[A-ZÉ][^,]*$", "", w).strip()
+    if bare != w and bare in CANONICAL:
+        return append_catalogue(CANONICAL[bare])
+    return append_catalogue(w)
 
 
 def expand_program(program_html: str):

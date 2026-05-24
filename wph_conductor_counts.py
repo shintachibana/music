@@ -91,6 +91,12 @@ CANONICAL = {
     "Schumann: Sinfonie Nr. 3 Es-Dur":                 "Schumann: Sinfonie Nr. 3 Es-Dur, <em>Rheinische</em>",
     "Prokofjew: Sinfonie Nr. 1":                       "Prokofjew: Sinfonie Nr. 1 D-Dur, <em>Klassische</em>",
     "Prokofjew: Sinfonie Nr. 1 D-Dur":                 "Prokofjew: Sinfonie Nr. 1 D-Dur, <em>Klassische</em>",
+    "Haydn: Sinfonie Nr. 104":                         "Haydn: Sinfonie Nr. 104 D-Dur, <em>Londoner</em>",
+    "Haydn: Sinfonie Nr. 104 D-Dur":                   "Haydn: Sinfonie Nr. 104 D-Dur, <em>Londoner</em>",
+    "Haydn: Sinfonie Nr. 60":                          "Haydn: Sinfonie Nr. 60 C-Dur, <em>Il distratto</em>",
+    "Haydn: Sinfonie Nr. 60 C-Dur":                    "Haydn: Sinfonie Nr. 60 C-Dur, <em>Il distratto</em>",
+    "Mahler: Sinfonie Nr. 1":                          "Mahler: Sinfonie Nr. 1 D-Dur, <em>Titan</em>",
+    "Mahler: Sinfonie Nr. 1 D-Dur":                    "Mahler: Sinfonie Nr. 1 D-Dur, <em>Titan</em>",
     # Brahms titled works
     "Brahms: Haydn-Variationen":                       "Brahms: <em>Variationen über ein Thema von Haydn</em>",
     "Brahms: Variationen über ein Thema von Haydn":    "Brahms: <em>Variationen über ein Thema von Haydn</em>",
