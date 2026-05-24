@@ -40,7 +40,13 @@ table { border-collapse: collapse; width: max-content; }
 td:nth-child(4) { width: 200px; min-width: 200px; max-width: 200px; text-align: center; }
 td:nth-child(6) { white-space: nowrap; }
 td:nth-child(7) { width: 220px; min-width: 220px; max-width: 220px; }
-td:nth-child(8) { width: 340px; min-width: 340px; max-width: 340px; }
+td:nth-child(8) { width: 70px; min-width: 70px; max-width: 70px; text-align: center; padding: 5px 4px; }
+th:nth-child(8) { width: 70px; min-width: 70px; max-width: 70px; text-align: center; }
+.notes-toggle { cursor: pointer; user-select: none; color: #2774B8; font-size: 12px; padding: 3px 6px; border-radius: 3px; }
+.notes-toggle:hover { background: #E5EFFB; }
+tr.notes-panel { display: none; }
+tr.notes-panel.open { display: table-row; }
+tr.notes-panel td { padding: 14px 22px; background: #FFF8E7; border-top: none; line-height: 1.55; color: #444; font-size: 12.5px; text-align: left; white-space: normal; max-width: 1100px; }
 thead th {
   position: sticky;
   top: 132px;
@@ -92,7 +98,7 @@ thead select option { background: #fff; color: #222; }
   <th>Month</th><th>Date</th>
   <th>City (Concert Hall)<br><input class="filter" type="text" data-col="3" placeholder="filter…"></th>
   <th>Conductor<br><select class="filter" data-col="4"><option value="">All</option></select></th>
-  <th>Program</th><th>Soloists</th><th>Reception / Notes</th>
+  <th>Program</th><th>Soloists</th><th>Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -374,6 +380,29 @@ thead select option { background: #fff; color: #222; }
       row.style.display = show ? '' : 'none';
     });
   }
+
+  // --- Notes column: convert long-form notes into an expandable "Details" toggle.
+  // Each row's Notes cell (8th td) is replaced with a small toggle; the actual
+  // notes content moves into a hidden sibling row below that spans the full
+  // table width and toggles open on click.
+  document.querySelectorAll('tbody tr').forEach(function (tr) {
+    var notesCell = tr.cells[7];
+    if (!notesCell) return;
+    var html = notesCell.innerHTML.trim();
+    if (!html) { notesCell.innerHTML = ''; return; }
+    var panel = document.createElement('tr');
+    panel.className = 'notes-panel';
+    var panelTd = document.createElement('td');
+    panelTd.colSpan = 8;
+    panelTd.innerHTML = html;
+    panel.appendChild(panelTd);
+    tr.after(panel);
+    notesCell.innerHTML = '<span class="notes-toggle" title="Show notes">▼ Details</span>';
+    notesCell.firstChild.addEventListener('click', function () {
+      panel.classList.toggle('open');
+      this.textContent = panel.classList.contains('open') ? '▲ Hide' : '▼ Details';
+    });
+  });
 })();
 </script>
 </body>
