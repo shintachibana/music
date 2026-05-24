@@ -80,25 +80,46 @@ def wiki_image(filename: str, width: int = 320) -> str:
     )
 
 
-def placeholder_silhouette(bg_hex: str, accent_dark_hex: str) -> str:
-    """Generic head-and-shoulders silhouette over an accent-coloured
-    gradient — used when no real portrait is available for a composer."""
-    bg = bg_hex.lstrip("#")
-    fg = accent_dark_hex.lstrip("#")
+def placeholder_silhouette(composer: str, page_bg_hex: str) -> str:
+    """Soft, low-contrast silhouette used when no real portrait exists.
+
+    The background sits close to the page colour so the tile doesn't shout.
+    One of four bust variants is chosen deterministically from the composer's
+    name, so portrait-less composers don't all look identical."""
+    import hashlib
+    bg = page_bg_hex.lstrip("#")
+    # Pick one of four silhouette variants deterministically from the name.
+    variant = int(hashlib.md5(composer.encode("utf-8")).hexdigest(), 16) % 4
+    fig_fill = "rgba(120,120,120,0.55)"
+    if variant == 0:
+        # 0: centred bust, round head
+        figure = (
+            "<circle cx='50' cy='40' r='14'/>"
+            "<path d='M22,100 C22,76 32,62 50,62 C68,62 78,76 78,100 Z'/>"
+        )
+    elif variant == 1:
+        # 1: slightly higher and smaller head, broader shoulders
+        figure = (
+            "<circle cx='50' cy='36' r='12'/>"
+            "<path d='M16,100 C16,72 28,58 50,58 C72,58 84,72 84,100 Z'/>"
+        )
+    elif variant == 2:
+        # 2: profile facing right (oval head + sloped shoulders)
+        figure = (
+            "<ellipse cx='48' cy='40' rx='13' ry='15'/>"
+            "<path d='M20,100 C20,74 30,62 48,62 C70,62 82,76 82,100 Z'/>"
+        )
+    else:
+        # 3: taller head with a hint of hair/wig (composer-era touch)
+        figure = (
+            "<path d='M36,40 C36,28 44,22 50,22 C56,22 64,28 64,40 "
+            "L64,46 C64,52 58,56 50,56 C42,56 36,52 36,46 Z'/>"
+            "<path d='M22,100 C22,76 32,62 50,62 C68,62 78,76 78,100 Z'/>"
+        )
     svg = (
         "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>"
-        "<defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'>"
-        f"<stop offset='0%' stop-color='#{bg}' stop-opacity='0.95'/>"
-        f"<stop offset='100%' stop-color='#{fg}' stop-opacity='1'/>"
-        "</linearGradient></defs>"
-        "<rect width='100' height='100' fill='url(#g)'/>"
-        # head + shoulders silhouette
-        "<circle cx='50' cy='38' r='15' fill='rgba(255,255,255,0.88)'/>"
-        "<path d='M20,100 C20,74 31,60 50,60 C69,60 80,74 80,100 Z' "
-        "fill='rgba(255,255,255,0.88)'/>"
-        # small treble-clef accent in the upper right corner
-        "<text x='80' y='28' font-family='Georgia,serif' font-size='22' "
-        "fill='rgba(255,255,255,0.55)'>♪</text>"
+        f"<rect width='100' height='100' fill='#{bg}'/>"
+        f"<g fill='{fig_fill}'>{figure}</g>"
         "</svg>"
     )
     return "data:image/svg+xml;utf8," + quote(svg, safe="")
@@ -175,7 +196,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         if img_filename:
             img = wiki_image(img_filename, width=480)
         else:
-            img = placeholder_silhouette(accent, accent_d)
+            img = placeholder_silhouette(composer, bgcol)
         children.append({
             "name": composer,
             "value": count,
