@@ -184,7 +184,7 @@ body {{
   font-family: Arial, sans-serif;
   font-size: 13px;
   margin: 0;
-  padding: 60px 20px;
+  padding: 24px 20px;
   color: #222;
   background-color: {bgcol};
   background-image: url("{music_svg}");
