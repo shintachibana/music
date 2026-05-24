@@ -226,8 +226,9 @@ def build_cat_map(concerts: str) -> dict[tuple[str, str], str]:
 
 def append_catalogue(display: str) -> str:
     """If `display` lacks a catalogue suffix but CAT_MAP has one for the
-    underlying (composer, work_base), append it. Italic <em> markup,
-    trailing comma-nicknames, and parenthetical asides are all tolerated."""
+    underlying (composer, work_base), insert it. The catalogue goes
+    BEFORE any comma-style nickname so the order reads e.g.
+    "Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>"."""
     plain = strip_tags(display)
     if CAT_RE.search(plain):
         return display
@@ -240,6 +241,14 @@ def append_catalogue(display: str) -> str:
     cat = CAT_MAP.get((composer, base))
     if not cat:
         return display
+    # Insert before a trailing comma-style nickname (with or without <em>);
+    # otherwise just append at the end.
+    nick_m = re.search(r",\s*<em>[^<]+</em>\s*$", display)
+    if nick_m:
+        return display[:nick_m.start()] + " " + cat + display[nick_m.start():]
+    nick_m = re.search(r",\s*[A-ZÉ][^,]*$", display)
+    if nick_m:
+        return display[:nick_m.start()] + " " + cat + display[nick_m.start():]
     return display + " " + cat
 
 
@@ -315,9 +324,23 @@ def main():
         ranking,
     ):
         work_link[work] = anchor
+        # Alias 1: same work with the catalogue appended (covers the case
+        # where the existing row has no catalogue but the new canonical
+        # will).
         appended = append_catalogue(work)
         if appended != work:
             work_link[appended] = anchor
+        # Alias 2: same work with catalogue moved from after the
+        # comma-nickname to before it ("WORK, <em>Nick</em> op. N" →
+        # "WORK op. N, <em>Nick</em>"). Covers the historical "nickname
+        # before catalogue" style this script no longer emits.
+        m = re.search(
+            r",\s*(<em>[^<]+</em>)\s+(\b(?:op\.|KV|BWV|D\.|Hob\.|WAB|Sz\.|TrV|HWV)\s*\d+(?:[a-z]|:?\d+)*\b)",
+            work,
+        )
+        if m:
+            reordered = work[:m.start()] + " " + m.group(2) + ", " + m.group(1) + work[m.end():]
+            work_link[reordered] = anchor
 
     tbody_match = re.search(r"<tbody>(.*?)</tbody>", concerts, re.DOTALL)
     if not tbody_match:
