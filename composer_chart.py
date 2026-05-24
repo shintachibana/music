@@ -242,17 +242,34 @@ body {{
 h1 {{
   font-size: 20px;
   margin: 0;
-  padding: 0 0 8px;
+  padding: 12px 0 8px;
   text-align: center;
   color: #000;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: {bgcol};
 }}
 .subhead {{
   text-align: center;
   font-size: 13px;
   color: #555;
-  margin: 0 0 24px;
+  margin: 0;
+  padding: 0 0 12px;
+  position: sticky;
+  top: 50px;
+  z-index: 4;
+  background-color: {bgcol};
 }}
-.toolbar {{ text-align: center; margin-bottom: 28px; }}
+.toolbar {{
+  text-align: center;
+  margin: 0 0 20px;
+  padding: 6px 0 14px;
+  position: sticky;
+  top: 90px;
+  z-index: 3;
+  background-color: {bgcol};
+}}
 .toolbar a {{
   display: inline-block;
   padding: 6px 14px;
