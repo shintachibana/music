@@ -325,16 +325,37 @@ function render() {
     const g = document.createElementNS(svgNS, 'g');
     g.classList.add('bubble');
 
+    // Per-conductor focal-point overrides for portraits where the
+    // default xMidYMin slice puts the face too high (forehead only)
+    // or off the bubble entirely. Each entry zooms the image and
+    // re-anchors it so that (faceXFrac, faceYFrac) of the source
+    // sits at the bubble centre. Source aspect defaults to 2:3
+    // portrait; override `aspect` if the photo is landscape.
+    const FOCAL = {
+      "Andris Nelsons": { zoom: 3.0, faceXFrac: 0.5, faceYFrac: 0.16, aspect: 1.5 },
+    };
+
     // Portrait — if no image, draw a coloured fill for fallback.
     if (d.data.img) {
       const img = document.createElementNS(svgNS, 'image');
       img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', d.data.img);
       img.setAttribute('href', d.data.img);
-      img.setAttribute('x', d.x - d.r);
-      img.setAttribute('y', d.y - d.r);
-      img.setAttribute('width', d.r * 2);
-      img.setAttribute('height', d.r * 2);
-      img.setAttribute('preserveAspectRatio', 'xMidYMin slice');
+      const focal = FOCAL[d.data.name];
+      if (focal) {
+        const W = 2 * d.r * focal.zoom;
+        const H = W * focal.aspect;
+        img.setAttribute('width',  W);
+        img.setAttribute('height', H);
+        img.setAttribute('x', d.x - focal.faceXFrac * W);
+        img.setAttribute('y', d.y - focal.faceYFrac * H);
+        img.setAttribute('preserveAspectRatio', 'none');
+      } else {
+        img.setAttribute('x', d.x - d.r);
+        img.setAttribute('y', d.y - d.r);
+        img.setAttribute('width', d.r * 2);
+        img.setAttribute('height', d.r * 2);
+        img.setAttribute('preserveAspectRatio', 'xMidYMin slice');
+      }
       img.setAttribute('clip-path', `url(#${cid})`);
       g.appendChild(img);
     } else {
