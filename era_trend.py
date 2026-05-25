@@ -380,7 +380,9 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
             '  <a href="index.html">Home</a>'
         )
         show_chief = False
-        default_pill = "#9F1239"
+        # Softer rose for the pills — the deep burgundy used as the page
+        # accent was too saturated as a flood-fill on every tour pill.
+        default_pill = "#DB2777"
         decade_analysis = DECADE_ANALYSIS_WPO
         start_year = 1955  # WPO first toured Japan in 1956 — same canvas
         subhead_extra = f"Tour-conductor chronology · {n_tours} Japan tours documented 1956 – 2025. The Vienna Philharmonic is self-governing; programmes shift with the guest conductor of each tour."
