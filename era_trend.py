@@ -123,8 +123,14 @@ DECADE_ANALYSIS = {
 }
 
 
-def get_tour_years(concerts_html: str) -> set:
-    return set(int(y) for y in re.findall(r"<tr><td>(\d{4})</td>", concerts_html))
+def get_tour_counts(concerts_html: str) -> dict:
+    """Return {year: concert_count} — one entry per row of the BPO
+    concerts table, summed by year."""
+    counts: dict[int, int] = {}
+    for y in re.findall(r"<tr><td>(\d{4})</td>", concerts_html):
+        year = int(y)
+        counts[year] = counts.get(year, 0) + 1
+    return counts
 
 
 def get_chief_for_year(year: int):
@@ -134,9 +140,10 @@ def get_chief_for_year(year: int):
     return None
 
 
-def build_timeline_row(year: int, tours: set) -> str:
+def build_timeline_row(year: int, tour_counts: dict) -> str:
     chief = get_chief_for_year(year)
-    is_tour = year in tours
+    n_concerts = tour_counts.get(year, 0)
+    is_tour = n_concerts > 0
     decade_marker = (year % 10 == 0)
     row_classes = ["yr"]
     if chief: row_classes.append(f"era-{chief[2]}")
@@ -159,7 +166,15 @@ def build_timeline_row(year: int, tours: set) -> str:
         elif year == next(e for s, e, n, _, _ in CHIEFS if n == name) and year != 2026:
             chief_label = f'<span class="chief-end">→ {name} ends</span>'
 
-    tour_label = '<span class="tour-pill">Japan&nbsp;Tour</span>' if is_tour else ''
+    # Tour pill — colour matches the chief conductor era for that year.
+    tour_label = ""
+    if is_tour:
+        pill_colour = CHIEF_COLOUR.get(chief[2], "#D97706") if chief else "#D97706"
+        tour_label = (
+            f'<span class="tour-pill" style="background:{pill_colour};">'
+            f'Japan&nbsp;Tour&nbsp;({n_concerts})'
+            f'</span>'
+        )
 
     return (
         f'<div class="{" ".join(row_classes)}" id="y{year}">'
@@ -170,7 +185,7 @@ def build_timeline_row(year: int, tours: set) -> str:
     )
 
 
-def build_timeline_html(tours: set, start: int = 1955, end: int = 2026) -> str:
+def build_timeline_html(tour_counts: dict, start: int = 1955, end: int = 2026) -> str:
     rows = []
     last_decade = None
     for year in range(start, end + 1):
@@ -179,7 +194,7 @@ def build_timeline_html(tours: set, start: int = 1955, end: int = 2026) -> str:
             rows.append(f'<div class="decade-marker" id="t{decade}s">'
                         f'<span>{decade}s</span></div>')
             last_decade = decade
-        rows.append(build_timeline_row(year, tours))
+        rows.append(build_timeline_row(year, tour_counts))
     return "\n".join(rows)
 
 
@@ -195,10 +210,10 @@ def build_analysis_html() -> str:
 
 
 def build_page(concerts_html: str) -> str:
-    tours = get_tour_years(concerts_html)
-    timeline_html = build_timeline_html(tours)
+    tour_counts = get_tour_counts(concerts_html)
+    timeline_html = build_timeline_html(tour_counts)
     analysis_html = build_analysis_html()
-    n_tours = sum(1 for y in tours if 1955 <= y <= 2026)
+    n_tours = sum(1 for y in tour_counts if 1955 <= y <= 2026)
 
     # Chief colour CSS rules
     chief_css = "\n".join(
@@ -288,7 +303,7 @@ h1 {{
 .decade-marker {{
   position: sticky;
   top: -10px;
-  background: #D97706;
+  background: #57534E;            /* warm stone-grey — neutral against the era colours */
   color: #fff;
   font-weight: 800;
   letter-spacing: 1px;
@@ -433,8 +448,8 @@ def main():
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(page)
     print(f"Wrote {out_path}")
-    n_tours = len(get_tour_years(html))
-    print(f"  {n_tours} tour years on timeline")
+    counts = get_tour_counts(html)
+    print(f"  {len(counts)} tour years, {sum(counts.values())} concerts on timeline")
 
 
 if __name__ == "__main__":
