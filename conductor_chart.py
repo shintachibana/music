@@ -166,6 +166,53 @@ def aggregate(concerts_html: str) -> tuple[dict, dict]:
     return totals, details
 
 
+def composers_for(details: dict, cond: str) -> list[tuple[str, int]]:
+    """Roll up a conductor's works to per-composer totals."""
+    by_composer: dict[str, int] = {}
+    for w, n in details.get(cond, {}).items():
+        if ":" in w:
+            comp = w.split(":", 1)[0].strip()
+        else:
+            comp = "Other"
+        # Strip parenthetical qualifier like "Bach (arr. Webern)" → "Bach"
+        comp = re.sub(r"\s*\([^)]*\)\s*", "", comp).split("/")[0].strip()
+        by_composer[comp] = by_composer.get(comp, 0) + n
+    return sorted(by_composer.items(), key=lambda x: (-x[1], x[0]))
+
+
+def bpo_analysis_html(details: dict) -> str:
+    """Hand-written analysis paragraphs for the four BPO Chefdirigenten.
+
+    The top-composers ticker under each heading is rebuilt from `details`
+    each render so the numbers always match the current data."""
+    def ticker(cond: str, n: int = 5) -> str:
+        tops = composers_for(details, cond)[:n]
+        return " · ".join(f"<b>{c}</b>&nbsp;{v}" for c, v in tops)
+
+    return f"""<section class="analysis">
+<h2>Programme tendencies — BPO Chefdirigenten</h2>
+<p class="lede">Patterns across each chief conductor's recorded Japan-tour repertoire.</p>
+
+<h3>Herbert von Karajan<span class="years"> · 1957 – 1988</span></h3>
+<p class="top-composers">{ticker("Herbert von Karajan")}</p>
+<p>The Austro-German core dominates: Beethoven and Brahms together account for nearly half of his Japan total. Around them he assembled a tightly curated supplementary repertoire — R. Strauss tone poems, a steady Mozart presence, and Wagner overtures. Slavic and French additions (Dvořák, Tschaikowsky, Debussy, Ravel) round the picture out, while modernism is conspicuously absent (a single Schönberg, a single Webern, no Bartók). The Karajan-era programmes are canon-anchored: blockbuster symphonies and showpieces designed for the touring stage.</p>
+
+<h3>Claudio Abbado<span class="years"> · 1989 – 2002</span></h3>
+<p class="top-composers">{ticker("Claudio Abbado")}</p>
+<p>Beethoven and Brahms still anchor the picture, but the centre of gravity shifts. Mahler arrives as a major pillar (vs. Karajan's single appearance), Schumann re-enters meaningfully, and the Second Viennese School reaches the stage — three nights of Berg's <em>Wozzeck</em> as a staged opera. Bruckner and a more curatorial, retrospective approach to Brahms speak to a recital-style programming intelligence. The pivot away from the strict Karajan canon is most clearly marked by the prominence of late-Romantic and early-modernist composers Karajan rarely toured.</p>
+
+<h3>Simon Rattle<span class="years"> · 2002 – 2018</span></h3>
+<p class="top-composers">{ticker("Simon Rattle")}</p>
+<p>The most eclectic of the four. Beethoven and Brahms remain the bedrock, but Rattle introduces Strawinsky, Haydn, and Mahler at scale, plus a wide contemporary fringe: Boulez (<em>Notations</em>), Magnus Lindberg (<em>Aura</em>), Unsuk Chin (<em>Šu</em>), Adès, and Hosokawa Toshio (<em>Circulating Ocean</em>). Rachmaninow, Prokofjew, and Ravel earn footing too. Rattle clearly used the BPO touring platform to extend the canon outward — into post-1950 European modernism and Pacific-rim composers — while keeping the German tradition as the ground.</p>
+
+<h3>Kirill Petrenko<span class="years"> · 2019 – present</span></h3>
+<p class="top-composers">{ticker("Kirill Petrenko")}</p>
+<p>A small sample so far, but already a distinctive profile. Brahms tops the list, but Berg's <em>Drei Orchesterstücke</em>, Reger, and R. Strauss are level with Brahms 2 in performance count; Mozart, Bartók, and Janáček round it out. The lineup signals a return to the dense early-modern Austro-German tradition — Reger barely appears in any other chief's repertoire — with the Second Viennese School in active rotation, continuing Abbado's line of interest but with darker, denser sub-repertoire.</p>
+</section>
+
+"""
+
+
 def build_page(orchestra: str, totals: dict, details: dict) -> str:
     if orchestra == "bpo":
         title    = "Berliner Philharmoniker — Performances by Conductor"
@@ -175,6 +222,7 @@ def build_page(orchestra: str, totals: dict, details: dict) -> str:
         accent_d = "#B45309"
         accent_rgba = "rgba(180,83,9,0.25)"
         notes_color = "%23D97706"
+        analysis_section = bpo_analysis_html(details)
     else:
         title    = "Wiener Philharmoniker — Performances by Conductor"
         title_pre = "Wiener Philharmoniker"
@@ -183,6 +231,7 @@ def build_page(orchestra: str, totals: dict, details: dict) -> str:
         accent_d = "#831234"
         accent_rgba = "rgba(159,18,57,0.25)"
         notes_color = "%239F1239"
+        analysis_section = ""
 
     # Build data array.
     children = []
@@ -411,6 +460,55 @@ h1 {{
   color: #777;
   line-height: 1.6;
 }}
+.analysis {{
+  max-width: 900px;
+  margin: 36px auto 0;
+  padding: 18px 22px 22px;
+  background: rgba(255,255,255,0.7);
+  border-left: 4px solid {accent};
+  border-radius: 4px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #222;
+}}
+.analysis h2 {{
+  margin: 0 0 6px;
+  padding: 0 0 6px;
+  font-size: 17px;
+  font-weight: 700;
+  color: {accent_d};
+  border-bottom: 1px solid {accent_rgba};
+}}
+.analysis .lede {{
+  margin: 4px 0 14px;
+  color: #555;
+  font-style: italic;
+}}
+.analysis h3 {{
+  margin: 16px 0 4px;
+  padding: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1c1917;
+}}
+.analysis h3 .years {{
+  font-weight: 500;
+  color: #888;
+  font-size: 12.5px;
+  margin-left: 6px;
+}}
+.analysis p {{
+  margin: 0 0 4px;
+}}
+.analysis .top-composers {{
+  font-size: 12px;
+  color: #777;
+  margin: 2px 0 4px;
+  font-variant-numeric: tabular-nums;
+}}
+.analysis .top-composers b {{
+  color: {accent_d};
+}}
 </style>
 </head>
 <body>
@@ -432,6 +530,7 @@ h1 {{
 
 <div id="tooltip" role="tooltip"></div>
 
+{analysis_section}
 <p class="footnote">
 Portraits via <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>.
 Hover over any conductor's bubble for the full list of works they conducted with the orchestra on Japan tours.
