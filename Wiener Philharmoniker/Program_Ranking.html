@@ -34,7 +34,12 @@ h1 {
   color: #000;
   text-align: center;
 }
-.toolbar { margin: 0; padding: 0; }
+.toolbar { margin: 0; padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 8px;
+}
+.toolbar > * { margin-right: 0 !important; }
 button.sort-toggle { padding: 6px 14px; margin-right: 8px; font-size: 13px; cursor: pointer; background: #475569; color: #fff; border: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(71,85,105,0.25); }
 button.sort-toggle:hover { background: #334155; }
 a.nav-button { display: inline-block; padding: 6px 14px; margin-right: 8px; font-size: 13px; background: #475569; color: #fff; text-decoration: none; border-radius: 4px; box-shadow: 0 1px 3px rgba(71,85,105,0.25); }
@@ -57,7 +62,7 @@ th:nth-child(3), td:nth-child(3) { text-align: center; width: 130px; min-width: 
 <div class="container">
 <div class="page-header">
 <h1>Wiener Philharmoniker — Concerts in Japan Program Ranking</h1>
-<p class="toolbar"><button id="sortToggle" class="sort-toggle">Sort descending ▼</button><a class="nav-button gold" href="Concerts_in_Japan.html">View Concerts List →</a><a class="nav-button gold" href="Composer_Chart.html">Performances by Composer →</a><a class="nav-button gold" href="Performances_by_Conductor.html">Performances by Conductor →</a><a class="nav-button gold" href="Performances_by_Prefecture.html">Performances by Prefecture →</a><a class="nav-button burgundy" href="index.html">Home</a></p>
+<p class="toolbar"><button id="sortToggle" class="sort-toggle">Sort descending ▼</button><a class="nav-button gold" href="Concerts_in_Japan.html">View Concerts List</a><a class="nav-button gold" href="Composer_Chart.html">Performances by Composer</a><a class="nav-button gold" href="Performances_by_Conductor.html">Performances by Conductor</a><a class="nav-button gold" href="Performances_by_Prefecture.html">Performances by Prefecture</a><a class="nav-button burgundy" href="index.html">Home</a></p>
 </div>
 <table>
 <thead><tr><th>#</th><th>Composer &amp; Work</th><th>Performances</th><th>Performances by Conductor</th></tr></thead>
