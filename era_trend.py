@@ -157,42 +157,81 @@ DECADE_ANALYSIS_WPO = {
         "lyricism start their decades-long WPO Japan partnership."
     ],
     "1980s": [
-        "Lorin Maazel becomes the dominant Japan-tour figure — 1980, "
-        "1983 and 1986, all his work. Beethoven 5 + 6 + Mozart 25 + R. "
-        "Strauss <em>Don Juan</em> + Tschaikowsky 5 form a tight "
-        "canon-virtuoso rotation. Abbado returns 1987 and 1989; the "
-        "1989 tour includes the Berg <em>Wozzeck</em> staged opera and "
-        "the Schumann <em>Requiem für Mignon</em> — first markers of "
-        "modernist outreach."
+        "Two parallel traditions on tour. The concert side is "
+        "dominated by Lorin Maazel — 1980, 1983 and 1986, all his "
+        "work. Beethoven 5 + 6 + Mozart 25 + R. Strauss <em>Don Juan</em> "
+        "+ Tschaikowsky 5 form a tight canon-virtuoso rotation; "
+        "Abbado returns 1987 and 1989.",
+        "The much larger operation is the Wiener Staatsoper's Japan "
+        "tours, when the orchestra plays in the pit. The 1980 tour "
+        "fields five productions across 22 performances — Karl Böhm "
+        "and Heinrich Hollreiser leading Mozart's <em>Le nozze di "
+        "Figaro</em>, Theodor Guschlbauer's <em>Die Entführung aus "
+        "dem Serail</em>, Horst Stein and Berislav Klobučar in three "
+        "Strauss operas (<em>Ariadne auf Naxos</em>, <em>Salome</em>, "
+        "<em>Elektra</em>). 1986 returns with four productions over "
+        "19 nights — Peter Schneider's <em>Rosenkavalier</em>, "
+        "Silvio Varviso's Figaro, Giuseppe Sinopoli's Puccini <em>Manon "
+        "Lescaut</em>, Hollreiser's Wagner <em>Tristan und Isolde</em>.",
+        "1989 closes the decade with Abbado's Wiener Staatsoper "
+        "general-music-directorship: Rossini <em>Il viaggio a Reims</em>, "
+        "Berg <em>Wozzeck</em>, Schumann <em>Requiem für Mignon</em> "
+        "and Mendelssohn 2 <em>Lobgesang</em>. Modernist staging "
+        "enters the touring repertoire definitively."
     ],
     "1990s": [
-        "Annual tours begin. The guest-conductor roster widens "
-        "dramatically: Sinopoli (1992), Ozawa (1993), Solti + Kleiber "
-        "(1994, with Kleiber's <em>Rosenkavalier</em> staged opera "
-        "run), Levine (1995), Mehta + Ozawa (1996), Haitink (1997), "
-        "Muti (1999). Mahler enters the touring core through Sinopoli "
-        "and Haitink; the late-Romantic / early-modernist palette "
-        "broadens steadily across the decade."
+        "Concert tours become annual on the WPO side and the "
+        "guest-conductor roster widens dramatically — Sinopoli "
+        "(1992), Ozawa (1993), Solti + Kleiber (1994), Levine "
+        "(1995), Mehta + Ozawa (1996), Haitink (1997), Muti (1999). "
+        "Mahler enters the touring core through Sinopoli and "
+        "Haitink.",
+        "The 1989 Wiener Staatsoper tour spilling into 1990 frames "
+        "the decade: alongside Abbado's Reims and <em>Wozzeck</em>, "
+        "Hollreiser's <em>Parsifal</em> at NHK Hall and Hans Graf's "
+        "<em>Zauberflöte</em> at Tokyo Bunka Kaikan account for ten "
+        "more staged-opera performances.",
+        "1994 is the busiest single year of the WPO's Japan presence: "
+        "Solti's concert tour runs alongside the 18-performance "
+        "Wiener Staatsoper season with Abbado conducting Mozart's "
+        "Figaro and Mussorgsky <em>Boris Godunow</em>, Kleiber's "
+        "celebrated <em>Rosenkavalier</em>, and Ulf Schirmer leading "
+        "the operetta strand with J. Strauss's <em>Die Fledermaus</em>."
     ],
     "2000s": [
-        "Annual tours continue with deeper repertoire variety. "
+        "Concert tours continue with deeper repertoire variety. "
         "Thielemann debuts (2003, Brahms 1 / Bruckner 7); Gergiev's "
         "first Japan tour (2004) brings the Tschaikowsky 6 "
         "<em>Pathétique</em> spine and a J. Strauss medley. Muti's "
         "Schubert-focused tours (2005, 2008) and Harnoncourt's "
         "Mozart-Beethoven late-style (2006) frame the decade. "
         "Pfitzner's <em>Violinkonzert</em> with Küchl (Gergiev 2004) "
-        "is an unusual entry."
+        "is an unusual entry.",
+        "Three Wiener Staatsoper opera tours bracket the decade. "
+        "2000 — Sinopoli's <em>Ariadne auf Naxos</em>, Jun Märkl's "
+        "<em>Die lustige Witwe</em>, Bruno Campanella's bel-canto "
+        "<em>Linda di Chamounix</em>. 2004 — Seiji Ozawa, his first "
+        "Japan tour as Wiener-Staatsoper Generalmusikdirektor "
+        "(2002 – 10), leads Mozart's <em>Don Giovanni</em> and "
+        "Figaro. 2008 — Muti's <em>Così fan tutte</em>, Ozawa's "
+        "Beethoven <em>Fidelio</em>, and Friedrich Haider's "
+        "concert-form <em>Roberto Devereux</em>."
     ],
     "2010s": [
-        "Conductor rotation widens further: Nelsons, Prêtre and "
+        "Concert-side rotation widens further: Nelsons, Prêtre and "
         "Welser-Möst share 2010 (Mahler 9 originally planned with "
         "Ozawa, reshuffled when he withdrew); Thielemann (2013), "
         "Dudamel (2014), Mehta + Ozawa together (2016 — Suntory Hall "
         "30th Anniversary). Hosokawa Toshio's <em>Nostalghia</em> "
         "(through Mehta and Levine) and Takemitsu's "
         "<em>Visions</em> bring Japanese composers into the touring "
-        "fold."
+        "fold.",
+        "Two Wiener Staatsoper opera tours close out the decade. "
+        "2012 — Peter Schneider's R. Strauss <em>Salome</em> and "
+        "Mozart Figaro, plus Evelino Pidò's bel-canto <em>Anna "
+        "Bolena</em>. 2016 — Marek Janowski's <em>Ariadne auf "
+        "Naxos</em>, Ádám Fischer's <em>Eugen Onegin</em>, and "
+        "Muti's Figaro — his final WPO Japan opera production."
     ],
     "2020s": [
         "COVID-era interruptions. Gergiev's second Japan tour (Nov "
@@ -599,12 +638,11 @@ h1 {{
   font-weight: 600;
   color: #555;
 }}
+/* display:contents makes the wrapper a layout no-op so each pill is a
+   direct flex child of .yr — year-num + as many pills as fit share
+   the first line, the rest wrap below (.yr already does flex-wrap). */
 .tour-pills {{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  flex: 0 1 auto;
-  min-width: 0;
+  display: contents;
 }}
 .tour-pill {{
   display: inline-block;

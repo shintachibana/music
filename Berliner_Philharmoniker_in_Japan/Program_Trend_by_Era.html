@@ -148,12 +148,11 @@ h1 {
   font-weight: 600;
   color: #555;
 }
+/* display:contents makes the wrapper a layout no-op so each pill is a
+   direct flex child of .yr — year-num + as many pills as fit share
+   the first line, the rest wrap below (.yr already does flex-wrap). */
 .tour-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  flex: 0 1 auto;
-  min-width: 0;
+  display: contents;
 }
 .tour-pill {
   display: inline-block;
