@@ -74,6 +74,10 @@ COMPOSER_IMAGE = {
     "Nicolai":         "Otto_Nicolai.jpg",
     # Henri Tomasi — Trombone Concerto played twice by Nelsons/Küblböck 2010
     "Henri Tomasi":    "Henri_Tomasi_portrait_corse.jpg",
+    # Italian / Hungarian opera composers — staged operas from VSO Japan tours
+    "Puccini":         "Giacomo_Puccini_LCCN2005685154_(1)_cropped.jpg",
+    "Lehár":           "Bain_News_Service_-_Franz_Lehár.jpg",
+    "Donizetti":       "Francesco_Coghetti,_Ritratto_di_Gaetano_Donizetti.JPG",
 }
 
 
