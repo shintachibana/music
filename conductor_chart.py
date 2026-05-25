@@ -61,6 +61,52 @@ CONDUCTOR_IMAGE = {
 }
 
 
+# Conductor → English Wikipedia article slug. Each value is the URL
+# path component, so wiki_link() turns it into a full URL.
+CONDUCTOR_URL = {
+    # BPO
+    "Herbert von Karajan":  "Herbert_von_Karajan",
+    "Simon Rattle":         "Simon_Rattle",
+    "Claudio Abbado":       "Claudio_Abbado",
+    "Kirill Petrenko":      "Kirill_Petrenko",
+    "Gustavo Dudamel":      "Gustavo_Dudamel",
+    "Zubin Mehta":          "Zubin_Mehta",
+    "Seiji Ozawa":          "Seiji_Ozawa",
+    "Mariss Jansons":       "Mariss_Jansons",
+    "Wilhelm Schüchter":    "Wilhelm_Sch%C3%BCchter",
+    # WPO (overlapping entries share the same slug)
+    "Riccardo Muti":         "Riccardo_Muti",
+    "Lorin Maazel":          "Lorin_Maazel",
+    "Paul Hindemith":        "Paul_Hindemith",
+    "Valery Gergiev":        "Valery_Gergiev",
+    "Christian Thielemann":  "Christian_Thielemann",
+    "Andris Nelsons":        "Andris_Nelsons",
+    "Georges Prêtre":        "Georges_Pr%C3%AAtre",
+    "Franz Welser-Möst":     "Franz_Welser-M%C3%B6st",
+    "Nikolaus Harnoncourt":  "Nikolaus_Harnoncourt",
+    "Christoph von Dohnányi": "Christoph_von_Dohn%C3%A1nyi",
+    "James Levine":          "James_Levine",
+    "Karl Böhm":             "Karl_B%C3%B6hm",
+    "Giuseppe Sinopoli":     "Giuseppe_Sinopoli",
+    "Bernard Haitink":       "Bernard_Haitink",
+    "Christoph Eschenbach":  "Christoph_Eschenbach",
+    "Carlos Kleiber":        "Carlos_Kleiber",
+    "Georg Solti":           "Georg_Solti",
+    "André Previn":          "Andr%C3%A9_Previn",
+    "Leopold Hager":         "Leopold_Hager",
+    "Tugan Sokhiev":         "Tugan_Sokhiev",
+    "Willi Boskovsky":       "Willi_Boskovsky",
+    "Andrés Orozco-Estrada": "Andr%C3%A9s_Orozco-Estrada",
+    "Rudolf Buchbinder":     "Rudolf_Buchbinder",
+}
+
+
+def wiki_link(name: str) -> str:
+    """Return the full en.wikipedia URL for the conductor, or empty."""
+    slug = CONDUCTOR_URL.get(name)
+    return f"https://en.wikipedia.org/wiki/{slug}" if slug else ""
+
+
 def wiki_image(filename: str, width: int = 480) -> str:
     return (
         f"https://en.wikipedia.org/wiki/Special:FilePath/"
@@ -184,6 +230,15 @@ def composers_for(details: dict, cond: str) -> list[tuple[str, int]]:
     return sorted(by_composer.items(), key=lambda x: (-x[1], x[0]))
 
 
+def linked_name(name: str) -> str:
+    """Return the conductor name wrapped in an <a> to en.wikipedia,
+    or the bare name if no URL is mapped."""
+    url = wiki_link(name)
+    if not url:
+        return name
+    return f'<a href="{url}" target="_blank" rel="noopener">{name}</a>'
+
+
 def bpo_analysis_html(details: dict) -> str:
     """Hand-written analysis paragraphs for the four BPO Chefdirigenten.
 
@@ -197,19 +252,19 @@ def bpo_analysis_html(details: dict) -> str:
 <h2>Programme tendencies — BPO Chefdirigenten</h2>
 <p class="lede">Patterns across each chief conductor's recorded Japan-tour repertoire.</p>
 
-<h3>Herbert von Karajan<span class="years"> · 1957 – 1988</span></h3>
+<h3>{linked_name("Herbert von Karajan")}<span class="years"> · 1957 – 1988</span></h3>
 <p class="top-composers">{ticker("Herbert von Karajan")}</p>
 <p>The Austro-German core dominates: Beethoven and Brahms together account for nearly half of his Japan total. Around them he assembled a tightly curated supplementary repertoire — R. Strauss tone poems, a steady Mozart presence, and Wagner overtures. Slavic and French additions (Dvořák, Tschaikowsky, Debussy, Ravel) round the picture out, while modernism is conspicuously absent (a single Schönberg, a single Webern, no Bartók). The Karajan-era programmes are canon-anchored: blockbuster symphonies and showpieces designed for the touring stage.</p>
 
-<h3>Claudio Abbado<span class="years"> · 1989 – 2002</span></h3>
+<h3>{linked_name("Claudio Abbado")}<span class="years"> · 1989 – 2002</span></h3>
 <p class="top-composers">{ticker("Claudio Abbado")}</p>
 <p>Beethoven and Brahms still anchor the picture, but the centre of gravity shifts. Mahler arrives as a major pillar (vs. Karajan's single appearance), Schumann re-enters meaningfully, and the Second Viennese School reaches the stage — three nights of Berg's <em>Wozzeck</em> as a staged opera. Bruckner and a more curatorial, retrospective approach to Brahms speak to a recital-style programming intelligence. The pivot away from the strict Karajan canon is most clearly marked by the prominence of late-Romantic and early-modernist composers Karajan rarely toured.</p>
 
-<h3>Simon Rattle<span class="years"> · 2002 – 2018</span></h3>
+<h3>{linked_name("Simon Rattle")}<span class="years"> · 2002 – 2018</span></h3>
 <p class="top-composers">{ticker("Simon Rattle")}</p>
 <p>The most eclectic of the four. Beethoven and Brahms remain the bedrock, but Rattle introduces Strawinsky, Haydn, and Mahler at scale, plus a wide contemporary fringe: Boulez (<em>Notations</em>), Magnus Lindberg (<em>Aura</em>), Unsuk Chin (<em>Šu</em>), Adès, and Hosokawa Toshio (<em>Circulating Ocean</em>). Rachmaninow, Prokofjew, and Ravel earn footing too. Rattle clearly used the BPO touring platform to extend the canon outward — into post-1950 European modernism and Pacific-rim composers — while keeping the German tradition as the ground.</p>
 
-<h3>Kirill Petrenko<span class="years"> · 2019 – present</span></h3>
+<h3>{linked_name("Kirill Petrenko")}<span class="years"> · 2019 – present</span></h3>
 <p class="top-composers">{ticker("Kirill Petrenko")}</p>
 <p>A small sample so far, but already a distinctive profile. Brahms tops the list, but Berg's <em>Drei Orchesterstücke</em>, Reger, and R. Strauss are level with Brahms 2 in performance count; Mozart, Bartók, and Janáček round it out. The lineup signals a return to the dense early-modern Austro-German tradition — Reger barely appears in any other chief's repertoire — with the Second Viennese School in active rotation, continuing Abbado's line of interest but with darker, denser sub-repertoire.</p>
 </section>
@@ -331,7 +386,7 @@ def wpo_analysis_html(totals: dict, details: dict, concerts: dict) -> str:
     for cond, total, n_concerts in eligible:
         note = WPO_CONDUCTOR_NOTES[cond]
         blocks.append(
-            f'<h3>{cond}'
+            f'<h3>{linked_name(cond)}'
             f'<span class="years"> · {n_concerts} concerts, {total} performances</span>'
             f'</h3>\n'
             f'<p class="top-composers">{ticker(cond)}</p>\n'
@@ -384,6 +439,7 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
             "name": cond,
             "value": total,
             "img": img,
+            "url": wiki_link(cond),
             "works": works_sorted,
         })
 
@@ -497,6 +553,14 @@ h1 {{
 }}
 .bubble:hover {{
   filter: drop-shadow(0 4px 14px rgba(0,0,0,0.35));
+}}
+/* SVG anchor wrapping a bubble — click opens the conductor's Wikipedia */
+#chart a {{ cursor: pointer; outline: none; }}
+#chart a:focus .bubble .ring-outer,
+#chart a:hover .bubble .ring-outer {{
+  stroke: {accent_d};
+  stroke-width: 2.5;
+  stroke-opacity: 1;
 }}
 .bubble image {{ pointer-events: none; }}
 .bubble .ring {{
@@ -639,6 +703,12 @@ h1 {{
   font-weight: 700;
   color: #1c1917;
 }}
+.analysis h3 a {{
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dotted {accent_rgba};
+}}
+.analysis h3 a:hover {{ color: {accent_d}; border-bottom-color: {accent_d}; }}
 .analysis h3 .years {{
   font-weight: 500;
   color: #888;
@@ -901,7 +971,19 @@ function render() {{
     hit.addEventListener('mouseleave', hideTooltip);
     g.appendChild(hit);
 
-    svg.appendChild(g);
+    // Wrap the bubble in <a> if we have a Wikipedia URL — clicking the
+    // bubble opens the conductor's en.wikipedia article in a new tab.
+    if (d.data.url) {{
+      const link = document.createElementNS(svgNS, 'a');
+      link.setAttribute('href', d.data.url);
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener');
+      link.setAttribute('aria-label', `${{d.data.name}} — Wikipedia`);
+      link.appendChild(g);
+      svg.appendChild(link);
+    }} else {{
+      svg.appendChild(g);
+    }}
   }});
 
   wrap.appendChild(svg);
