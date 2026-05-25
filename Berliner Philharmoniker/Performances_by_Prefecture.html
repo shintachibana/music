@@ -333,25 +333,20 @@ function render() {
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
-  // Separate Okinawa from the main projection so the mainland fills
-  // the canvas (~120% enlarged compared to all-47-together).
+  // Drop Okinawa entirely — no concerts ever held in the southern
+  // islands, so they would just be empty negative space.
   const isOkinawa = f => normPref(f.properties.nam) === 'Okinawa';
-  const mainFeatures    = geoData.features.filter(f => !isOkinawa(f));
-  const okinawaFeatures = geoData.features.filter(isOkinawa);
-  const mainCollection    = { type: 'FeatureCollection', features: mainFeatures    };
-  const okinawaCollection = { type: 'FeatureCollection', features: okinawaFeatures };
+  const mainFeatures = geoData.features.filter(f => !isOkinawa(f));
+  const mainCollection = { type: 'FeatureCollection', features: mainFeatures };
 
-  const mainProjection = d3.geoMercator().fitSize([W * 0.98, H * 0.98], mainCollection);
+  // Fit the mainland into ~80% of the canvas width, then shift the
+  // whole projection 20% rightward so it sits centred in the square
+  // frame's right portion.
+  const shiftX = W * 0.20;
+  const mainProjection = d3.geoMercator().fitSize([W * 0.80, H * 0.98], mainCollection);
+  const t = mainProjection.translate();
+  mainProjection.translate([t[0] + shiftX, t[1]]);
   const mainPath = d3.geoPath(mainProjection);
-
-  // Okinawa inset — small box in upper-left
-  const insetSize = Math.min(W, H) * 0.22;
-  const insetPadX = 14;
-  const insetPadY = 14;
-  const insetX = insetPadX;
-  const insetY = insetPadY;
-  const insetProjection = d3.geoMercator().fitSize([insetSize, insetSize], okinawaCollection);
-  const insetPath = d3.geoPath(insetProjection);
 
   const allTotals = Object.values(prefTotals);
   const maxPref = Math.max(1, ...allTotals);
@@ -418,37 +413,6 @@ function render() {
   gMain.appendChild(gB);
   svg.appendChild(gMain);
 
-  // -------- OKINAWA INSET --------
-  const gIn = document.createElementNS(svgNS, 'g');
-  gIn.setAttribute('transform', `translate(${insetX},${insetY})`);
-
-  const frame = document.createElementNS(svgNS, 'rect');
-  frame.setAttribute('class', 'inset-frame');
-  frame.setAttribute('x', 0);
-  frame.setAttribute('y', 0);
-  frame.setAttribute('width', insetSize);
-  frame.setAttribute('height', insetSize);
-  frame.setAttribute('rx', 4);
-  gIn.appendChild(frame);
-
-  const il = document.createElementNS(svgNS, 'text');
-  il.setAttribute('class', 'inset-label');
-  il.setAttribute('x', 0);
-  il.setAttribute('y', -3);
-  il.textContent = 'Okinawa';
-  gIn.appendChild(il);
-
-  okinawaFeatures.forEach(f => {
-    const nam = normPref(f.properties.nam || '');
-    const count = prefTotals[nam] || 0;
-    const p = document.createElementNS(svgNS, 'path');
-    p.setAttribute('class', 'prefecture');
-    p.setAttribute('d', insetPath(f));
-    p.setAttribute('fill', colorScale(count));
-    gIn.appendChild(p);
-  });
-
-  svg.appendChild(gIn);
   wrap.appendChild(svg);
 }
 
