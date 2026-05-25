@@ -37,7 +37,11 @@ p { margin: 0 0 12px; color: #555; font-size: 12px; }
 .toolbar {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 8px;          /* row-gap column-gap — vertical breathing room when buttons wrap */
 }
+.toolbar > * { margin-right: 0 !important; }
 .wrap { overflow: visible; }
 table { border-collapse: collapse; width: max-content; }
 th:nth-child(1), th:nth-child(3), th:nth-child(4) { text-align: center; }
