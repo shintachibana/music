@@ -167,6 +167,7 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         bubble_fill = "#D97706"
         choro_a     = "#FEF6E2"
         choro_b     = "#B45309"
+        extra_nav   = '<a href="Program_Trend_by_Era.html">Program Trend by Era →</a>\n  '
     else:
         title       = "Wiener Philharmoniker — Performances by Prefecture"
         bgcol       = "#FBF1F4"
@@ -177,6 +178,7 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         bubble_fill = "#9F1239"
         choro_a     = "#FAEBEF"
         choro_b     = "#831234"
+        extra_nav   = ""
 
     rows = []
     for pref, info in sorted(prefectures.items(), key=lambda x: -x[1]["total"]):
@@ -450,7 +452,7 @@ h1 {{
   <a href="Program_Ranking.html">Program Ranking →</a>
   <a href="Composer_Chart.html">Performances by Composer →</a>
   <a href="Performances_by_Conductor.html">Performances by Conductor →</a>
-  <a href="index.html">Home</a>
+  {extra_nav}<a href="index.html">Home</a>
 </p>
 </div>
 

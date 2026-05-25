@@ -183,6 +183,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         accent_d = "#B45309"
         accent_rgba = "rgba(180,83,9,0.25)"
         notes_pattern_color = "%23D97706"
+        extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era →</a>\n  '
     else:
         title  = "Wiener Philharmoniker — Performances by Composer"
         bgcol  = "#FBF1F4"
@@ -190,6 +191,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         accent_d = "#831234"
         accent_rgba = "rgba(159,18,57,0.25)"
         notes_pattern_color = "%239F1239"
+        extra_nav = ""
 
     # JSON-like data emitted into the page; D3 squarify treemap will lay it out.
     import json
@@ -414,7 +416,7 @@ h1 {{
   <a href="Program_Ranking.html">Program Ranking →</a>
   <a href="Performances_by_Conductor.html">Performances by Conductor →</a>
   <a href="Performances_by_Prefecture.html">Performances by Prefecture →</a>
-  <a href="index.html">Home</a>
+  {extra_nav}<a href="index.html">Home</a>
 </p>
 </div>
 

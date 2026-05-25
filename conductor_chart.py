@@ -416,6 +416,7 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         chart_grad_mid   = "rgba(254,215,170,0.55)"   # peach
         chart_grad_outer = "rgba(217,119,6,0.32)"     # amber edge
         analysis_section = bpo_analysis_html(details)
+        extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era →</a>\n  '
     else:
         title    = "Wiener Philharmoniker — Performances by Conductor"
         title_pre = "Wiener Philharmoniker"
@@ -427,6 +428,7 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         chart_grad_mid   = "rgba(251,207,232,0.55)"   # pale rose
         chart_grad_outer = "rgba(159,18,57,0.30)"     # burgundy edge
         analysis_section = wpo_analysis_html(totals, details, concerts)
+        extra_nav = ""
 
     # Build data array.
     children = []
@@ -738,7 +740,7 @@ h1 {{
   <a href="Program_Ranking.html">Program Ranking →</a>
   <a href="Composer_Chart.html">Performances by Composer →</a>
   <a href="Performances_by_Prefecture.html">Performances by Prefecture →</a>
-  <a href="index.html">Home</a>
+  {extra_nav}<a href="index.html">Home</a>
 </p>
 </div>
 
