@@ -54,8 +54,10 @@ CONDUCTOR_IMAGE = {
     "Tugan Sokhiev":         "Tugan_Sokhiev.jpg",
     "Andrés Orozco-Estrada": "Andres_Orozco_Estrada.jpg",
     "Rudolf Buchbinder":     "Rudolf_Buchbinder,_2010_(cropped).jpg",
-    # Willi Boskovsky — no public-domain portrait found on Commons; falls
-    # back to a coloured circle.
+    # Willi Boskovsky — the only Commons image of him is the 1962
+    # Vienna Octet group photo (he was the ensemble's leader); it is
+    # the file the Wikipedia article uses too.
+    "Willi Boskovsky":       "Vienna_Octet_1962_touring_Southern_Afrtica.jpg",
 }
 
 
