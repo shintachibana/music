@@ -550,10 +550,10 @@ function render() {{
     // sits at the bubble centre. Source aspect defaults to 2:3
     // portrait; override `aspect` if the photo is landscape.
     const FOCAL = {{
-      // Andris_Nelsons.JPG is a 2:3 full-body press shot. Modest zoom
-      // (1.6×) and a faceYFrac of 0.22 of the source pulls the face
-      // down into the centre of the bubble without scrolling past it.
-      "Andris Nelsons": {{ zoom: 1.6, faceXFrac: 0.5, faceYFrac: 0.22, aspect: 1.5 }},
+      // Andris_Nelsons.JPG is a 2:3 full-body press shot. faceYFrac
+      // pushed all the way down to 0.40 of the source so the visible
+      // window (19-61% of source y) lands squarely on the face.
+      "Andris Nelsons": {{ zoom: 1.6, faceXFrac: 0.5, faceYFrac: 0.40, aspect: 1.5 }},
     }};
 
     // Portrait — if no image, draw a coloured fill for fallback.
