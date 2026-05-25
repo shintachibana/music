@@ -429,6 +429,10 @@ h1 {{
   flex: 1 1 auto;
   min-width: 0;
 }}
+#tooltip .work-title.staged-opera {{
+  color: {accent_d};
+  font-weight: 600;
+}}
 #tooltip .work-count {{
   flex: 0 0 auto;
   font-weight: 700;
@@ -491,7 +495,9 @@ function showTooltip(p, evt) {{
     let rank;
     if (n === prevCount) {{ rank = prevRank; }}
     else                  {{ rank = i + 1; prevCount = n; prevRank = rank; }}
-    return `<li><span class="work-rank">${{rank}}.</span><span class="work-title">${{w}}</span><span class="work-count">${{n}}</span></li>`;
+    const isStaged = w.includes('(staged opera)') || w.includes('(concert performance)');
+    const titleCls = isStaged ? 'work-title staged-opera' : 'work-title';
+    return `<li><span class="work-rank">${{rank}}.</span><span class="${{titleCls}}">${{w}}</span><span class="work-count">${{n}}</span></li>`;
   }}).join('');
   const cities = (p.cities || []).map(([c, n]) => `<b>${{c}}</b>&nbsp;${{n}}`).join(' · ');
   const citiesLine = cities ? `<p class="cities">${{cities}}</p>` : '';

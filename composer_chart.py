@@ -406,6 +406,10 @@ h1 {{
   flex: 1 1 auto;
   min-width: 0;
 }}
+#tooltip .work-title.staged-opera {{
+  color: {accent_d};
+  font-weight: 600;
+}}
 #tooltip .work-count {{
   flex: 0 0 auto;
   font-weight: 700;
@@ -468,7 +472,9 @@ function showTooltip(d, evt) {{
       prevCount = n;
       prevRank = rank;
     }}
-    return `<li><span class="work-rank">${{rank}}.</span><span class="work-title">${{w}}</span><span class="work-count">${{n}}</span></li>`;
+    const isStaged = w.includes('(staged opera)') || w.includes('(concert performance)');
+    const titleCls = isStaged ? 'work-title staged-opera' : 'work-title';
+    return `<li><span class="work-rank">${{rank}}.</span><span class="${{titleCls}}">${{w}}</span><span class="work-count">${{n}}</span></li>`;
   }}).join('');
   tooltipEl.innerHTML = `
     <h3>${{d.data.name}}<span class="composer-total">${{d.data.value}}</span></h3>
