@@ -70,7 +70,7 @@ th:nth-child(4), td:nth-child(4) { text-align: center; }
 <p class="toolbar"><button id="sortToggle" class="sort-toggle">Sort descending ▼</button><a class="nav-button gold" href="Performances_in_Japan.html">Performances List</a><a class="nav-button gold" href="Composer_Chart.html">Performances by Composer</a><a class="nav-button gold" href="Performances_by_Conductor.html">Performances by Conductor</a><a class="nav-button gold" href="Performances_by_Prefecture.html">Performances by Prefecture</a><a class="nav-button gold" href="Program_Trend_by_Era.html">Program Trend by Era</a><a class="nav-button burgundy" href="index.html">Home</a></p>
 </div>
 <table>
-<thead><tr><th>#</th><th>Composer &amp; Work</th><th>Staged Opera</th><th>Performances</th><th>Performances by Conductor</th></tr></thead>
+<thead><tr><th>#</th><th>Composer &amp; Work<br><input class="filter" type="text" data-col="1" placeholder="filter…"></th><th>Staged Opera<br><select class="filter" data-col="2"><option value="">All</option><option value="Yes">Yes</option></select></th><th>Performances</th><th>Performances by Conductor<br><input class="filter" type="text" data-col="4" placeholder="filter…"></th></tr></thead>
 <tbody>
 <tr><td>1</td><td><a href="https://de.wikipedia.org/wiki/8._Sinfonie_(Schubert)" target="_blank" rel="noopener">Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em></a></td><td></td><td><a href="Performances_in_Japan.html?work=Schubert%3A%20Sinfonie%20Nr.%208%20h-Moll%20D.%20759%2C%20Unvollendete" target="_blank" rel="noopener" title="Open the 37 contributing performances in a new tab">37</a></td><td><a href="https://en.wikipedia.org/wiki/Christoph_von_Dohn%C3%A1nyi" target="_blank" rel="noopener">Christoph von Dohnányi</a>: 8<br><a href="https://en.wikipedia.org/wiki/Georg_Solti" target="_blank" rel="noopener">Georg Solti</a>: 8<br><a href="https://en.wikipedia.org/wiki/Claudio_Abbado" target="_blank" rel="noopener">Claudio Abbado</a>: 4<br><a href="https://en.wikipedia.org/wiki/Riccardo_Muti" target="_blank" rel="noopener">Riccardo Muti</a>: 4<br><a href="https://en.wikipedia.org/wiki/Giuseppe_Sinopoli" target="_blank" rel="noopener">Giuseppe Sinopoli</a>: 3<br><a href="https://en.wikipedia.org/wiki/Christoph_Eschenbach" target="_blank" rel="noopener">Christoph Eschenbach</a>: 2<br><a href="https://en.wikipedia.org/wiki/Herbert_von_Karajan" target="_blank" rel="noopener">Herbert von Karajan</a>: 2<br><a href="https://en.wikipedia.org/wiki/Karl_B%C3%B6hm" target="_blank" rel="noopener">Karl Böhm</a>: 2<br><a href="https://en.wikipedia.org/wiki/Zubin_Mehta" target="_blank" rel="noopener">Zubin Mehta</a> / <a href="https://en.wikipedia.org/wiki/Seiji_Ozawa" target="_blank" rel="noopener">Seiji Ozawa</a>: 2<br><a href="https://en.wikipedia.org/wiki/Christian_Thielemann" target="_blank" rel="noopener">Christian Thielemann</a>: 1<br><a href="https://en.wikipedia.org/wiki/Lorin_Maazel" target="_blank" rel="noopener">Lorin Maazel</a>: 1</td></tr>
 <tr><td>2</td><td><a href="https://de.wikipedia.org/wiki/7._Sinfonie_(Beethoven)" target="_blank" rel="noopener">Beethoven: Sinfonie Nr. 7 A-Dur op. 92</a></td><td></td><td><a href="Performances_in_Japan.html?work=Beethoven%3A%20Sinfonie%20Nr.%207%20A-Dur%20op.%2092" target="_blank" rel="noopener" title="Open the 32 contributing performances in a new tab">32</a></td><td><a href="https://en.wikipedia.org/wiki/Georg_Solti" target="_blank" rel="noopener">Georg Solti</a>: 10<br><a href="https://en.wikipedia.org/wiki/Christoph_von_Dohn%C3%A1nyi" target="_blank" rel="noopener">Christoph von Dohnányi</a>: 7<br><a href="https://en.wikipedia.org/wiki/Claudio_Abbado" target="_blank" rel="noopener">Claudio Abbado</a>: 4<br><a href="https://en.wikipedia.org/wiki/Nikolaus_Harnoncourt" target="_blank" rel="noopener">Nikolaus Harnoncourt</a>: 4<br><a href="https://en.wikipedia.org/wiki/Karl_B%C3%B6hm" target="_blank" rel="noopener">Karl Böhm</a>: 3<br><a href="https://en.wikipedia.org/wiki/Herbert_von_Karajan" target="_blank" rel="noopener">Herbert von Karajan</a>: 2<br><a href="https://en.wikipedia.org/wiki/Christian_Thielemann" target="_blank" rel="noopener">Christian Thielemann</a>: 1<br><a href="https://en.wikipedia.org/wiki/Zubin_Mehta" target="_blank" rel="noopener">Zubin Mehta</a>: 1</td></tr>
@@ -272,6 +272,30 @@ th:nth-child(4), td:nth-child(4) { text-align: center; }
 
   // Keep the sticky thead lined up under the sticky page-header even
   // when the toolbar wraps to multiple rows at narrow widths.
+
+  function applyFilters() {
+    var selects = Array.from(document.querySelectorAll('thead select.filter'))
+      .map(function (s) { return { col: +s.dataset.col, val: s.value, exact: true }; })
+      .filter(function (f) { return f.val !== ''; });
+    var inputs = Array.from(document.querySelectorAll('thead input.filter'))
+      .map(function (i) { return { col: +i.dataset.col, val: i.value.toLowerCase(), exact: false }; })
+      .filter(function (f) { return f.val !== ''; });
+    var active = selects.concat(inputs);
+    rows.forEach(function (row) {
+      var show = active.every(function (f) {
+        var text = row.cells[f.col] ? row.cells[f.col].textContent.trim() : '';
+        return f.exact ? text === f.val : text.toLowerCase().indexOf(f.val) !== -1;
+      });
+      row.style.display = show ? '' : 'none';
+    });
+  }
+  document.querySelectorAll('thead select.filter').forEach(function (s) {
+    s.addEventListener('change', applyFilters);
+  });
+  document.querySelectorAll('thead input.filter').forEach(function (i) {
+    i.addEventListener('input', applyFilters);
+  });
+
   function syncHeaderHeight() {
     var h = document.querySelector('.page-header');
     if (h) document.documentElement.style.setProperty('--page-header-h', h.offsetHeight + 'px');
