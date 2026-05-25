@@ -11,6 +11,7 @@ Usage:
 """
 import re
 import sys
+from urllib.parse import quote as urlquote
 
 
 # (start_year, end_year, name, wiki_slug, css_class)
@@ -207,24 +208,32 @@ DECADE_ANALYSIS_WPO = {
 
 def get_tour_counts(concerts_html: str) -> dict:
     """Return {year: concert_count} — one entry per row of the
-    concerts table, summed by year."""
+    concerts table, summed by year. Matches plain <tr> and
+    <tr class="future"> rows alike."""
     counts: dict[int, int] = {}
-    for y in re.findall(r"<tr><td>(\d{4})</td>", concerts_html):
+    for y in re.findall(r"<tr[^>]*><td>(\d{4})</td>", concerts_html):
         year = int(y)
         counts[year] = counts.get(year, 0) + 1
     return counts
 
 
-def get_tour_conductors_by_year(concerts_html: str) -> dict:
-    """Return {year: [(conductor_full_name, count), ...] sorted desc}.
+def get_tour_conductors_by_year(concerts_html: str):
+    """Return (conductors, planned_years).
+
+    conductors: {year: [(conductor_full_name, count), ...] sorted desc}.
+    planned_years: set of years where every row is marked
+        <tr class="future"> — used to render the era timeline pill
+        with a 'planned' style.
     Joint-conductor cells split on '/' and credit each side with the
     concert appearance separately."""
     result: dict[int, dict[str, int]] = {}
+    future_per_year: dict[int, int] = {}
+    total_per_year: dict[int, int] = {}
     m = re.search(r"<tbody>(.*?)</tbody>", concerts_html, re.DOTALL)
     if not m:
-        return {}
+        return {}, set()
     tbody = m.group(1)
-    for row in re.findall(r"<tr>.*?</tr>", tbody, re.DOTALL):
+    for row in re.findall(r"<tr[^>]*>.*?</tr>", tbody, re.DOTALL):
         tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
         if len(tds) < 5:
             continue
@@ -233,13 +242,22 @@ def get_tour_conductors_by_year(concerts_html: str) -> dict:
             year = int(ystr)
         except ValueError:
             continue
+        is_future = 'class="future"' in row
+        total_per_year[year] = total_per_year.get(year, 0) + 1
+        if is_future:
+            future_per_year[year] = future_per_year.get(year, 0) + 1
         cond_cell = re.sub(r"<[^>]+>", "", tds[3]).strip()
         d = result.setdefault(year, {})
         for c in cond_cell.split("/"):
             c = c.strip()
             if c:
                 d[c] = d.get(c, 0) + 1
-    return {y: sorted(d.items(), key=lambda kv: -kv[1]) for y, d in result.items()}
+    planned_years = {
+        y for y in total_per_year
+        if future_per_year.get(y, 0) == total_per_year[y]
+    }
+    conductors = {y: sorted(d.items(), key=lambda kv: -kv[1]) for y, d in result.items()}
+    return conductors, planned_years
 
 
 def get_chief_for_year(year: int):
@@ -249,19 +267,23 @@ def get_chief_for_year(year: int):
     return None
 
 
-def build_timeline_row(year: int, tour_conductors: dict, show_chief: bool, default_pill: str) -> str:
+def build_timeline_row(year: int, tour_conductors: dict, planned_years: set,
+                        show_chief: bool, default_pill: str) -> str:
     """One row of the timeline. tour_conductors[year] is the live
     [(name, n_concerts), ...] list of who led that year's tour. The
     pill label uses the conductor's family name; one pill per
     conductor in the list (so a year with Mehta(5) + Ozawa(3) gets
-    two pills)."""
+    two pills). Years in planned_years are rendered in a muted
+    'future' style."""
     chief = get_chief_for_year(year) if show_chief else None
     conds = tour_conductors.get(year, [])
     is_tour = len(conds) > 0
+    is_planned = year in planned_years
     decade_marker = (year % 10 == 0)
     row_classes = ["yr"]
     if chief: row_classes.append(f"era-{chief[2]}")
     if is_tour: row_classes.append("tour")
+    if is_planned: row_classes.append("future")
     if decade_marker: row_classes.append("decade")
 
     # Chief name only shown on transition years (first year of tenure)
@@ -284,15 +306,23 @@ def build_timeline_row(year: int, tour_conductors: dict, show_chief: bool, defau
     # readable even when a guest conductor leads the tour (e.g. Ozawa
     # 1986 in the Karajan era). When show_chief is off (WPO mode), use
     # the orchestra's default pill colour for every tour conductor.
-    pill_colour = CHIEF_COLOUR.get(chief[2], default_pill) if chief else default_pill
+    # Planned (future) tours render with a muted neutral pill regardless
+    # of era, so they stand out as forthcoming rather than realised.
+    if is_planned:
+        pill_colour = "#94A3B8"
+        pill_extra_class = " planned"
+    else:
+        pill_colour = CHIEF_COLOUR.get(chief[2], default_pill) if chief else default_pill
+        pill_extra_class = ""
     pills = []
     for cond_full, n in conds:
         family = cond_full.split()[-1]
+        title_suffix = " — planned" if is_planned else ""
         pills.append(
-            f'<a class="tour-pill" '
-            f'href="Concerts_in_Japan.html?year={year}" '
+            f'<a class="tour-pill{pill_extra_class}" '
+            f'href="Concerts_in_Japan.html?year={year}&conductor={urlquote(cond_full)}" '
             f'target="_blank" rel="noopener" '
-            f'title="Open {n} {year} concert(s) led by {cond_full} in a new tab" '
+            f'title="Open {n} {year} concert(s) led by {cond_full}{title_suffix} in a new tab" '
             f'style="background:{pill_colour};">'
             f'{family}&nbsp;({n})'
             f'</a>'
@@ -312,7 +342,8 @@ def build_timeline_row(year: int, tour_conductors: dict, show_chief: bool, defau
     )
 
 
-def build_timeline_html(tour_conductors: dict, show_chief: bool, default_pill: str,
+def build_timeline_html(tour_conductors: dict, planned_years: set,
+                         show_chief: bool, default_pill: str,
                          start: int = 1955, end: int = 2026) -> str:
     rows = []
     last_decade = None
@@ -322,7 +353,8 @@ def build_timeline_html(tour_conductors: dict, show_chief: bool, default_pill: s
             rows.append(f'<div class="decade-marker" id="t{decade}s">'
                         f'<span>{decade}s</span></div>')
             last_decade = decade
-        rows.append(build_timeline_row(year, tour_conductors, show_chief, default_pill))
+        rows.append(build_timeline_row(year, tour_conductors, planned_years,
+                                        show_chief, default_pill))
     return "\n".join(rows)
 
 
@@ -338,9 +370,12 @@ def build_analysis_html(decade_analysis: dict) -> str:
 
 
 def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
-    tour_conductors = get_tour_conductors_by_year(concerts_html)
+    tour_conductors, planned_years = get_tour_conductors_by_year(concerts_html)
     tour_counts = get_tour_counts(concerts_html)
-    n_tours = sum(1 for y in tour_conductors if 1955 <= y <= 2026)
+    realised_tour_years = [y for y in tour_conductors if 1955 <= y <= 2026 and y not in planned_years]
+    n_tours = len(realised_tour_years)
+    n_planned = sum(1 for y in tour_conductors if 1955 <= y <= 2026 and y in planned_years)
+    end_realised = max(realised_tour_years, default=2025)
 
     # Orchestra-specific palette + content
     if orchestra == "bpo":
@@ -362,7 +397,8 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         default_pill = "#D97706"
         decade_analysis = DECADE_ANALYSIS_BPO
         start_year = 1955
-        subhead_extra = f"Chief-conductor chronology and Japan-tour markers · {n_tours} tours documented 1957 – 2025."
+        planned_phrase_bpo = f" plus {n_planned} scheduled for {min(planned_years)}" if planned_years else ""
+        subhead_extra = f"Chief-conductor chronology and Japan-tour markers · {n_tours} tours documented 1957 – {end_realised}{planned_phrase_bpo}."
         footer_note = (
             "The chief-conductor (<em>Chefdirigent</em>) tenures shown reflect the "
             "elected periods. The Japan-tour markers are drawn live from the "
@@ -391,7 +427,8 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         default_pill = "#EC4899"
         decade_analysis = DECADE_ANALYSIS_WPO
         start_year = 1955  # WPO first toured Japan in 1956 — same canvas
-        subhead_extra = f"Tour-conductor chronology · {n_tours} Japan tours documented 1956 – 2025. The Vienna Philharmonic is self-governing; programmes shift with the guest conductor of each tour."
+        planned_phrase_wpo = f" plus {n_planned} scheduled for {min(planned_years)}" if planned_years else ""
+        subhead_extra = f"Tour-conductor chronology · {n_tours} Japan tours documented 1956 – {end_realised}{planned_phrase_wpo}. The Vienna Philharmonic is self-governing; programmes shift with the guest conductor of each tour."
         footer_note = (
             "The Vienna Philharmonic has no <em>Chefdirigent</em> tradition — "
             "each tour is led by an invited guest. Conductor names are pulled "
@@ -399,7 +436,8 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
             "table; click any tour pill to filter that page by the year."
         )
 
-    timeline_html = build_timeline_html(tour_conductors, show_chief, default_pill, start=start_year)
+    timeline_html = build_timeline_html(tour_conductors, planned_years,
+                                          show_chief, default_pill, start=start_year)
     analysis_html = build_analysis_html(decade_analysis)
 
     # Chief colour CSS rules
@@ -479,7 +517,7 @@ h1 {{
 
 .era-page {{
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 400px 1fr;
   gap: 28px;
   align-items: start;
 }}
@@ -542,6 +580,14 @@ h1 {{
   background: {accent_tint};
   font-weight: 600;
 }}
+.yr.future {{
+  border-left: 3px dashed #94A3B8 !important;
+  background: rgba(148, 163, 184, 0.12) !important;
+}}
+.yr.future .year-num {{
+  color: #64748B;
+  font-style: italic;
+}}
 {chief_css}
 .year-num {{
   width: 44px;
@@ -576,6 +622,17 @@ h1 {{
 .tour-pill:hover {{
   filter: brightness(0.92) drop-shadow(0 2px 4px rgba(0,0,0,0.25));
   transform: translateY(-1px);
+}}
+.tour-pill.planned {{
+  font-style: italic;
+  box-shadow: inset 0 0 0 1px #64748B;
+}}
+.tour-pill.planned::after {{
+  content: " ◷";
+  font-style: normal;
+  font-size: 9px;
+  margin-left: 2px;
+  opacity: 0.85;
 }}
 .chief-start, .chief-end {{
   font-size: 11.5px;
@@ -623,7 +680,7 @@ h1 {{
   line-height: 1.6;
 }}
 
-@media (max-width: 800px) {{
+@media (max-width: 900px) {{
   .era-page {{
     grid-template-columns: 1fr;
   }}

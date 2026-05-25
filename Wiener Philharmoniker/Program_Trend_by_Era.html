@@ -60,7 +60,7 @@ h1 {
 
 .era-page {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 400px 1fr;
   gap: 28px;
   align-items: start;
 }
@@ -123,6 +123,14 @@ h1 {
   background: rgba(159,18,57,0.08);
   font-weight: 600;
 }
+.yr.future {
+  border-left: 3px dashed #94A3B8 !important;
+  background: rgba(148, 163, 184, 0.12) !important;
+}
+.yr.future .year-num {
+  color: #64748B;
+  font-style: italic;
+}
 .yr.era-karajan { border-left-color: #F59E0B; }
 .yr.era-karajan .year-num { color: #F59E0B; }
 .yr.era-abbado { border-left-color: #3B82F6; }
@@ -164,6 +172,17 @@ h1 {
 .tour-pill:hover {
   filter: brightness(0.92) drop-shadow(0 2px 4px rgba(0,0,0,0.25));
   transform: translateY(-1px);
+}
+.tour-pill.planned {
+  font-style: italic;
+  box-shadow: inset 0 0 0 1px #64748B;
+}
+.tour-pill.planned::after {
+  content: " ◷";
+  font-style: normal;
+  font-size: 9px;
+  margin-left: 2px;
+  opacity: 0.85;
 }
 .chief-start, .chief-end {
   font-size: 11.5px;
@@ -211,7 +230,7 @@ h1 {
   line-height: 1.6;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
   .era-page {
     grid-template-columns: 1fr;
   }
@@ -226,7 +245,7 @@ h1 {
 <div class="container">
 <div class="page-header">
 <h1>Wiener Philharmoniker — Program Trend by Era</h1>
-<p class="subhead">Tour-conductor chronology · 39 Japan tours documented 1956 – 2025. The Vienna Philharmonic is self-governing; programmes shift with the guest conductor of each tour.</p>
+<p class="subhead">Tour-conductor chronology · 39 Japan tours documented 1956 – 2025 plus 1 scheduled for 2026. The Vienna Philharmonic is self-governing; programmes shift with the guest conductor of each tour.</p>
 <p class="toolbar">
   <a href="Concerts_in_Japan.html">Concerts in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
@@ -242,10 +261,10 @@ h1 {
     <div class="timeline-hint">Click any tour to show its concerts</div>
 <div class="decade-marker" id="t1950s"><span>1950s</span></div>
 <div class="yr" id="y1955"><span class="year-num">1955</span></div>
-<div class="yr tour" id="y1956"><span class="year-num">1956</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1956" target="_blank" rel="noopener" title="Open 17 1956 concert(s) led by Paul Hindemith in a new tab" style="background:#EC4899;">Hindemith&nbsp;(17)</a></span></div>
+<div class="yr tour" id="y1956"><span class="year-num">1956</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1956&conductor=Paul%20Hindemith" target="_blank" rel="noopener" title="Open 17 1956 concert(s) led by Paul Hindemith in a new tab" style="background:#EC4899;">Hindemith&nbsp;(17)</a></span></div>
 <div class="yr" id="y1957"><span class="year-num">1957</span></div>
 <div class="yr" id="y1958"><span class="year-num">1958</span></div>
-<div class="yr tour" id="y1959"><span class="year-num">1959</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1959" target="_blank" rel="noopener" title="Open 8 1959 concert(s) led by Herbert von Karajan in a new tab" style="background:#EC4899;">Karajan&nbsp;(8)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1959" target="_blank" rel="noopener" title="Open 3 1959 concert(s) led by Willi Boskovsky in a new tab" style="background:#EC4899;">Boskovsky&nbsp;(3)</a></span></div>
+<div class="yr tour" id="y1959"><span class="year-num">1959</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1959&conductor=Herbert%20von%20Karajan" target="_blank" rel="noopener" title="Open 8 1959 concert(s) led by Herbert von Karajan in a new tab" style="background:#EC4899;">Karajan&nbsp;(8)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1959&conductor=Willi%20Boskovsky" target="_blank" rel="noopener" title="Open 3 1959 concert(s) led by Willi Boskovsky in a new tab" style="background:#EC4899;">Boskovsky&nbsp;(3)</a></span></div>
 <div class="decade-marker" id="t1960s"><span>1960s</span></div>
 <div class="yr decade" id="y1960"><span class="year-num">1960</span></div>
 <div class="yr" id="y1961"><span class="year-num">1961</span></div>
@@ -256,70 +275,70 @@ h1 {
 <div class="yr" id="y1966"><span class="year-num">1966</span></div>
 <div class="yr" id="y1967"><span class="year-num">1967</span></div>
 <div class="yr" id="y1968"><span class="year-num">1968</span></div>
-<div class="yr tour" id="y1969"><span class="year-num">1969</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1969" target="_blank" rel="noopener" title="Open 11 1969 concert(s) led by Georg Solti in a new tab" style="background:#EC4899;">Solti&nbsp;(11)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1969" target="_blank" rel="noopener" title="Open 1 1969 concert(s) led by Willi Boskovsky in a new tab" style="background:#EC4899;">Boskovsky&nbsp;(1)</a></span></div>
+<div class="yr tour" id="y1969"><span class="year-num">1969</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1969&conductor=Georg%20Solti" target="_blank" rel="noopener" title="Open 11 1969 concert(s) led by Georg Solti in a new tab" style="background:#EC4899;">Solti&nbsp;(11)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1969&conductor=Willi%20Boskovsky" target="_blank" rel="noopener" title="Open 1 1969 concert(s) led by Willi Boskovsky in a new tab" style="background:#EC4899;">Boskovsky&nbsp;(1)</a></span></div>
 <div class="decade-marker" id="t1970s"><span>1970s</span></div>
 <div class="yr decade" id="y1970"><span class="year-num">1970</span></div>
 <div class="yr" id="y1971"><span class="year-num">1971</span></div>
 <div class="yr" id="y1972"><span class="year-num">1972</span></div>
-<div class="yr tour" id="y1973"><span class="year-num">1973</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1973" target="_blank" rel="noopener" title="Open 12 1973 concert(s) led by Claudio Abbado in a new tab" style="background:#EC4899;">Abbado&nbsp;(12)</a></span></div>
+<div class="yr tour" id="y1973"><span class="year-num">1973</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1973&conductor=Claudio%20Abbado" target="_blank" rel="noopener" title="Open 12 1973 concert(s) led by Claudio Abbado in a new tab" style="background:#EC4899;">Abbado&nbsp;(12)</a></span></div>
 <div class="yr" id="y1974"><span class="year-num">1974</span></div>
-<div class="yr tour" id="y1975"><span class="year-num">1975</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1975" target="_blank" rel="noopener" title="Open 9 1975 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(9)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1975" target="_blank" rel="noopener" title="Open 7 1975 concert(s) led by Karl Böhm in a new tab" style="background:#EC4899;">Böhm&nbsp;(7)</a></span></div>
+<div class="yr tour" id="y1975"><span class="year-num">1975</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1975&conductor=Riccardo%20Muti" target="_blank" rel="noopener" title="Open 9 1975 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(9)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1975&conductor=Karl%20B%C3%B6hm" target="_blank" rel="noopener" title="Open 7 1975 concert(s) led by Karl Böhm in a new tab" style="background:#EC4899;">Böhm&nbsp;(7)</a></span></div>
 <div class="yr" id="y1976"><span class="year-num">1976</span></div>
-<div class="yr tour" id="y1977"><span class="year-num">1977</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1977" target="_blank" rel="noopener" title="Open 8 1977 concert(s) led by Christoph von Dohnányi in a new tab" style="background:#EC4899;">Dohnányi&nbsp;(8)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1977" target="_blank" rel="noopener" title="Open 6 1977 concert(s) led by Karl Böhm in a new tab" style="background:#EC4899;">Böhm&nbsp;(6)</a></span></div>
+<div class="yr tour" id="y1977"><span class="year-num">1977</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1977&conductor=Christoph%20von%20Dohn%C3%A1nyi" target="_blank" rel="noopener" title="Open 8 1977 concert(s) led by Christoph von Dohnányi in a new tab" style="background:#EC4899;">Dohnányi&nbsp;(8)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1977&conductor=Karl%20B%C3%B6hm" target="_blank" rel="noopener" title="Open 6 1977 concert(s) led by Karl Böhm in a new tab" style="background:#EC4899;">Böhm&nbsp;(6)</a></span></div>
 <div class="yr" id="y1978"><span class="year-num">1978</span></div>
 <div class="yr" id="y1979"><span class="year-num">1979</span></div>
 <div class="decade-marker" id="t1980s"><span>1980s</span></div>
-<div class="yr tour decade" id="y1980"><span class="year-num">1980</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1980" target="_blank" rel="noopener" title="Open 11 1980 concert(s) led by Lorin Maazel in a new tab" style="background:#EC4899;">Maazel&nbsp;(11)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1980" target="_blank" rel="noopener" title="Open 1 1980 concert(s) led by Karl Böhm in a new tab" style="background:#EC4899;">Böhm&nbsp;(1)</a></span></div>
+<div class="yr tour decade" id="y1980"><span class="year-num">1980</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1980&conductor=Lorin%20Maazel" target="_blank" rel="noopener" title="Open 11 1980 concert(s) led by Lorin Maazel in a new tab" style="background:#EC4899;">Maazel&nbsp;(11)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1980&conductor=Karl%20B%C3%B6hm" target="_blank" rel="noopener" title="Open 1 1980 concert(s) led by Karl Böhm in a new tab" style="background:#EC4899;">Böhm&nbsp;(1)</a></span></div>
 <div class="yr" id="y1981"><span class="year-num">1981</span></div>
 <div class="yr" id="y1982"><span class="year-num">1982</span></div>
-<div class="yr tour" id="y1983"><span class="year-num">1983</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1983" target="_blank" rel="noopener" title="Open 8 1983 concert(s) led by Lorin Maazel in a new tab" style="background:#EC4899;">Maazel&nbsp;(8)</a></span></div>
+<div class="yr tour" id="y1983"><span class="year-num">1983</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1983&conductor=Lorin%20Maazel" target="_blank" rel="noopener" title="Open 8 1983 concert(s) led by Lorin Maazel in a new tab" style="background:#EC4899;">Maazel&nbsp;(8)</a></span></div>
 <div class="yr" id="y1984"><span class="year-num">1984</span></div>
 <div class="yr" id="y1985"><span class="year-num">1985</span></div>
-<div class="yr tour" id="y1986"><span class="year-num">1986</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1986" target="_blank" rel="noopener" title="Open 10 1986 concert(s) led by Lorin Maazel in a new tab" style="background:#EC4899;">Maazel&nbsp;(10)</a></span></div>
-<div class="yr tour" id="y1987"><span class="year-num">1987</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1987" target="_blank" rel="noopener" title="Open 7 1987 concert(s) led by Claudio Abbado in a new tab" style="background:#EC4899;">Abbado&nbsp;(7)</a></span></div>
+<div class="yr tour" id="y1986"><span class="year-num">1986</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1986&conductor=Lorin%20Maazel" target="_blank" rel="noopener" title="Open 10 1986 concert(s) led by Lorin Maazel in a new tab" style="background:#EC4899;">Maazel&nbsp;(10)</a></span></div>
+<div class="yr tour" id="y1987"><span class="year-num">1987</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1987&conductor=Claudio%20Abbado" target="_blank" rel="noopener" title="Open 7 1987 concert(s) led by Claudio Abbado in a new tab" style="background:#EC4899;">Abbado&nbsp;(7)</a></span></div>
 <div class="yr" id="y1988"><span class="year-num">1988</span></div>
-<div class="yr tour" id="y1989"><span class="year-num">1989</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1989" target="_blank" rel="noopener" title="Open 11 1989 concert(s) led by Claudio Abbado in a new tab" style="background:#EC4899;">Abbado&nbsp;(11)</a></span></div>
+<div class="yr tour" id="y1989"><span class="year-num">1989</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1989&conductor=Claudio%20Abbado" target="_blank" rel="noopener" title="Open 11 1989 concert(s) led by Claudio Abbado in a new tab" style="background:#EC4899;">Abbado&nbsp;(11)</a></span></div>
 <div class="decade-marker" id="t1990s"><span>1990s</span></div>
 <div class="yr decade" id="y1990"><span class="year-num">1990</span></div>
-<div class="yr tour" id="y1991"><span class="year-num">1991</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1991" target="_blank" rel="noopener" title="Open 2 1991 concert(s) led by André Previn in a new tab" style="background:#EC4899;">Previn&nbsp;(2)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1991" target="_blank" rel="noopener" title="Open 2 1991 concert(s) led by Leopold Hager in a new tab" style="background:#EC4899;">Hager&nbsp;(2)</a></span></div>
-<div class="yr tour" id="y1992"><span class="year-num">1992</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1992" target="_blank" rel="noopener" title="Open 7 1992 concert(s) led by Giuseppe Sinopoli in a new tab" style="background:#EC4899;">Sinopoli&nbsp;(7)</a></span></div>
-<div class="yr tour" id="y1993"><span class="year-num">1993</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1993" target="_blank" rel="noopener" title="Open 7 1993 concert(s) led by Seiji Ozawa in a new tab" style="background:#EC4899;">Ozawa&nbsp;(7)</a></span></div>
-<div class="yr tour" id="y1994"><span class="year-num">1994</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1994" target="_blank" rel="noopener" title="Open 6 1994 concert(s) led by Georg Solti in a new tab" style="background:#EC4899;">Solti&nbsp;(6)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1994" target="_blank" rel="noopener" title="Open 6 1994 concert(s) led by Carlos Kleiber in a new tab" style="background:#EC4899;">Kleiber&nbsp;(6)</a></span></div>
-<div class="yr tour" id="y1995"><span class="year-num">1995</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1995" target="_blank" rel="noopener" title="Open 7 1995 concert(s) led by James Levine in a new tab" style="background:#EC4899;">Levine&nbsp;(7)</a></span></div>
-<div class="yr tour" id="y1996"><span class="year-num">1996</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1996" target="_blank" rel="noopener" title="Open 5 1996 concert(s) led by Zubin Mehta in a new tab" style="background:#EC4899;">Mehta&nbsp;(5)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1996" target="_blank" rel="noopener" title="Open 3 1996 concert(s) led by Seiji Ozawa in a new tab" style="background:#EC4899;">Ozawa&nbsp;(3)</a></span></div>
-<div class="yr tour" id="y1997"><span class="year-num">1997</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1997" target="_blank" rel="noopener" title="Open 8 1997 concert(s) led by Bernard Haitink in a new tab" style="background:#EC4899;">Haitink&nbsp;(8)</a></span></div>
+<div class="yr tour" id="y1991"><span class="year-num">1991</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1991&conductor=Andr%C3%A9%20Previn" target="_blank" rel="noopener" title="Open 2 1991 concert(s) led by André Previn in a new tab" style="background:#EC4899;">Previn&nbsp;(2)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1991&conductor=Leopold%20Hager" target="_blank" rel="noopener" title="Open 2 1991 concert(s) led by Leopold Hager in a new tab" style="background:#EC4899;">Hager&nbsp;(2)</a></span></div>
+<div class="yr tour" id="y1992"><span class="year-num">1992</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1992&conductor=Giuseppe%20Sinopoli" target="_blank" rel="noopener" title="Open 7 1992 concert(s) led by Giuseppe Sinopoli in a new tab" style="background:#EC4899;">Sinopoli&nbsp;(7)</a></span></div>
+<div class="yr tour" id="y1993"><span class="year-num">1993</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1993&conductor=Seiji%20Ozawa" target="_blank" rel="noopener" title="Open 7 1993 concert(s) led by Seiji Ozawa in a new tab" style="background:#EC4899;">Ozawa&nbsp;(7)</a></span></div>
+<div class="yr tour" id="y1994"><span class="year-num">1994</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1994&conductor=Georg%20Solti" target="_blank" rel="noopener" title="Open 6 1994 concert(s) led by Georg Solti in a new tab" style="background:#EC4899;">Solti&nbsp;(6)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1994&conductor=Carlos%20Kleiber" target="_blank" rel="noopener" title="Open 6 1994 concert(s) led by Carlos Kleiber in a new tab" style="background:#EC4899;">Kleiber&nbsp;(6)</a></span></div>
+<div class="yr tour" id="y1995"><span class="year-num">1995</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1995&conductor=James%20Levine" target="_blank" rel="noopener" title="Open 7 1995 concert(s) led by James Levine in a new tab" style="background:#EC4899;">Levine&nbsp;(7)</a></span></div>
+<div class="yr tour" id="y1996"><span class="year-num">1996</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1996&conductor=Zubin%20Mehta" target="_blank" rel="noopener" title="Open 5 1996 concert(s) led by Zubin Mehta in a new tab" style="background:#EC4899;">Mehta&nbsp;(5)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=1996&conductor=Seiji%20Ozawa" target="_blank" rel="noopener" title="Open 3 1996 concert(s) led by Seiji Ozawa in a new tab" style="background:#EC4899;">Ozawa&nbsp;(3)</a></span></div>
+<div class="yr tour" id="y1997"><span class="year-num">1997</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1997&conductor=Bernard%20Haitink" target="_blank" rel="noopener" title="Open 8 1997 concert(s) led by Bernard Haitink in a new tab" style="background:#EC4899;">Haitink&nbsp;(8)</a></span></div>
 <div class="yr" id="y1998"><span class="year-num">1998</span></div>
-<div class="yr tour" id="y1999"><span class="year-num">1999</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1999" target="_blank" rel="noopener" title="Open 5 1999 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(5)</a></span></div>
+<div class="yr tour" id="y1999"><span class="year-num">1999</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=1999&conductor=Riccardo%20Muti" target="_blank" rel="noopener" title="Open 5 1999 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(5)</a></span></div>
 <div class="decade-marker" id="t2000s"><span>2000s</span></div>
-<div class="yr tour decade" id="y2000"><span class="year-num">2000</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2000" target="_blank" rel="noopener" title="Open 7 2000 concert(s) led by Seiji Ozawa in a new tab" style="background:#EC4899;">Ozawa&nbsp;(7)</a></span></div>
+<div class="yr tour decade" id="y2000"><span class="year-num">2000</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2000&conductor=Seiji%20Ozawa" target="_blank" rel="noopener" title="Open 7 2000 concert(s) led by Seiji Ozawa in a new tab" style="background:#EC4899;">Ozawa&nbsp;(7)</a></span></div>
 <div class="yr" id="y2001"><span class="year-num">2001</span></div>
 <div class="yr" id="y2002"><span class="year-num">2002</span></div>
-<div class="yr tour" id="y2003"><span class="year-num">2003</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2003" target="_blank" rel="noopener" title="Open 4 2003 concert(s) led by Christian Thielemann in a new tab" style="background:#EC4899;">Thielemann&nbsp;(4)</a></span></div>
-<div class="yr tour" id="y2004"><span class="year-num">2004</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2004" target="_blank" rel="noopener" title="Open 10 2004 concert(s) led by Valery Gergiev in a new tab" style="background:#EC4899;">Gergiev&nbsp;(10)</a></span></div>
-<div class="yr tour" id="y2005"><span class="year-num">2005</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2005" target="_blank" rel="noopener" title="Open 9 2005 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(9)</a></span></div>
-<div class="yr tour" id="y2006"><span class="year-num">2006</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2006" target="_blank" rel="noopener" title="Open 8 2006 concert(s) led by Nikolaus Harnoncourt in a new tab" style="background:#EC4899;">Harnoncourt&nbsp;(8)</a></span></div>
+<div class="yr tour" id="y2003"><span class="year-num">2003</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2003&conductor=Christian%20Thielemann" target="_blank" rel="noopener" title="Open 4 2003 concert(s) led by Christian Thielemann in a new tab" style="background:#EC4899;">Thielemann&nbsp;(4)</a></span></div>
+<div class="yr tour" id="y2004"><span class="year-num">2004</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2004&conductor=Valery%20Gergiev" target="_blank" rel="noopener" title="Open 10 2004 concert(s) led by Valery Gergiev in a new tab" style="background:#EC4899;">Gergiev&nbsp;(10)</a></span></div>
+<div class="yr tour" id="y2005"><span class="year-num">2005</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2005&conductor=Riccardo%20Muti" target="_blank" rel="noopener" title="Open 9 2005 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(9)</a></span></div>
+<div class="yr tour" id="y2006"><span class="year-num">2006</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2006&conductor=Nikolaus%20Harnoncourt" target="_blank" rel="noopener" title="Open 8 2006 concert(s) led by Nikolaus Harnoncourt in a new tab" style="background:#EC4899;">Harnoncourt&nbsp;(8)</a></span></div>
 <div class="yr" id="y2007"><span class="year-num">2007</span></div>
-<div class="yr tour" id="y2008"><span class="year-num">2008</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2008" target="_blank" rel="noopener" title="Open 9 2008 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(9)</a></span></div>
-<div class="yr tour" id="y2009"><span class="year-num">2009</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2009" target="_blank" rel="noopener" title="Open 7 2009 concert(s) led by Zubin Mehta in a new tab" style="background:#EC4899;">Mehta&nbsp;(7)</a></span></div>
+<div class="yr tour" id="y2008"><span class="year-num">2008</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2008&conductor=Riccardo%20Muti" target="_blank" rel="noopener" title="Open 9 2008 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(9)</a></span></div>
+<div class="yr tour" id="y2009"><span class="year-num">2009</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2009&conductor=Zubin%20Mehta" target="_blank" rel="noopener" title="Open 7 2009 concert(s) led by Zubin Mehta in a new tab" style="background:#EC4899;">Mehta&nbsp;(7)</a></span></div>
 <div class="decade-marker" id="t2010s"><span>2010s</span></div>
-<div class="yr tour decade" id="y2010"><span class="year-num">2010</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2010" target="_blank" rel="noopener" title="Open 4 2010 concert(s) led by Andris Nelsons in a new tab" style="background:#EC4899;">Nelsons&nbsp;(4)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2010" target="_blank" rel="noopener" title="Open 3 2010 concert(s) led by Georges Prêtre in a new tab" style="background:#EC4899;">Prêtre&nbsp;(3)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2010" target="_blank" rel="noopener" title="Open 1 2010 concert(s) led by Franz Welser-Möst in a new tab" style="background:#EC4899;">Welser-Möst&nbsp;(1)</a></span></div>
-<div class="yr tour" id="y2011"><span class="year-num">2011</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2011" target="_blank" rel="noopener" title="Open 6 2011 concert(s) led by Christoph Eschenbach in a new tab" style="background:#EC4899;">Eschenbach&nbsp;(6)</a></span></div>
+<div class="yr tour decade" id="y2010"><span class="year-num">2010</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2010&conductor=Andris%20Nelsons" target="_blank" rel="noopener" title="Open 4 2010 concert(s) led by Andris Nelsons in a new tab" style="background:#EC4899;">Nelsons&nbsp;(4)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2010&conductor=Georges%20Pr%C3%AAtre" target="_blank" rel="noopener" title="Open 3 2010 concert(s) led by Georges Prêtre in a new tab" style="background:#EC4899;">Prêtre&nbsp;(3)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2010&conductor=Franz%20Welser-M%C3%B6st" target="_blank" rel="noopener" title="Open 1 2010 concert(s) led by Franz Welser-Möst in a new tab" style="background:#EC4899;">Welser-Möst&nbsp;(1)</a></span></div>
+<div class="yr tour" id="y2011"><span class="year-num">2011</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2011&conductor=Christoph%20Eschenbach" target="_blank" rel="noopener" title="Open 6 2011 concert(s) led by Christoph Eschenbach in a new tab" style="background:#EC4899;">Eschenbach&nbsp;(6)</a></span></div>
 <div class="yr" id="y2012"><span class="year-num">2012</span></div>
-<div class="yr tour" id="y2013"><span class="year-num">2013</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2013" target="_blank" rel="noopener" title="Open 7 2013 concert(s) led by Christian Thielemann in a new tab" style="background:#EC4899;">Thielemann&nbsp;(7)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2013" target="_blank" rel="noopener" title="Open 2 2013 concert(s) led by Rudolf Buchbinder in a new tab" style="background:#EC4899;">Buchbinder&nbsp;(2)</a></span></div>
-<div class="yr tour" id="y2014"><span class="year-num">2014</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2014" target="_blank" rel="noopener" title="Open 7 2014 concert(s) led by Gustavo Dudamel in a new tab" style="background:#EC4899;">Dudamel&nbsp;(7)</a></span></div>
-<div class="yr tour" id="y2015"><span class="year-num">2015</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2015" target="_blank" rel="noopener" title="Open 5 2015 concert(s) led by Christoph Eschenbach in a new tab" style="background:#EC4899;">Eschenbach&nbsp;(5)</a></span></div>
-<div class="yr tour" id="y2016"><span class="year-num">2016</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2016" target="_blank" rel="noopener" title="Open 9 2016 concert(s) led by Zubin Mehta in a new tab" style="background:#EC4899;">Mehta&nbsp;(9)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2016" target="_blank" rel="noopener" title="Open 2 2016 concert(s) led by Seiji Ozawa in a new tab" style="background:#EC4899;">Ozawa&nbsp;(2)</a></span></div>
+<div class="yr tour" id="y2013"><span class="year-num">2013</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2013&conductor=Christian%20Thielemann" target="_blank" rel="noopener" title="Open 7 2013 concert(s) led by Christian Thielemann in a new tab" style="background:#EC4899;">Thielemann&nbsp;(7)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2013&conductor=Rudolf%20Buchbinder" target="_blank" rel="noopener" title="Open 2 2013 concert(s) led by Rudolf Buchbinder in a new tab" style="background:#EC4899;">Buchbinder&nbsp;(2)</a></span></div>
+<div class="yr tour" id="y2014"><span class="year-num">2014</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2014&conductor=Gustavo%20Dudamel" target="_blank" rel="noopener" title="Open 7 2014 concert(s) led by Gustavo Dudamel in a new tab" style="background:#EC4899;">Dudamel&nbsp;(7)</a></span></div>
+<div class="yr tour" id="y2015"><span class="year-num">2015</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2015&conductor=Christoph%20Eschenbach" target="_blank" rel="noopener" title="Open 5 2015 concert(s) led by Christoph Eschenbach in a new tab" style="background:#EC4899;">Eschenbach&nbsp;(5)</a></span></div>
+<div class="yr tour" id="y2016"><span class="year-num">2016</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2016&conductor=Zubin%20Mehta" target="_blank" rel="noopener" title="Open 9 2016 concert(s) led by Zubin Mehta in a new tab" style="background:#EC4899;">Mehta&nbsp;(9)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2016&conductor=Seiji%20Ozawa" target="_blank" rel="noopener" title="Open 2 2016 concert(s) led by Seiji Ozawa in a new tab" style="background:#EC4899;">Ozawa&nbsp;(2)</a></span></div>
 <div class="yr" id="y2017"><span class="year-num">2017</span></div>
-<div class="yr tour" id="y2018"><span class="year-num">2018</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2018" target="_blank" rel="noopener" title="Open 6 2018 concert(s) led by Franz Welser-Möst in a new tab" style="background:#EC4899;">Welser-Möst&nbsp;(6)</a></span></div>
-<div class="yr tour" id="y2019"><span class="year-num">2019</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2019" target="_blank" rel="noopener" title="Open 3 2019 concert(s) led by Christian Thielemann in a new tab" style="background:#EC4899;">Thielemann&nbsp;(3)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2019" target="_blank" rel="noopener" title="Open 1 2019 concert(s) led by Andrés Orozco-Estrada in a new tab" style="background:#EC4899;">Orozco-Estrada&nbsp;(1)</a></span></div>
+<div class="yr tour" id="y2018"><span class="year-num">2018</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2018&conductor=Franz%20Welser-M%C3%B6st" target="_blank" rel="noopener" title="Open 6 2018 concert(s) led by Franz Welser-Möst in a new tab" style="background:#EC4899;">Welser-Möst&nbsp;(6)</a></span></div>
+<div class="yr tour" id="y2019"><span class="year-num">2019</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2019&conductor=Christian%20Thielemann" target="_blank" rel="noopener" title="Open 3 2019 concert(s) led by Christian Thielemann in a new tab" style="background:#EC4899;">Thielemann&nbsp;(3)</a><a class="tour-pill" href="Concerts_in_Japan.html?year=2019&conductor=Andr%C3%A9s%20Orozco-Estrada" target="_blank" rel="noopener" title="Open 1 2019 concert(s) led by Andrés Orozco-Estrada in a new tab" style="background:#EC4899;">Orozco-Estrada&nbsp;(1)</a></span></div>
 <div class="decade-marker" id="t2020s"><span>2020s</span></div>
-<div class="yr tour decade" id="y2020"><span class="year-num">2020</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2020" target="_blank" rel="noopener" title="Open 8 2020 concert(s) led by Valery Gergiev in a new tab" style="background:#EC4899;">Gergiev&nbsp;(8)</a></span></div>
-<div class="yr tour" id="y2021"><span class="year-num">2021</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2021" target="_blank" rel="noopener" title="Open 6 2021 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(6)</a></span></div>
+<div class="yr tour decade" id="y2020"><span class="year-num">2020</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2020&conductor=Valery%20Gergiev" target="_blank" rel="noopener" title="Open 8 2020 concert(s) led by Valery Gergiev in a new tab" style="background:#EC4899;">Gergiev&nbsp;(8)</a></span></div>
+<div class="yr tour" id="y2021"><span class="year-num">2021</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2021&conductor=Riccardo%20Muti" target="_blank" rel="noopener" title="Open 6 2021 concert(s) led by Riccardo Muti in a new tab" style="background:#EC4899;">Muti&nbsp;(6)</a></span></div>
 <div class="yr" id="y2022"><span class="year-num">2022</span></div>
-<div class="yr tour" id="y2023"><span class="year-num">2023</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2023" target="_blank" rel="noopener" title="Open 7 2023 concert(s) led by Tugan Sokhiev in a new tab" style="background:#EC4899;">Sokhiev&nbsp;(7)</a></span></div>
-<div class="yr tour" id="y2024"><span class="year-num">2024</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2024" target="_blank" rel="noopener" title="Open 8 2024 concert(s) led by Andris Nelsons in a new tab" style="background:#EC4899;">Nelsons&nbsp;(8)</a></span></div>
-<div class="yr tour" id="y2025"><span class="year-num">2025</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2025" target="_blank" rel="noopener" title="Open 8 2025 concert(s) led by Christian Thielemann in a new tab" style="background:#EC4899;">Thielemann&nbsp;(8)</a></span></div>
-<div class="yr" id="y2026"><span class="year-num">2026</span></div>
+<div class="yr tour" id="y2023"><span class="year-num">2023</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2023&conductor=Tugan%20Sokhiev" target="_blank" rel="noopener" title="Open 7 2023 concert(s) led by Tugan Sokhiev in a new tab" style="background:#EC4899;">Sokhiev&nbsp;(7)</a></span></div>
+<div class="yr tour" id="y2024"><span class="year-num">2024</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2024&conductor=Andris%20Nelsons" target="_blank" rel="noopener" title="Open 8 2024 concert(s) led by Andris Nelsons in a new tab" style="background:#EC4899;">Nelsons&nbsp;(8)</a></span></div>
+<div class="yr tour" id="y2025"><span class="year-num">2025</span><span class="tour-pills"><a class="tour-pill" href="Concerts_in_Japan.html?year=2025&conductor=Christian%20Thielemann" target="_blank" rel="noopener" title="Open 8 2025 concert(s) led by Christian Thielemann in a new tab" style="background:#EC4899;">Thielemann&nbsp;(8)</a></span></div>
+<div class="yr tour future" id="y2026"><span class="year-num">2026</span><span class="tour-pills"><a class="tour-pill planned" href="Concerts_in_Japan.html?year=2026&conductor=Riccardo%20Muti" target="_blank" rel="noopener" title="Open 9 2026 concert(s) led by Riccardo Muti — planned in a new tab" style="background:#94A3B8;">Muti&nbsp;(9)</a></span></div>
   </aside>
   <main class="analyses">
 <section class="decade-block" id="d1950s"><h2>1950s</h2>

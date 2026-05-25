@@ -520,9 +520,17 @@ thead input[type="text"]::placeholder { color: #E8D89A; }
   document.querySelectorAll('thead input.filter').forEach(function (inp) {
     inp.addEventListener('input', applyFilters);
   });
+  // URL-driven conductor substring filter — set by the ?conductor=… link
+  // emitted from Program_Trend_by_Era.html. Falls back to a contains-match
+  // when the dropdown can't represent the value exactly (e.g. the URL asks
+  // for a single conductor but no such row exists alone).
+  var urlConductorFilter = '';
   document.getElementById('resetFilters').addEventListener('click', function () {
     document.querySelectorAll('thead select.filter').forEach(function (s) { s.value = ''; });
     document.querySelectorAll('thead input.filter').forEach(function (i) { i.value = ''; });
+    urlConductorFilter = '';
+    var banner = document.getElementById('urlFilterBanner');
+    if (banner) banner.style.display = 'none';
     applyFilters();
   });
   var sortDesc = true;
@@ -545,6 +553,9 @@ thead input[type="text"]::placeholder { color: #E8D89A; }
       .map(function (i) { return { col: +i.dataset.col, val: i.value.toLowerCase(), exact: false }; })
       .filter(function (f) { return f.val !== ''; });
     var active = selects.concat(inputs);
+    if (urlConductorFilter) {
+      active.push({ col: 3, val: urlConductorFilter.toLowerCase(), exact: false });
+    }
     rows.forEach(function (row) {
       var show = active.every(function (f) {
         var text = row.cells[f.col] ? row.cells[f.col].textContent.trim() : '';
@@ -554,10 +565,12 @@ thead input[type="text"]::placeholder { color: #E8D89A; }
     });
   }
 
-  // --- Initial filter from URL: ?year=YYYY. Lets other pages link directly
-  //     to a year-filtered view (e.g. Program_Trend_by_Era.html does).
+  // --- Initial filter from URL: ?year=YYYY&conductor=Name. Lets other
+  //     pages link directly to a year+conductor view (e.g. the tour pills
+  //     on Program_Trend_by_Era.html do).
   var params = new URLSearchParams(window.location.search);
   var initYear = params.get('year');
+  var initConductor = params.get('conductor');
   if (initYear) {
     var yearSel = document.querySelector('thead select[data-col="0"]');
     if (yearSel) {
@@ -567,9 +580,35 @@ thead input[type="text"]::placeholder { color: #E8D89A; }
         yearSel.appendChild(opt);
       }
       yearSel.value = initYear;
-      applyFilters();
     }
   }
+  if (initConductor) {
+    var condSel = document.querySelector('thead select[data-col="3"]');
+    var hasExact = condSel && Array.from(condSel.options)
+      .some(function (o) { return o.value === initConductor; });
+    if (hasExact) {
+      condSel.value = initConductor;
+    } else {
+      urlConductorFilter = initConductor;
+    }
+    // Banner so the user sees the active filter and can clear it.
+    var banner = document.createElement('div');
+    banner.id = 'urlFilterBanner';
+    banner.style.cssText = 'text-align:center;margin:8px 0 0;font-size:13px;color:#555;';
+    banner.innerHTML = 'Filtered to concerts led by <strong>' +
+      initConductor.replace(/</g, '&lt;') + '</strong>' +
+      (initYear ? ' in <strong>' + initYear + '</strong>' : '') +
+      '. <a href="#" id="urlFilterClear" style="margin-left:6px;color:#9F1239;">clear</a>';
+    var table = document.querySelector('table');
+    if (table && table.parentNode) {
+      table.parentNode.insertBefore(banner, table);
+    }
+    document.getElementById('urlFilterClear').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('resetFilters').click();
+    });
+  }
+  if (initYear || initConductor) applyFilters();
 
   // --- Year banding: rows sharing the same year share a background tint;
   // the tint flips each time the year changes.
