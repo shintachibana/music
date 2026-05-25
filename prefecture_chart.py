@@ -1,15 +1,19 @@
-"""Generate a Japan-map Performances-by-City page from a
+"""Generate a Japan-map Performances-by-Prefecture page from a
 Concerts_in_Japan.html source.
 
 Usage:
-    python3 city_chart.py bpo   # → "Berliner Philharmoniker/Performances_by_City.html"
-    python3 city_chart.py wpo   # → "Wiener Philharmoniker/Performances_by_City.html"
+    python3 prefecture_chart.py bpo
+    python3 prefecture_chart.py wpo
 
-Visualisation: bubble overlay + faint prefecture choropleth.
-Prefecture polygons are tinted by total performances anywhere in the
-prefecture; each city is drawn as a circle whose area is proportional
-to its own count, with a hover tooltip listing the works performed
-there. The Japan GeoJSON is fetched at page load from a CDN.
+Visualisation: faint prefecture choropleth + proportional bubble at
+each prefecture's centroid. Hover any prefecture for a tooltip
+listing the contributing cities (with their sub-totals) and every
+work performed in the prefecture.
+
+The southern islands (Okinawa) are drawn in a small inset in the
+upper-right corner; the main map of Honshū/Hokkaidō/Shikoku/Kyūshū
+is fitted to the full canvas so it appears ~120% larger than the
+"all 47 prefectures together" projection would yield.
 """
 import json
 import re
@@ -17,8 +21,9 @@ import sys
 
 
 # city → (latitude, longitude, prefecture_nam)
-# prefecture_nam matches the "nam" property in dataofjapan's Japan
-# GeoJSON (romaji, capitalised, no macron, no "-prefecture" suffix).
+# prefecture_nam is the short romaji prefecture key. The GeoJSON uses
+# longer forms ("Tokyo To", "Osaka Fu", "Hokkai Do", "Hyogo Ken" …)
+# which are normalised in JS via normPref().
 CITY_GEO = {
     "Tokyo":       (35.6762, 139.6503, "Tokyo"),
     "Osaka":       (34.6937, 135.5023, "Osaka"),
@@ -34,12 +39,12 @@ CITY_GEO = {
     "Sapporo":     (43.0686, 141.3506, "Hokkaido"),
     "Kanazawa":    (36.5616, 136.6566, "Ishikawa"),
     "Takamatsu":   (34.3429, 134.0466, "Kagawa"),
-    "Hyogo":       (34.7373, 135.3409, "Hyogo"),     # Hyogo Performing Arts Center, Nishinomiya
-    "Yahata":      (33.8588, 130.7146, "Fukuoka"),   # Kitakyushu
+    "Hyogo":       (34.7373, 135.3409, "Hyogo"),
+    "Yahata":      (33.8588, 130.7146, "Fukuoka"),
     "Kobe":        (34.6901, 135.1955, "Hyogo"),
     "Matsuyama":   (33.8392, 132.7659, "Ehime"),
     "Himeji":      (34.8167, 134.6867, "Hyogo"),
-    # WPO-specific cities (reuse the same script for WPO)
+    # WPO + general repertoire
     "Otsu":        (35.0044, 135.8686, "Shiga"),
     "Niigata":     (37.9026, 139.0235, "Niigata"),
     "Nagano":      (36.6485, 138.1949, "Nagano"),
@@ -58,7 +63,6 @@ CITY_GEO = {
     "Saitama":     (35.8617, 139.6455, "Saitama"),
     "Hamamatsu":   (34.7108, 137.7261, "Shizuoka"),
     "Yamagata":    (38.2404, 140.3633, "Yamagata"),
-    "Kanagawa":    (35.4437, 139.6380, "Kanagawa"),
     "Sakai":       (34.5733, 135.4830, "Osaka"),
     "Kawaguchi":   (35.8079, 139.7244, "Saitama"),
     "Kyoto":       (35.0116, 135.7681, "Kyoto"),
@@ -67,8 +71,6 @@ CITY_GEO = {
 }
 
 
-# Tags allowed inside work names — preserve <em>...</em> so titles like
-# Oberon, Eroica, Pastorale stay italicised in the tooltip.
 def strip_tags_keep_em(s: str) -> str:
     s = re.sub(r"</?a\b[^>]*>", "", s)
     s = re.sub(r"<(?!/?em\b)[^>]+>", "", s)
@@ -86,7 +88,6 @@ PLACEHOLDER_TOKENS = (
     "brahms symphonies and", "german/austrian core",
     "dance selections",
 )
-
 def is_placeholder(w: str) -> bool:
     low = w.lower()
     return any(tok in low for tok in PLACEHOLDER_TOKENS)
@@ -114,13 +115,14 @@ def parse_program(prog_html: str) -> list[str]:
 
 
 def aggregate(concerts_html: str):
-    """Walk every row → per-city {total, works:{w:n}}."""
+    """Walk every row → per-prefecture {total, cities:{c:n}, works:{w:n}}."""
     m = re.search(r"<tbody>(.*?)</tbody>", concerts_html, re.DOTALL)
     if not m:
         return {}
     tbody = m.group(1)
 
-    cities: dict[str, dict] = {}
+    prefectures: dict[str, dict] = {}
+    unknown_cities = set()
     for row in re.findall(r"<tr>.*?</tr>", tbody, re.DOTALL):
         tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
         if len(tds) < 5:
@@ -129,32 +131,39 @@ def aggregate(concerts_html: str):
         city = re.split(r"\(", venue_t, 1)[0].strip()
         if not city:
             continue
+        geo = CITY_GEO.get(city)
+        if not geo:
+            unknown_cities.add(city)
+            continue
+        _, _, pref = geo
 
         works = parse_program(tds[4])
         works = [w for w in works if not is_placeholder(w)]
 
-        slot = cities.setdefault(city, {"total": 0, "works": {}, "venues": set()})
-        slot["venues"].add(venue_t)
+        slot = prefectures.setdefault(pref, {"total": 0, "cities": {}, "works": {}})
+        slot["cities"][city] = slot["cities"].get(city, 0) + len(works)
         for w in works:
             slot["works"][w] = slot["works"].get(w, 0) + 1
             slot["total"] += 1
 
-    return cities
+    if unknown_cities:
+        print(f"  (no coords mapped for: {sorted(unknown_cities)})", file=sys.stderr)
+    return prefectures
 
 
-def build_page(orchestra: str, cities: dict) -> str:
+def build_page(orchestra: str, prefectures: dict) -> str:
     if orchestra == "bpo":
-        title       = "Berliner Philharmoniker — Performances by City"
+        title       = "Berliner Philharmoniker — Performances by Prefecture"
         bgcol       = "#FFF8EC"
         accent      = "#D97706"
         accent_d    = "#B45309"
         accent_rgba = "rgba(180,83,9,0.25)"
         notes_color = "%23D97706"
         bubble_fill = "#D97706"
-        choro_a     = "#FEF6E2"  # lightest
-        choro_b     = "#B45309"  # darkest
+        choro_a     = "#FEF6E2"
+        choro_b     = "#B45309"
     else:
-        title       = "Wiener Philharmoniker — Performances by City"
+        title       = "Wiener Philharmoniker — Performances by Prefecture"
         bgcol       = "#FBF1F4"
         accent      = "#9F1239"
         accent_d    = "#831234"
@@ -164,31 +173,18 @@ def build_page(orchestra: str, cities: dict) -> str:
         choro_a     = "#FAEBEF"
         choro_b     = "#831234"
 
-    # Build the data array.
-    city_data = []
-    pref_totals: dict[str, int] = {}
-    for city, info in sorted(cities.items(), key=lambda x: -x[1]["total"]):
-        geo = CITY_GEO.get(city)
-        if not geo:
-            print(f"  (no coords mapped for: {city})", file=sys.stderr)
-            continue
-        lat, lng, pref = geo
-        works_sorted = sorted(info["works"].items(), key=lambda x: (-x[1], x[0]))
-        city_data.append({
-            "name":   city,
-            "lat":    lat,
-            "lng":    lng,
-            "pref":   pref,
+    rows = []
+    for pref, info in sorted(prefectures.items(), key=lambda x: -x[1]["total"]):
+        rows.append({
+            "name":   pref,
             "total":  info["total"],
-            "venues": sorted(info["venues"]),
-            "works":  works_sorted,
+            "cities": sorted(info["cities"].items(), key=lambda x: (-x[1], x[0])),
+            "works":  sorted(info["works"].items(), key=lambda x: (-x[1], x[0])),
         })
-        pref_totals[pref] = pref_totals.get(pref, 0) + info["total"]
 
-    cities_json = json.dumps(city_data, ensure_ascii=False)
-    pref_json   = json.dumps(pref_totals, ensure_ascii=False)
-    total_perf  = sum(info["total"] for info in cities.values())
-    total_cities = len(city_data)
+    data_json   = json.dumps(rows, ensure_ascii=False)
+    total_perf  = sum(p["total"] for p in prefectures.values())
+    total_pref  = len(prefectures)
 
     music_svg = (
         "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' "
@@ -297,7 +293,7 @@ h1 {{
   stroke-width: 2.5;
   filter: drop-shadow(0 3px 8px rgba(0,0,0,0.4));
 }}
-.city-label {{
+.pref-label {{
   pointer-events: none;
   text-anchor: middle;
   fill: #1c1917;
@@ -309,7 +305,7 @@ h1 {{
   stroke-width: 3px;
   stroke-linejoin: round;
 }}
-.city-count {{
+.pref-count {{
   pointer-events: none;
   text-anchor: middle;
   fill: #fff;
@@ -318,7 +314,20 @@ h1 {{
   text-shadow: 0 1px 2px rgba(0,0,0,0.85);
 }}
 
-/* Legend */
+.inset-frame {{
+  fill: none;
+  stroke: rgba(0,0,0,0.30);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}}
+.inset-label {{
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  fill: #555;
+  text-anchor: end;
+}}
+
 .legend {{
   display: flex;
   justify-content: center;
@@ -344,7 +353,6 @@ h1 {{
   box-shadow: 0 0 0 1px rgba(0,0,0,0.25);
 }}
 
-/* Tooltip */
 #tooltip {{
   position: fixed;
   z-index: 100;
@@ -352,8 +360,8 @@ h1 {{
   border-radius: 6px;
   box-shadow: 0 6px 22px rgba(0,0,0,0.32);
   padding: 12px 14px 10px;
-  width: 440px;
-  max-height: 70vh;
+  width: 460px;
+  max-height: 75vh;
   overflow-y: auto;
   font-size: 12.5px;
   line-height: 1.45;
@@ -373,15 +381,18 @@ h1 {{
   justify-content: space-between;
   align-items: baseline;
 }}
-#tooltip h3 .city-total {{
+#tooltip h3 .pref-total {{
   color: {accent};
   font-size: 18px;
 }}
-#tooltip .venues {{
+#tooltip .cities {{
   font-size: 11.5px;
   color: #666;
-  margin: 0 0 6px;
+  margin: 0 0 8px;
+  padding: 0 0 6px;
+  border-bottom: 1px dashed rgba(0,0,0,0.10);
 }}
+#tooltip .cities b {{ color: #333; }}
 #tooltip ul {{
   margin: 0;
   padding: 0;
@@ -424,7 +435,7 @@ h1 {{
 <body>
 <div class="page-header">
 <h1>{title}</h1>
-<p class="subhead">{total_cities} cities · {total_perf} performances on the orchestra's documented Japan tours. Prefecture fill encodes that prefecture's total; each bubble's area is proportional to that city's count. Hover a bubble for the full work list.</p>
+<p class="subhead">{total_pref} prefectures · {total_perf} performances on the orchestra's documented Japan tours. Each prefecture is filled by its total; the bubble at the centroid is sized by the same total. Hover any prefecture for the work list &amp; contributing cities.</p>
 <p class="toolbar">
   <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
   <a href="Program_Ranking.html">Program Ranking →</a>
@@ -439,12 +450,12 @@ h1 {{
   <div class="legend">
     <span class="legend-item"><span>Prefecture total:</span><span class="legend-swatch"></span><span>low → high</span></span>
     <span class="legend-item">
-      <span>City count:</span>
+      <span>Bubble size:</span>
       <span class="legend-bubbles">
         <span class="legend-bubble" style="width:6px;height:6px;"></span>
         <span class="legend-bubble" style="width:11px;height:11px;"></span>
         <span class="legend-bubble" style="width:17px;height:17px;"></span>
-        <span class="legend-bubble" style="width:24px;height:24px;"></span>
+        <span class="legend-bubble" style="width:26px;height:26px;"></span>
       </span>
     </span>
   </div>
@@ -454,18 +465,19 @@ h1 {{
 
 <p class="footnote">
 Map data © <a href="https://github.com/dataofjapan/land" target="_blank" rel="noopener">dataofjapan/land</a> (Japan prefecture boundaries).
-Hover any city's bubble for the full list of works performed in that city by the orchestra.
+Hover any prefecture's bubble for the full list of works performed there and the contributing cities.
 </p>
 
 <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 <script>
-const cities = {cities_json};
-const prefTotals = {pref_json};
+const prefData = {data_json};
+const prefTotals = Object.fromEntries(prefData.map(p => [p.name, p.total]));
+const prefByName = Object.fromEntries(prefData.map(p => [p.name, p]));
 
 const tooltipEl = document.getElementById('tooltip');
 
-function showTooltip(c, evt) {{
-  const works = c.works || [];
+function showTooltip(p, evt) {{
+  const works = p.works || [];
   let prevCount = null, prevRank = 0;
   const items = works.map(([w, n], i) => {{
     let rank;
@@ -473,11 +485,11 @@ function showTooltip(c, evt) {{
     else                  {{ rank = i + 1; prevCount = n; prevRank = rank; }}
     return `<li><span class="work-rank">${{rank}}.</span><span class="work-title">${{w}}</span><span class="work-count">${{n}}</span></li>`;
   }}).join('');
-  const venues = (c.venues || []).map(v => v.replace(/^[^(]*\\(?/, '').replace(/\\)$/, '')).filter(Boolean);
-  const venuesLine = venues.length ? `<p class="venues">${{venues.join(' · ')}}</p>` : '';
+  const cities = (p.cities || []).map(([c, n]) => `<b>${{c}}</b>&nbsp;${{n}}`).join(' · ');
+  const citiesLine = cities ? `<p class="cities">${{cities}}</p>` : '';
   tooltipEl.innerHTML = `
-    <h3>${{c.name}}<span class="city-total">${{c.total}}</span></h3>
-    ${{venuesLine}}
+    <h3>${{p.name}}<span class="pref-total">${{p.total}}</span></h3>
+    ${{citiesLine}}
     <ul>${{items || '<li><em>(no works recorded)</em></li>'}}</ul>`;
   moveTooltip(evt);
   tooltipEl.classList.add('visible');
@@ -497,8 +509,12 @@ function moveTooltip(evt) {{
   tooltipEl.style.top  = y + 'px';
 }}
 
-const GEOJSON_URL = "https://cdn.jsdelivr.net/gh/dataofjapan/land@master/japan.geojson";
+function normPref(nam) {{
+  if (nam === "Hokkai Do") return "Hokkaido";
+  return nam.replace(/ (Ken|Fu|To)$/, '');
+}}
 
+const GEOJSON_URL = "https://cdn.jsdelivr.net/gh/dataofjapan/land@master/japan.geojson";
 let geoData = null;
 function loadGeo() {{
   return fetch(GEOJSON_URL).then(r => r.json()).then(j => {{ geoData = j; return j; }});
@@ -516,88 +532,122 @@ function render() {{
   svg.setAttribute('viewBox', `0 0 ${{W}} ${{H}}`);
   svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
-  // Fit Japan's mainland into the box
-  const projection = d3.geoMercator().fitSize([W, H * 0.98], geoData);
-  const path = d3.geoPath(projection);
+  // Separate Okinawa from the main projection so the mainland fills
+  // the canvas (~120% enlarged compared to all-47-together).
+  const isOkinawa = f => normPref(f.properties.nam) === 'Okinawa';
+  const mainFeatures    = geoData.features.filter(f => !isOkinawa(f));
+  const okinawaFeatures = geoData.features.filter(isOkinawa);
+  const mainCollection    = {{ type: 'FeatureCollection', features: mainFeatures    }};
+  const okinawaCollection = {{ type: 'FeatureCollection', features: okinawaFeatures }};
 
-  const maxPref = Math.max(1, ...Object.values(prefTotals));
+  const mainProjection = d3.geoMercator().fitSize([W * 0.98, H * 0.98], mainCollection);
+  const mainPath = d3.geoPath(mainProjection);
+
+  // Okinawa inset — small box in upper-right
+  const insetSize = Math.min(W, H) * 0.22;
+  const insetPadX = 14;
+  const insetPadY = 14;
+  const insetX = W - insetSize - insetPadX;
+  const insetY = insetPadY;
+  const insetProjection = d3.geoMercator().fitSize([insetSize, insetSize], okinawaCollection);
+  const insetPath = d3.geoPath(insetProjection);
+
+  const allTotals = Object.values(prefTotals);
+  const maxPref = Math.max(1, ...allTotals);
   const colorScale = d3.scaleSequential()
     .domain([0, maxPref])
     .interpolator(d3.interpolateRgb("{choro_a}", "{choro_b}"));
 
-  // Prefectures
-  const gP = document.createElementNS(svgNS, 'g');
-  gP.setAttribute('class', 'prefectures');
-  function normPref(nam) {{
-    // dataofjapan/land uses "Tokyo To", "Osaka Fu", "Kyoto Fu",
-    // "Hokkai Do", "Hyogo Ken", etc. Strip the administrative suffix
-    // so the choropleth lookup keys match our bare-name prefecture map.
-    if (nam === "Hokkai Do") return "Hokkaido";
-    return nam.replace(/ (Ken|Fu|To)$/, '');
-  }}
+  // -------- MAIN MAP --------
+  const gMain = document.createElementNS(svgNS, 'g');
 
-  geoData.features.forEach(f => {{
-    const namRaw = f.properties.nam || f.properties.NAME_1 || f.properties.name || '';
-    const nam = normPref(namRaw);
+  const gP = document.createElementNS(svgNS, 'g');
+  mainFeatures.forEach(f => {{
+    const nam = normPref(f.properties.nam || '');
     const count = prefTotals[nam] || 0;
     const p = document.createElementNS(svgNS, 'path');
     p.setAttribute('class', 'prefecture');
-    p.setAttribute('d', path(f));
+    p.setAttribute('d', mainPath(f));
     p.setAttribute('fill', colorScale(count));
     gP.appendChild(p);
   }});
-  svg.appendChild(gP);
+  gMain.appendChild(gP);
 
-  // Bubbles
-  const maxCity = Math.max(1, ...cities.map(c => c.total));
-  // Radius scale: sqrt area → linear count, clamp min and max for legibility
-  const rMin = 4, rMax = 36;
-  function radius(n) {{
-    return rMin + (rMax - rMin) * Math.sqrt(n / maxCity);
-  }}
+  const maxCount = Math.max(1, ...allTotals);
+  const rMin = 5, rMax = 40;
+  function radius(n) {{ return rMin + (rMax - rMin) * Math.sqrt(n / maxCount); }}
+
   const gB = document.createElementNS(svgNS, 'g');
-  gB.setAttribute('class', 'bubbles');
-
-  // Sort largest first for label drawing (smaller cities labelled on top so
-  // tiny cities aren't hidden by big bubbles).
-  const sortedCities = cities.slice().sort((a, b) => b.total - a.total);
-  sortedCities.forEach(c => {{
-    const xy = projection([c.lng, c.lat]);
-    if (!xy) return;
+  mainFeatures.forEach(f => {{
+    const nam = normPref(f.properties.nam || '');
+    const p = prefByName[nam];
+    if (!p) return;
+    const xy = mainPath.centroid(f);
+    if (!xy || !isFinite(xy[0])) return;
     const [x, y] = xy;
-    const r = radius(c.total);
+    const r = radius(p.total);
 
     const circ = document.createElementNS(svgNS, 'circle');
     circ.setAttribute('class', 'bubble');
     circ.setAttribute('cx', x);
     circ.setAttribute('cy', y);
     circ.setAttribute('r', r);
-    circ.addEventListener('mouseenter', (evt) => showTooltip(c, evt));
+    circ.addEventListener('mouseenter', (evt) => showTooltip(p, evt));
     circ.addEventListener('mousemove',  moveTooltip);
     circ.addEventListener('mouseleave', hideTooltip);
     gB.appendChild(circ);
 
-    // Count on top of bubble (only if big enough)
     if (r >= 13) {{
       const t = document.createElementNS(svgNS, 'text');
-      t.setAttribute('class', 'city-count');
+      t.setAttribute('class', 'pref-count');
       t.setAttribute('x', x);
-      t.setAttribute('y', y + r * 0.4);
-      t.setAttribute('font-size', Math.max(10, Math.min(22, r * 0.95)));
-      t.textContent = c.total;
+      t.setAttribute('y', y + r * 0.34);
+      t.setAttribute('font-size', Math.max(10, Math.min(24, r * 0.95)));
+      t.textContent = p.total;
       gB.appendChild(t);
     }}
 
-    // City name below bubble
     const lbl = document.createElementNS(svgNS, 'text');
-    lbl.setAttribute('class', 'city-label');
+    lbl.setAttribute('class', 'pref-label');
     lbl.setAttribute('x', x);
     lbl.setAttribute('y', y + r + 11);
-    lbl.textContent = c.name;
+    lbl.textContent = p.name;
     gB.appendChild(lbl);
   }});
-  svg.appendChild(gB);
+  gMain.appendChild(gB);
+  svg.appendChild(gMain);
 
+  // -------- OKINAWA INSET --------
+  const gIn = document.createElementNS(svgNS, 'g');
+  gIn.setAttribute('transform', `translate(${{insetX}},${{insetY}})`);
+
+  const frame = document.createElementNS(svgNS, 'rect');
+  frame.setAttribute('class', 'inset-frame');
+  frame.setAttribute('x', 0);
+  frame.setAttribute('y', 0);
+  frame.setAttribute('width', insetSize);
+  frame.setAttribute('height', insetSize);
+  frame.setAttribute('rx', 4);
+  gIn.appendChild(frame);
+
+  const il = document.createElementNS(svgNS, 'text');
+  il.setAttribute('class', 'inset-label');
+  il.setAttribute('x', insetSize - 6);
+  il.setAttribute('y', -3);
+  il.textContent = 'Okinawa';
+  gIn.appendChild(il);
+
+  okinawaFeatures.forEach(f => {{
+    const nam = normPref(f.properties.nam || '');
+    const count = prefTotals[nam] || 0;
+    const p = document.createElementNS(svgNS, 'path');
+    p.setAttribute('class', 'prefecture');
+    p.setAttribute('d', insetPath(f));
+    p.setAttribute('fill', colorScale(count));
+    gIn.appendChild(p);
+  }});
+
+  svg.appendChild(gIn);
   wrap.appendChild(svg);
 }}
 
@@ -616,25 +666,24 @@ def main():
     orchestra = sys.argv[1].lower() if len(sys.argv) > 1 else "bpo"
     if orchestra == "bpo":
         in_path  = "Berliner Philharmoniker/Concerts_in_Japan.html"
-        out_path = "Berliner Philharmoniker/Performances_by_City.html"
+        out_path = "Berliner Philharmoniker/Performances_by_Prefecture.html"
     elif orchestra == "wpo":
         in_path  = "Wiener Philharmoniker/Concerts_in_Japan.html"
-        out_path = "Wiener Philharmoniker/Performances_by_City.html"
+        out_path = "Wiener Philharmoniker/Performances_by_Prefecture.html"
     else:
         print(f"Unknown orchestra '{orchestra}'. Use 'bpo' or 'wpo'.", file=sys.stderr)
         sys.exit(1)
 
     with open(in_path, encoding="utf-8") as f:
         html = f.read()
-    cities = aggregate(html)
-
-    page = build_page(orchestra, cities)
+    prefectures = aggregate(html)
+    page = build_page(orchestra, prefectures)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(page)
 
+    n_total = sum(p["total"] for p in prefectures.values())
     print(f"Wrote {out_path}")
-    n_total = sum(info["total"] for info in cities.values())
-    print(f"  {len(cities)} cities, {n_total} total performances")
+    print(f"  {len(prefectures)} prefectures, {n_total} total performances")
 
 
 if __name__ == "__main__":
