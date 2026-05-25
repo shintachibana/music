@@ -416,7 +416,7 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         chart_grad_mid   = "rgba(254,215,170,0.55)"   # peach
         chart_grad_outer = "rgba(217,119,6,0.32)"     # amber edge
         analysis_section = bpo_analysis_html(details)
-        extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era →</a>\n  '
+        extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
     else:
         title    = "Wiener Philharmoniker — Performances by Conductor"
         title_pre = "Wiener Philharmoniker"
@@ -736,10 +736,10 @@ h1 {{
 <h1>{title}</h1>
 <p class="subhead">Each bubble's area is proportional to that conductor's total performances on the orchestra's documented Japan tours. {total_cond} conductors, {total_perf} performances total — laid out by a hierarchical circle-pack.</p>
 <p class="toolbar">
-  <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
-  <a href="Program_Ranking.html">Program Ranking →</a>
-  <a href="Composer_Chart.html">Performances by Composer →</a>
-  <a href="Performances_by_Prefecture.html">Performances by Prefecture →</a>
+  <a href="Concerts_in_Japan.html">Concerts in Japan</a>
+  <a href="Program_Ranking.html">Program Ranking</a>
+  <a href="Composer_Chart.html">Performances by Composer</a>
+  <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>
   {extra_nav}<a href="index.html">Home</a>
 </p>
 </div>

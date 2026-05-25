@@ -446,11 +446,11 @@ h1 {{
 <h1>Berliner Philharmoniker — Program Trend by Era</h1>
 <p class="subhead">Chief-conductor chronology and Japan-tour markers · {n_tours} tours documented 1957 – 2025.</p>
 <p class="toolbar">
-  <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
-  <a href="Program_Ranking.html">Program Ranking →</a>
-  <a href="Composer_Chart.html">Performances by Composer →</a>
-  <a href="Performances_by_Conductor.html">Performances by Conductor →</a>
-  <a href="Performances_by_Prefecture.html">Performances by Prefecture →</a>
+  <a href="Concerts_in_Japan.html">Concerts in Japan</a>
+  <a href="Program_Ranking.html">Program Ranking</a>
+  <a href="Composer_Chart.html">Performances by Composer</a>
+  <a href="Performances_by_Conductor.html">Performances by Conductor</a>
+  <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>
   <a href="index.html">Home</a>
 </p>
 </div>

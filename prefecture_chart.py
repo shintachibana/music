@@ -167,7 +167,7 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         bubble_fill = "#D97706"
         choro_a     = "#FEF6E2"
         choro_b     = "#B45309"
-        extra_nav   = '<a href="Program_Trend_by_Era.html">Program Trend by Era →</a>\n  '
+        extra_nav   = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
     else:
         title       = "Wiener Philharmoniker — Performances by Prefecture"
         bgcol       = "#FBF1F4"
@@ -448,10 +448,10 @@ h1 {{
 <h1>{title}</h1>
 <p class="subhead">{total_pref} prefectures · {total_perf} performances on the orchestra's documented Japan tours. Each prefecture is filled by its total; the bubble at the centroid is sized by the same total. Hover any prefecture for the work list &amp; contributing cities.</p>
 <p class="toolbar">
-  <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
-  <a href="Program_Ranking.html">Program Ranking →</a>
-  <a href="Composer_Chart.html">Performances by Composer →</a>
-  <a href="Performances_by_Conductor.html">Performances by Conductor →</a>
+  <a href="Concerts_in_Japan.html">Concerts in Japan</a>
+  <a href="Program_Ranking.html">Program Ranking</a>
+  <a href="Composer_Chart.html">Performances by Composer</a>
+  <a href="Performances_by_Conductor.html">Performances by Conductor</a>
   {extra_nav}<a href="index.html">Home</a>
 </p>
 </div>
