@@ -408,7 +408,7 @@ h1 {{
   <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
   <a href="Program_Ranking.html">Program Ranking →</a>
   <a href="Composer_Chart.html">Performances by Composer →</a>
-  <a href="index.html">{title_pre}</a>
+  <a href="index.html">Home</a>
 </p>
 </div>
 
