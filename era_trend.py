@@ -310,6 +310,24 @@ h1 {{
   padding: 10px 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }}
+.timeline-hint {{
+  position: sticky;
+  top: 0;
+  margin: -10px -12px 6px;
+  padding: 6px 12px;
+  background: rgba(217,119,6,0.10);
+  border-bottom: 1px solid rgba(180,83,9,0.18);
+  font-size: 11px;
+  font-style: italic;
+  color: #6B4118;
+  text-align: center;
+  z-index: 3;
+}}
+.timeline-hint::before {{
+  content: "💡";
+  font-style: normal;
+  margin-right: 4px;
+}}
 .decade-marker {{
   position: sticky;
   top: -10px;
@@ -439,6 +457,7 @@ h1 {{
 
 <div class="era-page">
   <aside class="timeline" aria-label="BPO chief-conductor + tour timeline">
+    <div class="timeline-hint">Click any tour to show its concerts</div>
 {timeline_html}
   </aside>
   <main class="analyses">
