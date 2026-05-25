@@ -358,15 +358,20 @@ h1 {{
   box-shadow: 0 6px 22px rgba(0,0,0,0.32);
   padding: 12px 14px 10px;
   width: 460px;
-  max-height: 75vh;
-  overflow-y: auto;
+  max-height: 95vh;
+  overflow: hidden;
   font-size: 12.5px;
-  line-height: 1.45;
+  line-height: 1.4;
   color: #222;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.12s ease;
 }}
+#tooltip.wide  {{ width: 720px; }}
+#tooltip.wider {{ width: 920px; }}
+#tooltip.wide  ul {{ column-count: 2; column-gap: 16px; }}
+#tooltip.wider ul {{ column-count: 3; column-gap: 16px; }}
+#tooltip ul li {{ break-inside: avoid; }}
 #tooltip.visible {{ opacity: 1; }}
 #tooltip h3 {{
   margin: 0 0 6px;
@@ -478,6 +483,11 @@ function showTooltip(p, evt) {{
   }}).join('');
   const cities = (p.cities || []).map(([c, n]) => `<b>${{c}}</b>&nbsp;${{n}}`).join(' · ');
   const citiesLine = cities ? `<p class="cities">${{cities}}</p>` : '';
+  // Switch to a multi-column layout when the work list is long so
+  // every entry stays visible without scrolling.
+  tooltipEl.classList.remove('wide', 'wider');
+  if (works.length > 70)       tooltipEl.classList.add('wider');
+  else if (works.length > 30)  tooltipEl.classList.add('wide');
   tooltipEl.innerHTML = `
     <h3>${{p.name}}<span class="pref-total">${{p.total}}</span></h3>
     ${{citiesLine}}
