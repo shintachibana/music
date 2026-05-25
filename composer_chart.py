@@ -412,6 +412,7 @@ h1 {{
 <p class="toolbar">
   <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
   <a href="Program_Ranking.html">Program Ranking →</a>
+  <a href="Performances_by_Conductor.html">Performances by Conductor →</a>
   <a href="index.html">{title.split(' — ')[0]}</a>
 </p>
 </div>
