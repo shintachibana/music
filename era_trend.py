@@ -297,7 +297,11 @@ def build_timeline_row(year: int, tour_conductors: dict, show_chief: bool, defau
             f'{family}&nbsp;({n})'
             f'</a>'
         )
-    tour_label = "".join(pills)
+    # Wrap the pills in a flex container so they each shrink to text
+    # length and lay out side-by-side (or wrap to a second line if the
+    # row's contents exceed its width — e.g. 2010 with three guest
+    # conductors fits in one line; the year with seven would wrap).
+    tour_label = f'<span class="tour-pills">{"".join(pills)}</span>' if pills else ''
 
     return (
         f'<div class="{" ".join(row_classes)}" id="y{year}">'
@@ -382,7 +386,9 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         show_chief = False
         # Softer rose for the pills — the deep burgundy used as the page
         # accent was too saturated as a flood-fill on every tour pill.
-        default_pill = "#DB2777"
+        # Stepped from pink-600 (#DB2777) down to pink-500 for a gentler
+        # tone that still keeps white text legible.
+        default_pill = "#EC4899"
         decade_analysis = DECADE_ANALYSIS_WPO
         start_year = 1955  # WPO first toured Japan in 1956 — same canvas
         subhead_extra = f"Tour-conductor chronology · {n_tours} Japan tours documented 1956 – 2025. The Vienna Philharmonic is self-governing; programmes shift with the guest conductor of each tour."
@@ -523,10 +529,10 @@ h1 {{
 .decade-marker:first-child {{ margin-top: 0; }}
 .decade-marker span {{ display: block; }}
 .yr {{
-  display: grid;
-  grid-template-columns: 44px 1fr auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
+  gap: 4px 6px;
   padding: 3px 6px 3px 0;
   border-left: 3px solid transparent;
   font-size: 12.5px;
@@ -538,11 +544,20 @@ h1 {{
 }}
 {chief_css}
 .year-num {{
+  width: 44px;
+  flex-shrink: 0;
   font-variant-numeric: tabular-nums;
   text-align: right;
   padding-right: 8px;
   font-weight: 600;
   color: #555;
+}}
+.tour-pills {{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  flex: 0 1 auto;
+  min-width: 0;
 }}
 .tour-pill {{
   display: inline-block;
@@ -551,7 +566,6 @@ h1 {{
   font-size: 10.5px;
   font-weight: 700;
   padding: 2px 7px;
-  margin-left: 4px;
   border-radius: 10px;
   letter-spacing: 0.4px;
   white-space: nowrap;
@@ -559,7 +573,6 @@ h1 {{
   cursor: pointer;
   transition: filter 0.12s ease, transform 0.12s ease;
 }}
-.tour-pill:first-of-type {{ margin-left: 0; }}
 .tour-pill:hover {{
   filter: brightness(0.92) drop-shadow(0 2px 4px rgba(0,0,0,0.25));
   transform: translateY(-1px);
