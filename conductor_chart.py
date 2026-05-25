@@ -127,21 +127,24 @@ def is_placeholder(w: str) -> bool:
     return any(tok in low for tok in PLACEHOLDER_TOKENS)
 
 
-def aggregate(concerts_html: str) -> tuple[dict, dict]:
-    """Walk every concert row → {conductor: {total: N, works: {work: count}}}.
-    Joint-conductor cells (e.g. "Mehta / Ozawa") credit each conductor with
-    the works in that concert.
-    Returns (totals, details) where:
-       totals[cond]  = int
-       details[cond] = {work: count}
+def aggregate(concerts_html: str) -> tuple[dict, dict, dict]:
+    """Walk every concert row → conductor totals, per-work counts, and
+    per-conductor concert counts. Joint-conductor cells (e.g. "Mehta /
+    Ozawa") credit each conductor with the works in that concert.
+
+    Returns (totals, details, concerts) where:
+       totals[cond]   = total performance count (works played)
+       details[cond]  = {work: count}
+       concerts[cond] = number of concerts (rows) led
     """
     m = re.search(r"<tbody>(.*?)</tbody>", concerts_html, re.DOTALL)
     if not m:
-        return {}, {}
+        return {}, {}, {}
     tbody = m.group(1)
 
     totals: dict[str, int] = {}
     details: dict[str, dict[str, int]] = {}
+    concerts: dict[str, int] = {}
 
     for row in re.findall(r"<tr>.*?</tr>", tbody, re.DOTALL):
         tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
@@ -153,17 +156,18 @@ def aggregate(concerts_html: str) -> tuple[dict, dict]:
             continue
 
         # Joint conductors → "X / Y" → split
-        conductors = [c.strip() for c in cond_text.split("/") if c.strip()]
+        conductors_list = [c.strip() for c in cond_text.split("/") if c.strip()]
 
         works = parse_program(program)
         works = [w for w in works if not is_placeholder(w)]
 
-        for cond in conductors:
+        for cond in conductors_list:
+            concerts[cond] = concerts.get(cond, 0) + 1
             d = details.setdefault(cond, {})
             for w in works:
                 d[w] = d.get(w, 0) + 1
                 totals[cond] = totals.get(cond, 0) + 1
-    return totals, details
+    return totals, details, concerts
 
 
 def composers_for(details: dict, cond: str) -> list[tuple[str, int]]:
@@ -213,7 +217,139 @@ def bpo_analysis_html(details: dict) -> str:
 """
 
 
-def build_page(orchestra: str, totals: dict, details: dict) -> str:
+# Hand-written notes per WPO conductor with >10 concerts (12 names as
+# of the current dataset). Kept terse — the top-composer ticker
+# beneath each heading is rebuilt from the live data on every render.
+WPO_CONDUCTOR_NOTES = {
+    "Riccardo Muti": (
+        "Long-standing WPO touring partner. Schubert is the spine — four "
+        "different symphonies appear, with the <em>Große</em> C-major as "
+        "the tour signature (8 performances). Rossini overtures, "
+        "particularly <em>Semiramide</em> (9), and Strawinsky's "
+        "<em>Le baiser de la fée</em> Divertimento (6) recur as house "
+        "pieces. Italian lyricism met Schubertian breadth."
+    ),
+    "Lorin Maazel": (
+        "Pure canon-virtuoso. Beethoven 5 + 6, Mozart 25, R. Strauss "
+        "<em>Don Juan</em>, and Tschaikowsky 5 each appear seven times — "
+        "a tight rotation of canon symphonies framed by a tone-poem "
+        "closer. Strauss-family encores recur after the symphonic main, "
+        "Maazel's signature New-Year-style finish on tour."
+    ),
+    "Paul Hindemith": (
+        "The orchestra's 1956 maiden Japan tour, led almost entirely by "
+        "Hindemith as both composer-conductor and ambassador. A panorama "
+        "of German tradition: Bach Suite 2, Mozart's <em>Fagottkonzert</em> "
+        "and 3rd Horn Concerto, Wagner's <em>Siegfried-Idyll</em>, Brahms "
+        "<em>Haydn-Variationen</em>, Beethoven 4 — pedagogical curation "
+        "with a single Hindemith piece (the Sinfonietta) per evening."
+    ),
+    "Valery Gergiev": (
+        "Two tours (2004, 2020). Tschaikowsky 6 <em>Pathétique</em> (9 "
+        "performances) is the spine. A J. Strauss medley — "
+        "<em>Krönungslieder</em>, <em>Niko-Polka</em>, "
+        "<em>Kaiser-Walzer</em>, <em>Persischer Marsch</em>, "
+        "<em>Wiener Blut</em> (5 each in 2004) — paired with Prokofjew "
+        "Piano Concerto 2 (Matsuev) for a Russian / Vienna pairing "
+        "characteristic of his approach."
+    ),
+    "Zubin Mehta": (
+        "Tone-poem virtuoso. Debussy <em>La mer</em> (6) and R. Strauss "
+        "<em>Ein Heldenleben</em> (5) are his calling cards. Brahms "
+        "concertos with Buchbinder and Bronfman, Bruckner 7 and 8, and "
+        "Webern's <em>Sechs Stücke</em> op. 6 sit comfortably next to "
+        "the late-Romantic core."
+    ),
+    "Claudio Abbado": (
+        "Beethoven <em>Eroica</em> (8) is the anchor, with Mozart 40 (5) "
+        "and a Rossini <em>Il viaggio a Reims</em> staged-opera run (5) "
+        "carrying the Italian operatic side. Webern's <em>Fünf Stücke</em> "
+        "op. 10 (4) is the modernist marker — a hint of the same Berg / "
+        "Webern thread Abbado pursued at the BPO."
+    ),
+    "Seiji Ozawa": (
+        "Brahms-centred. A near-complete Brahms cycle (1 and 4 with 5 "
+        "and 4 performances, plus 2 and 3 multiple times), then Bartók "
+        "<em>Wonderful Mandarin</em> Suite (4), Dvořák <em>New World</em> "
+        "(4) and Haydn 60 <em>Il distratto</em> (4) round it out. A "
+        "global-citizen mix with the Romantic German core kept warm."
+    ),
+    "Christian Thielemann": (
+        "Late-Romantic German weight. Brahms 4 and Schumann "
+        "<em>Rheinische</em> (4 each) lead, with Bruckner 5 (Nowak) and "
+        "8 (Haas) sitting deep in the catalogue. Beethoven "
+        "<em>Pastorale</em> (3) and Strauss orchestral songs with "
+        "Hampson complete the picture — a direct continuator of the "
+        "Karajan / Böhm line at WPO."
+    ),
+    "Georg Solti": (
+        "Tight Beethoven-Strauss-Schubert core: Beethoven 7 (10) and "
+        "R. Strauss <em>Till Eulenspiegels lustige Streiche</em> (10) "
+        "repeated obsessively, plus Schubert <em>Unvollendete</em> (8). "
+        "Solti's WPO tours were canon-anchored power-stage evenings — "
+        "very few outliers."
+    ),
+    "Karl Böhm": (
+        "Mozart and Schubert specialist. Beethoven 5, 6, and 7 (3 each), "
+        "Schubert <em>Unvollendete</em> and <em>Große</em> (2 each), "
+        "Mozart 29 and <em>Jupiter</em>. Strauss-family encores after "
+        "the symphonic main. Pure Viennese house repertoire."
+    ),
+    "Andris Nelsons": (
+        "Newer-generation eclectic. Dvořák <em>New World</em> (4), "
+        "Beethoven Piano Concerto 3 (3), Haydn 103 <em>Paukenwirbel</em> "
+        "(3), Mozart 33 (3), Mussorgsky <em>Khovanshchina</em> Prelude "
+        "(3), R. Strauss <em>Ein Heldenleben</em> (3), Shostakovich 9 "
+        "(3). Short repertoire span but eclectic, including Henri "
+        "Tomasi's Trombone Concerto — almost unique to him in our data."
+    ),
+    "Christoph Eschenbach": (
+        "Liszt Piano Concerto 1 (4 performances) — a piano-conductor's "
+        "signature, rarely toured by anyone else — plus Bruckner 4 "
+        "<em>Romantische</em> (3) and Mozart <em>Jupiter</em> (3). "
+        "A distinctive Liszt / Brucknerian fingerprint."
+    ),
+}
+
+
+def wpo_analysis_html(totals: dict, details: dict, concerts: dict) -> str:
+    """Analysis paragraphs for every WPO conductor who gave more than
+    ten concerts. Conductors are ordered by total performance count."""
+
+    def ticker(cond: str, n: int = 5) -> str:
+        tops = composers_for(details, cond)[:n]
+        return " · ".join(f"<b>{c}</b>&nbsp;{v}" for c, v in tops)
+
+    eligible = [
+        (cond, totals[cond], concerts[cond])
+        for cond in totals
+        if concerts.get(cond, 0) > 10 and cond in WPO_CONDUCTOR_NOTES
+    ]
+    eligible.sort(key=lambda x: -x[1])
+
+    blocks = []
+    for cond, total, n_concerts in eligible:
+        note = WPO_CONDUCTOR_NOTES[cond]
+        blocks.append(
+            f'<h3>{cond}'
+            f'<span class="years"> · {n_concerts} concerts, {total} performances</span>'
+            f'</h3>\n'
+            f'<p class="top-composers">{ticker(cond)}</p>\n'
+            f'<p>{note}</p>'
+        )
+
+    body = "\n\n".join(blocks)
+    return f"""<section class="analysis">
+<h2>Programme tendencies — conductors with more than ten concerts</h2>
+<p class="lede">Repertoire patterns across each conductor's documented Japan tours with the orchestra. WPO is self-governing — there is no <em>Chefdirigent</em> tradition — so the dozen below are simply the long-form guest collaborators.</p>
+
+{body}
+</section>
+
+"""
+
+
+def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> str:
     if orchestra == "bpo":
         title    = "Berliner Philharmoniker — Performances by Conductor"
         title_pre = "Berliner Philharmoniker"
@@ -231,7 +367,7 @@ def build_page(orchestra: str, totals: dict, details: dict) -> str:
         accent_d = "#831234"
         accent_rgba = "rgba(159,18,57,0.25)"
         notes_color = "%239F1239"
-        analysis_section = ""
+        analysis_section = wpo_analysis_html(totals, details, concerts)
 
     # Build data array.
     children = []
@@ -784,9 +920,9 @@ def main():
 
     with open(in_path, encoding="utf-8") as f:
         html = f.read()
-    totals, details = aggregate(html)
+    totals, details, concerts = aggregate(html)
 
-    page = build_page(orchestra, totals, details)
+    page = build_page(orchestra, totals, details, concerts)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(page)
 
