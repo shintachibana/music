@@ -125,15 +125,22 @@ h1 {
   box-shadow: 0 6px 22px rgba(0,0,0,0.32);
   padding: 12px 14px 10px;
   width: 440px;
-  max-height: 70vh;
-  overflow-y: auto;
-  font-size: 12.5px;
-  line-height: 1.45;
+  max-height: 96vh;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.25;
   color: #222;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.12s ease;
 }
+#tooltip.wide   { width: 720px; }
+#tooltip.wider  { width: 920px; }
+#tooltip.widest { width: min(1180px, 96vw); font-size: 11.5px; }
+#tooltip.wide   ul { column-count: 2; column-gap: 14px; }
+#tooltip.wider  ul { column-count: 3; column-gap: 14px; }
+#tooltip.widest ul { column-count: 4; column-gap: 14px; }
+#tooltip ul li { break-inside: avoid; margin: 0; }
 #tooltip.visible { opacity: 1; }
 #tooltip h3 {
   margin: 0 0 8px;
@@ -233,6 +240,12 @@ function showTooltip(d, evt) {
     }
     return `<li><span class="work-rank">${rank}.</span><span class="work-title">${w}</span><span class="work-count">${n}</span></li>`;
   }).join('');
+  // Switch to a multi-column layout when the work list is long
+  // so every entry stays visible without scrolling.
+  tooltipEl.classList.remove('wide', 'wider', 'widest');
+  if (works.length > 100)      tooltipEl.classList.add('widest');
+  else if (works.length > 70)  tooltipEl.classList.add('wider');
+  else if (works.length > 30)  tooltipEl.classList.add('wide');
   tooltipEl.innerHTML = `
     <h3>${d.data.name}<span class="conductor-total">${d.data.value}</span></h3>
     <ul>${items || '<li><em>(no works recorded)</em></li>'}</ul>`;
