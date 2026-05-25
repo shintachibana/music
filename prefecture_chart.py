@@ -325,7 +325,7 @@ h1 {{
   font-size: 10px;
   font-weight: 700;
   fill: #555;
-  text-anchor: end;
+  text-anchor: start;
 }}
 
 .legend {{
@@ -543,11 +543,11 @@ function render() {{
   const mainProjection = d3.geoMercator().fitSize([W * 0.98, H * 0.98], mainCollection);
   const mainPath = d3.geoPath(mainProjection);
 
-  // Okinawa inset — small box in upper-right
+  // Okinawa inset — small box in upper-left
   const insetSize = Math.min(W, H) * 0.22;
   const insetPadX = 14;
   const insetPadY = 14;
-  const insetX = W - insetSize - insetPadX;
+  const insetX = insetPadX;
   const insetY = insetPadY;
   const insetProjection = d3.geoMercator().fitSize([insetSize, insetSize], okinawaCollection);
   const insetPath = d3.geoPath(insetProjection);
@@ -632,7 +632,7 @@ function render() {{
 
   const il = document.createElementNS(svgNS, 'text');
   il.setAttribute('class', 'inset-label');
-  il.setAttribute('x', insetSize - 6);
+  il.setAttribute('x', 0);
   il.setAttribute('y', -3);
   il.textContent = 'Okinawa';
   gIn.appendChild(il);
