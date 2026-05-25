@@ -386,15 +386,15 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
     cond_max = data["conductor"][0][1] if data["conductor"] else 1
 
     comp_section = build_bar_section(
-        "Audience by Composer", "composer", data["composer"], comp_max,
+        "Estimated Audience by Composer", "composer", data["composer"], comp_max,
         visible_top=20, link_param="composer", wiki_for_label=wiki_composer,
     )
     work_section = build_bar_section(
-        "Audience by Work", "work", data["work"], work_max,
+        "Estimated Audience by Work", "work", data["work"], work_max,
         visible_top=25, link_param="work", wiki_for_label=wiki_work,
     )
     cond_section = build_bar_section(
-        "Audience by Conductor", "conductor", data["conductor"], cond_max,
+        "Estimated Audience by Conductor", "conductor", data["conductor"], cond_max,
         visible_top=100, link_param="conductor", wiki_for_label=wiki_conductor,
     )
 
