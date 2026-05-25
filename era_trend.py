@@ -7,7 +7,7 @@ A two-column layout:
     programming tendencies on tour.
 
 Usage:
-    python3 era_trend.py     # → Berliner Philharmoniker/Program_Trend_by_Era.html
+    python3 era_trend.py     # → Berliner_Philharmoniker_in_Japan/Program_Trend_by_Era.html
 """
 import re
 import sys
@@ -391,7 +391,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
             '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
             '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
             '  <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>\n'
-            '  <a href="Audience_Analysis.html">Audience Analysis</a>\n'
+            '  <a href="Audience_Analysis.html">Audience Statistics</a>\n'
             '  <a href="index.html">Home</a>'
         )
         show_chief = True
@@ -724,11 +724,11 @@ h1 {{
 def main():
     orchestra = sys.argv[1].lower() if len(sys.argv) > 1 else "bpo"
     if orchestra == "bpo":
-        in_path  = "Berliner Philharmoniker/Concerts_in_Japan.html"
-        out_path = "Berliner Philharmoniker/Program_Trend_by_Era.html"
+        in_path  = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        out_path = "Berliner_Philharmoniker_in_Japan/Program_Trend_by_Era.html"
     elif orchestra == "wpo":
-        in_path  = "Wiener Philharmoniker/Concerts_in_Japan.html"
-        out_path = "Wiener Philharmoniker/Program_Trend_by_Era.html"
+        in_path  = "Wiener_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        out_path = "Wiener_Philharmoniker_in_Japan/Program_Trend_by_Era.html"
     else:
         print(f"Unknown orchestra '{orchestra}'. Use 'bpo' or 'wpo'.", file=sys.stderr)
         sys.exit(1)

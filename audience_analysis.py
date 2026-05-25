@@ -1,8 +1,15 @@
-"""Generate Audience Analysis page for BPO or WPO.
+"""Generate Audience Statistics page for BPO or WPO.
 
 Aggregates audience (= venue capacity) across composers, works, and
 conductors from Concerts_in_Japan.html, using capacities defined in
 Concert_Halls.html. Renders three horizontal-bar charts on one page.
+
+Composer / work names link to German Wikipedia (composers via a
+hand-curated slug map; works via the link already embedded in each
+programme cell of the source). Conductor names link to English
+Wikipedia (extracted from the source's existing <a href> wrappers).
+The audience number on the right of each bar drills down to a
+filtered view of the Concerts page.
 
 Usage:
     python3 audience_analysis.py bpo
@@ -18,6 +25,67 @@ HALL_SUFFIX_RE = re.compile(
     r',\s*(?:main|large|grand|concert|symphony|forest|kokusai|kobelco)\s+hall.*$',
     re.IGNORECASE,
 )
+
+# Composer surname (or short name as it appears in the programme cell)
+# → German Wikipedia article slug. Used for the bar-name link in the
+# composer chart. Composers absent from this dict render without a link.
+COMPOSER_WIKI_DE = {
+    "Beethoven": "Ludwig_van_Beethoven",
+    "Brahms": "Johannes_Brahms",
+    "Mozart": "Wolfgang_Amadeus_Mozart",
+    "R. Strauss": "Richard_Strauss",
+    "Mahler": "Gustav_Mahler",
+    "Dvořák": "Anton%C3%ADn_Dvo%C5%99%C3%A1k",
+    "Wagner": "Richard_Wagner",
+    "Bruckner": "Anton_Bruckner",
+    "Tschaikowsky": "Pjotr_Iljitsch_Tschaikowski",
+    "Strawinsky": "Igor_Strawinsky",
+    "Debussy": "Claude_Debussy",
+    "Schubert": "Franz_Schubert",
+    "Ravel": "Maurice_Ravel",
+    "Schumann": "Robert_Schumann",
+    "Haydn": "Joseph_Haydn",
+    "Berg": "Alban_Berg",
+    "Weber": "Carl_Maria_von_Weber",
+    "Mussorgsky": "Modest_Mussorgski",
+    "Verdi": "Giuseppe_Verdi",
+    "Reger": "Max_Reger",
+    "Prokofjew": "Sergei_Sergejewitsch_Prokofjew",
+    "Bach": "Johann_Sebastian_Bach",
+    "Bartók": "B%C3%A9la_Bart%C3%B3k",
+    "Bernstein": "Leonard_Bernstein",
+    "Smetana": "Bed%C5%99ich_Smetana",
+    "Berlioz": "Hector_Berlioz",
+    "Janáček": "Leo%C5%A1_Jan%C3%A1%C4%8Dek",
+    "Magnus Lindberg": "Magnus_Lindberg",
+    "Rachmaninow": "Sergei_Wassiljewitsch_Rachmaninow",
+    "Respighi": "Ottorino_Respighi",
+    "Schostakowitsch": "Dmitri_Schostakowitsch",
+    "Unsuk Chin": "Unsuk_Chin",
+    "Schönberg": "Arnold_Sch%C3%B6nberg",
+    "Boulez": "Pierre_Boulez",
+    "Hindemith": "Paul_Hindemith",
+    "Fortner": "Wolfgang_Fortner",
+    "Webern": "Anton_Webern",
+    "Honegger": "Arthur_Honegger",
+    "Adès": "Thomas_Ad%C3%A8s",
+    "Hosokawa Toshio": "Toshio_Hosokawa",
+    # Latin-American composers from Dudamel's 2025 BPO tour
+    "Angélica Negrón": "Ang%C3%A9lica_Negr%C3%B3n",
+    "Antonio Estévez": "Antonio_Est%C3%A9vez",
+    "Arturo Márquez": "Arturo_M%C3%A1rquez",
+    "Evencio Castellanos": "Evencio_Castellanos",
+    "Gabriela Ortiz": "Gabriela_Ortiz",
+    "Roberto Sierra": "Roberto_Sierra_(Komponist)",
+    # WPO additions (for when audience_analysis.py wpo is run later)
+    "Mendelssohn": "Felix_Mendelssohn_Bartholdy",
+    "Wolf": "Hugo_Wolf",
+    "J. Strauss": "Johann_Strau%C3%9F_(Sohn)",
+    "Hikaru Hayashi": "Hikaru_Hayashi",
+    "Takemitsu Tōru": "T%C5%8Dru_Takemitsu",
+    "Pfitzner": "Hans_Pfitzner",
+    "Saint-Saëns": "Camille_Saint-Sa%C3%ABns",
+}
 
 
 def load_capacities(halls_html: str):
@@ -38,6 +106,39 @@ def load_capacities(halls_html: str):
             continue
         entries.append((name.lower(), int(cap), city.strip().lower()))
     return entries
+
+
+def parse_conductor_cell(cell_html: str):
+    """Return [(name, href_or_None), ...]. Source rows wrap conductors in
+    <a href="https://en.wikipedia.org/...">Name</a>; this extracts the
+    anchor pairs and falls back to plain '/' splitting for the rare
+    cases where the cell text is not anchored."""
+    parts = []
+    anchor_re = re.compile(r'<a\s+href="([^"]+)"[^>]*>([^<]+)</a>')
+    anchored_names = set()
+    for href, name in anchor_re.findall(cell_html):
+        n = name.strip()
+        parts.append((n, href))
+        anchored_names.add(n)
+    remaining = anchor_re.sub('', cell_html)
+    remaining = re.sub(r'<[^>]+>', '', remaining).strip()
+    for piece in remaining.split('/'):
+        piece = piece.strip()
+        if piece and piece not in anchored_names:
+            parts.append((piece, None))
+    return parts
+
+
+def parse_works_with_links(prog_html: str):
+    """Return [(work_text, work_href_or_None), ...] in source order."""
+    result = []
+    for line in re.split(r'<br\s*/?>', prog_html):
+        txt = re.sub(r'<[^>]+>', '', line).strip()
+        if not txt:
+            continue
+        href_m = re.search(r'<a\s+href="([^"]+)"', line)
+        result.append((txt, href_m.group(1) if href_m else None))
+    return result
 
 
 def parse_concerts(concerts_html: str):
@@ -65,14 +166,8 @@ def parse_concerts(concerts_html: str):
         else:
             hall = ""
             city = city_hall_txt
-        cond_txt = re.sub(r"<[^>]+>", "", tds[3]).strip()
-        conductors = [c.strip() for c in cond_txt.split("/") if c.strip()]
-        prog_html = tds[4]
-        works = []
-        for line in re.split(r"<br\s*/?>", prog_html):
-            txt = re.sub(r"<[^>]+>", "", line).strip()
-            if txt:
-                works.append(txt)
+        conductors = parse_conductor_cell(tds[3])
+        works = parse_works_with_links(tds[4])
         yield {
             "year": year, "city": city, "hall": hall,
             "conductors": conductors, "works": works,
@@ -123,6 +218,8 @@ def aggregate(concerts, entries):
     composer_a: dict = defaultdict(int)
     work_a: dict = defaultdict(int)
     conductor_a: dict = defaultdict(int)
+    work_link: dict = {}
+    conductor_link: dict = {}
     n_concerts = 0
     total = 0
     for c in concerts:
@@ -132,15 +229,23 @@ def aggregate(concerts, entries):
         cap = lookup_capacity(c["hall"], c["city"], entries)
         total += cap
         composers_in = set()
-        for w in c["works"]:
-            if ":" in w:
-                composers_in.add(w.split(":", 1)[0].strip())
+        for w_text, _ in c["works"]:
+            if ":" in w_text:
+                composers_in.add(w_text.split(":", 1)[0].strip())
         for comp in composers_in:
             composer_a[comp] += cap
-        for w in set(c["works"]):
-            work_a[w] += cap
-        for cond in c["conductors"]:
-            conductor_a[cond] += cap
+        seen_works = set()
+        for w_text, w_href in c["works"]:
+            if w_text in seen_works:
+                continue
+            seen_works.add(w_text)
+            work_a[w_text] += cap
+            if w_href and w_text not in work_link:
+                work_link[w_text] = w_href
+        for c_name, c_href in c["conductors"]:
+            conductor_a[c_name] += cap
+            if c_href and c_name not in conductor_link:
+                conductor_link[c_name] = c_href
     sort_desc = lambda d: sorted(
         [(k, round_down_100(v)) for k, v in d.items()],
         key=lambda x: (-x[1], x[0]),
@@ -149,6 +254,8 @@ def aggregate(concerts, entries):
         "composer": sort_desc(composer_a),
         "work": sort_desc(work_a),
         "conductor": sort_desc(conductor_a),
+        "work_link": work_link,
+        "conductor_link": conductor_link,
         "n_concerts": n_concerts,
         "total": round_down_100(total),
     }
@@ -163,26 +270,42 @@ def fmt_int(n: int) -> str:
     return f"{n:,}"
 
 
+def composer_wiki(name: str):
+    slug = COMPOSER_WIKI_DE.get(name)
+    return f"https://de.wikipedia.org/wiki/{slug}" if slug else None
+
+
 def build_bar_section(title, anchor, items, max_v, visible_top,
-                      link_param, accent):
+                      link_param, wiki_for_label):
     if not items:
-        return f'<section class="chart-section" id="section-{anchor}"><h2>{title}</h2><p>No data.</p></section>'
+        return (f'<section class="chart-section" id="section-{anchor}">'
+                f'<h2 id="{anchor}">{title}</h2><p>No data.</p></section>')
     rows = []
     for i, (label, v) in enumerate(items):
         rank = i + 1
         hidden = " hidden" if rank > visible_top else ""
         width = (v / max_v * 100) if max_v else 0
-        href = f'../{"Berliner Philharmoniker" if accent == "#D97706" else "Wiener Philharmoniker"}/Concerts_in_Japan.html'
-        # Use a relative link (we are inside the orchestra dir)
-        href = f'Concerts_in_Japan.html?{link_param}={urlquote(label)}'
+        wiki = wiki_for_label(label)
+        drill = f'Concerts_in_Japan.html?{link_param}={urlquote(label)}'
+        if wiki:
+            name_html = (
+                f'<a class="bar-name" href="{wiki}" target="_blank" rel="noopener" '
+                f'title="Open the Wikipedia article in a new tab">'
+                f'{escape_html(label)}</a>'
+            )
+        else:
+            name_html = f'<span class="bar-name no-link">{escape_html(label)}</span>'
+        value_html = (
+            f'<a class="bar-value" href="{drill}" target="_blank" rel="noopener" '
+            f'title="Open the contributing concerts in a new tab">'
+            f'{fmt_int(v)}</a>'
+        )
         rows.append(
             f'<div class="bar-row{hidden}">'
             f'<span class="rank">{rank}</span>'
-            f'<a class="bar-name" href="{href}" target="_blank" rel="noopener" '
-            f'title="Open concerts contributing to this {anchor} total in a new tab">'
-            f'{escape_html(label)}</a>'
+            f'{name_html}'
             f'<span class="bar-track"><span class="bar-fill" style="width:{width:.2f}%;"></span></span>'
-            f'<span class="bar-value">{fmt_int(v)}</span>'
+            f'{value_html}'
             f'</div>'
         )
     rows_html = "\n".join(rows)
@@ -206,12 +329,15 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
     data = aggregate(concerts, entries)
 
     if orchestra == "bpo":
-        title = "Berliner Philharmoniker — Audience Analysis"
+        page_title = "Berliner Philharmoniker in Japan — Audience Statistics"
+        h1 = "Berliner Philharmoniker — Audience Statistics"
         bgcol = "#FFF8EC"
         accent = "#D97706"
         accent_d = "#B45309"
         accent_soft = "rgba(180,83,9,0.20)"
         accent_tint = "rgba(217,119,6,0.10)"
+        disclaimer_bg = "rgba(217,119,6,0.10)"
+        disclaimer_text = "#6B4118"
         toolbar_links = (
             '  <a href="Concerts_in_Japan.html">Concerts in Japan</a>\n'
             '  <a href="Program_Ranking.html">Program Ranking</a>\n'
@@ -223,12 +349,15 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
             '  <a href="index.html">Home</a>'
         )
     else:
-        title = "Wiener Philharmoniker — Audience Analysis"
+        page_title = "Wiener Philharmoniker in Japan — Audience Statistics"
+        h1 = "Wiener Philharmoniker — Audience Statistics"
         bgcol = "#FBF1F4"
         accent = "#9F1239"
         accent_d = "#831234"
         accent_soft = "rgba(159,18,57,0.20)"
         accent_tint = "rgba(159,18,57,0.08)"
+        disclaimer_bg = "rgba(159,18,57,0.10)"
+        disclaimer_text = "#5B0E27"
         toolbar_links = (
             '  <a href="Concerts_in_Japan.html">Concerts in Japan</a>\n'
             '  <a href="Program_Ranking.html">Program Ranking</a>\n'
@@ -240,21 +369,33 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
             '  <a href="index.html">Home</a>'
         )
 
+    work_link = data["work_link"]
+    conductor_link = data["conductor_link"]
+
+    def wiki_composer(name):
+        return composer_wiki(name)
+
+    def wiki_work(text):
+        return work_link.get(text)
+
+    def wiki_conductor(name):
+        return conductor_link.get(name)
+
     comp_max = data["composer"][0][1] if data["composer"] else 1
     work_max = data["work"][0][1] if data["work"] else 1
     cond_max = data["conductor"][0][1] if data["conductor"] else 1
 
     comp_section = build_bar_section(
         "Audience by Composer", "composer", data["composer"], comp_max,
-        visible_top=20, link_param="composer", accent=accent,
+        visible_top=20, link_param="composer", wiki_for_label=wiki_composer,
     )
     work_section = build_bar_section(
         "Audience by Work", "work", data["work"], work_max,
-        visible_top=25, link_param="work", accent=accent,
+        visible_top=25, link_param="work", wiki_for_label=wiki_work,
     )
     cond_section = build_bar_section(
         "Audience by Conductor", "conductor", data["conductor"], cond_max,
-        visible_top=100, link_param="conductor", accent=accent,
+        visible_top=100, link_param="conductor", wiki_for_label=wiki_conductor,
     )
 
     return f"""<!DOCTYPE html>
@@ -262,7 +403,7 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title}</title>
+<title>{page_title}</title>
 <style>
 * {{ box-sizing: border-box; }}
 body {{
@@ -279,7 +420,7 @@ h1 {{ font-size: 22px; margin: 0 0 6px; text-align: center; color: #000; }}
 .subhead {{ text-align: center; font-size: 13px; color: #555; margin: 0 0 12px; }}
 .toolbar {{
   text-align: center;
-  margin: 0;
+  margin: 0 0 18px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -296,6 +437,17 @@ h1 {{ font-size: 22px; margin: 0 0 6px; text-align: center; color: #000; }}
   box-shadow: 0 1px 3px {accent_soft};
 }}
 .toolbar a:hover {{ background: {accent_d}; }}
+
+.disclaimer {{
+  background: {disclaimer_bg};
+  border-left: 4px solid {accent};
+  padding: 11px 18px;
+  margin: 0 0 22px;
+  font-size: 12.5px;
+  color: {disclaimer_text};
+  line-height: 1.55;
+  border-radius: 0 4px 4px 0;
+}}
 
 .chart-section {{
   margin: 28px 0;
@@ -338,6 +490,10 @@ h1 {{ font-size: 22px; margin: 0 0 6px; text-align: center; color: #000; }}
   text-overflow: ellipsis;
 }}
 .bar-name:hover {{ color: {accent_d}; border-bottom-color: {accent}; }}
+.bar-name.no-link {{
+  color: #6b6864;
+  border-bottom-color: transparent;
+}}
 .bar-track {{
   background: {accent_tint};
   border-radius: 3px;
@@ -356,7 +512,9 @@ h1 {{ font-size: 22px; margin: 0 0 6px; text-align: center; color: #000; }}
   font-variant-numeric: tabular-nums;
   font-weight: 600;
   color: {accent_d};
+  text-decoration: none;
 }}
+.bar-value:hover {{ text-decoration: underline; }}
 
 #section-work .bar-row {{
   grid-template-columns: 36px minmax(280px, 460px) 1fr 90px;
@@ -401,11 +559,14 @@ h1 {{ font-size: 22px; margin: 0 0 6px; text-align: center; color: #000; }}
 <body>
 <div class="container">
 <div class="page-header">
-<h1>{title}</h1>
-<p class="subhead">Cumulative audience across {fmt_int(data["n_concerts"])} concerts (sum of hall capacities). Click any bar to open the contributing concerts.</p>
+<h1>{h1}</h1>
+<p class="subhead">Cumulative audience across {fmt_int(data["n_concerts"])} concerts (sum of hall capacities). Composer / work names link to German Wikipedia; conductor names link to English Wikipedia; the audience number on each bar opens the contributing concerts.</p>
 <p class="toolbar">
 {toolbar_links}
 </p>
+<div class="disclaimer">
+This is an own estimation about the seat capacity of the concert halls which are not identified and based on an assumption that all the seats were occupied.
+</div>
 </div>
 
 {comp_section}
@@ -438,11 +599,11 @@ document.querySelectorAll('.show-all-toggle').forEach(function (btn) {{
 def main():
     orchestra = sys.argv[1].lower() if len(sys.argv) > 1 else "bpo"
     if orchestra == "bpo":
-        in_path = "Berliner Philharmoniker/Concerts_in_Japan.html"
-        out_path = "Berliner Philharmoniker/Audience_Analysis.html"
+        in_path = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        out_path = "Berliner_Philharmoniker_in_Japan/Audience_Analysis.html"
     elif orchestra == "wpo":
-        in_path = "Wiener Philharmoniker/Concerts_in_Japan.html"
-        out_path = "Wiener Philharmoniker/Audience_Analysis.html"
+        in_path = "Wiener_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        out_path = "Wiener_Philharmoniker_in_Japan/Audience_Analysis.html"
     else:
         print(f"Unknown orchestra '{orchestra}'", file=sys.stderr)
         sys.exit(1)

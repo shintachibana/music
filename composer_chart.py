@@ -1,8 +1,8 @@
 """Generate a proportional-area composer chart from a Program_Ranking page.
 
 Usage:
-    python3 composer_chart.py bpo   # → "Berliner Philharmoniker/Composer_Chart.html"
-    python3 composer_chart.py wpo   # → "Wiener Philharmoniker/Composer_Chart.html"
+    python3 composer_chart.py bpo   # → "Berliner_Philharmoniker_in_Japan/Composer_Chart.html"
+    python3 composer_chart.py wpo   # → "Wiener_Philharmoniker_in_Japan/Composer_Chart.html"
 """
 import math
 import re
@@ -184,7 +184,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         accent_rgba = "rgba(180,83,9,0.25)"
         notes_pattern_color = "%23D97706"
         extra_nav = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
-                     '<a href="Audience_Analysis.html">Audience Analysis</a>\n  ')
+                     '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')
     else:
         title  = "Wiener Philharmoniker — Performances by Composer"
         bgcol  = "#FBF1F4"
@@ -547,11 +547,11 @@ window.addEventListener('resize', () => {{
 def main():
     orchestra = sys.argv[1].lower() if len(sys.argv) > 1 else "bpo"
     if orchestra == "bpo":
-        ranking_path = "Berliner Philharmoniker/Program_Ranking.html"
-        out_path     = "Berliner Philharmoniker/Composer_Chart.html"
+        ranking_path = "Berliner_Philharmoniker_in_Japan/Program_Ranking.html"
+        out_path     = "Berliner_Philharmoniker_in_Japan/Composer_Chart.html"
     elif orchestra == "wpo":
-        ranking_path = "Wiener Philharmoniker/Program_Ranking.html"
-        out_path     = "Wiener Philharmoniker/Composer_Chart.html"
+        ranking_path = "Wiener_Philharmoniker_in_Japan/Program_Ranking.html"
+        out_path     = "Wiener_Philharmoniker_in_Japan/Composer_Chart.html"
     else:
         print(f"Unknown orchestra '{orchestra}'. Use 'bpo' or 'wpo'.", file=sys.stderr)
         sys.exit(1)
