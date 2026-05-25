@@ -322,29 +322,41 @@ function render() {
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
-  // Drop Okinawa entirely AND filter out the small southern islands
-  // that hang below Kyūshū (Amami, Tokara, Tanegashima, Yakushima,
-  // Ogasawara, etc.). Concert venues never reach those, and including
-  // them pulls Kyūshū up the frame.
-  const SOUTH_CUTOFF = 31.0;  // °N — Kyūshū mainland's northern body is well above 31
-  function dropSouthernPolys(feature) {
+  // Drop:
+  //  • Okinawa prefecture (no concerts, far south)
+  //  • Polygons that hang below Kyūshū (Amami, Tokara, Yakushima,
+  //    Tanegashima, Ogasawara, etc.) — maxLat < 31°N
+  //  • The Kuril chain off northern Hokkaido (Etorofu/Iturup,
+  //    Kunashiri/Kunashir, Shikotan, Habomai) — minLng > 146°E
+  //    AND minLat > 42.5°N. These appear inside Hokkaidō's
+  //    MultiPolygon in the dataofjapan/land file.
+  const SOUTH_CUTOFF = 31.0;
+  const KURIL_LNG    = 146.0;
+  const KURIL_LAT    = 42.5;
+  function shouldKeepPoly(poly) {
+    const lngs = poly[0].map(p => p[0]);
+    const lats = poly[0].map(p => p[1]);
+    const minLng = Math.min(...lngs);
+    const minLat = Math.min(...lats);
+    const maxLat = Math.max(...lats);
+    if (maxLat < SOUTH_CUTOFF) return false;
+    if (minLng > KURIL_LNG && minLat > KURIL_LAT) return false;
+    return true;
+  }
+  function filterPolys(feature) {
     if (feature.geometry.type === 'MultiPolygon') {
-      const kept = feature.geometry.coordinates.filter(poly => {
-        const maxLat = Math.max(...poly[0].map(p => p[1]));
-        return maxLat >= SOUTH_CUTOFF;
-      });
+      const kept = feature.geometry.coordinates.filter(shouldKeepPoly);
       return { ...feature, geometry: { type: 'MultiPolygon', coordinates: kept } };
     }
     if (feature.geometry.type === 'Polygon') {
-      const maxLat = Math.max(...feature.geometry.coordinates[0].map(p => p[1]));
-      return maxLat >= SOUTH_CUTOFF ? feature : null;
+      return shouldKeepPoly(feature.geometry.coordinates) ? feature : null;
     }
     return feature;
   }
   const isOkinawa = f => normPref(f.properties.nam) === 'Okinawa';
   const mainFeatures = geoData.features
     .filter(f => !isOkinawa(f))
-    .map(dropSouthernPolys)
+    .map(filterPolys)
     .filter(f => f && (f.geometry.coordinates && f.geometry.coordinates.length > 0));
   const mainCollection = { type: 'FeatureCollection', features: mainFeatures };
 
