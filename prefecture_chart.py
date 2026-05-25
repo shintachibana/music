@@ -281,39 +281,34 @@ h1 {{
 .prefecture {{
   stroke: rgba(120,120,120,0.55);
   stroke-width: 0.5;
-  transition: fill 0.2s ease;
+  transition: fill 0.2s ease, stroke 0.15s ease, stroke-width 0.15s ease;
 }}
-.bubble {{
-  fill: {bubble_fill};
-  fill-opacity: 0.78;
-  stroke: #fff;
-  stroke-width: 1.5;
+.prefecture.has-data {{
   cursor: default;
-  transition: stroke-width 0.15s ease, filter 0.15s ease;
 }}
-.bubble:hover {{
-  stroke-width: 2.5;
-  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.4));
+.prefecture.has-data:hover {{
+  stroke: #1c1917;
+  stroke-width: 1.4;
 }}
 .pref-label {{
   pointer-events: none;
   text-anchor: middle;
-  fill: #1c1917;
   font-family: Arial, sans-serif;
-  font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   paint-order: stroke;
-  stroke: rgba(255, 255, 255, 0.92);
+  stroke: rgba(255, 255, 255, 0.85);
   stroke-width: 3px;
   stroke-linejoin: round;
 }}
 .pref-count {{
   pointer-events: none;
   text-anchor: middle;
-  fill: #fff;
   font-family: Arial, sans-serif;
   font-weight: 800;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.85);
+  letter-spacing: -0.5px;
+  paint-order: stroke;
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
 }}
 
 .inset-frame {{
@@ -452,12 +447,12 @@ h1 {{
   <div class="legend">
     <span class="legend-item"><span>Prefecture total:</span><span class="legend-swatch"></span><span>low → high</span></span>
     <span class="legend-item">
-      <span>Bubble size:</span>
-      <span class="legend-bubbles">
-        <span class="legend-bubble" style="width:6px;height:6px;"></span>
-        <span class="legend-bubble" style="width:11px;height:11px;"></span>
-        <span class="legend-bubble" style="width:17px;height:17px;"></span>
-        <span class="legend-bubble" style="width:26px;height:26px;"></span>
+      <span>Number size:</span>
+      <span style="display:flex;align-items:baseline;gap:6px;color:{accent_d};font-weight:800;">
+        <span style="font-size:10px;">3</span>
+        <span style="font-size:14px;">15</span>
+        <span style="font-size:20px;">80</span>
+        <span style="font-size:30px;">240</span>
       </span>
     </span>
   </div>
@@ -571,67 +566,83 @@ function render() {{
 
   const allTotals = Object.values(prefTotals);
   const maxPref = Math.max(1, ...allTotals);
-  const colorScale = d3.scaleSequential()
+  // Sqrt-distributed colour scale so low-count prefectures (Ehime 3,
+  // Niigata 5…) still have visibly distinct tints, rather than getting
+  // swallowed by the lightest end next to Tokyo's 240.
+  const colorScale = d3.scalePow()
+    .exponent(0.55)
     .domain([0, maxPref])
-    .interpolator(d3.interpolateRgb("{choro_a}", "{choro_b}"));
+    .range(["{choro_a}", "{choro_b}"])
+    .interpolate(d3.interpolateRgb);
 
   // -------- MAIN MAP --------
   const gMain = document.createElementNS(svgNS, 'g');
 
+  // Prefecture polygons — themselves are the hover targets.
   const gP = document.createElementNS(svgNS, 'g');
   mainFeatures.forEach(f => {{
     const nam = normPref(f.properties.nam || '');
     const count = prefTotals[nam] || 0;
     const p = document.createElementNS(svgNS, 'path');
-    p.setAttribute('class', 'prefecture');
+    p.setAttribute('class', count > 0 ? 'prefecture has-data' : 'prefecture');
     p.setAttribute('d', mainPath(f));
     p.setAttribute('fill', colorScale(count));
+    if (count > 0) {{
+      const entry = prefByName[nam];
+      p.addEventListener('mouseenter', (evt) => showTooltip(entry, evt));
+      p.addEventListener('mousemove',  moveTooltip);
+      p.addEventListener('mouseleave', hideTooltip);
+    }}
     gP.appendChild(p);
   }});
   gMain.appendChild(gP);
 
-  const maxCount = Math.max(1, ...allTotals);
-  const rMin = 5, rMax = 40;
-  function radius(n) {{ return rMin + (rMax - rMin) * Math.sqrt(n / maxCount); }}
+  // Numeric labels at each prefecture's centroid. Font size scales with
+  // sqrt(count) so Tokyo's 240 looms over Ehime's 3 without dwarfing it
+  // into illegibility. Text colour flips to white once the choropleth
+  // tile is dark enough that black text would lose contrast.
+  const fMin = 9, fMax = 34;
+  function fontSize(n) {{
+    return fMin + (fMax - fMin) * Math.sqrt(n / maxPref);
+  }}
+  function tileIsDark(count) {{
+    // The choropleth fill at count > ~30% of max is dark enough that
+    // white text reads better than black.
+    return count >= maxPref * 0.30;
+  }}
 
-  const gB = document.createElementNS(svgNS, 'g');
+  const gT = document.createElementNS(svgNS, 'g');
   mainFeatures.forEach(f => {{
     const nam = normPref(f.properties.nam || '');
-    const p = prefByName[nam];
-    if (!p) return;
+    const entry = prefByName[nam];
+    if (!entry) return;
     const xy = mainPath.centroid(f);
     if (!xy || !isFinite(xy[0])) return;
     const [x, y] = xy;
-    const r = radius(p.total);
+    const fs = fontSize(entry.total);
+    const dark = tileIsDark(entry.total);
 
-    const circ = document.createElementNS(svgNS, 'circle');
-    circ.setAttribute('class', 'bubble');
-    circ.setAttribute('cx', x);
-    circ.setAttribute('cy', y);
-    circ.setAttribute('r', r);
-    circ.addEventListener('mouseenter', (evt) => showTooltip(p, evt));
-    circ.addEventListener('mousemove',  moveTooltip);
-    circ.addEventListener('mouseleave', hideTooltip);
-    gB.appendChild(circ);
-
-    if (r >= 13) {{
-      const t = document.createElementNS(svgNS, 'text');
-      t.setAttribute('class', 'pref-count');
-      t.setAttribute('x', x);
-      t.setAttribute('y', y + r * 0.34);
-      t.setAttribute('font-size', Math.max(10, Math.min(24, r * 0.95)));
-      t.textContent = p.total;
-      gB.appendChild(t);
-    }}
+    const count = document.createElementNS(svgNS, 'text');
+    count.setAttribute('class', 'pref-count');
+    count.setAttribute('x', x);
+    count.setAttribute('y', y + fs * 0.30);
+    count.setAttribute('font-size', fs);
+    count.setAttribute('fill', dark ? '#fff' : '{accent_d}');
+    count.setAttribute('stroke', dark ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.85)');
+    count.textContent = entry.total;
+    gT.appendChild(count);
 
     const lbl = document.createElementNS(svgNS, 'text');
     lbl.setAttribute('class', 'pref-label');
     lbl.setAttribute('x', x);
-    lbl.setAttribute('y', y + r + 11);
-    lbl.textContent = p.name;
-    gB.appendChild(lbl);
+    lbl.setAttribute('y', y + fs * 0.30 + fs * 0.55 + 4);
+    lbl.setAttribute('font-size', Math.max(9, Math.min(13, fs * 0.40)));
+    lbl.setAttribute('fill', dark ? '#fff' : '#1c1917');
+    lbl.setAttribute('stroke', dark ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.85)');
+    lbl.textContent = entry.name;
+    gT.appendChild(lbl);
   }});
-  gMain.appendChild(gB);
+  gMain.appendChild(gT);
   svg.appendChild(gMain);
 
   wrap.appendChild(svg);
