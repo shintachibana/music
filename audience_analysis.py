@@ -276,7 +276,8 @@ def composer_wiki(name: str):
 
 
 def build_bar_section(title, anchor, items, max_v, visible_top,
-                      link_param, wiki_for_label):
+                      link_param, wiki_for_label,
+                      concerts_href="Concerts_in_Japan.html"):
     if not items:
         return (f'<section class="chart-section" id="section-{anchor}">'
                 f'<h2 id="{anchor}">{title}</h2><p>No data.</p></section>')
@@ -286,7 +287,7 @@ def build_bar_section(title, anchor, items, max_v, visible_top,
         hidden = " hidden" if rank > visible_top else ""
         width = (v / max_v * 100) if max_v else 0
         wiki = wiki_for_label(label)
-        drill = f'Concerts_in_Japan.html?{link_param}={urlquote(label)}'
+        drill = f'{concerts_href}?{link_param}={urlquote(label)}'
         if wiki:
             name_html = (
                 f'<a class="bar-name" href="{wiki}" target="_blank" rel="noopener" '
@@ -359,7 +360,7 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
         disclaimer_bg = "rgba(159,18,57,0.10)"
         disclaimer_text = "#5B0E27"
         toolbar_links = (
-            '  <a href="Concerts_in_Japan.html">Concerts in Japan</a>\n'
+            '  <a href="Performances_in_Japan.html">Concerts in Japan</a>\n'
             '  <a href="Program_Ranking.html">Program Ranking</a>\n'
             '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
             '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
@@ -369,6 +370,7 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
             '  <a href="index.html">Home</a>'
         )
 
+    concerts_href = "Concerts_in_Japan.html" if orchestra == "bpo" else "Performances_in_Japan.html"
     work_link = data["work_link"]
     conductor_link = data["conductor_link"]
 
@@ -388,14 +390,17 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
     comp_section = build_bar_section(
         "Estimated Audience by Composer", "composer", data["composer"], comp_max,
         visible_top=20, link_param="composer", wiki_for_label=wiki_composer,
+        concerts_href=concerts_href,
     )
     work_section = build_bar_section(
         "Estimated Audience by Work", "work", data["work"], work_max,
         visible_top=25, link_param="work", wiki_for_label=wiki_work,
+        concerts_href=concerts_href,
     )
     cond_section = build_bar_section(
         "Estimated Audience by Conductor", "conductor", data["conductor"], cond_max,
         visible_top=100, link_param="conductor", wiki_for_label=wiki_conductor,
+        concerts_href=concerts_href,
     )
 
     return f"""<!DOCTYPE html>
@@ -602,7 +607,7 @@ def main():
         in_path = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
         out_path = "Berliner_Philharmoniker_in_Japan/Audience_Analysis.html"
     elif orchestra == "wpo":
-        in_path = "Wiener_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        in_path = "Wiener_Philharmoniker_in_Japan/Performances_in_Japan.html"
         out_path = "Wiener_Philharmoniker_in_Japan/Audience_Analysis.html"
     else:
         print(f"Unknown orchestra '{orchestra}'", file=sys.stderr)

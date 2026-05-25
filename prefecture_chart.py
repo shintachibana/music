@@ -169,6 +169,7 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         choro_b     = "#B45309"
         extra_nav   = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
                        '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')
+        concerts_href = "Concerts_in_Japan.html"
     else:
         title       = "Wiener Philharmoniker — Performances by Prefecture"
         bgcol       = "#FBF1F4"
@@ -180,6 +181,7 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         choro_a     = "#FAEBEF"
         choro_b     = "#831234"
         extra_nav   = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+        concerts_href = "Performances_in_Japan.html"
 
     rows = []
     for pref, info in sorted(prefectures.items(), key=lambda x: -x[1]["total"]):
@@ -449,7 +451,7 @@ h1 {{
 <h1>{title}</h1>
 <p class="subhead">{total_pref} prefectures · {total_perf} performances on the orchestra's documented Japan tours. Each prefecture is filled by its total; the bubble at the centroid is sized by the same total. Hover any prefecture for the work list &amp; contributing cities.</p>
 <p class="toolbar">
-  <a href="Concerts_in_Japan.html">Concerts in Japan</a>
+  <a href="{concerts_href}">Concerts in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
   <a href="Composer_Chart.html">Performances by Composer</a>
   <a href="Performances_by_Conductor.html">Performances by Conductor</a>
@@ -692,7 +694,7 @@ def main():
         in_path  = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
         out_path = "Berliner_Philharmoniker_in_Japan/Performances_by_Prefecture.html"
     elif orchestra == "wpo":
-        in_path  = "Wiener_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        in_path  = "Wiener_Philharmoniker_in_Japan/Performances_in_Japan.html"
         out_path = "Wiener_Philharmoniker_in_Japan/Performances_by_Prefecture.html"
     else:
         print(f"Unknown orchestra '{orchestra}'. Use 'bpo' or 'wpo'.", file=sys.stderr)

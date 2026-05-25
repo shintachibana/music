@@ -307,7 +307,8 @@ def get_chief_for_year(year: int):
 
 
 def build_timeline_row(year: int, tour_conductors: dict, planned_years: set,
-                        show_chief: bool, default_pill: str) -> str:
+                        show_chief: bool, default_pill: str,
+                        concerts_href: str = "Concerts_in_Japan.html") -> str:
     """One row of the timeline. tour_conductors[year] is the live
     [(name, n_concerts), ...] list of who led that year's tour. The
     pill label uses the conductor's family name; one pill per
@@ -359,7 +360,7 @@ def build_timeline_row(year: int, tour_conductors: dict, planned_years: set,
         title_suffix = " — planned" if is_planned else ""
         pills.append(
             f'<a class="tour-pill{pill_extra_class}" '
-            f'href="Concerts_in_Japan.html?year={year}&conductor={urlquote(cond_full)}" '
+            f'href="{concerts_href}?year={year}&conductor={urlquote(cond_full)}" '
             f'target="_blank" rel="noopener" '
             f'title="Open {n} {year} concert(s) led by {cond_full}{title_suffix} in a new tab" '
             f'style="background:{pill_colour};">'
@@ -383,7 +384,8 @@ def build_timeline_row(year: int, tour_conductors: dict, planned_years: set,
 
 def build_timeline_html(tour_conductors: dict, planned_years: set,
                          show_chief: bool, default_pill: str,
-                         start: int = 1955, end: int = 2026) -> str:
+                         start: int = 1955, end: int = 2026,
+                         concerts_href: str = "Concerts_in_Japan.html") -> str:
     rows = []
     last_decade = None
     for year in range(start, end + 1):
@@ -393,7 +395,7 @@ def build_timeline_html(tour_conductors: dict, planned_years: set,
                         f'<span>{decade}s</span></div>')
             last_decade = decade
         rows.append(build_timeline_row(year, tour_conductors, planned_years,
-                                        show_chief, default_pill))
+                                        show_chief, default_pill, concerts_href))
     return "\n".join(rows)
 
 
@@ -452,7 +454,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         accent_soft = "rgba(159,18,57,0.20)"
         accent_tint = "rgba(159,18,57,0.08)"
         toolbar_links = (
-            '  <a href="Concerts_in_Japan.html">Concerts in Japan</a>\n'
+            '  <a href="Performances_in_Japan.html">Concerts in Japan</a>\n'
             '  <a href="Program_Ranking.html">Program Ranking</a>\n'
             '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
             '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
@@ -472,12 +474,14 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         footer_note = (
             "The Vienna Philharmonic has no <em>Chefdirigent</em> tradition — "
             "each tour is led by an invited guest. Conductor names are pulled "
-            "live from the <a href=\"Concerts_in_Japan.html\">Concerts in Japan</a> "
+            "live from the <a href=\"Performances_in_Japan.html\">Performances in Japan</a> "
             "table; click any tour pill to filter that page by the year."
         )
+    concerts_href = "Concerts_in_Japan.html" if orchestra == "bpo" else "Performances_in_Japan.html"
 
     timeline_html = build_timeline_html(tour_conductors, planned_years,
-                                          show_chief, default_pill, start=start_year)
+                                          show_chief, default_pill, start=start_year,
+                                          concerts_href=concerts_href)
     analysis_html = build_analysis_html(decade_analysis)
 
     # Chief colour CSS rules
@@ -765,7 +769,7 @@ def main():
         in_path  = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
         out_path = "Berliner_Philharmoniker_in_Japan/Program_Trend_by_Era.html"
     elif orchestra == "wpo":
-        in_path  = "Wiener_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        in_path  = "Wiener_Philharmoniker_in_Japan/Performances_in_Japan.html"
         out_path = "Wiener_Philharmoniker_in_Japan/Program_Trend_by_Era.html"
     else:
         print(f"Unknown orchestra '{orchestra}'. Use 'bpo' or 'wpo'.", file=sys.stderr)

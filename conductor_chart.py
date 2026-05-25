@@ -418,6 +418,7 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         analysis_section = bpo_analysis_html(details)
         extra_nav = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
                      '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')
+        concerts_href = "Concerts_in_Japan.html"
     else:
         title    = "Wiener Philharmoniker — Performances by Conductor"
         title_pre = "Wiener Philharmoniker"
@@ -430,6 +431,7 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         chart_grad_outer = "rgba(159,18,57,0.30)"     # burgundy edge
         analysis_section = wpo_analysis_html(totals, details, concerts)
         extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+        concerts_href = "Performances_in_Japan.html"
 
     # Build data array.
     children = []
@@ -737,7 +739,7 @@ h1 {{
 <h1>{title}</h1>
 <p class="subhead">Each bubble's area is proportional to that conductor's total performances on the orchestra's documented Japan tours. {total_cond} conductors, {total_perf} performances total — laid out by a hierarchical circle-pack.</p>
 <p class="toolbar">
-  <a href="Concerts_in_Japan.html">Concerts in Japan</a>
+  <a href="{concerts_href}">Concerts in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
   <a href="Composer_Chart.html">Performances by Composer</a>
   <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>
@@ -1023,7 +1025,7 @@ def main():
         in_path  = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
         out_path = "Berliner_Philharmoniker_in_Japan/Performances_by_Conductor.html"
     elif orchestra == "wpo":
-        in_path  = "Wiener_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        in_path  = "Wiener_Philharmoniker_in_Japan/Performances_in_Japan.html"
         out_path = "Wiener_Philharmoniker_in_Japan/Performances_by_Conductor.html"
     else:
         print(f"Unknown orchestra '{orchestra}'. Use 'bpo' or 'wpo'.", file=sys.stderr)

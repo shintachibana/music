@@ -189,6 +189,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         notes_pattern_color = "%23D97706"
         extra_nav = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
                      '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')
+        concerts_href = "Concerts_in_Japan.html"
     else:
         title  = "Wiener Philharmoniker — Performances by Composer"
         bgcol  = "#FBF1F4"
@@ -197,6 +198,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         accent_rgba = "rgba(159,18,57,0.25)"
         notes_pattern_color = "%239F1239"
         extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+        concerts_href = "Performances_in_Japan.html"
 
     # JSON-like data emitted into the page; D3 squarify treemap will lay it out.
     import json
@@ -417,7 +419,7 @@ h1 {{
 <h1>{title}</h1>
 <p class="subhead">Each cell's area is proportional to that composer's total performances on the orchestra's documented Japan tours. {total_composers} composers, {total_perf} performances total — laid out by a squarified treemap algorithm.</p>
 <p class="toolbar">
-  <a href="Concerts_in_Japan.html">Concerts in Japan</a>
+  <a href="{concerts_href}">Concerts in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
   <a href="Performances_by_Conductor.html">Performances by Conductor</a>
   <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>
