@@ -584,6 +584,20 @@ window.addEventListener('resize', () => {
   clearTimeout(window._chartResizeTimer);
   window._chartResizeTimer = setTimeout(render, 100);
 });
+
+// Touch / tap-outside dismiss. On iPad and other touch devices, mouseenter
+// fires on the first tap but mouseleave never does — so the tooltip stays
+// pinned to the last conductor until another bubble is tapped. Listen at
+// the document level for any pointerdown / touchend whose target isn't
+// inside a bubble and hide the tooltip explicitly. The existing pointer
+// handlers on desktop are unaffected.
+function dismissIfOutsideBubble(evt) {
+  const t = evt.target;
+  if (t && t.closest && t.closest('.bubble')) return;
+  hideTooltip();
+}
+document.addEventListener('pointerdown', dismissIfOutsideBubble, true);
+document.addEventListener('touchend',    dismissIfOutsideBubble, true);
 </script>
 </body>
 </html>
