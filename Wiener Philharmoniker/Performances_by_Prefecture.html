@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiener Philharmoniker — Performances by Prefecture</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  margin: 0;
+  padding: 24px 20px;
+  color: #222;
+  background-color: #FBF1F4;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%239F1239' fill-opacity='0.16'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.15'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%239F1239' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.14'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%230F766E' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%239F1239' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%239F1239' fill-opacity='0.14'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+.page-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: #FBF1F4;
+  margin: 0 -20px 20px;
+  padding: 12px 20px 14px;
+  box-shadow: 0 2px 0 #FBF1F4;
+}
+h1 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0 0 6px;
+  text-align: center;
+  color: #000;
+}
+.subhead {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+  padding: 0 0 10px;
+}
+.toolbar {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.toolbar a {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 13px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin: 0 4px;
+  color: #fff;
+  background: #9F1239;
+  box-shadow: 0 1px 3px rgba(159,18,57,0.25);
+}
+.toolbar a:hover { background: #831234; }
+
+#chart-wrap {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+#chart {
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border: 2px solid #9F1239;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.55);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.10);
+  position: relative;
+}
+#chart svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.prefecture {
+  stroke: rgba(120,120,120,0.55);
+  stroke-width: 0.5;
+  transition: fill 0.2s ease, stroke 0.15s ease, stroke-width 0.15s ease;
+}
+.prefecture.has-data {
+  cursor: default;
+}
+.prefecture.has-data:hover {
+  stroke: #1c1917;
+  stroke-width: 1.4;
+}
+.pref-label {
+  pointer-events: none;
+  text-anchor: middle;
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+.pref-count {
+  pointer-events: none;
+  text-anchor: middle;
+  font-family: Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  paint-order: stroke;
+  stroke-width: 3.5px;
+  stroke-linejoin: round;
+}
+
+.inset-frame {
+  fill: none;
+  stroke: rgba(0,0,0,0.30);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+.inset-label {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  fill: #555;
+  text-anchor: start;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #555;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-swatch {
+  width: 90px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #FAEBEF, #831234);
+  border: 1px solid rgba(0,0,0,0.18);
+}
+.legend-bubbles { display: flex; align-items: flex-end; gap: 4px; }
+.legend-bubble {
+  display: inline-block;
+  border-radius: 50%;
+  background: #9F1239;
+  border: 1.5px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.25);
+}
+
+#tooltip {
+  position: fixed;
+  z-index: 100;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.32);
+  padding: 12px 14px 10px;
+  width: 460px;
+  max-height: 96vh;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #222;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+#tooltip.wide   { width: 720px; }
+#tooltip.wider  { width: 920px; }
+#tooltip.widest { width: min(1180px, 96vw); font-size: 11.5px; }
+#tooltip.wide   ul { column-count: 2; column-gap: 14px; }
+#tooltip.wider  ul { column-count: 3; column-gap: 14px; }
+#tooltip.widest ul { column-count: 4; column-gap: 14px; }
+#tooltip ul li { break-inside: avoid; margin: 0; }
+#tooltip.visible { opacity: 1; }
+#tooltip h3 {
+  margin: 0 0 6px;
+  padding: 0 0 6px;
+  border-bottom: 2px solid #9F1239;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+#tooltip h3 .pref-total {
+  color: #9F1239;
+  font-size: 18px;
+}
+#tooltip .cities {
+  font-size: 11.5px;
+  color: #666;
+  margin: 0 0 8px;
+  padding: 0 0 6px;
+  border-bottom: 1px dashed rgba(0,0,0,0.10);
+}
+#tooltip .cities b { color: #333; }
+#tooltip ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#tooltip li {
+  margin: 1px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+#tooltip .work-rank {
+  flex: 0 0 auto;
+  min-width: 1.8em;
+  text-align: right;
+  color: #888;
+  font-variant-numeric: tabular-nums;
+}
+#tooltip .work-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+#tooltip .work-count {
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: #831234;
+  font-variant-numeric: tabular-nums;
+}
+
+.footnote {
+  max-width: 800px;
+  margin: 26px auto 0;
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+<div class="page-header">
+<h1>Wiener Philharmoniker — Performances by Prefecture</h1>
+<p class="subhead">28 prefectures · 939 performances on the orchestra's documented Japan tours. Each prefecture is filled by its total; the bubble at the centroid is sized by the same total. Hover any prefecture for the work list &amp; contributing cities.</p>
+<p class="toolbar">
+  <a href="Concerts_in_Japan.html">Concerts in Japan →</a>
+  <a href="Program_Ranking.html">Program Ranking →</a>
+  <a href="Composer_Chart.html">Performances by Composer →</a>
+  <a href="Performances_by_Conductor.html">Performances by Conductor →</a>
+  <a href="index.html">Home</a>
+</p>
+</div>
+
+<div id="chart-wrap">
+  <div id="chart"></div>
+  <div class="legend">
+    <span class="legend-item"><span>Prefecture total:</span><span class="legend-swatch"></span><span>low → high</span></span>
+    <span class="legend-item">
+      <span>Counter shown inside each prefecture (uniform font, colour encodes magnitude).</span>
+    </span>
+  </div>
+</div>
+
+<div id="tooltip" role="tooltip"></div>
+
+<p class="footnote">
+Map data © <a href="https://github.com/dataofjapan/land" target="_blank" rel="noopener">dataofjapan/land</a> (Japan prefecture boundaries).
+Hover any prefecture's bubble for the full list of works performed there and the contributing cities.
+</p>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script>
+const prefData = [{"name": "Tokyo", "total": 492, "cities": [["Tokyo", 492]], "works": [["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 13], ["Beethoven: Sinfonie Nr. 4 B-Dur op. 60", 11], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 10], ["Brahms: Sinfonie Nr. 1 c-Moll op. 68", 8], ["Mozart: Sinfonie Nr. 41 C-Dur KV 551, <em>Jupiter</em>", 8], ["Beethoven: <em>Coriolan</em>-Ouvertüre op. 62", 7], ["Brahms: Sinfonie Nr. 2 D-Dur op. 73", 7], ["R. Strauss: <em>Don Juan</em> op. 20", 7], ["R. Strauss: <em>Ein Heldenleben</em> op. 40", 7], ["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 6], ["Mozart: Sinfonie Nr. 39 Es-Dur KV 543", 6], ["R. Strauss: <em>Der Rosenkavalier</em> op. 59 (staged opera)", 6], ["Schubert: Sinfonie Nr. 9 C-Dur D. 944, <em>Große</em>", 6], ["Bach: Orchestersuite Nr. 2 h-Moll BWV 1067", 5], ["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 5], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 5], ["Dvořák: Sinfonie Nr. 9 e-Moll op. 95, <em>Aus der Neuen Welt</em>", 5], ["Mozart: Sinfonie Nr. 38 D-Dur KV 504, <em>Prager</em>", 5], ["Mozart: Sinfonie Nr. 40 g-Moll KV 550", 5], ["Rossini: <em>Il viaggio a Reims</em> (staged opera)", 5], ["Wagner: <em>Siegfried-Idyll</em> WWV 103", 5], ["Beethoven: Ouvertüre <em>Leonore Nr. 3</em> op. 72b", 4], ["Beethoven: Sinfonie Nr. 5 c-Moll op. 67", 4], ["Beethoven: Sinfonie Nr. 8 F-Dur op. 93", 4], ["Bruckner: Sinfonie Nr. 7 E-Dur", 4], ["Mozart: Fagottkonzert B-Dur KV 191", 4], ["Mozart: Sinfonie Nr. 29 A-Dur KV 201", 4], ["Mozart: Sinfonie Nr. 35 D-Dur KV 385, <em>Haffner</em>", 4], ["R. Strauss: <em>Till Eulenspiegels lustige Streiche</em> op. 28", 4], ["Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em>", 4], ["Strawinsky: Divertimento aus <em>Le baiser de la fée</em>", 4], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 4], ["Tschaikowsky: Sinfonie Nr. 6 h-Moll op. 74, <em>Pathétique</em>", 4], ["Beethoven: Klavierkonzert Nr. 3 c-Moll op. 37", 3], ["Beethoven: Sinfonie Nr. 1 C-Dur op. 21", 3], ["Beethoven: Sinfonie Nr. 2 D-Dur op. 36", 3], ["Beethoven: Sinfonie Nr. 9 d-Moll op. 125, <em>Choral</em>", 3], ["Berg: <em>Wozzeck</em> op. 7 (staged opera)", 3], ["Brahms: Haydn-Variationen op. 56a", 3], ["Bruckner: Sinfonie Nr. 4 Es-Dur, <em>Romantische</em>", 3], ["Bruckner: Sinfonie Nr. 5 B-Dur WAB 105 (Nowak)", 3], ["Debussy: <em>La mer</em>", 3], ["Haydn: Sinfonie Nr. 104 D-Dur, <em>Londoner</em>", 3], ["J. Strauss II: <em>Kaiser-Walzer</em>", 3], ["J. Strauss II: <em>Perpetuum mobile</em>", 3], ["J. Strauss II: <em>Pizzicato-Polka</em>", 3], ["Mahler: Sinfonie Nr. 5 cis-Moll", 3], ["Mendelssohn: Sinfonie Nr. 4 A-Dur op. 90, <em>Italienische</em>", 3], ["Mozart: Hornkonzert Nr. 3 Es-Dur KV 447", 3], ["Mozart: Serenade Nr. 13 G-Dur KV 525, <em>Eine kleine Nachtmusik</em>", 3], ["Mozart: Sinfonia concertante Es-Dur KV 364", 3], ["Mozart: Sinfonie Nr. 25 g-Moll KV 183", 3], ["Mozart: Sinfonie Nr. 36 C-Dur KV 425, <em>Linzer</em>", 3], ["R. Strauss: <em>Also sprach Zarathustra</em> op. 30", 3], ["R. Strauss: <em>Tod und Verklärung</em> op. 24", 3], ["Rachmaninow: Klavierkonzert Nr. 3 d-Moll op. 30", 3], ["Schubert: Sinfonie Nr. 4 c-Moll D. 417, <em>Tragische</em>", 3], ["Strawinsky: <em>Der Feuervogel</em>, Ballettmusik (Fassung 1910)", 3], ["Wagner: <em>Tristan und Isolde</em>, Vorspiel und Liebestod", 3], ["Beethoven: <em>Die Geschöpfe des Prometheus</em>, Ouvertüre op. 43", 2], ["Beethoven: Sinfonie Nr. 5 c-Moll", 2], ["Beethoven: Sinfonie Nr. 6 F-Dur, <em>Pastorale</em>", 2], ["Brahms: <em>Tragische Ouvertüre</em> op. 81", 2], ["Brahms: <em>Variationen über ein Thema von Haydn</em> op. 56a", 2], ["Brahms: Doppelkonzert für Violine und Violoncello a-Moll op. 102", 2], ["Brahms: Sinfonie Nr. 3 F-Dur op. 90", 2], ["Bruckner: Sinfonie Nr. 7 E-Dur WAB 107", 2], ["Debussy: <em>La mer</em>, drei sinfonische Skizzen", 2], ["Debussy: <em>Prélude à l'après-midi d'un faune</em>", 2], ["Dvořák: Sinfonie Nr. 8 G-Dur op. 88", 2], ["Falla: <em>El sombrero de tres picos</em>, Suite Nr. 2", 2], ["Henri Tomasi: Concerto pour trombone", 2], ["J. Strauss II: <em>Egyptischer Marsch</em>", 2], ["J. Strauss II: <em>Kaiser-Walzer</em> op. 437", 2], ["J. Strauss II: <em>Künstlerleben</em>, Walzer op. 316", 2], ["J. Strauss II: <em>Neue Pizzicato-Polka</em>", 2], ["J. Strauss II: <em>Wiener Blut</em>, Walzer op. 354", 2], ["J. Strauss II: Ouvertüre <em>Der Zigeunerbaron</em>", 2], ["J. Strauss II: Ouvertüre <em>Die Fledermaus</em>", 2], ["Mahler: Sinfonie Nr. 1 D-Dur, <em>Titan</em>", 2], ["Mozart: <em>Le nozze di Figaro</em>, Ouvertüre", 2], ["Mozart: Divertimento Nr. 2 D-Dur KV 131", 2], ["Mozart: Klarinettenkonzert A-Dur KV 622", 2], ["Mozart: Klavierkonzert Nr. 25 C-Dur KV 503", 2], ["Mozart: Ouvertüre <em>Die Entführung aus dem Serail</em> KV 384", 2], ["Mozart: Violinkonzert Nr. 5 A-Dur KV 219", 2], ["Prokofjew: Klavierkonzert Nr. 2 g-Moll op. 16", 2], ["Ravel: <em>Rapsodie espagnole</em>", 2], ["Rossini: Ouvertüre <em>Semiramide</em>", 2], ["Schostakowitsch: Sinfonie Nr. 5 d-Moll op. 47", 2], ["Schubert: <em>Rosamunde</em>-Ouvertüre D. 644", 2], ["Schubert: Sinfonie Nr. 3 D-Dur D. 200", 2], ["Schubert: Sinfonie Nr. 6 C-Dur D. 589, <em>Kleine</em>", 2], ["Schumann: Sinfonie Nr. 2 C-Dur op. 61", 2], ["Schumann: Sinfonie Nr. 3 Es-Dur op. 97, <em>Rheinische</em>", 2], ["Strawinsky: Suite aus <em>L'oiseau de feu</em>", 2], ["Takemitsu: <em>Nostalghia</em>", 2], ["Tschaikowsky: <em>Variationen über ein Rokoko-Thema</em> A-Dur op. 33", 2], ["Tschaikowsky: Sinfonie Nr. 4 f-Moll op. 36", 2], ["Wagner: <em>Tannhäuser</em>, Ouvertüre WWV 70", 2], ["Wolf: <em>Italienische Serenade</em>", 2], ["Bach (arr. Webern): <em>Ricercar a 6</em> aus <em>Das musikalische Opfer</em>", 1], ["Bartók: Konzert für Orchester Sz. 116", 1], ["Bartók: Suite aus <em>Der wunderbare Mandarin</em> Sz. 73", 1], ["Beethoven: <em>Egmont</em>-Ouvertüre op. 84", 1], ["Beethoven: Klavierkonzert Nr. 1 C-Dur op. 15", 1], ["Beethoven: Klavierkonzert Nr. 2 B-Dur op. 19", 1], ["Beethoven: Klavierkonzert Nr. 4 G-Dur op. 58", 1], ["Beethoven: Klavierkonzert Nr. 5 Es-Dur op. 73, <em>Kaiser</em>", 1], ["Beethoven: Sinfonie Nr. 2 D-Dur", 1], ["Beethoven: Sinfonie Nr. 3 Es-Dur, <em>Eroica</em>", 1], ["Beethoven: Sinfonie Nr. 7", 1], ["Berg: <em>Drei Orchesterstücke</em> op. 6", 1], ["Berlioz: Ouvertüre <em>Benvenuto Cellini</em> op. 23", 1], ["Brahms: <em>Alt-Rhapsodie</em> op. 53", 1], ["Brahms: <em>Ungarische Tänze</em> Nr. 1, 3, 10", 1], ["Brahms: Klavierkonzert Nr. 1 d-Moll op. 15", 1], ["Brahms: Sinfonie Nr. 2 D-Dur", 1], ["Brahms: Violinkonzert D-Dur op. 77", 1], ["Bruckner: Sinfonie Nr. 2 c-Moll WAB 102", 1], ["Bruckner: Sinfonie Nr. 5 B-Dur WAB 105", 1], ["Bruckner: Sinfonie Nr. 8 c-Moll", 1], ["Bruckner: Sinfonie Nr. 8 c-Moll WAB 108", 1], ["Bruckner: Sinfonie Nr. 8 c-Moll WAB 108 (Haas)", 1], ["Bruckner: Sinfonie Nr. 9 d-Moll", 1], ["Chopin: Klavierkonzert Nr. 1 e-Moll op. 11", 1], ["Debussy: aus <em>Nocturnes</em>", 1], ["Dvořák: Ouvertüre <em>Karneval</em> op. 92", 1], ["Dvořák: Sinfonie Nr. 7 d-Moll op. 70", 1], ["Haydn: Sinfonie Nr. 102 B-Dur", 1], ["Haydn: Sinfonie Nr. 103 Es-Dur Hob. I:103, <em>mit dem Paukenwirbel</em>", 1], ["Haydn: Sinfonie Nr. 104 D-Dur, <em>London</em>", 1], ["Haydn: Sinfonie Nr. 60 C-Dur, <em>Il distratto</em>", 1], ["Haydn: Sinfonie Nr. 67 F-Dur Hob. I:67", 1], ["Haydn: Sinfonie Nr. 92 G-Dur, <em>Oxford</em>", 1], ["Haydn: von Einem: <em>Philadelphia Symphony</em> op. 28", 1], ["Hindemith: <em>Nobilissima visione</em>, Suite", 1], ["Hindemith: Sinfonietta E-Dur", 1], ["J. Strauss I: <em>Schnellgalopp</em>", 1], ["J. Strauss II: <em>An der schönen blauen Donau</em>, Walzer", 1], ["J. Strauss II: <em>Annen-Polka</em>", 1], ["J. Strauss II: <em>Annen-Polka</em> op. 117", 1], ["J. Strauss II: <em>Banditen-Galopp</em>", 1], ["J. Strauss II: <em>Die Fledermaus</em>, Ouvertüre", 1], ["J. Strauss II: <em>Diplomaten-Polka</em>", 1], ["J. Strauss II: <em>Frühlingsstimmen</em>, Walzer", 1], ["J. Strauss II: <em>Geschichten aus dem Wienerwald</em>, Walzer", 1], ["J. Strauss II: <em>Hofball-Tänze</em>, Walzer", 1], ["J. Strauss II: <em>Indische Polka</em>", 1], ["J. Strauss II: <em>Klipp-Klapp-Galopp</em>", 1], ["J. Strauss II: <em>Krönungslieder</em>, Walzer op. 184", 1], ["J. Strauss II: <em>Libellen</em>-Polka mazur op. 204", 1], ["J. Strauss II: <em>Niko-Polka</em> française op. 228", 1], ["J. Strauss II: <em>Persischer Marsch</em> op. 289", 1], ["J. Strauss II: <em>Rosen aus dem Süden</em>, Walzer op. 388", 1], ["J. Strauss II: <em>Tritsch-Tratsch-Polka</em>", 1], ["J. Strauss II: <em>Veilchen</em>-Polka", 1], ["J. Strauss II: <em>Wiener Blut</em>, Walzer", 1], ["J. Strauss II: <em>Wo die Citronen blühn</em>, Walzer", 1], ["J. Strauss II: Csárdás aus <em>Die Fledermaus</em>", 1], ["J. Strauss II: Csárdás aus <em>Ritter Pásmán</em> op. 441", 1], ["J. Strauss II: Ouvertüre <em>Indigo und die vierzig Räuber</em>", 1], ["J. Strauss II: Ouvertüre <em>Prinz Methusalem</em>", 1], ["J. Strauss II: Ouvertüre <em>Waldmeister</em>", 1], ["J. Strauss II: Polka <em>Auf der Jagd</em>", 1], ["J. Strauss II: Polka <em>Im Krapfenwald</em>", 1], ["J. Strauss II: Polka <em>Unter Donner und Blitz</em>", 1], ["J. Strauss II: Polka <em>Vergnügungszug</em>", 1], ["J. Strauss II: Polka <em>Éljen a Magyár</em>", 1], ["Josef Strauss: <em>Aquarellen</em>, Walzer op. 258", 1], ["Josef Strauss: <em>Delirien</em>, Walzer", 1], ["Josef Strauss: <em>Geschäftsreise</em>, Walzer", 1], ["Josef Strauss: <em>Jockey</em>-Polka op. 278", 1], ["Josef Strauss: <em>Mein Lebenslauf ist Lieb' und Lust</em>, Walzer op. 263", 1], ["Josef Strauss: Polka <em>Die Libelle</em>", 1], ["Josef Strauss: Polka <em>Die Windmühle</em>", 1], ["Josef Strauss: Polka <em>Die tanzende Muse</em>", 1], ["Josef Strauss: Polka <em>Frauenherz</em>", 1], ["Josef Strauss: Polka <em>Ohne Sorgen</em>", 1], ["Josef Strauss: Polka <em>Plappermäulchen</em>", 1], ["Liszt: Klavierkonzert Nr. 1 Es-Dur", 1], ["Mahler: <em>Des Knaben Wunderhorn</em>, Auswahl", 1], ["Mahler: Sinfonie Nr. 4 G-Dur", 1], ["Mahler: Sinfonie Nr. 9 D-Dur", 1], ["Mendelssohn: <em>Ein Sommernachtstraum</em>, Ouvertüre op. 21", 1], ["Mendelssohn: <em>Ein Sommernachtstraum</em>, Schauspielmusik (Auszüge) op. 61", 1], ["Mendelssohn: Sinfonie Nr. 2 B-Dur op. 52, <em>Lobgesang</em>", 1], ["Mozart: <em>Die Zauberflöte</em>, Ouvertüre KV 620", 1], ["Mozart: Flötenkonzert Nr. 1 G-Dur KV 313", 1], ["Mozart: Klavierkonzert Nr. 23 A-Dur KV 488", 1], ["Mozart: Klavierkonzert Nr. 24 c-Moll KV 491", 1], ["Mozart: Sinfonia concertante Es-Dur KV 297b (für Bläser)", 1], ["Mozart: Sinfonie Nr. 29 A-Dur", 1], ["Mozart: Sinfonie Nr. 33 B-Dur KV 319", 1], ["Mozart: Sinfonie Nr. 34 C-Dur KV 338", 1], ["Mussorgsky: <em>Chowanschtschina</em>, Vorspiel zum 1. Akt", 1], ["Mussorgsky: <em>Eine Nacht auf dem kahlen Berge</em>", 1], ["Nicolai: Ouvertüre <em>Die lustigen Weiber von Windsor</em>", 1], ["Nino Rota: Filmmusik <em>Il Gattopardo</em>, Sinfonische Suite", 1], ["Nino Rota: Posaunenkonzert", 1], ["Pfitzner: Violinkonzert h-Moll op. 34", 1], ["Prokofjew: Auszüge aus dem Ballett <em>Romeo und Julia</em> op. 64", 1], ["Prokofjew: Sinfonie Nr. 1 D-Dur op. 25, <em>Klassische</em>", 1], ["Prokofjew: Sinfonie Nr. 5 B-Dur op. 100", 1], ["Prokofjew: Violinkonzert Nr. 1 D-Dur op. 19", 1], ["R. Strauss: <em>Don Juan</em>", 1], ["R. Strauss: <em>Don Quixote</em> op. 35", 1], ["R. Strauss: <em>Hymnus</em> op. 33 Nr. 3", 1], ["R. Strauss: <em>Notturno</em> op. 44 Nr. 1", 1], ["R. Strauss: <em>Nächtlicher Gang</em> op. 44 Nr. 2", 1], ["R. Strauss: <em>Pilgers Morgenlied</em> op. 33 Nr. 4", 1], ["Ravel: <em>Daphnis et Chloé</em>, Suite Nr. 2", 1], ["Ravel: <em>La valse</em>", 1], ["René Staar: <em>Time Recital Ring</em> (Uraufführung in Japan)", 1], ["Reznicek: Ouvertüre <em>Donna Diana</em>", 1], ["Rimsky-Korsakow: <em>Russische Ostern</em>, Ouvertüre op. 36", 1], ["Rimsky-Korsakow: <em>Scheherazade</em> op. 35", 1], ["Saint-Saëns: Klavierkonzert Nr. 2 g-Moll op. 22", 1], ["Schostakowitsch: Sinfonie Nr. 9 Es-Dur op. 70", 1], ["Schubert: <em>Rosamunde</em>-Ouvertüre", 1], ["Schubert: Sinfonie Nr. 2 B-Dur D. 125", 1], ["Schubert: Sinfonie Nr. 5 B-Dur D. 485", 1], ["Schumann: <em>Requiem für Mignon</em> op. 98b", 1], ["Schumann: Klavierkonzert a-Moll op. 54", 1], ["Schönberg: <em>Fünf Stücke für Orchester</em> op. 16", 1], ["Sibelius: Sinfonie Nr. 2 D-Dur op. 43", 1], ["Strawinsky: <em>Le sacre du printemps</em>", 1], ["Strawinsky: <em>Petruschka</em>", 1], ["Takemitsu: <em>Visions</em>", 1], ["Th. Berger: <em>Vom Prinzen Eugen</em>, Sinfonia", 1], ["Tschaikowsky: Serenade für Streicher C-Dur op. 48", 1], ["Verdi: <em>I vespri siciliani</em>, Ballettmusik <em>Le quattro stagioni</em>", 1], ["Verdi: Ouvertüre <em>Giovanna d'Arco</em>", 1], ["Wagner: <em>Die Meistersinger von Nürnberg</em>, Vorspiel", 1], ["Wagner: <em>Die Meistersinger</em>, Vorspiel", 1], ["Wagner: <em>Götterdämmerung</em>, Orchesterstücke", 1], ["Wagner: <em>Götterdämmerung</em>, Orchesterstücke (arr. Welser-Möst)", 1], ["Wagner: <em>Tristan und Isolde</em>, Liebestod", 1], ["Webern: <em>Sechs Stücke für Orchester</em> op. 6", 1], ["Webern: Konzert für neun Instrumente op. 24", 1], ["Webern: Passacaglia op. 1", 1]]}, {"name": "Osaka", "total": 120, "cities": [["Osaka", 120]], "works": [["Brahms: Sinfonie Nr. 2 D-Dur op. 73", 5], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 4], ["R. Strauss: <em>Don Juan</em> op. 20", 3], ["Tschaikowsky: Sinfonie Nr. 6 h-Moll op. 74, <em>Pathétique</em>", 3], ["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 2], ["Beethoven: Sinfonie Nr. 4 B-Dur op. 60", 2], ["Beethoven: Sinfonie Nr. 5 c-Moll op. 67", 2], ["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 2], ["Brahms: Sinfonie Nr. 1 c-Moll op. 68", 2], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 2], ["Dvořák: Sinfonie Nr. 9 e-Moll op. 95, <em>Aus der Neuen Welt</em>", 2], ["J. Strauss II: <em>Annen-Polka</em> op. 117", 2], ["J. Strauss II: <em>Kaiser-Walzer</em> op. 437", 2], ["J. Strauss II: <em>Wiener Blut</em>, Walzer op. 354", 2], ["Mozart: Sinfonia concertante Es-Dur KV 364", 2], ["Mozart: Sinfonie Nr. 40 g-Moll KV 550", 2], ["Mozart: Sinfonie Nr. 41 C-Dur KV 551, <em>Jupiter</em>", 2], ["R. Strauss: <em>Till Eulenspiegels lustige Streiche</em> op. 28", 2], ["Bach (arr. Webern): <em>Ricercar a 6</em> aus <em>Das musikalische Opfer</em>", 1], ["Bartók: Suite aus <em>Der wunderbare Mandarin</em> Sz. 73", 1], ["Beethoven: <em>Die Geschöpfe des Prometheus</em>, Ouvertüre op. 43", 1], ["Beethoven: <em>Egmont</em>-Ouvertüre op. 84", 1], ["Beethoven: Sinfonie Nr. 5 c-Moll", 1], ["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 1], ["Beethoven: Sinfonie Nr. 6 F-Dur, <em>Pastorale</em>", 1], ["Beethoven: Sinfonie Nr. 7", 1], ["Brahms: Doppelkonzert für Violine und Violoncello a-Moll op. 102", 1], ["Brahms: Sinfonie Nr. 3 F-Dur op. 90", 1], ["Brahms: Violinkonzert D-Dur op. 77", 1], ["Bruckner: Sinfonie Nr. 5 B-Dur WAB 105 (Nowak)", 1], ["Bruckner: Sinfonie Nr. 7 E-Dur", 1], ["Bruckner: Sinfonie Nr. 7 E-Dur WAB 107", 1], ["Dvořák: Sinfonie Nr. 8 G-Dur op. 88", 1], ["Haydn: Sinfonie Nr. 60 C-Dur, <em>Il distratto</em>", 1], ["J. Strauss I: <em>Radetzky-Marsch</em> op. 228", 1], ["J. Strauss II: <em>Auf der Jagd</em>-Polka op. 373", 1], ["J. Strauss II: <em>Egyptischer Marsch</em>", 1], ["J. Strauss II: <em>Frühlingsstimmen</em>, Walzer", 1], ["J. Strauss II: <em>Kaiser-Walzer</em>", 1], ["J. Strauss II: <em>Krönungslieder</em>, Walzer op. 184", 1], ["J. Strauss II: <em>Libellen</em>-Polka mazur op. 204", 1], ["J. Strauss II: <em>Neue Pizzicato-Polka</em>", 1], ["J. Strauss II: <em>Niko-Polka</em> française op. 228", 1], ["J. Strauss II: <em>Persischer Marsch</em> op. 289", 1], ["J. Strauss II: <em>Tritsch-Tratsch-Polka</em>", 1], ["J. Strauss II: Csárdás aus <em>Die Fledermaus</em>", 1], ["J. Strauss II: Ouvertüre <em>Der Zigeunerbaron</em>", 1], ["J. Strauss II: Ouvertüre <em>Die Fledermaus</em>", 1], ["J. Strauss II: Ouvertüre <em>Waldmeister</em>", 1], ["J. Strauss II: Polka <em>Vergnügungszug</em>", 1], ["Josef Strauss: <em>Delirien</em>-Walzer op. 212", 1], ["Josef Strauss: <em>Geschäftsreise</em>, Walzer", 1], ["Josef Strauss: <em>Jockey</em>-Polka op. 278", 1], ["Josef Strauss: <em>Mein Lebenslauf ist Lieb' und Lust</em>, Walzer op. 263", 1], ["Josef Strauss: Polka <em>Die tanzende Muse</em>", 1], ["Josef Strauss: Polka <em>Frauenherz</em>", 1], ["Mahler: Sinfonie Nr. 1 D-Dur, <em>Titan</em>", 1], ["Mahler: Sinfonie Nr. 5 cis-Moll", 1], ["Mozart: <em>Die Zauberflöte</em>, Ouvertüre KV 620", 1], ["Mozart: Divertimento Nr. 2 D-Dur KV 131", 1], ["Mozart: Fagottkonzert B-Dur KV 191", 1], ["Mozart: Klavierkonzert Nr. 23 A-Dur KV 488", 1], ["Mozart: Klavierkonzert Nr. 24 c-Moll KV 491", 1], ["Mozart: Ouvertüre <em>Die Entführung aus dem Serail</em> KV 384", 1], ["Mozart: Serenade Nr. 13 G-Dur KV 525, <em>Eine kleine Nachtmusik</em>", 1], ["Mozart: Sinfonie Nr. 25 g-Moll KV 183", 1], ["Mozart: Sinfonie Nr. 35 D-Dur KV 385, <em>Haffner</em>", 1], ["Mozart: Sinfonie Nr. 36 C-Dur KV 425, <em>Linzer</em>", 1], ["Mozart: Sinfonie Nr. 38 D-Dur KV 504, <em>Prager</em>", 1], ["Mozart: Sinfonie Nr. 39 Es-Dur KV 543", 1], ["Nicolai: Ouvertüre <em>Die lustigen Weiber von Windsor</em>", 1], ["Prokofjew: Klavierkonzert Nr. 2 g-Moll op. 16", 1], ["Prokofjew: Sinfonie Nr. 1 D-Dur op. 25, <em>Klassische</em>", 1], ["Prokofjew: Violinkonzert Nr. 1 D-Dur op. 19", 1], ["R. Strauss: <em>Tod und Verklärung</em> op. 24", 1], ["Reznicek: Ouvertüre <em>Donna Diana</em>", 1], ["Saint-Saëns: Klavierkonzert Nr. 2 g-Moll op. 22", 1], ["Schostakowitsch: Sinfonie Nr. 5 d-Moll op. 47", 1], ["Schubert: Sinfonie Nr. 3 D-Dur D. 200", 1], ["Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em>", 1], ["Schubert: Sinfonie Nr. 9 C-Dur D. 944, <em>Große</em>", 1], ["Schumann: Klavierkonzert a-Moll op. 54", 1], ["Schumann: Sinfonie Nr. 2 C-Dur op. 61", 1], ["Sibelius: <em>Der Schwan von Tuonela</em> (aus <em>Lemminkäinen-Suite</em>)", 1], ["Sibelius: Sinfonie Nr. 2 D-Dur op. 43", 1], ["Strawinsky: <em>Petruschka</em>", 1], ["Tschaikowsky: <em>Variationen über ein Rokoko-Thema</em> A-Dur op. 33", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1], ["Verdi: <em>I vespri siciliani</em>, Ballettmusik <em>Le quattro stagioni</em>", 1], ["Verdi: Ouvertüre <em>Giovanna d'Arco</em>", 1], ["Vivaldi: Konzert C-Dur, <em>per la Festa di San Lorenzo</em>", 1], ["Wagner: <em>Götterdämmerung</em>, Orchesterstücke", 1], ["Wagner: <em>Tannhäuser</em>, Ouvertüre WWV 70", 1], ["Wagner: <em>Tristan und Isolde</em>, Liebestod", 1], ["Webern: <em>Fünf Stücke für Orchester</em> op. 10", 1]]}, {"name": "Aichi", "total": 61, "cities": [["Nagoya", 58], ["Toyota", 3]], "works": [["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 4], ["Mozart: Sinfonie Nr. 40 g-Moll KV 550", 3], ["Beethoven: Sinfonie Nr. 4 B-Dur op. 60", 2], ["Beethoven: Sinfonie Nr. 5 c-Moll op. 67", 2], ["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 2], ["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 2], ["Brahms: Sinfonie Nr. 2 D-Dur op. 73", 2], ["Dvořák: Sinfonie Nr. 9 e-Moll op. 95, <em>Aus der Neuen Welt</em>", 2], ["Mozart: Sinfonie Nr. 39 Es-Dur KV 543", 2], ["Mozart: Sinfonie Nr. 41 C-Dur KV 551, <em>Jupiter</em>", 2], ["R. Strauss: <em>Till Eulenspiegels lustige Streiche</em> op. 28", 2], ["Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em>", 2], ["Bach (arr. Webern): <em>Ricercar a 6</em> aus <em>Das musikalische Opfer</em>", 1], ["Bartók: Suite aus <em>Der wunderbare Mandarin</em> Sz. 73", 1], ["Beethoven: <em>Coriolan</em>-Ouvertüre op. 62", 1], ["Beethoven: <em>Egmont</em>-Ouvertüre op. 84", 1], ["Beethoven: Sinfonie Nr. 1 C-Dur op. 21", 1], ["Beethoven: Sinfonie Nr. 7", 1], ["Beethoven: Sinfonie Nr. 8 F-Dur op. 93", 1], ["Brahms: Haydn-Variationen op. 56a", 1], ["Brahms: Sinfonie Nr. 1 c-Moll op. 68", 1], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 1], ["Haydn: Sinfonie Nr. 104 D-Dur, <em>Londoner</em>", 1], ["Haydn: Sinfonie Nr. 60 C-Dur, <em>Il distratto</em>", 1], ["J. Strauss II: <em>Annen-Polka</em> op. 117", 1], ["J. Strauss II: <em>Libellen</em>-Polka mazur op. 204", 1], ["J. Strauss II: <em>Wiener Blut</em>, Walzer op. 354", 1], ["J. Strauss II: Ouvertüre <em>Waldmeister</em>", 1], ["Josef Strauss: <em>Jockey</em>-Polka op. 278", 1], ["Josef Strauss: <em>Mein Lebenslauf ist Lieb' und Lust</em>, Walzer op. 263", 1], ["Liszt: Klavierkonzert Nr. 1 Es-Dur", 1], ["Mahler: Sinfonie Nr. 1 D-Dur, <em>Titan</em>", 1], ["Mozart: Sinfonie Nr. 34 C-Dur KV 338", 1], ["Mozart: Sinfonie Nr. 35 D-Dur KV 385, <em>Haffner</em>", 1], ["R. Strauss: <em>Don Juan</em> op. 20", 1], ["R. Strauss: <em>Till Eulenspiegel</em>", 1], ["R. Strauss: <em>Tod und Verklärung</em> op. 24", 1], ["Rossini: Ouvertüre <em>Semiramide</em>", 1], ["Schubert: Sinfonie Nr. 5 B-Dur D. 485", 1], ["Schubert: Sinfonie Nr. 6 C-Dur D. 589, <em>Kleine</em>", 1], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 1], ["Schubert: Sinfonie Nr. 9 C-Dur D. 944, <em>Große</em>", 1], ["Schumann: Klavierkonzert a-Moll op. 54", 1], ["Schumann: Sinfonie Nr. 3 Es-Dur op. 97, <em>Rheinische</em>", 1], ["Wagner: <em>Tristan und Isolde</em>, Vorspiel und Liebestod", 1], ["Wolf: <em>Italienische Serenade</em>", 1]]}, {"name": "Fukuoka", "total": 42, "cities": [["Fukuoka", 31], ["Yahata", 5], ["Kitakyushu", 3], ["Kurume", 3]], "works": [["R. Strauss: <em>Ein Heldenleben</em> op. 40", 2], ["Bach: Orchestersuite Nr. 2 h-Moll BWV 1067", 1], ["Beethoven: <em>Coriolan</em>-Ouvertüre op. 62", 1], ["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 1], ["Beethoven: Sinfonie Nr. 4 B-Dur op. 60", 1], ["Beethoven: Sinfonie Nr. 5 c-Moll op. 67", 1], ["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 1], ["Beethoven: Sinfonie Nr. 7", 1], ["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 1], ["Brahms: <em>Variationen über ein Thema von Haydn</em> op. 56a", 1], ["Debussy: <em>La mer</em>", 1], ["Dvořák: Sinfonie Nr. 9 e-Moll op. 95, <em>Aus der Neuen Welt</em>", 1], ["Mahler: Sinfonie Nr. 5 cis-Moll", 1], ["Mozart: <em>Don Giovanni</em>, Ouvertüre", 1], ["Mozart: Divertimento Nr. 2 D-Dur KV 131", 1], ["Mozart: Fagottkonzert B-Dur KV 191", 1], ["Mozart: Hornkonzert Nr. 3 Es-Dur KV 447", 1], ["Mozart: Ouvertüre <em>Die Entführung aus dem Serail</em> KV 384", 1], ["Mozart: Serenade Nr. 13 G-Dur KV 525, <em>Eine kleine Nachtmusik</em>", 1], ["Mozart: Sinfonie Nr. 29 A-Dur KV 201", 1], ["Mozart: Sinfonie Nr. 38 D-Dur KV 504, <em>Prager</em>", 1], ["Mozart: Sinfonie Nr. 40 g-Moll KV 550", 1], ["Mozart: Sinfonie Nr. 41 C-Dur KV 551, <em>Jupiter</em>", 1], ["Mussorgsky: <em>Eine Nacht auf dem kahlen Berge</em>", 1], ["Prokofjew: Auszüge aus dem Ballett <em>Romeo und Julia</em> op. 64", 1], ["Prokofjew: Klavierkonzert Nr. 2 g-Moll op. 16", 1], ["R. Strauss: <em>Till Eulenspiegel</em>", 1], ["R. Strauss: <em>Till Eulenspiegels lustige Streiche</em> op. 28", 1], ["Rimsky-Korsakow: <em>Russische Ostern</em>, Ouvertüre op. 36", 1], ["Rimsky-Korsakow: <em>Scheherazade</em> op. 35", 1], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 1], ["Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em>", 1], ["Schubert: Sinfonie Nr. 9 C-Dur D. 944, <em>Große</em>", 1], ["Takemitsu: Requiem für Streicher", 1], ["Tschaikowsky: Sinfonie Nr. 4 f-Moll op. 36", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1], ["Tschaikowsky: Sinfonie Nr. 6 h-Moll op. 74, <em>Pathétique</em>", 1], ["Wagner: <em>Siegfried-Idyll</em> WWV 103", 1], ["Webern: <em>Sechs Stücke für Orchester</em> op. 6", 1], ["Webern: Konzert für neun Instrumente op. 24", 1], ["Webern: Passacaglia op. 1", 1]]}, {"name": "Kanagawa", "total": 40, "cities": [["Kawasaki", 32], ["Yokohama", 8]], "works": [["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 2], ["Dvořák: Sinfonie Nr. 8 G-Dur op. 88", 2], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 2], ["Schubert: Sinfonie Nr. 9 C-Dur D. 944, <em>Große</em>", 2], ["Tschaikowsky: Sinfonie Nr. 6 h-Moll op. 74, <em>Pathétique</em>", 2], ["Beethoven: Sinfonie Nr. 8 F-Dur op. 93", 1], ["Beethoven: Sinfonie Nr. 9 d-Moll op. 125, <em>Choral</em>", 1], ["Brahms: Doppelkonzert für Violine und Violoncello a-Moll op. 102", 1], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 1], ["Bruckner: Sinfonie Nr. 4 Es-Dur, <em>Romantische</em>", 1], ["Debussy: <em>La mer</em>", 1], ["Dvořák: Ouvertüre <em>Karneval</em> op. 92", 1], ["Dvořák: Sinfonie Nr. 7 d-Moll op. 70 (B 141)", 1], ["Dvořák: Sinfonie Nr. 9 e-Moll op. 95, <em>Aus der Neuen Welt</em>", 1], ["Haydn: Sinfonie Nr. 103 Es-Dur Hob. I:103, <em>mit dem Paukenwirbel</em>", 1], ["Liszt: Klavierkonzert Nr. 1 Es-Dur", 1], ["Mozart: <em>Don Giovanni</em>, Ouvertüre", 1], ["Mozart: Sinfonie Nr. 33 B-Dur KV 319", 1], ["Mozart: Sinfonie Nr. 39 Es-Dur KV 543", 1], ["Mussorgsky: <em>Chowanschtschina</em>, Vorspiel zum 1. Akt", 1], ["Prokofjew: Auszüge aus dem Ballett <em>Romeo und Julia</em> op. 64", 1], ["Prokofjew: Klavierkonzert Nr. 2 g-Moll op. 16", 1], ["R. Strauss: <em>Also sprach Zarathustra</em> op. 30", 1], ["R. Strauss: <em>Don Quixote</em> op. 35", 1], ["R. Strauss: <em>Ein Heldenleben</em> op. 40", 1], ["Saint-Saëns: Klavierkonzert Nr. 2 g-Moll op. 22", 1], ["Schostakowitsch: Sinfonie Nr. 9 Es-Dur op. 70", 1], ["Schubert: <em>Rosamunde</em>-Ouvertüre D. 644", 1], ["Schubert: von Einem: <em>Philadelphia Symphony</em> op. 28", 1], ["Schumann: Sinfonie Nr. 3 Es-Dur op. 97, <em>Rheinische</em>", 1], ["Strawinsky: <em>Petruschka</em>", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1], ["Verdi: <em>I vespri siciliani</em>, Ballettmusik <em>Le quattro stagioni</em>", 1], ["Verdi: Ouvertüre <em>Giovanna d'Arco</em>", 1], ["Wagner: <em>Götterdämmerung</em>, Orchesterstücke (arr. Welser-Möst)", 1]]}, {"name": "Hiroshima", "total": 31, "cities": [["Hiroshima", 31]], "works": [["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 2], ["Rossini: Ouvertüre <em>Semiramide</em>", 2], ["Schubert: Sinfonie Nr. 5 B-Dur D. 485", 2], ["Beethoven: <em>Coriolan</em>-Ouvertüre op. 62", 1], ["Beethoven: Sinfonie Nr. 7", 1], ["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 1], ["Beethoven: Sinfonie Nr. 8 F-Dur op. 93", 1], ["Brahms: Haydn-Variationen op. 56a", 1], ["Brahms: Klavierkonzert Nr. 1 d-Moll op. 15", 1], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 1], ["Bruckner: Sinfonie Nr. 4 Es-Dur, <em>Romantische</em>", 1], ["Debussy: <em>La mer</em>", 1], ["Dvořák: Sinfonie Nr. 9 e-Moll op. 95, <em>Aus der Neuen Welt</em>", 1], ["Haydn: Sinfonie Nr. 104 D-Dur, <em>Londoner</em>", 1], ["Liszt: Klavierkonzert Nr. 1 Es-Dur", 1], ["Mahler: Sinfonie Nr. 4 G-Dur", 1], ["Mahler: Sinfonie Nr. 9 D-Dur", 1], ["Mozart: Sinfonie Nr. 25 g-Moll KV 183", 1], ["Mozart: Sinfonie Nr. 36 C-Dur KV 425, <em>Linzer</em>", 1], ["Mozart: Sinfonie Nr. 39 Es-Dur KV 543", 1], ["Mozart: Sinfonie Nr. 40 g-Moll KV 550", 1], ["R. Strauss: <em>Don Juan</em> op. 20", 1], ["R. Strauss: <em>Till Eulenspiegel</em>", 1], ["Ravel: <em>La valse</em>", 1], ["Schubert: Sinfonie Nr. 6 C-Dur D. 589, <em>Kleine</em>", 1], ["Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em>", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1], ["Wolf: <em>Italienische Serenade</em>", 1]]}, {"name": "Hyogo", "total": 20, "cities": [["Takarazuka", 9], ["Nishinomiya", 6], ["Himeji", 5]], "works": [["Mendelssohn: Sinfonie Nr. 4 A-Dur op. 90, <em>Italienische</em>", 2], ["Bach: Orchestersuite Nr. 2 h-Moll BWV 1067", 1], ["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 1], ["Beethoven: Sinfonie Nr. 4 B-Dur op. 60", 1], ["Brahms: Doppelkonzert für Violine und Violoncello a-Moll op. 102", 1], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 1], ["Bruckner: Sinfonie Nr. 5 B-Dur WAB 105", 1], ["Cherubini: Ouvertüre <em>Médée</em>", 1], ["Chopin: Klavierkonzert Nr. 1 e-Moll op. 11", 1], ["Haydn: Sinfonie Nr. 104 D-Dur, <em>London</em>", 1], ["Hindemith: <em>Nobilissima visione</em>, Suite", 1], ["Mozart: Hornkonzert Nr. 3 Es-Dur KV 447", 1], ["R. Strauss: <em>Ein Heldenleben</em> op. 40", 1], ["Schubert: <em>Rosamunde</em>, Bühnenmusik (Auszüge) D. 797", 1], ["Schubert: Sinfonie Nr. 2 B-Dur D. 125", 1], ["Schubert: Sinfonie Nr. 4 c-Moll D. 417, <em>Tragische</em>", 1], ["Schumann: Sinfonie Nr. 3 Es-Dur op. 97, <em>Rheinische</em>", 1], ["Strawinsky: Divertimento aus <em>Le baiser de la fée</em>", 1], ["Wagner: <em>Siegfried-Idyll</em> WWV 103", 1]]}, {"name": "Hokkaido", "total": 18, "cities": [["Sapporo", 18]], "works": [["R. Strauss: <em>Till Eulenspiegels lustige Streiche</em> op. 28", 2], ["Rossini: Ouvertüre <em>Semiramide</em>", 2], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 2], ["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 1], ["Beethoven: Sinfonie Nr. 5 c-Moll op. 67", 1], ["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 1], ["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 1], ["Brahms: Sinfonie Nr. 2 D-Dur op. 73", 1], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 1], ["Bruckner: Sinfonie Nr. 7 E-Dur", 1], ["Mozart: Sinfonie Nr. 41 C-Dur KV 551, <em>Jupiter</em>", 1], ["Schubert: Sinfonie Nr. 5 B-Dur D. 485", 1], ["Schönberg: <em>Fünf Stücke für Orchester</em> op. 16", 1], ["Strawinsky: Divertimento aus <em>Le baiser de la fée</em>", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1]]}, {"name": "Kyoto", "total": 13, "cities": [["Kyoto", 13]], "works": [["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 1], ["Debussy: aus <em>Nocturnes</em>", 1], ["Mozart: Flötenkonzert Nr. 1 G-Dur KV 313", 1], ["Mozart: Sinfonie Nr. 36 C-Dur KV 425, <em>Linzer</em>", 1], ["Mozart: Sinfonie Nr. 38 D-Dur KV 504, <em>Prager</em>", 1], ["Mozart: Sinfonie Nr. 40 g-Moll KV 550", 1], ["R. Strauss: <em>Don Juan</em> op. 20", 1], ["R. Strauss: <em>Till Eulenspiegels lustige Streiche</em> op. 28", 1], ["R. Strauss: <em>Tod und Verklärung</em> op. 24", 1], ["Ravel: <em>Daphnis et Chloé</em>, Suite Nr. 2", 1], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 1], ["Schubert: Sinfonie Nr. 9 C-Dur D. 944, <em>Große</em>", 1], ["Takemitsu: <em>Visions</em>", 1]]}, {"name": "Shizuoka", "total": 12, "cities": [["Hamamatsu", 6], ["Shizuoka", 6]], "works": [["Beethoven: Klavierkonzert Nr. 3 c-Moll op. 37", 1], ["Brahms: Sinfonie Nr. 1 c-Moll op. 68", 1], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 1], ["J. Strauss II: <em>Kaiser-Walzer</em> op. 437", 1], ["J. Strauss II: <em>Krönungslieder</em>, Walzer op. 184", 1], ["J. Strauss II: <em>Niko-Polka</em> française op. 228", 1], ["J. Strauss II: <em>Persischer Marsch</em> op. 289", 1], ["J. Strauss II: <em>Wiener Blut</em>, Walzer op. 354", 1], ["Mozart: Sinfonie Nr. 41 C-Dur KV 551, <em>Jupiter</em>", 1], ["R. Strauss: <em>Ein Heldenleben</em> op. 40", 1], ["R. Strauss: <em>Eine Alpensinfonie</em> op. 64", 1], ["Tschaikowsky: Sinfonie Nr. 6 h-Moll op. 74, <em>Pathétique</em>", 1]]}, {"name": "Okayama", "total": 11, "cities": [["Kurashiki", 6], ["Okayama", 5]], "works": [["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 2], ["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 1], ["Mozart: Sinfonie Nr. 25 g-Moll KV 183", 1], ["Mozart: Sinfonie Nr. 41 C-Dur KV 551, <em>Jupiter</em>", 1], ["R. Strauss: <em>Don Juan</em> op. 20", 1], ["R. Strauss: <em>Eine Alpensinfonie</em> op. 64", 1], ["Schubert: <em>Rosamunde</em>-Ouvertüre D. 644", 1], ["Schubert: Sinfonie Nr. 9 C-Dur D. 944, <em>Große</em>", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1], ["Webern: <em>Fünf Stücke für Orchester</em> op. 10", 1]]}, {"name": "Toyama", "total": 9, "cities": [["Toyama", 9]], "works": [["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 1], ["J. Strauss II: <em>Kaiser-Walzer</em> op. 437", 1], ["J. Strauss II: <em>Krönungslieder</em>, Walzer op. 184", 1], ["J. Strauss II: <em>Niko-Polka</em> française op. 228", 1], ["J. Strauss II: <em>Persischer Marsch</em> op. 289", 1], ["J. Strauss II: <em>Wiener Blut</em>, Walzer op. 354", 1], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 1], ["Tschaikowsky: Sinfonie Nr. 6 h-Moll op. 74, <em>Pathétique</em>", 1], ["Webern: <em>Fünf Stücke für Orchester</em> op. 10", 1]]}, {"name": "Nagano", "total": 9, "cities": [["Nagano", 9]], "works": [["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 2], ["Brahms: Sinfonie Nr. 2 D-Dur op. 73", 1], ["Mozart: <em>Die Zauberflöte</em>, Ouvertüre KV 620", 1], ["Mozart: Klavierkonzert Nr. 24 c-Moll KV 491", 1], ["Mozart: Sinfonie Nr. 25 g-Moll KV 183", 1], ["R. Strauss: <em>Don Juan</em> op. 20", 1], ["Verdi: <em>I vespri siciliani</em>, Ballettmusik <em>Le quattro stagioni</em>", 1], ["Verdi: Ouvertüre <em>Giovanna d'Arco</em>", 1]]}, {"name": "Niigata", "total": 8, "cities": [["Niigata", 8]], "works": [["Beethoven: Sinfonie Nr. 3 Es-Dur, <em>Eroica</em>", 1], ["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 1], ["Haydn: Sinfonie Nr. 67 F-Dur Hob. I:67", 1], ["R. Strauss: <em>Till Eulenspiegel</em>", 1], ["R. Strauss: <em>Till Eulenspiegels lustige Streiche</em> op. 28", 1], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 1], ["Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em>", 1], ["Schubert: Sinfonie Nr. 9 C-Dur D. 944, <em>Große</em>", 1]]}, {"name": "Kumamoto", "total": 6, "cities": [["Kumamoto", 6]], "works": [["Beethoven: Sinfonie Nr. 7 A-Dur op. 92", 1], ["Mozart: Sinfonie Nr. 25 g-Moll KV 183", 1], ["R. Strauss: <em>Don Juan</em> op. 20", 1], ["Schubert: Sinfonie Nr. 8 h-Moll D. 759, <em>Unvollendete</em>", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1], ["Webern: <em>Fünf Stücke für Orchester</em> op. 10", 1]]}, {"name": "Miyagi", "total": 6, "cities": [["Sendai", 6]], "works": [["Bartók: Suite aus <em>Der wunderbare Mandarin</em> Sz. 73", 1], ["Dvořák: Sinfonie Nr. 9 e-Moll op. 95, <em>Aus der Neuen Welt</em>", 1], ["Dvořák: Sinfonie Nr. 9 e-Moll, <em>Aus der Neuen Welt</em>", 1], ["Haydn: Sinfonie Nr. 60 C-Dur, <em>Il distratto</em>", 1], ["Rossini: Ouvertüre <em>Semiramide</em>", 1], ["Schubert: Sinfonie Nr. 5 B-Dur D. 485", 1]]}, {"name": "Mie", "total": 6, "cities": [["Tsu", 6]], "works": [["J. Strauss II: <em>Kaiser-Walzer</em> op. 437", 1], ["J. Strauss II: <em>Krönungslieder</em>, Walzer op. 184", 1], ["J. Strauss II: <em>Niko-Polka</em> française op. 228", 1], ["J. Strauss II: <em>Persischer Marsch</em> op. 289", 1], ["J. Strauss II: <em>Wiener Blut</em>, Walzer op. 354", 1], ["Tschaikowsky: Sinfonie Nr. 4 f-Moll op. 36", 1]]}, {"name": "Chiba", "total": 5, "cities": [["Matsudo", 3], ["Chiba", 2]], "works": [["Beethoven: Sinfonie Nr. 5 c-Moll op. 67", 1], ["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 1], ["Mozart: Sinfonie Nr. 25 g-Moll KV 183", 1], ["R. Strauss: <em>Don Juan</em> op. 20", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1]]}, {"name": "Fukui", "total": 5, "cities": [["Fukui", 5]], "works": [["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 1], ["Dvořák: Sinfonie Nr. 7 d-Moll op. 70", 1], ["Mussorgsky: <em>Chowanschtschina</em>, Vorspiel zum 1. Akt", 1], ["Schostakowitsch: Sinfonie Nr. 9 Es-Dur op. 70", 1], ["Schumann: Klavierkonzert a-Moll op. 54", 1]]}, {"name": "Miyazaki", "total": 4, "cities": [["Miyazaki", 4]], "works": [["Beethoven: Sinfonie Nr. 3 Es-Dur op. 55, <em>Eroica</em>", 1], ["Brahms: Sinfonie Nr. 1 c-Moll op. 68", 1], ["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 1], ["Schubert: Sinfonie Nr. 2 B-Dur D. 125", 1]]}, {"name": "Ehime", "total": 3, "cities": [["Matsuyama", 3]], "works": [["Brahms: Sinfonie Nr. 4 e-Moll op. 98", 1], ["Rossini: Ouvertüre <em>Semiramide</em>", 1], ["Schubert: Sinfonie Nr. 5 B-Dur D. 485", 1]]}, {"name": "Ishikawa", "total": 3, "cities": [["Kanazawa", 3]], "works": [["Beethoven: Sinfonie Nr. 7", 1], ["R. Strauss: <em>Till Eulenspiegel</em>", 1], ["Schubert: Sinfonie Nr. 8 h-Moll, <em>Unvollendete</em>", 1]]}, {"name": "Kagoshima", "total": 3, "cities": [["Kagoshima", 3]], "works": [["Mozart: Sinfonie Nr. 25 g-Moll KV 183", 1], ["R. Strauss: <em>Don Juan</em> op. 20", 1], ["Tschaikowsky: Sinfonie Nr. 5 e-Moll op. 64", 1]]}, {"name": "Saitama", "total": 3, "cities": [["Kawaguchi", 3]], "works": [["Dvořák: Sinfonie Nr. 9 e-Moll op. 95, <em>Aus der Neuen Welt</em>", 1], ["Haydn: Sinfonie Nr. 103 Es-Dur Hob. I:103, <em>mit dem Paukenwirbel</em>", 1], ["Mozart: Sinfonie Nr. 33 B-Dur KV 319", 1]]}, {"name": "Fukushima", "total": 3, "cities": [["Koriyama", 3]], "works": [["Dvořák: Sinfonie Nr. 8 G-Dur op. 88", 1], ["Mozart: Sinfonia concertante Es-Dur KV 364", 1], ["Sibelius: <em>Der Schwan von Tuonela</em>", 1]]}, {"name": "Iwate", "total": 2, "cities": [["Morioka", 2]], "works": [["Beethoven: Sinfonie Nr. 5 c-Moll op. 67", 1], ["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 1]]}, {"name": "Gunma", "total": 2, "cities": [["Maebashi", 2]], "works": [["Beethoven: Sinfonie Nr. 5 c-Moll op. 67", 1], ["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 1]]}, {"name": "Shiga", "total": 2, "cities": [["Otsu", 2]], "works": [["Beethoven: Sinfonie Nr. 6 F-Dur op. 68, <em>Pastorale</em>", 1], ["R. Strauss: <em>Ein Heldenleben</em> op. 40", 1]]}];
+const prefTotals = Object.fromEntries(prefData.map(p => [p.name, p.total]));
+const prefByName = Object.fromEntries(prefData.map(p => [p.name, p]));
+
+const tooltipEl = document.getElementById('tooltip');
+
+function showTooltip(p, evt) {
+  const works = p.works || [];
+  let prevCount = null, prevRank = 0;
+  const items = works.map(([w, n], i) => {
+    let rank;
+    if (n === prevCount) { rank = prevRank; }
+    else                  { rank = i + 1; prevCount = n; prevRank = rank; }
+    return `<li><span class="work-rank">${rank}.</span><span class="work-title">${w}</span><span class="work-count">${n}</span></li>`;
+  }).join('');
+  const cities = (p.cities || []).map(([c, n]) => `<b>${c}</b>&nbsp;${n}`).join(' · ');
+  const citiesLine = cities ? `<p class="cities">${cities}</p>` : '';
+  // Switch to a multi-column layout when the work list is long so
+  // every entry stays visible without scrolling.
+  tooltipEl.classList.remove('wide', 'wider', 'widest');
+  if (works.length > 100)      tooltipEl.classList.add('widest');
+  else if (works.length > 70)  tooltipEl.classList.add('wider');
+  else if (works.length > 30)  tooltipEl.classList.add('wide');
+  tooltipEl.innerHTML = `
+    <h3>${p.name}<span class="pref-total">${p.total}</span></h3>
+    ${citiesLine}
+    <ul>${items || '<li><em>(no works recorded)</em></li>'}</ul>`;
+  moveTooltip(evt);
+  tooltipEl.classList.add('visible');
+}
+function hideTooltip() { tooltipEl.classList.remove('visible'); }
+function moveTooltip(evt) {
+  const pad = 14;
+  const ttW = tooltipEl.offsetWidth, ttH = tooltipEl.offsetHeight;
+  const vW = window.innerWidth, vH = window.innerHeight;
+  let x = evt.clientX + pad;
+  let y = evt.clientY + pad;
+  if (x + ttW > vW - 8) x = evt.clientX - ttW - pad;
+  if (y + ttH > vH - 8) y = evt.clientY - ttH - pad;
+  if (x < 8) x = 8;
+  if (y < 8) y = 8;
+  tooltipEl.style.left = x + 'px';
+  tooltipEl.style.top  = y + 'px';
+}
+
+function normPref(nam) {
+  if (nam === "Hokkai Do") return "Hokkaido";
+  return nam.replace(/ (Ken|Fu|To)$/, '');
+}
+
+const GEOJSON_URL = "https://cdn.jsdelivr.net/gh/dataofjapan/land@master/japan.geojson";
+let geoData = null;
+function loadGeo() {
+  return fetch(GEOJSON_URL).then(r => r.json()).then(j => { geoData = j; return j; });
+}
+
+function render() {
+  if (!geoData) return;
+  const wrap = document.getElementById('chart');
+  wrap.innerHTML = '';
+  const W = wrap.clientWidth;
+  const H = wrap.clientHeight;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+  // Drop:
+  //  • Okinawa prefecture (no concerts, far south)
+  //  • Polygons that hang below Kyūshū (Amami, Tokara, Yakushima,
+  //    Tanegashima, Ogasawara, etc.) — maxLat < 31°N
+  //  • The Kuril chain off northern Hokkaido (Etorofu/Iturup,
+  //    Kunashiri/Kunashir, Shikotan, Habomai) — minLng > 146°E
+  //    AND minLat > 42.5°N. These appear inside Hokkaidō's
+  //    MultiPolygon in the dataofjapan/land file.
+  const SOUTH_CUTOFF = 31.0;
+  const KURIL_LNG    = 146.0;
+  const KURIL_LAT    = 42.5;
+  function shouldKeepPoly(poly) {
+    const lngs = poly[0].map(p => p[0]);
+    const lats = poly[0].map(p => p[1]);
+    const minLng = Math.min(...lngs);
+    const minLat = Math.min(...lats);
+    const maxLat = Math.max(...lats);
+    if (maxLat < SOUTH_CUTOFF) return false;
+    if (minLng > KURIL_LNG && minLat > KURIL_LAT) return false;
+    return true;
+  }
+  function filterPolys(feature) {
+    if (feature.geometry.type === 'MultiPolygon') {
+      const kept = feature.geometry.coordinates.filter(shouldKeepPoly);
+      return { ...feature, geometry: { type: 'MultiPolygon', coordinates: kept } };
+    }
+    if (feature.geometry.type === 'Polygon') {
+      return shouldKeepPoly(feature.geometry.coordinates) ? feature : null;
+    }
+    return feature;
+  }
+  const isOkinawa = f => normPref(f.properties.nam) === 'Okinawa';
+  const mainFeatures = geoData.features
+    .filter(f => !isOkinawa(f))
+    .map(filterPolys)
+    .filter(f => f && (f.geometry.coordinates && f.geometry.coordinates.length > 0));
+  const mainCollection = { type: 'FeatureCollection', features: mainFeatures };
+
+  // Fit the trimmed mainland into the full canvas so Japan fills the
+  // square frame — no rightward shift, no margin to either side.
+  const mainProjection = d3.geoMercator().fitSize([W * 0.98, H * 0.98], mainCollection);
+  const mainPath = d3.geoPath(mainProjection);
+
+  const allTotals = Object.values(prefTotals);
+  const maxPref = Math.max(1, ...allTotals);
+  // Sqrt-distributed colour scale so low-count prefectures (Ehime 3,
+  // Niigata 5…) still have visibly distinct tints, rather than getting
+  // swallowed by the lightest end next to Tokyo's 240.
+  const colorScale = d3.scalePow()
+    .exponent(0.55)
+    .domain([0, maxPref])
+    .range(["#FAEBEF", "#831234"])
+    .interpolate(d3.interpolateRgb);
+
+  // -------- MAIN MAP --------
+  const gMain = document.createElementNS(svgNS, 'g');
+
+  // Prefecture polygons — themselves are the hover targets.
+  const gP = document.createElementNS(svgNS, 'g');
+  mainFeatures.forEach(f => {
+    const nam = normPref(f.properties.nam || '');
+    const count = prefTotals[nam] || 0;
+    const p = document.createElementNS(svgNS, 'path');
+    p.setAttribute('class', count > 0 ? 'prefecture has-data' : 'prefecture');
+    p.setAttribute('d', mainPath(f));
+    p.setAttribute('fill', colorScale(count));
+    if (count > 0) {
+      const entry = prefByName[nam];
+      p.addEventListener('mouseenter', (evt) => showTooltip(entry, evt));
+      p.addEventListener('mousemove',  moveTooltip);
+      p.addEventListener('mouseleave', hideTooltip);
+    }
+    gP.appendChild(p);
+  });
+  gMain.appendChild(gP);
+
+  // Uniform font size for every prefecture — the colour does the
+  // magnitude encoding now, the number is just the readable value.
+  const COUNT_FS = 14;
+  const NAME_FS  = 10;
+  function tileIsDark(count) {
+    return count >= maxPref * 0.30;
+  }
+  // Centroid offsets in projected pixels for prefectures whose default
+  // centroid would collide with a neighbour. Format: [dx, dy].
+  const LABEL_OFFSETS = {
+    "Tokyo":    [ 14, -10 ],  // nudge NE so it doesn't sit on Kanagawa
+    "Kanagawa": [-12,  10 ],  // pull SW to the Yokohama side
+    "Saitama":  [  0, -10 ],  // sits above Tokyo on the map
+    "Chiba":    [ 14,   2 ],
+  };
+
+  const gT = document.createElementNS(svgNS, 'g');
+  mainFeatures.forEach(f => {
+    const nam = normPref(f.properties.nam || '');
+    const entry = prefByName[nam];
+    if (!entry) return;
+    const xy = mainPath.centroid(f);
+    if (!xy || !isFinite(xy[0])) return;
+    const [cx, cy] = xy;
+    const [dx, dy] = LABEL_OFFSETS[entry.name] || [0, 0];
+    const x = cx + dx;
+    const y = cy + dy;
+    const dark = tileIsDark(entry.total);
+
+    const count = document.createElementNS(svgNS, 'text');
+    count.setAttribute('class', 'pref-count');
+    count.setAttribute('x', x);
+    count.setAttribute('y', y);
+    count.setAttribute('font-size', COUNT_FS);
+    count.setAttribute('fill', dark ? '#fff' : '#831234');
+    count.setAttribute('stroke', dark ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.92)');
+    count.textContent = entry.total;
+    gT.appendChild(count);
+
+    const lbl = document.createElementNS(svgNS, 'text');
+    lbl.setAttribute('class', 'pref-label');
+    lbl.setAttribute('x', x);
+    lbl.setAttribute('y', y + COUNT_FS * 0.85);
+    lbl.setAttribute('font-size', NAME_FS);
+    lbl.setAttribute('fill', dark ? '#fff' : '#1c1917');
+    lbl.setAttribute('stroke', dark ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.92)');
+    lbl.textContent = entry.name;
+    gT.appendChild(lbl);
+  });
+  gMain.appendChild(gT);
+  svg.appendChild(gMain);
+
+  wrap.appendChild(svg);
+}
+
+loadGeo().then(render);
+window.addEventListener('resize', () => {
+  clearTimeout(window._chartResizeTimer);
+  window._chartResizeTimer = setTimeout(render, 100);
+});
+</script>
+</body>
+</html>

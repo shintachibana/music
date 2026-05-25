@@ -68,6 +68,11 @@ CITY_GEO = {
     "Kyoto":       (35.0116, 135.7681, "Kyoto"),
     "Aomori":      (40.8246, 140.7406, "Aomori"),
     "Akita":       (39.7186, 140.1024, "Akita"),
+    "Chiba":       (35.6074, 140.1065, "Chiba"),
+    "Fukui":       (36.0652, 136.2216, "Fukui"),
+    "Kitakyushu":  (33.8839, 130.8757, "Fukuoka"),
+    "Maebashi":    (36.3895, 139.0634, "Gunma"),
+    "Morioka":     (39.7036, 141.1527, "Iwate"),
 }
 
 
