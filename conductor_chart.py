@@ -416,7 +416,8 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         chart_grad_mid   = "rgba(254,215,170,0.55)"   # peach
         chart_grad_outer = "rgba(217,119,6,0.32)"     # amber edge
         analysis_section = bpo_analysis_html(details)
-        extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+        extra_nav = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+                     '<a href="Audience_Analysis.html">Audience Analysis</a>\n  ')
     else:
         title    = "Wiener Philharmoniker — Performances by Conductor"
         title_pre = "Wiener Philharmoniker"

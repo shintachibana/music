@@ -391,6 +391,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
             '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
             '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
             '  <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>\n'
+            '  <a href="Audience_Analysis.html">Audience Analysis</a>\n'
             '  <a href="index.html">Home</a>'
         )
         show_chief = True

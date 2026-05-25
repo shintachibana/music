@@ -98,7 +98,7 @@ thead select option { background: #fff; color: #222; }
 <body>
 <div class="page-header">
 <h1>Berliner Philharmoniker — Concerts in Japan (1957–today)</h1>
-<p class="toolbar"><button id="sortToggle" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Sort ascending ▲</button><button id="resetFilters" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Reset filters</button><a href="Program_Ranking.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">View Program Ranking</a><a href="Composer_Chart.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Performances by Composer</a><a href="Performances_by_Conductor.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Performances by Conductor</a><a href="Performances_by_Prefecture.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Performances by Prefecture</a><a href="Program_Trend_by_Era.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Program Trend by Era</a><a href="index.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Home</a></p>
+<p class="toolbar"><button id="sortToggle" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Sort ascending ▲</button><button id="resetFilters" style="padding:6px 14px;font-size:13px;cursor:pointer;background:#2774B8;color:#fff;border:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Reset filters</button><a href="Program_Ranking.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">View Program Ranking</a><a href="Composer_Chart.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Performances by Composer</a><a href="Performances_by_Conductor.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Performances by Conductor</a><a href="Performances_by_Prefecture.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Performances by Prefecture</a><a href="Program_Trend_by_Era.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Program Trend by Era</a><a href="Audience_Analysis.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;margin-right:8px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Audience Analysis</a><a href="index.html" style="display:inline-block;padding:6px 14px;font-size:13px;background:#2774B8;color:#fff;text-decoration:none;border-radius:4px;box-shadow:0 1px 3px rgba(39,116,184,0.25);">Home</a></p>
 </div>
 <div class="wrap">
 <table>
@@ -358,15 +358,16 @@ thead select option { background: #fff; color: #222; }
   document.querySelectorAll('thead input.filter').forEach(function (inp) {
     inp.addEventListener('input', applyFilters);
   });
-  // URL-driven conductor substring filter — set by the ?conductor=… link
-  // emitted from Program_Trend_by_Era.html. Falls back to a contains-match
-  // when the dropdown can't represent the value exactly (e.g. the URL asks
-  // for a single conductor but no such row exists alone).
-  var urlConductorFilter = '';
+  // URL-driven substring filters. Set by the ?conductor=… / ?composer=… /
+  // ?work=… links emitted from Program_Trend_by_Era.html (per-conductor)
+  // and Audience_Analysis.html (per-composer, per-work bar drill-down).
+  // {column-index -> substring} — each runs as a contains-match on its
+  // column on top of the dropdown/text filters.
+  var urlFilters = {};
   document.getElementById('resetFilters').addEventListener('click', function () {
     document.querySelectorAll('thead select.filter').forEach(function (s) { s.value = ''; });
     document.querySelectorAll('thead input.filter').forEach(function (i) { i.value = ''; });
-    urlConductorFilter = '';
+    urlFilters = {};
     var banner = document.getElementById('urlFilterBanner');
     if (banner) banner.style.display = 'none';
     applyFilters();
@@ -391,9 +392,9 @@ thead select option { background: #fff; color: #222; }
       .map(function (i) { return { col: +i.dataset.col, val: i.value.toLowerCase(), exact: false }; })
       .filter(function (f) { return f.val !== ''; });
     var active = selects.concat(inputs);
-    if (urlConductorFilter) {
-      active.push({ col: 3, val: urlConductorFilter.toLowerCase(), exact: false });
-    }
+    Object.keys(urlFilters).forEach(function (col) {
+      active.push({ col: +col, val: urlFilters[col].toLowerCase(), exact: false });
+    });
     rows.forEach(function (row) {
       var show = active.every(function (f) {
         var text = row.cells[f.col] ? row.cells[f.col].textContent.trim() : '';
@@ -403,12 +404,13 @@ thead select option { background: #fff; color: #222; }
     });
   }
 
-  // --- Initial filter from URL: ?year=YYYY&conductor=Name. Lets other
-  //     pages link directly to a year+conductor view (e.g. the tour pills
-  //     on Program_Trend_by_Era.html do).
+  // --- Initial filter from URL params. Other pages link in with
+  //     ?year=YYYY, ?conductor=Name (era page), or ?composer=Name /
+  //     ?work=Title (audience-analysis bar drill-down). Each param
+  //     other than year is a substring match on its column.
+  var URL_COL = { conductor: 3, composer: 4, work: 4 };
   var params = new URLSearchParams(window.location.search);
   var initYear = params.get('year');
-  var initConductor = params.get('conductor');
   if (initYear) {
     var yearSel = document.querySelector('thead select[data-col="0"]');
     if (yearSel) {
@@ -420,21 +422,28 @@ thead select option { background: #fff; color: #222; }
       yearSel.value = initYear;
     }
   }
-  if (initConductor) {
-    var condSel = document.querySelector('thead select[data-col="3"]');
-    var hasExact = condSel && Array.from(condSel.options)
-      .some(function (o) { return o.value === initConductor; });
-    if (hasExact) {
-      condSel.value = initConductor;
-    } else {
-      urlConductorFilter = initConductor;
+  var activeParams = [];
+  if (initYear) activeParams.push({ label: 'year', value: initYear });
+  Object.keys(URL_COL).forEach(function (key) {
+    var v = params.get(key);
+    if (!v) return;
+    if (key === 'conductor') {
+      var condSel = document.querySelector('thead select[data-col="3"]');
+      var hasExact = condSel && Array.from(condSel.options)
+        .some(function (o) { return o.value === v; });
+      if (hasExact) { condSel.value = v; activeParams.push({ label: key, value: v }); return; }
     }
+    urlFilters[URL_COL[key]] = v;
+    activeParams.push({ label: key, value: v });
+  });
+  if (activeParams.length) {
+    var labelParts = activeParams.map(function (p) {
+      return p.label + ' = <strong>' + p.value.replace(/</g, '&lt;') + '</strong>';
+    });
     var banner = document.createElement('div');
     banner.id = 'urlFilterBanner';
     banner.style.cssText = 'text-align:center;margin:8px 0 0;font-size:13px;color:#555;';
-    banner.innerHTML = 'Filtered to concerts led by <strong>' +
-      initConductor.replace(/</g, '&lt;') + '</strong>' +
-      (initYear ? ' in <strong>' + initYear + '</strong>' : '') +
+    banner.innerHTML = 'Filtered: ' + labelParts.join(' · ') +
       '. <a href="#" id="urlFilterClear" style="margin-left:6px;color:#D97706;">clear</a>';
     var table = document.querySelector('table');
     if (table && table.parentNode) {
@@ -444,8 +453,8 @@ thead select option { background: #fff; color: #222; }
       e.preventDefault();
       document.getElementById('resetFilters').click();
     });
+    applyFilters();
   }
-  if (initYear || initConductor) applyFilters();
 
   // --- Banded background by year: rows with the same year share the same
   // background tint; the tint alternates each time the year changes.

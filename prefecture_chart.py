@@ -167,7 +167,8 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         bubble_fill = "#D97706"
         choro_a     = "#FEF6E2"
         choro_b     = "#B45309"
-        extra_nav   = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+        extra_nav   = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+                       '<a href="Audience_Analysis.html">Audience Analysis</a>\n  ')
     else:
         title       = "Wiener Philharmoniker — Performances by Prefecture"
         bgcol       = "#FBF1F4"

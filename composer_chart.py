@@ -183,7 +183,8 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         accent_d = "#B45309"
         accent_rgba = "rgba(180,83,9,0.25)"
         notes_pattern_color = "%23D97706"
-        extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+        extra_nav = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
+                     '<a href="Audience_Analysis.html">Audience Analysis</a>\n  ')
     else:
         title  = "Wiener Philharmoniker — Performances by Composer"
         bgcol  = "#FBF1F4"
