@@ -178,7 +178,7 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         bubble_fill = "#9F1239"
         choro_a     = "#FAEBEF"
         choro_b     = "#831234"
-        extra_nav   = ""
+        extra_nav   = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
 
     rows = []
     for pref, info in sorted(prefectures.items(), key=lambda x: -x[1]["total"]):

@@ -31,7 +31,7 @@ CHIEF_COLOUR = {
 
 
 # Decade-by-decade analysis paragraphs. Each entry: list of paragraphs.
-DECADE_ANALYSIS = {
+DECADE_ANALYSIS_BPO = {
     "1950s": [
         "Karajan elected chief in April 1955 begins shaping the post-war BPO. "
         "The first Japan tour follows in November 1957 — sixteen concerts "
@@ -124,14 +124,122 @@ DECADE_ANALYSIS = {
 }
 
 
+# WPO has no Chefdirigent tradition — the orchestra is self-governing —
+# so each tour is shaped by whichever guest conductor it engaged. The
+# decade analysis reflects who toured rather than who was "in charge".
+DECADE_ANALYSIS_WPO = {
+    "1950s": [
+        "The maiden Japan tour, 1956, led entirely by Paul Hindemith — "
+        "composer-conductor, friend of the orchestra, and ambassador. "
+        "A pedagogical survey of German tradition: Bach Suite 2, "
+        "Mozart's Bassoon and 3rd Horn Concertos, Wagner's "
+        "<em>Siegfried-Idyll</em>, Brahms <em>Haydn-Variationen</em>, "
+        "Beethoven 4, with a Hindemith Sinfonietta on each evening.",
+        "1959 returns with Karajan as the principal conductor (eight "
+        "concerts) and Willi Boskovsky leading three all-Johann-Strauss "
+        "dance evenings — the New Year's-Concert formula transplanted "
+        "to Tokyo and Osaka venues.",
+    ],
+    "1960s": [
+        "Only one tour this decade: 1969, Georg Solti with twelve "
+        "concerts plus a single Boskovsky New-Year's-style evening. "
+        "Beethoven 7 + R. Strauss + Schubert <em>Unvollendete</em> "
+        "forms a clearly Solti-shaped power-canon programme. The WPO's "
+        "Japan appearances are still rarer than the BPO's in this era."
+    ],
+    "1970s": [
+        "Three tours mark a generational handover. 1973 brings Abbado "
+        "for his first Japan run — Beethoven cycles and Mozart 40. "
+        "1975 introduces Riccardo Muti alongside the elder Karl Böhm; "
+        "1977 pairs Christoph von Dohnányi with Böhm again. Böhm's "
+        "Mozart/Schubert/Beethoven gravitas and Muti's emergent Italian "
+        "lyricism start their decades-long WPO Japan partnership."
+    ],
+    "1980s": [
+        "Lorin Maazel becomes the dominant Japan-tour figure — 1980, "
+        "1983 and 1986, all his work. Beethoven 5 + 6 + Mozart 25 + R. "
+        "Strauss <em>Don Juan</em> + Tschaikowsky 5 form a tight "
+        "canon-virtuoso rotation. Abbado returns 1987 and 1989; the "
+        "1989 tour includes the Berg <em>Wozzeck</em> staged opera and "
+        "the Schumann <em>Requiem für Mignon</em> — first markers of "
+        "modernist outreach."
+    ],
+    "1990s": [
+        "Annual tours begin. The guest-conductor roster widens "
+        "dramatically: Sinopoli (1992), Ozawa (1993), Solti + Kleiber "
+        "(1994, with Kleiber's <em>Rosenkavalier</em> staged opera "
+        "run), Levine (1995), Mehta + Ozawa (1996), Haitink (1997), "
+        "Muti (1999). Mahler enters the touring core through Sinopoli "
+        "and Haitink; the late-Romantic / early-modernist palette "
+        "broadens steadily across the decade."
+    ],
+    "2000s": [
+        "Annual tours continue with deeper repertoire variety. "
+        "Thielemann debuts (2003, Brahms 1 / Bruckner 7); Gergiev's "
+        "first Japan tour (2004) brings the Tschaikowsky 6 "
+        "<em>Pathétique</em> spine and a J. Strauss medley. Muti's "
+        "Schubert-focused tours (2005, 2008) and Harnoncourt's "
+        "Mozart-Beethoven late-style (2006) frame the decade. "
+        "Pfitzner's <em>Violinkonzert</em> with Küchl (Gergiev 2004) "
+        "is an unusual entry."
+    ],
+    "2010s": [
+        "Conductor rotation widens further: Nelsons, Prêtre and "
+        "Welser-Möst share 2010 (Mahler 9 originally planned with "
+        "Ozawa, reshuffled when he withdrew); Thielemann (2013), "
+        "Dudamel (2014), Mehta + Ozawa together (2016 — Suntory Hall "
+        "30th Anniversary). Hosokawa Toshio's <em>Nostalghia</em> "
+        "(through Mehta and Levine) and Takemitsu's "
+        "<em>Visions</em> bring Japanese composers into the touring "
+        "fold."
+    ],
+    "2020s": [
+        "COVID-era interruptions. Gergiev's second Japan tour (Nov "
+        "2020) goes ahead with reduced capacity. Muti returns 2021 "
+        "(Schubert and Mendelssohn cycles); Sokhiev 2023 introduces "
+        "Brahms 1 / Dvořák 8 alongside Saint-Saëns PC 2; Nelsons "
+        "2024; Thielemann 2025. The post-pandemic mix reads as "
+        "Romantic / late-Romantic German core with selective Russian "
+        "and Mahler-tradition guests."
+    ],
+}
+
+
 def get_tour_counts(concerts_html: str) -> dict:
-    """Return {year: concert_count} — one entry per row of the BPO
+    """Return {year: concert_count} — one entry per row of the
     concerts table, summed by year."""
     counts: dict[int, int] = {}
     for y in re.findall(r"<tr><td>(\d{4})</td>", concerts_html):
         year = int(y)
         counts[year] = counts.get(year, 0) + 1
     return counts
+
+
+def get_tour_conductors_by_year(concerts_html: str) -> dict:
+    """Return {year: [(conductor_full_name, count), ...] sorted desc}.
+    Joint-conductor cells split on '/' and credit each side with the
+    concert appearance separately."""
+    result: dict[int, dict[str, int]] = {}
+    m = re.search(r"<tbody>(.*?)</tbody>", concerts_html, re.DOTALL)
+    if not m:
+        return {}
+    tbody = m.group(1)
+    for row in re.findall(r"<tr>.*?</tr>", tbody, re.DOTALL):
+        tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
+        if len(tds) < 5:
+            continue
+        ystr = re.sub(r"<[^>]+>", "", tds[0]).strip()
+        try:
+            year = int(ystr)
+        except ValueError:
+            continue
+        cond_cell = re.sub(r"<[^>]+>", "", tds[3]).strip()
+        d = result.setdefault(year, {})
+        for c in cond_cell.split("/"):
+            c = c.strip()
+            if c:
+                d[c] = d.get(c, 0) + 1
+    return {y: sorted(d.items(), key=lambda kv: -kv[1]) for y, d in result.items()}
 
 
 def get_chief_for_year(year: int):
@@ -141,10 +249,15 @@ def get_chief_for_year(year: int):
     return None
 
 
-def build_timeline_row(year: int, tour_counts: dict) -> str:
-    chief = get_chief_for_year(year)
-    n_concerts = tour_counts.get(year, 0)
-    is_tour = n_concerts > 0
+def build_timeline_row(year: int, tour_conductors: dict, show_chief: bool, default_pill: str) -> str:
+    """One row of the timeline. tour_conductors[year] is the live
+    [(name, n_concerts), ...] list of who led that year's tour. The
+    pill label uses the conductor's family name; one pill per
+    conductor in the list (so a year with Mehta(5) + Ozawa(3) gets
+    two pills)."""
+    chief = get_chief_for_year(year) if show_chief else None
+    conds = tour_conductors.get(year, [])
+    is_tour = len(conds) > 0
     decade_marker = (year % 10 == 0)
     row_classes = ["yr"]
     if chief: row_classes.append(f"era-{chief[2]}")
@@ -155,7 +268,6 @@ def build_timeline_row(year: int, tour_counts: dict) -> str:
     chief_label = ""
     if chief:
         name, slug, css_class = chief
-        # Find this chief's start year
         start = next(s for s, e, n, _, _ in CHIEFS if n == name)
         if year == start:
             chief_label = (
@@ -167,24 +279,25 @@ def build_timeline_row(year: int, tour_counts: dict) -> str:
         elif year == next(e for s, e, n, _, _ in CHIEFS if n == name) and year != 2026:
             chief_label = f'<span class="chief-end">→ {name} ends</span>'
 
-    # Tour pill — colour matches the chief conductor era; label uses
-    # the chief's family name (last token of his full name) + the
-    # concert count for that year.  e.g. "Karajan (16)". The pill
-    # itself is a link to Concerts_in_Japan.html?year=NNNN so the
-    # user can open the filtered concert list in a new tab.
-    tour_label = ""
-    if is_tour:
-        pill_colour = CHIEF_COLOUR.get(chief[2], "#D97706") if chief else "#D97706"
-        family = chief[0].split()[-1] if chief else "tour"
-        tour_label = (
+    # One pill per actual tour conductor that year. Pill colour follows
+    # the chief era (when show_chief is on) so the visual era stays
+    # readable even when a guest conductor leads the tour (e.g. Ozawa
+    # 1986 in the Karajan era). When show_chief is off (WPO mode), use
+    # the orchestra's default pill colour for every tour conductor.
+    pill_colour = CHIEF_COLOUR.get(chief[2], default_pill) if chief else default_pill
+    pills = []
+    for cond_full, n in conds:
+        family = cond_full.split()[-1]
+        pills.append(
             f'<a class="tour-pill" '
             f'href="Concerts_in_Japan.html?year={year}" '
             f'target="_blank" rel="noopener" '
-            f'title="Open {n_concerts} {year} concerts in a new tab" '
+            f'title="Open {n} {year} concert(s) led by {cond_full} in a new tab" '
             f'style="background:{pill_colour};">'
-            f'{family}&nbsp;({n_concerts})'
+            f'{family}&nbsp;({n})'
             f'</a>'
         )
+    tour_label = "".join(pills)
 
     return (
         f'<div class="{" ".join(row_classes)}" id="y{year}">'
@@ -195,7 +308,8 @@ def build_timeline_row(year: int, tour_counts: dict) -> str:
     )
 
 
-def build_timeline_html(tour_counts: dict, start: int = 1955, end: int = 2026) -> str:
+def build_timeline_html(tour_conductors: dict, show_chief: bool, default_pill: str,
+                         start: int = 1955, end: int = 2026) -> str:
     rows = []
     last_decade = None
     for year in range(start, end + 1):
@@ -204,14 +318,14 @@ def build_timeline_html(tour_counts: dict, start: int = 1955, end: int = 2026) -
             rows.append(f'<div class="decade-marker" id="t{decade}s">'
                         f'<span>{decade}s</span></div>')
             last_decade = decade
-        rows.append(build_timeline_row(year, tour_counts))
+        rows.append(build_timeline_row(year, tour_conductors, show_chief, default_pill))
     return "\n".join(rows)
 
 
-def build_analysis_html() -> str:
+def build_analysis_html(decade_analysis: dict) -> str:
     blocks = []
-    for decade in sorted(DECADE_ANALYSIS.keys()):
-        paras = "\n".join(f"<p>{p}</p>" for p in DECADE_ANALYSIS[decade])
+    for decade in sorted(decade_analysis.keys()):
+        paras = "\n".join(f"<p>{p}</p>" for p in decade_analysis[decade])
         blocks.append(
             f'<section class="decade-block" id="d{decade}">'
             f'<h2>{decade}</h2>\n{paras}\n</section>'
@@ -219,11 +333,66 @@ def build_analysis_html() -> str:
     return "\n\n".join(blocks)
 
 
-def build_page(concerts_html: str) -> str:
+def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
+    tour_conductors = get_tour_conductors_by_year(concerts_html)
     tour_counts = get_tour_counts(concerts_html)
-    timeline_html = build_timeline_html(tour_counts)
-    analysis_html = build_analysis_html()
-    n_tours = sum(1 for y in tour_counts if 1955 <= y <= 2026)
+    n_tours = sum(1 for y in tour_conductors if 1955 <= y <= 2026)
+
+    # Orchestra-specific palette + content
+    if orchestra == "bpo":
+        title = "Berliner Philharmoniker — Program Trend by Era"
+        bgcol = "#FFF8EC"
+        accent = "#D97706"
+        accent_d = "#B45309"
+        accent_soft = "rgba(180,83,9,0.20)"
+        accent_tint = "rgba(217,119,6,0.10)"
+        toolbar_links = (
+            '  <a href="Concerts_in_Japan.html">Concerts in Japan</a>\n'
+            '  <a href="Program_Ranking.html">Program Ranking</a>\n'
+            '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
+            '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
+            '  <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>\n'
+            '  <a href="index.html">Home</a>'
+        )
+        show_chief = True
+        default_pill = "#D97706"
+        decade_analysis = DECADE_ANALYSIS_BPO
+        start_year = 1955
+        subhead_extra = f"Chief-conductor chronology and Japan-tour markers · {n_tours} tours documented 1957 – 2025."
+        footer_note = (
+            "The chief-conductor (<em>Chefdirigent</em>) tenures shown reflect the "
+            "elected periods. The Japan-tour markers are drawn live from the "
+            "<a href=\"Concerts_in_Japan.html\">Concerts in Japan</a> table."
+        )
+    else:
+        title = "Wiener Philharmoniker — Program Trend by Era"
+        bgcol = "#FBF1F4"
+        accent = "#9F1239"
+        accent_d = "#831234"
+        accent_soft = "rgba(159,18,57,0.20)"
+        accent_tint = "rgba(159,18,57,0.08)"
+        toolbar_links = (
+            '  <a href="Concerts_in_Japan.html">Concerts in Japan</a>\n'
+            '  <a href="Program_Ranking.html">Program Ranking</a>\n'
+            '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
+            '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
+            '  <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>\n'
+            '  <a href="index.html">Home</a>'
+        )
+        show_chief = False
+        default_pill = "#9F1239"
+        decade_analysis = DECADE_ANALYSIS_WPO
+        start_year = 1955  # WPO first toured Japan in 1956 — same canvas
+        subhead_extra = f"Tour-conductor chronology · {n_tours} Japan tours documented 1956 – 2025. The Vienna Philharmonic is self-governing; programmes shift with the guest conductor of each tour."
+        footer_note = (
+            "The Vienna Philharmonic has no <em>Chefdirigent</em> tradition — "
+            "each tour is led by an invited guest. Conductor names are pulled "
+            "live from the <a href=\"Concerts_in_Japan.html\">Concerts in Japan</a> "
+            "table; click any tour pill to filter that page by the year."
+        )
+
+    timeline_html = build_timeline_html(tour_conductors, show_chief, default_pill, start=start_year)
+    analysis_html = build_analysis_html(decade_analysis)
 
     # Chief colour CSS rules
     chief_css = "\n".join(
@@ -232,12 +401,20 @@ def build_page(concerts_html: str) -> str:
         for cls, col in CHIEF_COLOUR.items()
     )
 
+    # Notes-pattern background SVG colour key
+    if orchestra == "bpo":
+        notes_pattern = "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%23D97706' fill-opacity='0.13'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.13'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%23D97706' fill-opacity='0.13'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.11'%3E♩%3C/text%3E%3C/g%3E%3C/svg%3E"
+        hint_text_color = "#6B4118"
+    else:
+        notes_pattern = "data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%239F1239' fill-opacity='0.13'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.13'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%239F1239' fill-opacity='0.13'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%23B8860B' fill-opacity='0.11'%3E♩%3C/text%3E%3C/g%3E%3C/svg%3E"
+        hint_text_color = "#5B0E27"
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Berliner Philharmoniker — Program Trend by Era</title>
+<title>{title}</title>
 <style>
 * {{ box-sizing: border-box; }}
 body {{
@@ -246,8 +423,8 @@ body {{
   margin: 0;
   padding: 24px 20px 60px;
   color: #222;
-  background-color: #FFF8EC;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%23D97706' fill-opacity='0.13'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.13'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%23D97706' fill-opacity='0.13'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.11'%3E♩%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-color: {bgcol};
+  background-image: url("{notes_pattern}");
   background-repeat: repeat;
 }}
 .container {{ max-width: 1180px; margin: 0 auto; }}
@@ -255,10 +432,10 @@ body {{
   position: sticky;
   top: 0;
   z-index: 10;
-  background: #FFF8EC;
+  background: {bgcol};
   padding: 12px 0 16px;
   margin: 0 0 20px;
-  box-shadow: 0 2px 0 #FFF8EC;
+  box-shadow: 0 2px 0 {bgcol};
 }}
 h1 {{
   font-size: 22px;
@@ -287,10 +464,10 @@ h1 {{
   text-decoration: none;
   border-radius: 4px;
   color: #fff;
-  background: #D97706;
-  box-shadow: 0 1px 3px rgba(180,83,9,0.25);
+  background: {accent};
+  box-shadow: 0 1px 3px {accent_soft};
 }}
-.toolbar a:hover {{ background: #B45309; }}
+.toolbar a:hover {{ background: {accent_d}; }}
 
 .era-page {{
   display: grid;
@@ -305,7 +482,7 @@ h1 {{
   max-height: 80vh;
   overflow-y: auto;
   background: rgba(255,255,255,0.78);
-  border: 1px solid rgba(180,83,9,0.20);
+  border: 1px solid {accent_soft};
   border-radius: 8px;
   padding: 10px 12px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -315,11 +492,11 @@ h1 {{
   top: 0;
   margin: -10px -12px 6px;
   padding: 6px 12px;
-  background: rgba(217,119,6,0.10);
-  border-bottom: 1px solid rgba(180,83,9,0.18);
+  background: {accent_tint};
+  border-bottom: 1px solid {accent_soft};
   font-size: 11px;
   font-style: italic;
-  color: #6B4118;
+  color: {hint_text_color};
   text-align: center;
   z-index: 3;
 }}
@@ -354,7 +531,7 @@ h1 {{
   line-height: 1.3;
 }}
 .yr.tour {{
-  background: rgba(217,119,6,0.10);
+  background: {accent_tint};
   font-weight: 600;
 }}
 {chief_css}
@@ -367,11 +544,12 @@ h1 {{
 }}
 .tour-pill {{
   display: inline-block;
-  background: #D97706;
+  background: {accent};
   color: #fff;
   font-size: 10.5px;
   font-weight: 700;
   padding: 2px 7px;
+  margin-left: 4px;
   border-radius: 10px;
   letter-spacing: 0.4px;
   white-space: nowrap;
@@ -379,6 +557,7 @@ h1 {{
   cursor: pointer;
   transition: filter 0.12s ease, transform 0.12s ease;
 }}
+.tour-pill:first-of-type {{ margin-left: 0; }}
 .tour-pill:hover {{
   filter: brightness(0.92) drop-shadow(0 2px 4px rgba(0,0,0,0.25));
   transform: translateY(-1px);
@@ -388,13 +567,13 @@ h1 {{
   color: #1c1917;
   font-style: italic;
 }}
-.chief-start a {{ color: inherit; text-decoration: none; border-bottom: 1px dotted rgba(180,83,9,0.4); }}
-.chief-start a:hover {{ color: #B45309; }}
+.chief-start a {{ color: inherit; text-decoration: none; border-bottom: 1px dotted {accent_soft}; }}
+.chief-start a:hover {{ color: {accent_d}; }}
 .chief-end {{ color: #888; }}
 
 .analyses {{
   background: rgba(255,255,255,0.78);
-  border: 1px solid rgba(180,83,9,0.20);
+  border: 1px solid {accent_soft};
   border-radius: 8px;
   padding: 18px 22px 22px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -402,14 +581,14 @@ h1 {{
 .decade-block {{
   margin-bottom: 26px;
   padding-bottom: 16px;
-  border-bottom: 1px dashed rgba(180,83,9,0.20);
+  border-bottom: 1px dashed {accent_soft};
 }}
 .decade-block:last-child {{ border-bottom: none; margin-bottom: 0; }}
 .decade-block h2 {{
   margin: 0 0 10px;
   padding: 0 0 6px;
-  border-bottom: 2px solid #D97706;
-  color: #B45309;
+  border-bottom: 2px solid {accent};
+  color: {accent_d};
   font-size: 19px;
   letter-spacing: 1px;
 }}
@@ -443,20 +622,15 @@ h1 {{
 <body>
 <div class="container">
 <div class="page-header">
-<h1>Berliner Philharmoniker — Program Trend by Era</h1>
-<p class="subhead">Chief-conductor chronology and Japan-tour markers · {n_tours} tours documented 1957 – 2025.</p>
+<h1>{title}</h1>
+<p class="subhead">{subhead_extra}</p>
 <p class="toolbar">
-  <a href="Concerts_in_Japan.html">Concerts in Japan</a>
-  <a href="Program_Ranking.html">Program Ranking</a>
-  <a href="Composer_Chart.html">Performances by Composer</a>
-  <a href="Performances_by_Conductor.html">Performances by Conductor</a>
-  <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>
-  <a href="index.html">Home</a>
+{toolbar_links}
 </p>
 </div>
 
 <div class="era-page">
-  <aside class="timeline" aria-label="BPO chief-conductor + tour timeline">
+  <aside class="timeline" aria-label="{title} timeline">
     <div class="timeline-hint">Click any tour to show its concerts</div>
 {timeline_html}
   </aside>
@@ -466,9 +640,7 @@ h1 {{
 </div>
 
 <p class="footnote">
-The chief-conductor (<em>Chefdirigent</em>) tenures shown reflect the
-elected periods. The Japan-tour markers are drawn live from the
-<a href="Concerts_in_Japan.html">Concerts in Japan</a> table.
+{footer_note}
 </p>
 </div>
 </body>
@@ -477,11 +649,19 @@ elected periods. The Japan-tour markers are drawn live from the
 
 
 def main():
-    in_path  = "Berliner Philharmoniker/Concerts_in_Japan.html"
-    out_path = "Berliner Philharmoniker/Program_Trend_by_Era.html"
+    orchestra = sys.argv[1].lower() if len(sys.argv) > 1 else "bpo"
+    if orchestra == "bpo":
+        in_path  = "Berliner Philharmoniker/Concerts_in_Japan.html"
+        out_path = "Berliner Philharmoniker/Program_Trend_by_Era.html"
+    elif orchestra == "wpo":
+        in_path  = "Wiener Philharmoniker/Concerts_in_Japan.html"
+        out_path = "Wiener Philharmoniker/Program_Trend_by_Era.html"
+    else:
+        print(f"Unknown orchestra '{orchestra}'. Use 'bpo' or 'wpo'.", file=sys.stderr)
+        sys.exit(1)
     with open(in_path, encoding="utf-8") as f:
         html = f.read()
-    page = build_page(html)
+    page = build_page(html, orchestra)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(page)
     print(f"Wrote {out_path}")

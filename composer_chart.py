@@ -191,7 +191,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         accent_d = "#831234"
         accent_rgba = "rgba(159,18,57,0.25)"
         notes_pattern_color = "%239F1239"
-        extra_nav = ""
+        extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
 
     # JSON-like data emitted into the page; D3 squarify treemap will lay it out.
     import json

@@ -428,7 +428,7 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         chart_grad_mid   = "rgba(251,207,232,0.55)"   # pale rose
         chart_grad_outer = "rgba(159,18,57,0.30)"     # burgundy edge
         analysis_section = wpo_analysis_html(totals, details, concerts)
-        extra_nav = ""
+        extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
 
     # Build data array.
     children = []

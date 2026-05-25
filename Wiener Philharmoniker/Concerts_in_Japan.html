@@ -554,6 +554,23 @@ thead input[type="text"]::placeholder { color: #E8D89A; }
     });
   }
 
+  // --- Initial filter from URL: ?year=YYYY. Lets other pages link directly
+  //     to a year-filtered view (e.g. Program_Trend_by_Era.html does).
+  var params = new URLSearchParams(window.location.search);
+  var initYear = params.get('year');
+  if (initYear) {
+    var yearSel = document.querySelector('thead select[data-col="0"]');
+    if (yearSel) {
+      if (!Array.from(yearSel.options).some(function (o) { return o.value === initYear; })) {
+        var opt = document.createElement('option');
+        opt.value = initYear; opt.textContent = initYear;
+        yearSel.appendChild(opt);
+      }
+      yearSel.value = initYear;
+      applyFilters();
+    }
+  }
+
   // --- Year banding: rows sharing the same year share a background tint;
   // the tint flips each time the year changes.
   var lastYear = null, toggle = false;
