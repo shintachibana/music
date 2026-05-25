@@ -63,7 +63,9 @@ h1 {
 }
 #chart {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  max-width: 720px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
   border: 2px solid #D97706;
   border-radius: 8px;
   background: rgba(255,255,255,0.4);
@@ -268,9 +270,26 @@ function render() {
     .size([W, H])
     .padding(4)(root);
 
+  // Compute the actual bounding box of the packed leaves so the SVG
+  // viewBox wraps them tightly — no big internal margins inside the
+  // bordered frame.
+  const leaves = root.leaves();
+  const pad = 6;
+  let xMin = Infinity, yMin = Infinity, xMax = -Infinity, yMax = -Infinity;
+  leaves.forEach(d => {
+    xMin = Math.min(xMin, d.x - d.r);
+    yMin = Math.min(yMin, d.y - d.r);
+    xMax = Math.max(xMax, d.x + d.r);
+    yMax = Math.max(yMax, d.y + d.r);
+  });
+  const vbX = xMin - pad;
+  const vbY = yMin - pad;
+  const vbW = (xMax - xMin) + pad * 2;
+  const vbH = (yMax - yMin) + pad * 2;
+
   const svgNS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(svgNS, 'svg');
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('viewBox', `${vbX} ${vbY} ${vbW} ${vbH}`);
   svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
   // <defs> with one clipPath per conductor circle.
