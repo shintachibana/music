@@ -427,7 +427,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         accent_soft = "rgba(180,83,9,0.20)"
         accent_tint = "rgba(217,119,6,0.10)"
         toolbar_links = (
-            '  <a href="Concerts_in_Japan.html">Performances in Japan</a>\n'
+            '  <a href="Performances_in_Japan.html">Performances in Japan</a>\n'
             '  <a href="Program_Ranking.html">Program Ranking</a>\n'
             '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
             '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
@@ -444,7 +444,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         footer_note = (
             "The chief-conductor (<em>Chefdirigent</em>) tenures shown reflect the "
             "elected periods. The Japan-tour markers are drawn live from the "
-            "<a href=\"Concerts_in_Japan.html\">Performances in Japan</a> table."
+            "<a href=\"Performances_in_Japan.html\">Performances in Japan</a> table."
         )
     else:
         title = "Wiener Philharmoniker — Program Trend by Era"
@@ -477,7 +477,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
             "live from the <a href=\"Performances_in_Japan.html\">Performances in Japan</a> "
             "table; click any tour pill to filter that page by the year."
         )
-    concerts_href = "Concerts_in_Japan.html" if orchestra == "bpo" else "Performances_in_Japan.html"
+    concerts_href = "Performances_in_Japan.html" if orchestra == "bpo" else "Performances_in_Japan.html"
 
     timeline_html = build_timeline_html(tour_conductors, planned_years,
                                           show_chief, default_pill, start=start_year,
@@ -766,7 +766,7 @@ h1 {{
 def main():
     orchestra = sys.argv[1].lower() if len(sys.argv) > 1 else "bpo"
     if orchestra == "bpo":
-        in_path  = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        in_path  = "Berliner_Philharmoniker_in_Japan/Performances_in_Japan.html"
         out_path = "Berliner_Philharmoniker_in_Japan/Program_Trend_by_Era.html"
     elif orchestra == "wpo":
         in_path  = "Wiener_Philharmoniker_in_Japan/Performances_in_Japan.html"

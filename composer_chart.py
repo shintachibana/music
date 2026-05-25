@@ -198,7 +198,7 @@ def build_page(orchestra: str, totals: dict, composer_details: dict) -> str:
         notes_pattern_color = "%23D97706"
         extra_nav = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
                      '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')
-        concerts_href = "Concerts_in_Japan.html"
+        concerts_href = "Performances_in_Japan.html"
     else:
         title  = "Wiener Philharmoniker — Performances by Composer"
         bgcol  = "#FBF1F4"

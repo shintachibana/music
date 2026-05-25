@@ -418,7 +418,7 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         analysis_section = bpo_analysis_html(details)
         extra_nav = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
                      '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')
-        concerts_href = "Concerts_in_Japan.html"
+        concerts_href = "Performances_in_Japan.html"
     else:
         title    = "Wiener Philharmoniker — Performances by Conductor"
         title_pre = "Wiener Philharmoniker"
@@ -1022,7 +1022,7 @@ document.addEventListener('touchend',    dismissIfOutsideBubble, true);
 def main():
     orchestra = sys.argv[1].lower() if len(sys.argv) > 1 else "bpo"
     if orchestra == "bpo":
-        in_path  = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        in_path  = "Berliner_Philharmoniker_in_Japan/Performances_in_Japan.html"
         out_path = "Berliner_Philharmoniker_in_Japan/Performances_by_Conductor.html"
     elif orchestra == "wpo":
         in_path  = "Wiener_Philharmoniker_in_Japan/Performances_in_Japan.html"

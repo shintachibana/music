@@ -277,7 +277,7 @@ def composer_wiki(name: str):
 
 def build_bar_section(title, anchor, items, max_v, visible_top,
                       link_param, wiki_for_label,
-                      concerts_href="Concerts_in_Japan.html"):
+                      concerts_href="Performances_in_Japan.html"):
     if not items:
         return (f'<section class="chart-section" id="section-{anchor}">'
                 f'<h2 id="{anchor}">{title}</h2><p>No data.</p></section>')
@@ -340,7 +340,7 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
         disclaimer_bg = "rgba(217,119,6,0.10)"
         disclaimer_text = "#6B4118"
         toolbar_links = (
-            '  <a href="Concerts_in_Japan.html">Performances in Japan</a>\n'
+            '  <a href="Performances_in_Japan.html">Performances in Japan</a>\n'
             '  <a href="Program_Ranking.html">Program Ranking</a>\n'
             '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
             '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
@@ -370,7 +370,7 @@ def build_page(concerts_html, halls_html, orchestra="bpo"):
             '  <a href="index.html">Home</a>'
         )
 
-    concerts_href = "Concerts_in_Japan.html" if orchestra == "bpo" else "Performances_in_Japan.html"
+    concerts_href = "Performances_in_Japan.html" if orchestra == "bpo" else "Performances_in_Japan.html"
     work_link = data["work_link"]
     conductor_link = data["conductor_link"]
 
@@ -604,7 +604,7 @@ document.querySelectorAll('.show-all-toggle').forEach(function (btn) {{
 def main():
     orchestra = sys.argv[1].lower() if len(sys.argv) > 1 else "bpo"
     if orchestra == "bpo":
-        in_path = "Berliner_Philharmoniker_in_Japan/Concerts_in_Japan.html"
+        in_path = "Berliner_Philharmoniker_in_Japan/Performances_in_Japan.html"
         out_path = "Berliner_Philharmoniker_in_Japan/Audience_Analysis.html"
     elif orchestra == "wpo":
         in_path = "Wiener_Philharmoniker_in_Japan/Performances_in_Japan.html"

@@ -48,9 +48,12 @@ th:nth-child(1), th:nth-child(3), th:nth-child(4) { text-align: center; }
 td:nth-child(3) { width: 120px; min-width: 120px; max-width: 120px; text-align: center; }
 td:nth-child(4) { text-align: center; }
 td:nth-child(5) { white-space: nowrap; }
-td:nth-child(6) { width: 308px; min-width: 308px; max-width: 308px; }
-td:nth-child(7) { width: 70px; min-width: 70px; max-width: 70px; text-align: center; padding: 5px 4px; }
-th:nth-child(7) { width: 70px; min-width: 70px; max-width: 70px; text-align: center; }
+/* Column 6 was Soloists before the Staged Opera column was inserted;
+   now col 6 is Staged Opera (narrow), col 7 is Soloists (wide), col 8
+   is Notes — re-tune all the widths to match the new layout. */
+th:nth-child(6), td:nth-child(6) { width: 56px; min-width: 56px; max-width: 56px; text-align: center; padding: 5px 4px; }
+td:nth-child(7) { width: 308px; min-width: 308px; max-width: 308px; }
+th:nth-child(8), td:nth-child(8) { width: 70px; min-width: 70px; max-width: 70px; text-align: center; padding: 5px 4px; }
 .notes-toggle { cursor: pointer; user-select: none; color: #946C0A; font-size: 12px; padding: 3px 6px; border-radius: 3px; }
 .notes-toggle:hover { background: #F0E2B6; }
 tr.notes-panel { display: none; }
@@ -647,17 +650,34 @@ thead input[type="text"]::placeholder { color: #E8D89A; }
     if (banner) banner.style.display = 'none';
     applyFilters();
   });
+  // Real date-aware sort so newly-inserted rows out of source order
+  // (e.g. the 2008/2012 VSO opera additions interleaved into existing
+  // concert rows) still land in proper chronological order. Defaults
+  // to descending — newest dates first.
   var sortDesc = true;
-  (function applyInitialSort() {
+  var MONTH = {"Jan.":1,"Feb.":2,"Mar.":3,"Apr.":4,"May":5,"Jun.":6,
+               "Jul.":7,"Aug.":8,"Sep.":9,"Oct.":10,"Nov.":11,"Dec.":12};
+  function dateKey(tr) {
+    var y = parseInt((tr.cells[0] && tr.cells[0].textContent || '0').trim(), 10) || 0;
+    var raw = (tr.cells[1] && tr.cells[1].textContent || '').trim();
+    var m = raw.match(/^(\w+\.?)\s+(\d+)/);
+    var mo = m ? (MONTH[m[1]] || 0) : 0;
+    var da = m ? parseInt(m[2], 10) : 0;
+    return y * 10000 + mo * 100 + da;
+  }
+  function applySort() {
+    rows.sort(function (a, b) {
+      var ka = dateKey(a), kb = dateKey(b);
+      return sortDesc ? kb - ka : ka - kb;
+    });
     var tbody = document.querySelector('tbody');
-    rows.slice().reverse().forEach(function (r) { tbody.appendChild(r); });
-  })();
+    rows.forEach(function (r) { tbody.appendChild(r); });
+  }
+  applySort();
   document.getElementById('sortToggle').addEventListener('click', function () {
     sortDesc = !sortDesc;
     this.textContent = sortDesc ? 'Sort ascending ▲' : 'Sort descending ▼';
-    var tbody = document.querySelector('tbody');
-    var order = sortDesc ? rows.slice().reverse() : rows;
-    order.forEach(function (r) { tbody.appendChild(r); });
+    applySort();
   });
   function applyFilters() {
     var selects = Array.from(document.querySelectorAll('thead select.filter'))
