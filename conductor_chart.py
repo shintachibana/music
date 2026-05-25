@@ -579,14 +579,16 @@ function render() {{
     outer.setAttribute('r', d.r);
     g.appendChild(outer);
 
-    // Label: bottom band over the portrait
+    // Label: bottom band over the portrait. Family-name only so the
+    // text fits inside crowded mid-size bubbles ("Maazel" instead of
+    // "Lorin Maazel", "Welser-Möst" instead of "Franz Welser-Möst").
+    const familyName = (full) => full.split(/\s+/).pop();
     const r = d.r;
-    const nameSize  = Math.max(8,  Math.min(20, r * 0.18));
-    const countSize = Math.max(12, Math.min(46, r * 0.40));
+    const nameSize  = Math.max(7,  Math.min(15, r * 0.15));
+    const countSize = Math.max(11, Math.min(38, r * 0.34));
     const bandH = nameSize + countSize + 12;
     const bandY = d.y + r - bandH;
-    if (r > 22) {{
-      // Use a clipped rect for the label gradient. We'll just use a filled rect inside the clip.
+    if (r > 18) {{
       const lbg = document.createElementNS(svgNS, 'rect');
       lbg.setAttribute('class', 'label-bg');
       lbg.setAttribute('x', d.x - r);
@@ -601,8 +603,8 @@ function render() {{
       tname.setAttribute('x', d.x);
       tname.setAttribute('y', bandY + nameSize + 2);
       tname.setAttribute('font-size', nameSize);
-      // Trim long names by ellipsis if needed (approximated by char count)
-      let nameStr = d.data.name;
+      // Trim further by ellipsis if even the family name doesn't fit.
+      let nameStr = familyName(d.data.name);
       const approxCharW = nameSize * 0.55;
       const maxChars = Math.floor((r * 1.6) / approxCharW);
       if (nameStr.length > maxChars && maxChars > 4) {{
