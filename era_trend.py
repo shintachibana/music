@@ -169,15 +169,21 @@ def build_timeline_row(year: int, tour_counts: dict) -> str:
 
     # Tour pill — colour matches the chief conductor era; label uses
     # the chief's family name (last token of his full name) + the
-    # concert count for that year.  e.g. "Karajan (16)".
+    # concert count for that year.  e.g. "Karajan (16)". The pill
+    # itself is a link to Concerts_in_Japan.html?year=NNNN so the
+    # user can open the filtered concert list in a new tab.
     tour_label = ""
     if is_tour:
         pill_colour = CHIEF_COLOUR.get(chief[2], "#D97706") if chief else "#D97706"
         family = chief[0].split()[-1] if chief else "tour"
         tour_label = (
-            f'<span class="tour-pill" style="background:{pill_colour};">'
+            f'<a class="tour-pill" '
+            f'href="Concerts_in_Japan.html?year={year}" '
+            f'target="_blank" rel="noopener" '
+            f'title="Open {n_concerts} {year} concerts in a new tab" '
+            f'style="background:{pill_colour};">'
             f'{family}&nbsp;({n_concerts})'
-            f'</span>'
+            f'</a>'
         )
 
     return (
@@ -307,13 +313,14 @@ h1 {{
 .decade-marker {{
   position: sticky;
   top: -10px;
-  background: #57534E;            /* warm stone-grey — neutral against the era colours */
-  color: #fff;
+  background: #F5F5F4;            /* very light warm stone */
+  color: #57534E;                 /* mid stone-grey text — soft, neutral */
   font-weight: 800;
   letter-spacing: 1px;
   padding: 4px 10px;
   margin: 10px -12px 4px;
   font-size: 12px;
+  border-bottom: 1px solid #D6D3D1;
   z-index: 2;
 }}
 .decade-marker:first-child {{ margin-top: 0; }}
@@ -350,6 +357,13 @@ h1 {{
   border-radius: 10px;
   letter-spacing: 0.4px;
   white-space: nowrap;
+  text-decoration: none;          /* <a> styling */
+  cursor: pointer;
+  transition: filter 0.12s ease, transform 0.12s ease;
+}}
+.tour-pill:hover {{
+  filter: brightness(0.92) drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+  transform: translateY(-1px);
 }}
 .chief-start, .chief-end {{
   font-size: 11.5px;

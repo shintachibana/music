@@ -79,13 +79,14 @@ h1 {
 .decade-marker {
   position: sticky;
   top: -10px;
-  background: #57534E;            /* warm stone-grey — neutral against the era colours */
-  color: #fff;
+  background: #F5F5F4;            /* very light warm stone */
+  color: #57534E;                 /* mid stone-grey text — soft, neutral */
   font-weight: 800;
   letter-spacing: 1px;
   padding: 4px 10px;
   margin: 10px -12px 4px;
   font-size: 12px;
+  border-bottom: 1px solid #D6D3D1;
   z-index: 2;
 }
 .decade-marker:first-child { margin-top: 0; }
@@ -129,6 +130,13 @@ h1 {
   border-radius: 10px;
   letter-spacing: 0.4px;
   white-space: nowrap;
+  text-decoration: none;          /* <a> styling */
+  cursor: pointer;
+  transition: filter 0.12s ease, transform 0.12s ease;
+}
+.tour-pill:hover {
+  filter: brightness(0.92) drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+  transform: translateY(-1px);
 }
 .chief-start, .chief-end {
   font-size: 11.5px;
@@ -207,7 +215,7 @@ h1 {
 <div class="decade-marker" id="t1950s"><span>1950s</span></div>
 <div class="yr era-karajan" id="y1955"><span class="year-num">1955</span><span class="chief-start"><a href="https://en.wikipedia.org/wiki/Herbert_von_Karajan" target="_blank" rel="noopener">Herbert von Karajan</a> chief</span></div>
 <div class="yr era-karajan" id="y1956"><span class="year-num">1956</span></div>
-<div class="yr era-karajan tour" id="y1957"><span class="year-num">1957</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(16)</span></div>
+<div class="yr era-karajan tour" id="y1957"><span class="year-num">1957</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1957" target="_blank" rel="noopener" title="Open 16 1957 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(16)</a></div>
 <div class="yr era-karajan" id="y1958"><span class="year-num">1958</span></div>
 <div class="yr era-karajan" id="y1959"><span class="year-num">1959</span></div>
 <div class="decade-marker" id="t1960s"><span>1960s</span></div>
@@ -217,72 +225,72 @@ h1 {
 <div class="yr era-karajan" id="y1963"><span class="year-num">1963</span></div>
 <div class="yr era-karajan" id="y1964"><span class="year-num">1964</span></div>
 <div class="yr era-karajan" id="y1965"><span class="year-num">1965</span></div>
-<div class="yr era-karajan tour" id="y1966"><span class="year-num">1966</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(18)</span></div>
+<div class="yr era-karajan tour" id="y1966"><span class="year-num">1966</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1966" target="_blank" rel="noopener" title="Open 18 1966 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(18)</a></div>
 <div class="yr era-karajan" id="y1967"><span class="year-num">1967</span></div>
 <div class="yr era-karajan" id="y1968"><span class="year-num">1968</span></div>
 <div class="yr era-karajan" id="y1969"><span class="year-num">1969</span></div>
 <div class="decade-marker" id="t1970s"><span>1970s</span></div>
-<div class="yr era-karajan tour decade" id="y1970"><span class="year-num">1970</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(12)</span></div>
+<div class="yr era-karajan tour decade" id="y1970"><span class="year-num">1970</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1970" target="_blank" rel="noopener" title="Open 12 1970 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(12)</a></div>
 <div class="yr era-karajan" id="y1971"><span class="year-num">1971</span></div>
 <div class="yr era-karajan" id="y1972"><span class="year-num">1972</span></div>
-<div class="yr era-karajan tour" id="y1973"><span class="year-num">1973</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(10)</span></div>
+<div class="yr era-karajan tour" id="y1973"><span class="year-num">1973</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1973" target="_blank" rel="noopener" title="Open 10 1973 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(10)</a></div>
 <div class="yr era-karajan" id="y1974"><span class="year-num">1974</span></div>
 <div class="yr era-karajan" id="y1975"><span class="year-num">1975</span></div>
 <div class="yr era-karajan" id="y1976"><span class="year-num">1976</span></div>
-<div class="yr era-karajan tour" id="y1977"><span class="year-num">1977</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(11)</span></div>
+<div class="yr era-karajan tour" id="y1977"><span class="year-num">1977</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1977" target="_blank" rel="noopener" title="Open 11 1977 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(11)</a></div>
 <div class="yr era-karajan" id="y1978"><span class="year-num">1978</span></div>
-<div class="yr era-karajan tour" id="y1979"><span class="year-num">1979</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(9)</span></div>
+<div class="yr era-karajan tour" id="y1979"><span class="year-num">1979</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1979" target="_blank" rel="noopener" title="Open 9 1979 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(9)</a></div>
 <div class="decade-marker" id="t1980s"><span>1980s</span></div>
 <div class="yr era-karajan decade" id="y1980"><span class="year-num">1980</span></div>
-<div class="yr era-karajan tour" id="y1981"><span class="year-num">1981</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(10)</span></div>
+<div class="yr era-karajan tour" id="y1981"><span class="year-num">1981</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1981" target="_blank" rel="noopener" title="Open 10 1981 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(10)</a></div>
 <div class="yr era-karajan" id="y1982"><span class="year-num">1982</span></div>
 <div class="yr era-karajan" id="y1983"><span class="year-num">1983</span></div>
-<div class="yr era-karajan tour" id="y1984"><span class="year-num">1984</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(6)</span></div>
+<div class="yr era-karajan tour" id="y1984"><span class="year-num">1984</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1984" target="_blank" rel="noopener" title="Open 6 1984 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(6)</a></div>
 <div class="yr era-karajan" id="y1985"><span class="year-num">1985</span></div>
-<div class="yr era-karajan tour" id="y1986"><span class="year-num">1986</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(3)</span></div>
+<div class="yr era-karajan tour" id="y1986"><span class="year-num">1986</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1986" target="_blank" rel="noopener" title="Open 3 1986 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(3)</a></div>
 <div class="yr era-karajan" id="y1987"><span class="year-num">1987</span></div>
-<div class="yr era-karajan tour" id="y1988"><span class="year-num">1988</span><span class="tour-pill" style="background:#F59E0B;">Karajan&nbsp;(5)</span></div>
+<div class="yr era-karajan tour" id="y1988"><span class="year-num">1988</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1988" target="_blank" rel="noopener" title="Open 5 1988 concerts in a new tab" style="background:#F59E0B;">Karajan&nbsp;(5)</a></div>
 <div class="yr era-karajan" id="y1989"><span class="year-num">1989</span><span class="chief-end">→ Herbert von Karajan ends</span></div>
 <div class="decade-marker" id="t1990s"><span>1990s</span></div>
 <div class="yr era-abbado decade" id="y1990"><span class="year-num">1990</span><span class="chief-start"><a href="https://en.wikipedia.org/wiki/Claudio_Abbado" target="_blank" rel="noopener">Claudio Abbado</a> chief</span></div>
 <div class="yr era-abbado" id="y1991"><span class="year-num">1991</span></div>
-<div class="yr era-abbado tour" id="y1992"><span class="year-num">1992</span><span class="tour-pill" style="background:#3B82F6;">Abbado&nbsp;(6)</span></div>
+<div class="yr era-abbado tour" id="y1992"><span class="year-num">1992</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1992" target="_blank" rel="noopener" title="Open 6 1992 concerts in a new tab" style="background:#3B82F6;">Abbado&nbsp;(6)</a></div>
 <div class="yr era-abbado" id="y1993"><span class="year-num">1993</span></div>
-<div class="yr era-abbado tour" id="y1994"><span class="year-num">1994</span><span class="tour-pill" style="background:#3B82F6;">Abbado&nbsp;(7)</span></div>
+<div class="yr era-abbado tour" id="y1994"><span class="year-num">1994</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1994" target="_blank" rel="noopener" title="Open 7 1994 concerts in a new tab" style="background:#3B82F6;">Abbado&nbsp;(7)</a></div>
 <div class="yr era-abbado" id="y1995"><span class="year-num">1995</span></div>
-<div class="yr era-abbado tour" id="y1996"><span class="year-num">1996</span><span class="tour-pill" style="background:#3B82F6;">Abbado&nbsp;(6)</span></div>
+<div class="yr era-abbado tour" id="y1996"><span class="year-num">1996</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1996" target="_blank" rel="noopener" title="Open 6 1996 concerts in a new tab" style="background:#3B82F6;">Abbado&nbsp;(6)</a></div>
 <div class="yr era-abbado" id="y1997"><span class="year-num">1997</span></div>
-<div class="yr era-abbado tour" id="y1998"><span class="year-num">1998</span><span class="tour-pill" style="background:#3B82F6;">Abbado&nbsp;(8)</span></div>
+<div class="yr era-abbado tour" id="y1998"><span class="year-num">1998</span><a class="tour-pill" href="Concerts_in_Japan.html?year=1998" target="_blank" rel="noopener" title="Open 8 1998 concerts in a new tab" style="background:#3B82F6;">Abbado&nbsp;(8)</a></div>
 <div class="yr era-abbado" id="y1999"><span class="year-num">1999</span></div>
 <div class="decade-marker" id="t2000s"><span>2000s</span></div>
-<div class="yr era-abbado tour decade" id="y2000"><span class="year-num">2000</span><span class="tour-pill" style="background:#3B82F6;">Abbado&nbsp;(9)</span></div>
+<div class="yr era-abbado tour decade" id="y2000"><span class="year-num">2000</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2000" target="_blank" rel="noopener" title="Open 9 2000 concerts in a new tab" style="background:#3B82F6;">Abbado&nbsp;(9)</a></div>
 <div class="yr era-abbado" id="y2001"><span class="year-num">2001</span><span class="chief-end">→ Claudio Abbado ends</span></div>
 <div class="yr era-rattle" id="y2002"><span class="year-num">2002</span><span class="chief-start"><a href="https://en.wikipedia.org/wiki/Simon_Rattle" target="_blank" rel="noopener">Simon Rattle</a> chief</span></div>
 <div class="yr era-rattle" id="y2003"><span class="year-num">2003</span></div>
-<div class="yr era-rattle tour" id="y2004"><span class="year-num">2004</span><span class="tour-pill" style="background:#14B8A6;">Rattle&nbsp;(10)</span></div>
-<div class="yr era-rattle tour" id="y2005"><span class="year-num">2005</span><span class="tour-pill" style="background:#14B8A6;">Rattle&nbsp;(2)</span></div>
+<div class="yr era-rattle tour" id="y2004"><span class="year-num">2004</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2004" target="_blank" rel="noopener" title="Open 10 2004 concerts in a new tab" style="background:#14B8A6;">Rattle&nbsp;(10)</a></div>
+<div class="yr era-rattle tour" id="y2005"><span class="year-num">2005</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2005" target="_blank" rel="noopener" title="Open 2 2005 concerts in a new tab" style="background:#14B8A6;">Rattle&nbsp;(2)</a></div>
 <div class="yr era-rattle" id="y2006"><span class="year-num">2006</span></div>
 <div class="yr era-rattle" id="y2007"><span class="year-num">2007</span></div>
-<div class="yr era-rattle tour" id="y2008"><span class="year-num">2008</span><span class="tour-pill" style="background:#14B8A6;">Rattle&nbsp;(7)</span></div>
+<div class="yr era-rattle tour" id="y2008"><span class="year-num">2008</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2008" target="_blank" rel="noopener" title="Open 7 2008 concerts in a new tab" style="background:#14B8A6;">Rattle&nbsp;(7)</a></div>
 <div class="yr era-rattle" id="y2009"><span class="year-num">2009</span></div>
 <div class="decade-marker" id="t2010s"><span>2010s</span></div>
 <div class="yr era-rattle decade" id="y2010"><span class="year-num">2010</span></div>
-<div class="yr era-rattle tour" id="y2011"><span class="year-num">2011</span><span class="tour-pill" style="background:#14B8A6;">Rattle&nbsp;(3)</span></div>
+<div class="yr era-rattle tour" id="y2011"><span class="year-num">2011</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2011" target="_blank" rel="noopener" title="Open 3 2011 concerts in a new tab" style="background:#14B8A6;">Rattle&nbsp;(3)</a></div>
 <div class="yr era-rattle" id="y2012"><span class="year-num">2012</span></div>
-<div class="yr era-rattle tour" id="y2013"><span class="year-num">2013</span><span class="tour-pill" style="background:#14B8A6;">Rattle&nbsp;(6)</span></div>
+<div class="yr era-rattle tour" id="y2013"><span class="year-num">2013</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2013" target="_blank" rel="noopener" title="Open 6 2013 concerts in a new tab" style="background:#14B8A6;">Rattle&nbsp;(6)</a></div>
 <div class="yr era-rattle" id="y2014"><span class="year-num">2014</span></div>
 <div class="yr era-rattle" id="y2015"><span class="year-num">2015</span></div>
-<div class="yr era-rattle tour" id="y2016"><span class="year-num">2016</span><span class="tour-pill" style="background:#14B8A6;">Rattle&nbsp;(5)</span></div>
-<div class="yr era-rattle tour" id="y2017"><span class="year-num">2017</span><span class="tour-pill" style="background:#14B8A6;">Rattle&nbsp;(3)</span></div>
+<div class="yr era-rattle tour" id="y2016"><span class="year-num">2016</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2016" target="_blank" rel="noopener" title="Open 5 2016 concerts in a new tab" style="background:#14B8A6;">Rattle&nbsp;(5)</a></div>
+<div class="yr era-rattle tour" id="y2017"><span class="year-num">2017</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2017" target="_blank" rel="noopener" title="Open 3 2017 concerts in a new tab" style="background:#14B8A6;">Rattle&nbsp;(3)</a></div>
 <div class="yr era-rattle" id="y2018"><span class="year-num">2018</span><span class="chief-end">→ Simon Rattle ends</span></div>
-<div class="yr era-petrenko tour" id="y2019"><span class="year-num">2019</span><span class="chief-start"><a href="https://en.wikipedia.org/wiki/Kirill_Petrenko" target="_blank" rel="noopener">Kirill Petrenko</a> chief</span><span class="tour-pill" style="background:#E11D48;">Petrenko&nbsp;(8)</span></div>
+<div class="yr era-petrenko tour" id="y2019"><span class="year-num">2019</span><span class="chief-start"><a href="https://en.wikipedia.org/wiki/Kirill_Petrenko" target="_blank" rel="noopener">Kirill Petrenko</a> chief</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2019" target="_blank" rel="noopener" title="Open 8 2019 concerts in a new tab" style="background:#E11D48;">Petrenko&nbsp;(8)</a></div>
 <div class="decade-marker" id="t2020s"><span>2020s</span></div>
 <div class="yr era-petrenko decade" id="y2020"><span class="year-num">2020</span></div>
 <div class="yr era-petrenko" id="y2021"><span class="year-num">2021</span></div>
 <div class="yr era-petrenko" id="y2022"><span class="year-num">2022</span></div>
-<div class="yr era-petrenko tour" id="y2023"><span class="year-num">2023</span><span class="tour-pill" style="background:#E11D48;">Petrenko&nbsp;(10)</span></div>
+<div class="yr era-petrenko tour" id="y2023"><span class="year-num">2023</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2023" target="_blank" rel="noopener" title="Open 10 2023 concerts in a new tab" style="background:#E11D48;">Petrenko&nbsp;(10)</a></div>
 <div class="yr era-petrenko" id="y2024"><span class="year-num">2024</span></div>
-<div class="yr era-petrenko tour" id="y2025"><span class="year-num">2025</span><span class="tour-pill" style="background:#E11D48;">Petrenko&nbsp;(8)</span></div>
+<div class="yr era-petrenko tour" id="y2025"><span class="year-num">2025</span><a class="tour-pill" href="Concerts_in_Japan.html?year=2025" target="_blank" rel="noopener" title="Open 8 2025 concerts in a new tab" style="background:#E11D48;">Petrenko&nbsp;(8)</a></div>
 <div class="yr era-petrenko" id="y2026"><span class="year-num">2026</span></div>
   </aside>
   <main class="analyses">

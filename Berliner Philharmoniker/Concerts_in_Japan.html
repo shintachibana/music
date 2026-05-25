@@ -388,6 +388,26 @@ thead select option { background: #fff; color: #222; }
     });
   }
 
+  // --- Initial filter from URL: ?year=YYYY (and optionally
+  //     ?conductor=Name, ?city=Name). Lets other pages link directly
+  //     to a year-filtered view, e.g. Program_Trend_by_Era.html does.
+  var params = new URLSearchParams(window.location.search);
+  var initYear = params.get('year');
+  if (initYear) {
+    var yearSel = document.querySelector('thead select[data-col="0"]');
+    if (yearSel) {
+      // The option may not exist yet if the user typed a stray year —
+      // add it on the fly so the value can be selected.
+      if (!Array.from(yearSel.options).some(function (o) { return o.value === initYear; })) {
+        var opt = document.createElement('option');
+        opt.value = initYear; opt.textContent = initYear;
+        yearSel.appendChild(opt);
+      }
+      yearSel.value = initYear;
+      applyFilters();
+    }
+  }
+
   // --- Banded background by year: rows with the same year share the same
   // background tint; the tint alternates each time the year changes.
   var lastYear = null, toggle = false;
