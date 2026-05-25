@@ -325,51 +325,41 @@ function render() {
     const g = document.createElementNS(svgNS, 'g');
     g.classList.add('bubble');
 
-    // Per-conductor focal-point overrides. zoom = render size as a
-    // multiple of bubble diameter; faceXFrac/faceYFrac = the face's
-    // normalised position within the source; targetYRel = where to
-    // place the face in the bubble (in units of bubble radius,
-    // measured from bubble centre — negative = above centre).
-    // Source aspect defaults to 2:3 portrait.
-    const FOCAL = {
-      // Andris_Nelsons.JPG: 2:3 full-body press shot. Place the face
-      // in the upper half of the bubble (above the bottom label band
-      // that holds "Nelsons / 31") so the whole face is visible.
-      "Andris Nelsons": { zoom: 1.2, faceXFrac: 0.5, faceYFrac: 0.25, targetYRel: -0.5, aspect: 1.5 },
+    // Per-conductor shift of the default-rendered image. Negative
+    // values shift the image UP through the bubble, which moves the
+    // visible source content DOWN (i.e. we scroll past the head to
+    // reveal more of the face). Useful for photos where the subject's
+    // face sits low in the source crop (mid-body or head-and-shoulders
+    // shots with extra headroom) and ends up hidden behind the
+    // bottom label band.
+    const SHIFT_Y = {
+      "Andris Nelsons":  -0.30,   // 1:1.5 full-body press shot
+      "Bernard Haitink": -0.40,   // 1:1.29 press shot with extra headroom
     };
 
-    // Portrait — if no image, draw a coloured fill for fallback.
+    // Always paint a faint accent fill behind the portrait — fills any
+    // transparent margin left by a shifted/cropped image and gives
+    // unmapped conductors a coloured circle to stand in for the photo.
+    const fill = document.createElementNS(svgNS, 'circle');
+    fill.setAttribute('cx', d.x);
+    fill.setAttribute('cy', d.y);
+    fill.setAttribute('r', d.r);
+    fill.setAttribute('fill', '#D97706');
+    fill.setAttribute('fill-opacity', d.data.img ? '0.15' : '0.40');
+    g.appendChild(fill);
+
     if (d.data.img) {
       const img = document.createElementNS(svgNS, 'image');
       img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', d.data.img);
       img.setAttribute('href', d.data.img);
-      const focal = FOCAL[d.data.name];
-      if (focal) {
-        const W = 2 * d.r * focal.zoom;
-        const H = W * focal.aspect;
-        const tY = focal.targetYRel || 0;
-        img.setAttribute('width',  W);
-        img.setAttribute('height', H);
-        img.setAttribute('x', d.x - focal.faceXFrac * W);
-        img.setAttribute('y', d.y + tY * d.r - focal.faceYFrac * H);
-        img.setAttribute('preserveAspectRatio', 'none');
-      } else {
-        img.setAttribute('x', d.x - d.r);
-        img.setAttribute('y', d.y - d.r);
-        img.setAttribute('width', d.r * 2);
-        img.setAttribute('height', d.r * 2);
-        img.setAttribute('preserveAspectRatio', 'xMidYMin slice');
-      }
+      const shiftY = SHIFT_Y[d.data.name] || 0;
+      img.setAttribute('x', d.x - d.r);
+      img.setAttribute('y', d.y - d.r + shiftY * d.r);
+      img.setAttribute('width', d.r * 2);
+      img.setAttribute('height', d.r * 2);
+      img.setAttribute('preserveAspectRatio', 'xMidYMin slice');
       img.setAttribute('clip-path', `url(#${cid})`);
       g.appendChild(img);
-    } else {
-      const fill = document.createElementNS(svgNS, 'circle');
-      fill.setAttribute('cx', d.x);
-      fill.setAttribute('cy', d.y);
-      fill.setAttribute('r', d.r);
-      fill.setAttribute('fill', '#D97706');
-      fill.setAttribute('fill-opacity', '0.4');
-      g.appendChild(fill);
     }
 
     // White ring on top of portrait
