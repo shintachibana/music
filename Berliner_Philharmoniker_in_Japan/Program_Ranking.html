@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Berliner Philharmoniker — Concerts in Japan Program Ranking</title>
+<title>Berliner Philharmoniker — Performances in Japan Program Ranking</title>
 <style>
 html, body { min-height: 100%; }
 body {
@@ -50,11 +50,15 @@ a.nav-button.orange { background: #16A34A; box-shadow: 0 1px 3px rgba(21,128,61,
 a.nav-button.orange:hover { background: #15803D; }
 a.nav-button.blue { background: #16A34A; box-shadow: 0 1px 3px rgba(21,128,61,0.25); }
 a.nav-button.blue:hover { background: #15803D; }
-table { border-collapse: collapse; width: 100%; font-size: 14.4px; background: #fff; }
-thead th { position: sticky; top: 114px; z-index: 2; background: #16A34A; color: #fff; padding: 8px 12px; border: 1px solid #15803D; text-align: left; white-space: nowrap; }
+/* border-collapse: separate is needed for position:sticky to work on
+   thead cells in Safari/Chrome; border-spacing:0 keeps the visual
+   tight, and the cell borders below mimic the prior collapsed grid. */
+table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 14.4px; background: #fff; border-left: 1px solid #cfe3d6; border-top: 1px solid #cfe3d6; }
+thead th { position: sticky; top: var(--page-header-h, 132px); z-index: 2; background: #16A34A; color: #fff; padding: 8px 12px; border-right: 1px solid #15803D; border-bottom: 1px solid #15803D; text-align: left; white-space: nowrap; }
+thead th:last-child { border-right: none; }
 tbody tr:nth-child(even) { background: #ECFBEF; }
 tbody tr:hover { background: #FFF4D9; }
-tbody td { padding: 6px 12px; border: 1px solid #cfe3d6; vertical-align: middle; }
+tbody td { padding: 6px 12px; border-right: 1px solid #cfe3d6; border-bottom: 1px solid #cfe3d6; vertical-align: middle; }
 tbody td:nth-child(2) { font-size: 1.2em; }
 th:first-child, td:first-child { text-align: center; width: 44px; }
 th:nth-child(3), td:nth-child(3) { text-align: center; width: 130px; min-width: 130px; max-width: 130px; }
@@ -64,7 +68,7 @@ th:last-child, td:last-child { text-align: center; width: 110px; }
 <body>
 <div class="container">
 <div class="page-header">
-<h1>Berliner Philharmoniker — Concerts in Japan Program Ranking</h1>
+<h1>Berliner Philharmoniker — Performances in Japan Program Ranking</h1>
 <p class="toolbar"><button id="sortToggle" class="sort-toggle">Sort descending ▼</button><a class="nav-button blue" href="Concerts_in_Japan.html">Performances List</a><a class="nav-button blue" href="Composer_Chart.html">Performances by Composer</a><a class="nav-button blue" href="Performances_by_Conductor.html">Performances by Conductor</a><a class="nav-button blue" href="Performances_by_Prefecture.html">Performances by Prefecture</a><a class="nav-button blue" href="Program_Trend_by_Era.html">Program Trend by Era</a><a class="nav-button blue" href="Audience_Analysis.html">Audience Statistics</a><a class="nav-button orange" href="index.html">Home</a></p>
 </div>
 <table>
@@ -180,6 +184,16 @@ th:last-child, td:last-child { text-align: center; width: 110px; }
     var order = sortDesc ? rows.slice().reverse() : rows;
     order.forEach(function (r) { tbody.appendChild(r); });
   });
+
+  // Keep the sticky thead lined up under the sticky page-header even
+  // when the toolbar wraps to multiple rows at narrow widths.
+  function syncHeaderHeight() {
+    var h = document.querySelector('.page-header');
+    if (h) document.documentElement.style.setProperty('--page-header-h', h.offsetHeight + 'px');
+  }
+  syncHeaderHeight();
+  window.addEventListener('resize', syncHeaderHeight);
+  window.addEventListener('load', syncHeaderHeight);
 })();
 </script>
 </body>
