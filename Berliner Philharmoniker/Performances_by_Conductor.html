@@ -68,7 +68,15 @@ h1 {
   margin: 0 auto;
   border: 2px solid #D97706;
   border-radius: 8px;
-  background: rgba(255,255,255,0.4);
+  /* Soft radial vignette in the accent palette — clear white-cream
+     in the centre where the largest bubble sits, deepening toward
+     the corners. Makes the portraits pop against the frame and
+     ties the chart to the page's accent colour. */
+  background:
+    radial-gradient(circle at center,
+      rgba(255,255,255,0.85) 0%,
+      rgba(254,215,170,0.55)        45%,
+      rgba(217,119,6,0.32)      100%);
   box-shadow: 0 2px 14px rgba(0,0,0,0.10);
 }
 #chart svg {

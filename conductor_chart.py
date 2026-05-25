@@ -358,6 +358,8 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         accent_d = "#B45309"
         accent_rgba = "rgba(180,83,9,0.25)"
         notes_color = "%23D97706"
+        chart_grad_mid   = "rgba(254,215,170,0.55)"   # peach
+        chart_grad_outer = "rgba(217,119,6,0.32)"     # amber edge
         analysis_section = bpo_analysis_html(details)
     else:
         title    = "Wiener Philharmoniker — Performances by Conductor"
@@ -367,6 +369,8 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         accent_d = "#831234"
         accent_rgba = "rgba(159,18,57,0.25)"
         notes_color = "%239F1239"
+        chart_grad_mid   = "rgba(251,207,232,0.55)"   # pale rose
+        chart_grad_outer = "rgba(159,18,57,0.30)"     # burgundy edge
         analysis_section = wpo_analysis_html(totals, details, concerts)
 
     # Build data array.
@@ -471,7 +475,15 @@ h1 {{
   margin: 0 auto;
   border: 2px solid {accent};
   border-radius: 8px;
-  background: rgba(255,255,255,0.4);
+  /* Soft radial vignette in the accent palette — clear white-cream
+     in the centre where the largest bubble sits, deepening toward
+     the corners. Makes the portraits pop against the frame and
+     ties the chart to the page's accent colour. */
+  background:
+    radial-gradient(circle at center,
+      rgba(255,255,255,0.85) 0%,
+      {chart_grad_mid}        45%,
+      {chart_grad_outer}      100%);
   box-shadow: 0 2px 14px rgba(0,0,0,0.10);
 }}
 #chart svg {{
