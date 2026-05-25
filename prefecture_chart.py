@@ -451,7 +451,7 @@ h1 {{
 <h1>{title}</h1>
 <p class="subhead">{total_pref} prefectures · {total_perf} performances on the orchestra's documented Japan tours. Each prefecture is filled by its total; the bubble at the centroid is sized by the same total. Hover any prefecture for the work list &amp; contributing cities.</p>
 <p class="toolbar">
-  <a href="{concerts_href}">Concerts in Japan</a>
+  <a href="{concerts_href}">Performances in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
   <a href="Composer_Chart.html">Performances by Composer</a>
   <a href="Performances_by_Conductor.html">Performances by Conductor</a>

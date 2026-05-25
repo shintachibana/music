@@ -427,7 +427,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         accent_soft = "rgba(180,83,9,0.20)"
         accent_tint = "rgba(217,119,6,0.10)"
         toolbar_links = (
-            '  <a href="Concerts_in_Japan.html">Concerts in Japan</a>\n'
+            '  <a href="Concerts_in_Japan.html">Performances in Japan</a>\n'
             '  <a href="Program_Ranking.html">Program Ranking</a>\n'
             '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
             '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'
@@ -444,7 +444,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         footer_note = (
             "The chief-conductor (<em>Chefdirigent</em>) tenures shown reflect the "
             "elected periods. The Japan-tour markers are drawn live from the "
-            "<a href=\"Concerts_in_Japan.html\">Concerts in Japan</a> table."
+            "<a href=\"Concerts_in_Japan.html\">Performances in Japan</a> table."
         )
     else:
         title = "Wiener Philharmoniker — Program Trend by Era"
@@ -454,7 +454,7 @@ def build_page(concerts_html: str, orchestra: str = "bpo") -> str:
         accent_soft = "rgba(159,18,57,0.20)"
         accent_tint = "rgba(159,18,57,0.08)"
         toolbar_links = (
-            '  <a href="Performances_in_Japan.html">Concerts in Japan</a>\n'
+            '  <a href="Performances_in_Japan.html">Performances in Japan</a>\n'
             '  <a href="Program_Ranking.html">Program Ranking</a>\n'
             '  <a href="Composer_Chart.html">Performances by Composer</a>\n'
             '  <a href="Performances_by_Conductor.html">Performances by Conductor</a>\n'

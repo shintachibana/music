@@ -739,7 +739,7 @@ h1 {{
 <h1>{title}</h1>
 <p class="subhead">Each bubble's area is proportional to that conductor's total performances on the orchestra's documented Japan tours. {total_cond} conductors, {total_perf} performances total — laid out by a hierarchical circle-pack.</p>
 <p class="toolbar">
-  <a href="{concerts_href}">Concerts in Japan</a>
+  <a href="{concerts_href}">Performances in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
   <a href="Composer_Chart.html">Performances by Composer</a>
   <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>

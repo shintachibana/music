@@ -134,11 +134,13 @@ def placeholder_silhouette(composer: str, page_bg_hex: str) -> str:
 
 
 def aggregate(ranking_html: str) -> dict:
-    """Return {composer: total_performances} parsed from a Program_Ranking page."""
-    # Lazy .+? so that work cells containing their own markup (e.g.
-    # <em>Unvollendete</em>) still match through to the count column.
+    """Return {composer: total_performances} parsed from a Program_Ranking page.
+
+    Ranking row layout: <td>#</td><td>Work</td><td>Staged?</td><td>Count</td><td>Conductors</td>
+    The third column ("Staged Opera") holds "Yes" or empty and is skipped here."""
     rx = re.compile(
-        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?([^<:]+):.+?(?:</a>)?</td><td>(\d+)</td>'
+        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?([^<:]+):.+?(?:</a>)?</td>'
+        r'<td>(?:Yes)?</td><td>(\d+)</td>'
     )
     totals: dict[str, int] = {}
     for m in rx.finditer(ranking_html):
@@ -154,15 +156,18 @@ def aggregate_with_works(ranking_html: str) -> dict:
 
     Used for the hover tooltip that lists each composer's individual works.
     Work names retain inline <em> markup so the tooltip stays italic-styled
-    consistently with the ranking page.
-    """
+    consistently with the ranking page. Staged-opera rows get a trailing
+    " (staged opera)" so the tooltip flags them — the third "Yes" column
+    of the ranking table itself is not surfaced in the tooltip."""
     rx = re.compile(
-        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?(.+?)(?:</a>)?</td><td>(\d+)</td>'
+        r'<tr><td>\d+</td><td>(?:<a [^>]+>)?(.+?)(?:</a>)?</td>'
+        r'<td>(Yes)?</td><td>(\d+)</td>'
     )
     out: dict[str, dict] = {}
     for m in rx.finditer(ranking_html):
         full = m.group(1).strip()
-        count = int(m.group(2))
+        is_staged = m.group(2) == "Yes"
+        count = int(m.group(3))
         if ":" not in full:
             continue
         composer_raw, work = full.split(":", 1)
@@ -170,6 +175,8 @@ def aggregate_with_works(ranking_html: str) -> dict:
         composer = composer.split("/")[0].strip()
         composer = re.sub(r"\s*\([^)]*\)", "", composer).strip()
         work = work.strip()
+        if is_staged:
+            work += " (staged opera)"
         slot = out.setdefault(composer, {"total": 0, "works": []})
         slot["works"].append((work, count))
         slot["total"] += count
@@ -419,7 +426,7 @@ h1 {{
 <h1>{title}</h1>
 <p class="subhead">Each cell's area is proportional to that composer's total performances on the orchestra's documented Japan tours. {total_composers} composers, {total_perf} performances total — laid out by a squarified treemap algorithm.</p>
 <p class="toolbar">
-  <a href="{concerts_href}">Concerts in Japan</a>
+  <a href="{concerts_href}">Performances in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
   <a href="Performances_by_Conductor.html">Performances by Conductor</a>
   <a href="Performances_by_Prefecture.html">Performances by Prefecture</a>
