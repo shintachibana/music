@@ -140,7 +140,8 @@ def aggregate(ranking_html: str) -> dict:
     The third column ("Staged Opera") holds "Yes" or empty and is skipped here."""
     rx = re.compile(
         r'<tr><td>\d+</td><td>(?:<a [^>]+>)?([^<:]+):.+?(?:</a>)?</td>'
-        r'<td>(?:Yes)?</td><td>(\d+)</td>'
+        r'<td>(?:Yes)?</td>'
+        r'<td>(?:<a [^>]+>)?(\d+)(?:</a>)?</td>'
     )
     totals: dict[str, int] = {}
     for m in rx.finditer(ranking_html):
@@ -161,7 +162,8 @@ def aggregate_with_works(ranking_html: str) -> dict:
     of the ranking table itself is not surfaced in the tooltip."""
     rx = re.compile(
         r'<tr><td>\d+</td><td>(?:<a [^>]+>)?(.+?)(?:</a>)?</td>'
-        r'<td>(Yes)?</td><td>(\d+)</td>'
+        r'<td>(Yes)?</td>'
+        r'<td>(?:<a [^>]+>)?(\d+)(?:</a>)?</td>'
     )
     out: dict[str, dict] = {}
     for m in rx.finditer(ranking_html):
