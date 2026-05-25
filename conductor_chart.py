@@ -68,18 +68,36 @@ def strip_tags(s: str) -> str:
     return re.sub(r"<[^>]+>", "", s)
 
 
+def strip_tags_keep_em(s: str) -> str:
+    """Strip all tags except <em>...</em>, which we keep so work names that
+    italicise the work title (e.g. <em>Oberon</em>, Ouvertüre) stay
+    italicised in the tooltip work list."""
+    # Drop anchor opens/closes
+    s = re.sub(r"</?a\b[^>]*>", "", s)
+    # Drop everything else except <em>...</em>
+    s = re.sub(r"<(?!/?em\b)[^>]+>", "", s)
+    # Collapse runs of whitespace
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
 def parse_program(prog_html: str) -> list[str]:
-    """Split a Program cell into individual works (Composer: Work format)."""
+    """Split a Program cell into individual works (Composer: Work format).
+
+    Inline <em>...</em> tags are preserved so titles like "Oberon,
+    Ouvertüre" render italicised in the tooltip — matching the
+    Composer Chart's behaviour."""
     lines = re.split(r"<br\s*/?>", prog_html)
     out = []
     current_composer = None
     for raw in lines:
-        text = strip_tags(raw).strip()
+        text = strip_tags_keep_em(raw)
         if not text:
             continue
-        # Some entries propagate composer prefix automatically.
-        # If line begins with "X: Y" pattern where X looks like a composer name, take it.
-        m = re.match(r"^([^\W\d_][^:\d\n]{0,40}?):\s+(.+)$", text)
+        # The composer prefix is plain text (never wrapped in <em>), so
+        # match the leading "Composer: …" portion on the plain-text form.
+        plain = re.sub(r"</?em\b[^>]*>", "", text)
+        m = re.match(r"^([^\W\d_][^:\d\n]{0,40}?):\s+(.+)$", plain)
         if m and m.group(1)[0].isupper() and len(m.group(1)) < 45:
             current_composer = m.group(1).strip()
             out.append(text)
