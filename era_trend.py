@@ -20,12 +20,13 @@ CHIEFS = [
     (2002, 2018, "Simon Rattle",        "Simon_Rattle",        "rattle"),
     (2019, 2026, "Kirill Petrenko",     "Kirill_Petrenko",     "petrenko"),
 ]
-# Per-chief accent colour for the timeline band
+# Per-chief accent colour for the timeline band — bright but still
+# readable with white text on the tour pill.
 CHIEF_COLOUR = {
-    "karajan":  "#B45309",   # deep amber — Karajan era
-    "abbado":   "#1D4ED8",   # blue — Abbado era
-    "rattle":   "#0F766E",   # teal — Rattle era
-    "petrenko": "#831234",   # deep burgundy — Petrenko era
+    "karajan":  "#F59E0B",   # amber-500 — Karajan era
+    "abbado":   "#3B82F6",   # blue-500 — Abbado era
+    "rattle":   "#14B8A6",   # teal-500 — Rattle era
+    "petrenko": "#E11D48",   # rose-600 — Petrenko era
 }
 
 
@@ -166,13 +167,16 @@ def build_timeline_row(year: int, tour_counts: dict) -> str:
         elif year == next(e for s, e, n, _, _ in CHIEFS if n == name) and year != 2026:
             chief_label = f'<span class="chief-end">→ {name} ends</span>'
 
-    # Tour pill — colour matches the chief conductor era for that year.
+    # Tour pill — colour matches the chief conductor era; label uses
+    # the chief's family name (last token of his full name) + the
+    # concert count for that year.  e.g. "Karajan (16)".
     tour_label = ""
     if is_tour:
         pill_colour = CHIEF_COLOUR.get(chief[2], "#D97706") if chief else "#D97706"
+        family = chief[0].split()[-1] if chief else "tour"
         tour_label = (
             f'<span class="tour-pill" style="background:{pill_colour};">'
-            f'Japan&nbsp;Tour&nbsp;({n_concerts})'
+            f'{family}&nbsp;({n_concerts})'
             f'</span>'
         )
 
