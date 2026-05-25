@@ -543,17 +543,17 @@ function render() {{
     const g = document.createElementNS(svgNS, 'g');
     g.classList.add('bubble');
 
-    // Per-conductor focal-point overrides for portraits where the
-    // default xMidYMin slice puts the face too high (forehead only)
-    // or off the bubble entirely. Each entry zooms the image and
-    // re-anchors it so that (faceXFrac, faceYFrac) of the source
-    // sits at the bubble centre. Source aspect defaults to 2:3
-    // portrait; override `aspect` if the photo is landscape.
+    // Per-conductor focal-point overrides. zoom = render size as a
+    // multiple of bubble diameter; faceXFrac/faceYFrac = the face's
+    // normalised position within the source; targetYRel = where to
+    // place the face in the bubble (in units of bubble radius,
+    // measured from bubble centre — negative = above centre).
+    // Source aspect defaults to 2:3 portrait.
     const FOCAL = {{
-      // Andris_Nelsons.JPG is a 2:3 full-body press shot. faceYFrac
-      // pushed all the way down to 0.40 of the source so the visible
-      // window (19-61% of source y) lands squarely on the face.
-      "Andris Nelsons": {{ zoom: 1.6, faceXFrac: 0.5, faceYFrac: 0.40, aspect: 1.5 }},
+      // Andris_Nelsons.JPG: 2:3 full-body press shot. Place the face
+      // in the upper half of the bubble (above the bottom label band
+      // that holds "Nelsons / 31") so the whole face is visible.
+      "Andris Nelsons": {{ zoom: 1.2, faceXFrac: 0.5, faceYFrac: 0.25, targetYRel: -0.5, aspect: 1.5 }},
     }};
 
     // Portrait — if no image, draw a coloured fill for fallback.
@@ -565,10 +565,11 @@ function render() {{
       if (focal) {{
         const W = 2 * d.r * focal.zoom;
         const H = W * focal.aspect;
+        const tY = focal.targetYRel || 0;
         img.setAttribute('width',  W);
         img.setAttribute('height', H);
         img.setAttribute('x', d.x - focal.faceXFrac * W);
-        img.setAttribute('y', d.y - focal.faceYFrac * H);
+        img.setAttribute('y', d.y + tY * d.r - focal.faceYFrac * H);
         img.setAttribute('preserveAspectRatio', 'none');
       }} else {{
         img.setAttribute('x', d.x - d.r);
