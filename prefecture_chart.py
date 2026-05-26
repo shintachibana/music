@@ -310,12 +310,14 @@ h1 {{
   stroke-width: 3px;
   stroke-linejoin: round;
 }}
+/* Counter on each prefecture bubble — share typography with the
+   adjacent .pref-label so the two reads as one matched pair instead
+   of a heavier numeric atop a regular-weight name. */
 .pref-count {{
   pointer-events: none;
   text-anchor: middle;
   font-family: Arial, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+  font-weight: 700;
   paint-order: stroke;
   stroke-width: 3.5px;
   stroke-linejoin: round;

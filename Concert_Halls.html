@@ -17,7 +17,19 @@ body {
 }
 .container { max-width: 980px; margin: 0 auto; }
 h1 { font-size: 22px; margin: 0 0 4px; color: #000; }
-.subhead { font-size: 13px; color: #555; margin: 0 0 24px; }
+.subhead { font-size: 13px; color: #555; margin: 0 0 14px; }
+.toolbar { margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+.toolbar a {
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 13px;
+  text-decoration: none;
+  border-radius: 4px;
+  color: #fff;
+  background: #2D3748;
+  box-shadow: 0 1px 3px rgba(45,55,72,0.25);
+}
+.toolbar a:hover { background: #1A202C; }
 table {
   width: 100%;
   border-collapse: collapse;
@@ -83,6 +95,10 @@ a:hover { text-decoration: underline; }
 <div class="container">
 <h1>Concert Halls — Berliner Philharmoniker in Japan</h1>
 <p class="subhead">Every venue used by the orchestra on documented Japan tours from 1957 to today, grouped by region. 27 halls in total. Hall names link to each venue's official site where available.</p>
+<p class="toolbar">
+  <a href="Berliner_Philharmoniker_in_Japan/Performances_by_Prefecture.html">Performances by Prefecture</a>
+  <a href="Berliner_Philharmoniker_in_Japan/index.html">Home</a>
+</p>
 
 <table>
 <thead>

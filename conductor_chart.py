@@ -982,19 +982,11 @@ function render() {{
     hit.addEventListener('mouseleave', hideTooltip);
     g.appendChild(hit);
 
-    // Wrap the bubble in <a> if we have a Wikipedia URL — clicking the
-    // bubble opens the conductor's en.wikipedia article in a new tab.
-    if (d.data.url) {{
-      const link = document.createElementNS(svgNS, 'a');
-      link.setAttribute('href', d.data.url);
-      link.setAttribute('target', '_blank');
-      link.setAttribute('rel', 'noopener');
-      link.setAttribute('aria-label', `${{d.data.name}} — Wikipedia`);
-      link.appendChild(g);
-      svg.appendChild(link);
-    }} else {{
-      svg.appendChild(g);
-    }}
+    // The conductor circle is now non-clickable — the hover tooltip is
+    // the only interaction. (Previously the bubble was wrapped in an
+    // <a> linking to the conductor's en.wikipedia article; removed
+    // so that accidental taps on an iPad don't navigate away.)
+    svg.appendChild(g);
   }});
 
   wrap.appendChild(svg);
