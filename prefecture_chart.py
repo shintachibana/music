@@ -671,7 +671,11 @@ function render() {{
     count.setAttribute('font-family', 'Arial, sans-serif');
     count.setAttribute('font-weight', '700');
     count.setAttribute('fill', dark ? '#fff' : '{accent_d}');
-    count.setAttribute('stroke', dark ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.92)');
+    // No stroke halo on dark prefectures — the dark fill provides
+    // enough contrast for the white text, and the black halo had
+    // been making Tokyo/Osaka counters look heavier (almost
+    // "different font") next to the white-haloed smaller cells.
+    count.setAttribute('stroke', dark ? 'none' : 'rgba(255,255,255,0.92)');
     count.textContent = entry.total;
     gT.appendChild(count);
 
@@ -683,7 +687,7 @@ function render() {{
     lbl.setAttribute('font-family', 'Arial, sans-serif');
     lbl.setAttribute('font-weight', '700');
     lbl.setAttribute('fill', dark ? '#fff' : '#1c1917');
-    lbl.setAttribute('stroke', dark ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.92)');
+    lbl.setAttribute('stroke', dark ? 'none' : 'rgba(255,255,255,0.92)');
     lbl.textContent = entry.name;
     gT.appendChild(lbl);
   }});
