@@ -166,7 +166,11 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         notes_color = "%23D97706"
         bubble_fill = "#D97706"
         choro_a     = "#FEF6E2"
-        choro_b     = "#B45309"
+        # Cap the choropleth scale at a medium amber rather than a deep
+        // amber, so even Tokyo's max-intensity tile reads as a light
+        // backdrop for the dark-amber count text — no special-case
+        // bubble or white text needed any more.
+        choro_b     = "#FBBF24"
         extra_nav   = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
                        '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')
         concerts_href = "Performances_in_Japan.html"
@@ -179,7 +183,7 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         notes_color = "%239F1239"
         bubble_fill = "#9F1239"
         choro_a     = "#FAEBEF"
-        choro_b     = "#831234"
+        choro_b     = "#FB7185"
         extra_nav   = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
         concerts_href = "Performances_in_Japan.html"
 
@@ -671,21 +675,11 @@ function render() {{
     count.setAttribute('font-family', 'Arial, sans-serif');
     count.setAttribute('font-weight', '700');
     // Uniform text styling everywhere — same colour, same halo —
-    // so Tokyo/Osaka counters read with the identical visual
-    // weight as the smaller prefectures. A small white circle sits
-    // behind the count text on dark-filled cells (Tokyo, Osaka) to
-    // keep the amber numerals readable over the deep-amber polygon
-    // fill; on lighter cells no bubble is needed.
-    if (dark) {{
-      const bubble = document.createElementNS(svgNS, 'circle');
-      bubble.setAttribute('cx', x);
-      bubble.setAttribute('cy', y - COUNT_FS * 0.28);
-      bubble.setAttribute('r', String(COUNT_FS * 1.05));
-      bubble.setAttribute('fill', 'rgba(255, 248, 236, 0.94)');
-      bubble.setAttribute('stroke', '{accent_d}');
-      bubble.setAttribute('stroke-width', '0.6');
-      gT.appendChild(bubble);
-    }}
+    // so Tokyo and Osaka counters render with the identical visual
+    // weight as every smaller prefecture. The choropleth gradient
+    // tops out at a medium amber/rose now (see choro_b), light
+    // enough that the dark accent text reads cleanly without any
+    // bubble backdrop.
     count.setAttribute('fill', '{accent_d}');
     count.setAttribute('stroke', 'rgba(255,255,255,0.92)');
     count.textContent = entry.total;
