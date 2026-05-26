@@ -167,9 +167,9 @@ def build_page(orchestra: str, prefectures: dict) -> str:
         bubble_fill = "#D97706"
         choro_a     = "#FEF6E2"
         # Cap the choropleth scale at a medium amber rather than a deep
-        // amber, so even Tokyo's max-intensity tile reads as a light
-        // backdrop for the dark-amber count text — no special-case
-        // bubble or white text needed any more.
+        # amber, so even Tokyo's max-intensity tile reads as a light
+        # backdrop for the dark-amber count text — no special-case
+        # bubble or white text needed any more.
         choro_b     = "#FBBF24"
         extra_nav   = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
                        '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')

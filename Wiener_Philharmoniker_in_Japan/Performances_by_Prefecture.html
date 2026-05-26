@@ -139,7 +139,7 @@ h1 {
   width: 90px;
   height: 12px;
   border-radius: 3px;
-  background: linear-gradient(to right, #FAEBEF, #831234);
+  background: linear-gradient(to right, #FAEBEF, #FB7185);
   border: 1px solid rgba(0,0,0,0.18);
 }
 .legend-bubbles { display: flex; align-items: flex-end; gap: 4px; }
@@ -395,7 +395,7 @@ function render() {
   const colorScale = d3.scalePow()
     .exponent(0.55)
     .domain([0, maxPref])
-    .range(["#FAEBEF", "#831234"])
+    .range(["#FAEBEF", "#FB7185"])
     .interpolate(d3.interpolateRgb);
 
   // -------- MAIN MAP --------
@@ -461,21 +461,11 @@ function render() {
     count.setAttribute('font-family', 'Arial, sans-serif');
     count.setAttribute('font-weight', '700');
     // Uniform text styling everywhere — same colour, same halo —
-    // so Tokyo/Osaka counters read with the identical visual
-    // weight as the smaller prefectures. A small white circle sits
-    // behind the count text on dark-filled cells (Tokyo, Osaka) to
-    // keep the amber numerals readable over the deep-amber polygon
-    // fill; on lighter cells no bubble is needed.
-    if (dark) {
-      const bubble = document.createElementNS(svgNS, 'circle');
-      bubble.setAttribute('cx', x);
-      bubble.setAttribute('cy', y - COUNT_FS * 0.28);
-      bubble.setAttribute('r', String(COUNT_FS * 1.05));
-      bubble.setAttribute('fill', 'rgba(255, 248, 236, 0.94)');
-      bubble.setAttribute('stroke', '#831234');
-      bubble.setAttribute('stroke-width', '0.6');
-      gT.appendChild(bubble);
-    }
+    // so Tokyo and Osaka counters render with the identical visual
+    // weight as every smaller prefecture. The choropleth gradient
+    // tops out at a medium amber/rose now (see choro_b), light
+    // enough that the dark accent text reads cleanly without any
+    // bubble backdrop.
     count.setAttribute('fill', '#831234');
     count.setAttribute('stroke', 'rgba(255,255,255,0.92)');
     count.textContent = entry.total;
