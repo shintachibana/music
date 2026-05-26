@@ -177,7 +177,7 @@ def aggregate_with_works(ranking_html: str) -> dict:
         composer = composer.split("/")[0].strip()
         composer = re.sub(r"\s*\([^)]*\)", "", composer).strip()
         work = work.strip()
-        if is_staged:
+        if is_staged and "(staged opera)" not in work and "(concert performance)" not in work:
             work += " (staged opera)"
         slot = out.setdefault(composer, {"total": 0, "works": []})
         slot["works"].append((work, count))
