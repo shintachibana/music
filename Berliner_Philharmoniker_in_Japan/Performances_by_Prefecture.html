@@ -455,6 +455,12 @@ function render() {
     count.setAttribute('x', x);
     count.setAttribute('y', y);
     count.setAttribute('font-size', COUNT_FS);
+    // Set font-family on the SVG element directly. Some browsers don't
+    // reliably apply CSS classes to SVG <text>, causing the larger
+    // Tokyo/Osaka counters to fall back to the system serif while the
+    // smaller prefectures show in Arial. Inline attribute is safer.
+    count.setAttribute('font-family', 'Arial, sans-serif');
+    count.setAttribute('font-weight', '700');
     count.setAttribute('fill', dark ? '#fff' : '#B45309');
     count.setAttribute('stroke', dark ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.92)');
     count.textContent = entry.total;
@@ -465,6 +471,8 @@ function render() {
     lbl.setAttribute('x', x);
     lbl.setAttribute('y', y + COUNT_FS * 0.85);
     lbl.setAttribute('font-size', NAME_FS);
+    lbl.setAttribute('font-family', 'Arial, sans-serif');
+    lbl.setAttribute('font-weight', '700');
     lbl.setAttribute('fill', dark ? '#fff' : '#1c1917');
     lbl.setAttribute('stroke', dark ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.92)');
     lbl.textContent = entry.name;
