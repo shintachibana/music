@@ -460,12 +460,24 @@ function render() {
     // smaller prefectures show in Arial. Inline attribute is safer.
     count.setAttribute('font-family', 'Arial, sans-serif');
     count.setAttribute('font-weight', '700');
-    count.setAttribute('fill', dark ? '#fff' : '#831234');
-    // No stroke halo on dark prefectures — the dark fill provides
-    // enough contrast for the white text, and the black halo had
-    // been making Tokyo/Osaka counters look heavier (almost
-    // "different font") next to the white-haloed smaller cells.
-    count.setAttribute('stroke', dark ? 'none' : 'rgba(255,255,255,0.92)');
+    // Uniform text styling everywhere — same colour, same halo —
+    // so Tokyo/Osaka counters read with the identical visual
+    // weight as the smaller prefectures. A small white circle sits
+    // behind the count text on dark-filled cells (Tokyo, Osaka) to
+    // keep the amber numerals readable over the deep-amber polygon
+    // fill; on lighter cells no bubble is needed.
+    if (dark) {
+      const bubble = document.createElementNS(svgNS, 'circle');
+      bubble.setAttribute('cx', x);
+      bubble.setAttribute('cy', y - COUNT_FS * 0.28);
+      bubble.setAttribute('r', String(COUNT_FS * 1.05));
+      bubble.setAttribute('fill', 'rgba(255, 248, 236, 0.94)');
+      bubble.setAttribute('stroke', '#831234');
+      bubble.setAttribute('stroke-width', '0.6');
+      gT.appendChild(bubble);
+    }
+    count.setAttribute('fill', '#831234');
+    count.setAttribute('stroke', 'rgba(255,255,255,0.92)');
     count.textContent = entry.total;
     gT.appendChild(count);
 
@@ -476,8 +488,8 @@ function render() {
     lbl.setAttribute('font-size', NAME_FS);
     lbl.setAttribute('font-family', 'Arial, sans-serif');
     lbl.setAttribute('font-weight', '700');
-    lbl.setAttribute('fill', dark ? '#fff' : '#1c1917');
-    lbl.setAttribute('stroke', dark ? 'none' : 'rgba(255,255,255,0.92)');
+    lbl.setAttribute('fill', '#1c1917');
+    lbl.setAttribute('stroke', 'rgba(255,255,255,0.92)');
     lbl.textContent = entry.name;
     gT.appendChild(lbl);
   });
