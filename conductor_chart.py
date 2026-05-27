@@ -173,29 +173,46 @@ def is_placeholder(w: str) -> bool:
     return any(tok in low for tok in PLACEHOLDER_TOKENS)
 
 
-def aggregate(concerts_html: str) -> tuple[dict, dict, dict]:
-    """Walk every concert row → conductor totals, per-work counts, and
-    per-conductor concert counts. Joint-conductor cells (e.g. "Mehta /
-    Ozawa") credit each conductor with the works in that concert.
+def parse_venue(td_html: str) -> str:
+    """Render a City<br>(Hall) cell as 'City — Hall', stripping any
+    surrounding anchor. Returns the plain string for use as a tooltip
+    label."""
+    s = re.sub(r"</?a\b[^>]*>", "", td_html)
+    s = re.sub(r"\s*<br\s*/?>\s*", " — ", s, flags=re.IGNORECASE)
+    s = re.sub(r"<[^>]+>", "", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    s = re.sub(r"\s*—\s*\(\s*", " — ", s)
+    s = re.sub(r"\s*\)\s*$", "", s)
+    return s
 
-    Returns (totals, details, concerts) where:
+
+def aggregate(concerts_html: str) -> tuple[dict, dict, dict, dict]:
+    """Walk every concert row → conductor totals, per-work counts,
+    per-conductor concert counts, and per-conductor venue counts.
+    Joint-conductor cells (e.g. "Mehta / Ozawa") credit each conductor
+    with the works in that concert AND with the venue.
+
+    Returns (totals, details, concerts, venues) where:
        totals[cond]   = total performance count (works played)
        details[cond]  = {work: count}
        concerts[cond] = number of concerts (rows) led
+       venues[cond]   = {"City — Hall": count}
     """
     m = re.search(r"<tbody>(.*?)</tbody>", concerts_html, re.DOTALL)
     if not m:
-        return {}, {}, {}
+        return {}, {}, {}, {}
     tbody = m.group(1)
 
     totals: dict[str, int] = {}
     details: dict[str, dict[str, int]] = {}
     concerts: dict[str, int] = {}
+    venues: dict[str, dict[str, int]] = {}
 
     for row in re.findall(r"<tr>.*?</tr>", tbody, re.DOTALL):
         tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
         if len(tds) < 5:
             continue
+        venue     = parse_venue(tds[2])
         cond_text = strip_tags(tds[3]).strip()
         program   = tds[4]
         if not cond_text:
@@ -209,11 +226,14 @@ def aggregate(concerts_html: str) -> tuple[dict, dict, dict]:
 
         for cond in conductors_list:
             concerts[cond] = concerts.get(cond, 0) + 1
+            if venue:
+                v = venues.setdefault(cond, {})
+                v[venue] = v.get(venue, 0) + 1
             d = details.setdefault(cond, {})
             for w in works:
                 d[w] = d.get(w, 0) + 1
                 totals[cond] = totals.get(cond, 0) + 1
-    return totals, details, concerts
+    return totals, details, concerts, venues
 
 
 def composers_for(details: dict, cond: str) -> list[tuple[str, int]]:
@@ -404,7 +424,7 @@ def wpo_analysis_html(totals: dict, details: dict, concerts: dict) -> str:
 """
 
 
-def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> str:
+def build_page(orchestra: str, totals: dict, details: dict, concerts: dict, venues: dict) -> str:
     if orchestra == "bpo":
         title    = "Berliner Philharmoniker — Performances by Conductor"
         title_pre = "Berliner Philharmoniker"
@@ -433,24 +453,30 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict) -> s
         extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
         concerts_href = "Performances_in_Japan.html"
 
-    # Build data array.
+    # Build data array — each entry carries BOTH chart 1 (works) and
+    # chart 2 (concerts) sizing + tooltip info.
     children = []
     for cond, total in sorted(totals.items(), key=lambda x: -x[1]):
         works_dict = details.get(cond, {})
         works_sorted = sorted(works_dict.items(), key=lambda x: (-x[1], x[0]))
+        venues_dict = venues.get(cond, {})
+        venues_sorted = sorted(venues_dict.items(), key=lambda x: (-x[1], x[0]))
         img_file = CONDUCTOR_IMAGE.get(cond)
         img = wiki_image(img_file) if img_file else ""
         children.append({
             "name": cond,
-            "value": total,
+            "works_total": total,
+            "concert_total": concerts.get(cond, 0),
             "img": img,
             "url": wiki_link(cond),
             "works": works_sorted,
+            "venues": venues_sorted,
         })
 
     data_json = json.dumps({"name": "root", "children": children}, ensure_ascii=False)
 
     total_perf = sum(totals.values())
+    total_concerts = sum(concerts.values())
     total_cond = len(totals)
 
     music_svg = (
@@ -529,7 +555,17 @@ h1 {{
   max-width: 1140px;
   margin: 0 auto;
 }}
-#chart {{
+.chart-title {{
+  max-width: 720px;
+  margin: 28px auto 10px;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  color: {accent_d};
+  letter-spacing: 0.2px;
+}}
+.chart-title:first-of-type {{ margin-top: 6px; }}
+.chart {{
   width: 100%;
   max-width: 720px;
   aspect-ratio: 1 / 1;
@@ -547,7 +583,7 @@ h1 {{
       {chart_grad_outer}      100%);
   box-shadow: 0 2px 14px rgba(0,0,0,0.10);
 }}
-#chart svg {{
+.chart svg {{
   width: 100%;
   height: 100%;
   display: block;
@@ -560,9 +596,9 @@ h1 {{
   filter: drop-shadow(0 4px 14px rgba(0,0,0,0.35));
 }}
 /* SVG anchor wrapping a bubble — click opens the conductor's Wikipedia */
-#chart a {{ cursor: pointer; outline: none; }}
-#chart a:focus .bubble .ring-outer,
-#chart a:hover .bubble .ring-outer {{
+.chart a {{ cursor: pointer; outline: none; }}
+.chart a:focus .bubble .ring-outer,
+.chart a:hover .bubble .ring-outer {{
   stroke: {accent_d};
   stroke-width: 2.5;
   stroke-opacity: 1;
@@ -741,7 +777,7 @@ h1 {{
 <body>
 <div class="page-header">
 <h1>{title}</h1>
-<p class="subhead">Each bubble's area is proportional to that conductor's total performances on the orchestra's documented Japan tours. {total_cond} conductors, {total_perf} performances total — laid out by a hierarchical circle-pack.</p>
+<p class="subhead">{total_cond} conductors across the orchestra's documented Japan tours. The first chart sizes each conductor's bubble by total <b>works</b> performed ({total_perf} performances total); the second sizes by number of <b>concerts</b> led ({total_concerts} concerts total). Same colour scheme, same portraits, two perspectives on the same touring history.</p>
 <p class="toolbar">
   <a href="{concerts_href}">Performances in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
@@ -752,7 +788,10 @@ h1 {{
 </div>
 
 <div id="chart-wrap">
-  <div id="chart"></div>
+  <h2 class="chart-title">Works by Conductors</h2>
+  <div id="chart-works" class="chart"></div>
+  <h2 class="chart-title">Performances by Conductors</h2>
+  <div id="chart-concerts" class="chart"></div>
 </div>
 
 <div id="tooltip" role="tooltip"></div>
@@ -769,11 +808,18 @@ const data = {data_json};
 
 const tooltipEl = document.getElementById('tooltip');
 
-function showTooltip(d, evt) {{
-  const works = d.data.works || [];
+function showTooltip(d, evt, mode) {{
+  // mode === 'works' (chart 1) shows the work list; mode === 'venues'
+  // (chart 2) shows the City — Hall list. Bubble total in the header
+  // is the matching figure (work-total vs. concert-total) for that
+  // chart.
+  const items = (mode === 'works' ? (d.data.works || []) : (d.data.venues || []));
+  const headerTotal = (mode === 'works' ? d.data.works_total : d.data.concert_total);
+  const emptyLabel = (mode === 'works' ? '(no works recorded)' : '(no venues recorded)');
+
   let prevCount = null;
   let prevRank = 0;
-  const items = works.map(([w, n], i) => {{
+  const html = items.map(([label, n], i) => {{
     let rank;
     if (n === prevCount) {{
       rank = prevRank;
@@ -782,19 +828,22 @@ function showTooltip(d, evt) {{
       prevCount = n;
       prevRank = rank;
     }}
-    const isStaged = w.includes('(staged opera)') || w.includes('(concert performance)');
-    const titleCls = isStaged ? 'work-title staged-opera' : 'work-title';
-    return `<li><span class="work-rank">${{rank}}.</span><span class="${{titleCls}}">${{w}}</span><span class="work-count">${{n}}</span></li>`;
+    let titleCls = 'work-title';
+    if (mode === 'works') {{
+      const isStaged = label.includes('(staged opera)') || label.includes('(concert performance)');
+      if (isStaged) titleCls = 'work-title staged-opera';
+    }}
+    return `<li><span class="work-rank">${{rank}}.</span><span class="${{titleCls}}">${{label}}</span><span class="work-count">${{n}}</span></li>`;
   }}).join('');
-  // Switch to a multi-column layout when the work list is long
+  // Switch to a multi-column layout when the list is long
   // so every entry stays visible without scrolling.
   tooltipEl.classList.remove('wide', 'wider', 'widest');
-  if (works.length > 100)      tooltipEl.classList.add('widest');
-  else if (works.length > 70)  tooltipEl.classList.add('wider');
-  else if (works.length > 30)  tooltipEl.classList.add('wide');
+  if (items.length > 100)      tooltipEl.classList.add('widest');
+  else if (items.length > 70)  tooltipEl.classList.add('wider');
+  else if (items.length > 30)  tooltipEl.classList.add('wide');
   tooltipEl.innerHTML = `
-    <h3>${{d.data.name}}<span class="conductor-total">${{d.data.value}}</span></h3>
-    <ul>${{items || '<li><em>(no works recorded)</em></li>'}}</ul>`;
+    <h3>${{d.data.name}}<span class="conductor-total">${{headerTotal}}</span></h3>
+    <ul>${{html || `<li><em>${{emptyLabel}}</em></li>`}}</ul>`;
   moveTooltip(evt);
   tooltipEl.classList.add('visible');
 }}
@@ -813,16 +862,16 @@ function moveTooltip(evt) {{
   tooltipEl.style.top  = y + 'px';
 }}
 
-function safeId(name) {{ return 'cl-' + name.replace(/[^A-Za-z0-9]/g, '_'); }}
+function safeId(prefix, name) {{ return prefix + '-cl-' + name.replace(/[^A-Za-z0-9]/g, '_'); }}
 
-function render() {{
-  const wrap = document.getElementById('chart');
+function render(chartId, valueField, tooltipMode) {{
+  const wrap = document.getElementById(chartId);
   wrap.innerHTML = '';
   const W = wrap.clientWidth;
   const H = wrap.clientHeight;
 
   const root = d3.hierarchy(data)
-    .sum(d => d.value)
+    .sum(d => d[valueField] || 0)
     .sort((a, b) => b.value - a.value);
 
   d3.pack()
@@ -856,7 +905,7 @@ function render() {{
   svg.appendChild(defs);
 
   root.leaves().forEach(d => {{
-    const cid = safeId(d.data.name);
+    const cid = safeId(chartId, d.data.name);
 
     // Clip path for the portrait
     const clip = document.createElementNS(svgNS, 'clipPath');
@@ -963,7 +1012,7 @@ function render() {{
       tcount.setAttribute('x', d.x);
       tcount.setAttribute('y', d.y + r - 5);
       tcount.setAttribute('font-size', countSize);
-      tcount.textContent = d.data.value;
+      tcount.textContent = d.data[valueField];
       g.appendChild(tcount);
     }} else {{
       g.classList.add('hide-label');
@@ -977,7 +1026,7 @@ function render() {{
     hit.setAttribute('cy', d.y);
     hit.setAttribute('r', d.r);
     hit.setAttribute('fill', 'transparent');
-    hit.addEventListener('mouseenter', (evt) => showTooltip(d, evt));
+    hit.addEventListener('mouseenter', (evt) => showTooltip(d, evt, tooltipMode));
     hit.addEventListener('mousemove',  moveTooltip);
     hit.addEventListener('mouseleave', hideTooltip);
     g.appendChild(hit);
@@ -992,10 +1041,14 @@ function render() {{
   wrap.appendChild(svg);
 }}
 
-render();
+function renderAll() {{
+  render('chart-works',    'works_total',   'works');
+  render('chart-concerts', 'concert_total', 'venues');
+}}
+renderAll();
 window.addEventListener('resize', () => {{
   clearTimeout(window._chartResizeTimer);
-  window._chartResizeTimer = setTimeout(render, 100);
+  window._chartResizeTimer = setTimeout(renderAll, 100);
 }});
 
 // Touch / tap-outside dismiss. On iPad and other touch devices, mouseenter
@@ -1031,9 +1084,9 @@ def main():
 
     with open(in_path, encoding="utf-8") as f:
         html = f.read()
-    totals, details, concerts = aggregate(html)
+    totals, details, concerts, venues = aggregate(html)
 
-    page = build_page(orchestra, totals, details, concerts)
+    page = build_page(orchestra, totals, details, concerts, venues)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(page)
 
