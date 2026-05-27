@@ -58,6 +58,15 @@ CONDUCTOR_IMAGE = {
     # Vienna Octet group photo (he was the ensemble's leader); it is
     # the file the Wikipedia article uses too.
     "Willi Boskovsky":       "Vienna_Octet_1962_touring_Southern_Afrtica.jpg",
+    # Additional WPO Japan-tour conductors — Commons portraits
+    "Horst Stein":           "Horst_Stein.jpg",
+    "Berislav Klobučar":     "Berislav Klobučar, 1960 - collezione Tino Barindelli.tif",
+    "Ulf Schirmer":          "Ulf_Schirmer_2022.jpg",
+    "Bruno Campanella":      "Bruno_Campanella_.jpg",
+    "Friedrich Haider":      "2015_Haider_Friedrich-Musikdir.-9538_(17041497769).jpg",
+    "Evelino Pidò":          "2015_Evelino_Pidò_(18712601603).jpg",
+    "Ádám Fischer":          "Adam_Fischer.jpg",
+    "Marek Janowski":        "Marek-Janowski-3098925BW.jpg",
 }
 
 
