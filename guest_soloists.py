@@ -314,15 +314,42 @@ thead th {{
 }}
 thead th .arrow {{ font-size: 11px; margin-left: 4px; opacity: 0.55; }}
 thead th.sort-active .arrow {{ opacity: 1; }}
-tbody tr:nth-child(odd)  {{ background: #fff; }}
-tbody tr:nth-child(even) {{ background: #FDF1E3; }}
+thead tr.filter-row th {{
+  position: sticky;
+  top: 36px;
+  background: #FDF1E3;
+  border: 1px solid #B45309;
+  padding: 4px 6px;
+  cursor: default;
+  z-index: 2;
+}}
+thead tr.filter-row input {{
+  width: 100%;
+  font: inherit;
+  font-size: 12px;
+  padding: 3px 6px;
+  border: 1px solid #c9a87a;
+  border-radius: 3px;
+  background: #fff;
+  color: #222;
+}}
+thead tr.filter-row input:focus {{ outline: 2px solid #D97706; outline-offset: 0; }}
+tbody tr.group-odd   {{ background: #fff; }}
+tbody tr.group-even  {{ background: #FDF1E3; }}
 tbody tr:hover {{ background: #FFF4D9; }}
 td {{ padding: 6px 10px; border: 1px solid #ccc; vertical-align: middle; line-height: 1.4; }}
-td:nth-child(1) {{ font-weight: 600; white-space: nowrap; }}
-td:nth-child(2) {{ white-space: nowrap; color: #555; }}
-td:nth-child(3) {{ min-width: 320px; }}
-td:nth-child(4) {{ white-space: nowrap; }}
-td:nth-child(5) {{ text-align: right; font-weight: 700; color: #B45309; font-variant-numeric: tabular-nums; }}
+td.cell-soloist    {{ font-weight: 600; white-space: nowrap; }}
+td.cell-instrument {{ white-space: nowrap; color: #555; }}
+td.cell-work       {{ min-width: 320px; }}
+td.cell-conductor  {{ white-space: nowrap; }}
+td.cell-count      {{ text-align: right; font-weight: 700; color: #B45309; font-variant-numeric: tabular-nums; }}
+/* Continuation rows visually merge with the row above for the
+   soloist + instrument cells: top border is removed and the cell
+   text is hidden but the cell still occupies its grid slot. */
+tr.cont td.cell-soloist .cell-text,
+tr.cont td.cell-instrument .cell-text {{ visibility: hidden; }}
+tr.cont td.cell-soloist,
+tr.cont td.cell-instrument {{ border-top: 1px solid transparent; }}
 td a {{ color: #78350F; text-decoration: none; border-bottom: 1px dotted #B45309; }}
 td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 .footnote {{ max-width: 880px; margin: 22px auto 0; text-align: center; font-size: 12px; color: #777; line-height: 1.55; }}
@@ -342,11 +369,18 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 <table id="soloists">
 <thead>
 <tr>
-  <th data-key="soloist" data-type="text">Soloist<span class="arrow">▾</span></th>
+  <th data-key="soloist"    data-type="text" class="sort-active" data-sort-dir="asc">Soloist<span class="arrow">▾</span></th>
   <th data-key="instrument" data-type="text">Instrument<span class="arrow">▾</span></th>
-  <th data-key="work" data-type="text">Work<span class="arrow">▾</span></th>
-  <th data-key="conductor" data-type="text">Conductor<span class="arrow">▾</span></th>
-  <th data-key="count" data-type="num" class="sort-active" data-sort-dir="desc" style="text-align:right">Performances<span class="arrow">▾</span></th>
+  <th data-key="work"       data-type="text">Work<span class="arrow">▾</span></th>
+  <th data-key="conductor"  data-type="text">Conductor<span class="arrow">▾</span></th>
+  <th data-key="count"      data-type="num" style="text-align:right">Performances<span class="arrow">▾</span></th>
+</tr>
+<tr class="filter-row">
+  <th><input type="search" class="col-filter" data-col="0" placeholder="filter soloist…"></th>
+  <th><input type="search" class="col-filter" data-col="1" placeholder="filter instrument…"></th>
+  <th><input type="search" class="col-filter" data-col="2" placeholder="filter work…"></th>
+  <th><input type="search" class="col-filter" data-col="3" placeholder="filter conductor…"></th>
+  <th><input type="search" class="col-filter" data-col="4" placeholder="≥ count"></th>
 </tr>
 </thead>
 <tbody>
@@ -354,13 +388,15 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 </tbody>
 </table>
 </div>
-<p class="footnote">Each row is one (soloist · instrument · work · conductor) combination, with the count of concerts in which that combination appeared. Click any column header to sort by it.</p>
+<p class="footnote">Each row is one (soloist · instrument · work · conductor) combination, with the count of concerts in which that combination appeared. Click any column header to sort. Type in a filter box to narrow the list — the Performances filter accepts plain text ("3") or "≥ 3" / "3+" to mean "at least 3".</p>
 <script>
 (function() {{
   const table = document.getElementById('soloists');
   const tbody = table.tBodies[0];
   const ths   = table.tHead.rows[0].cells;
-  // Pull initial column values into typed arrays for fast resort.
+  const fInputs = table.tHead.querySelectorAll('input.col-filter');
+  const KEYS = ['soloist','instrument','work','conductor','count'];
+  // Cache each row's lowercased cell text + numeric count for filtering / sorting.
   const rows  = Array.from(tbody.rows).map(tr => ({{
     el:  tr,
     soloist:    tr.cells[0].textContent.trim().toLowerCase(),
@@ -368,9 +404,72 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
     work:       tr.cells[2].textContent.trim().toLowerCase(),
     conductor:  tr.cells[3].textContent.trim().toLowerCase(),
     count:      parseInt(tr.cells[4].textContent.trim(), 10) || 0,
+    soloistKey: tr.dataset.soloistKey,
   }}));
-  let activeKey = 'count';
-  let activeDir = 'desc';
+  let activeKey = 'soloist';
+  let activeDir = 'asc';
+
+  function applyFilters() {{
+    const filters = [];
+    fInputs.forEach(inp => filters.push(inp.value.trim().toLowerCase()));
+    // Numeric filter: accept "5", "5+", ">= 5", ">5"
+    let minCount = null;
+    const cf = filters[4];
+    if (cf) {{
+      const m = cf.match(/(?:>=?|≥)?\s*(\d+)\s*\+?/);
+      if (m) minCount = parseInt(m[1], 10);
+    }}
+    for (const r of rows) {{
+      let visible = true;
+      for (let i = 0; i < 4; i++) {{
+        if (filters[i] && !r[KEYS[i]].includes(filters[i])) {{ visible = false; break; }}
+      }}
+      if (visible && minCount !== null && r.count < minCount) visible = false;
+      r.el.style.display = visible ? '' : 'none';
+    }}
+    recomputeContinuation();
+  }}
+
+  function recomputeContinuation() {{
+    let prev = null;
+    let stripe = 0;
+    for (const r of rows) {{
+      if (r.el.style.display === 'none') continue;
+      if (r.soloistKey === prev) {{
+        r.el.classList.add('cont');
+      }} else {{
+        r.el.classList.remove('cont');
+        if (prev !== null) stripe++;  // alternate banding per soloist group
+        prev = r.soloistKey;
+      }}
+      // Banding follows the soloist group, not the raw row index, so
+      // merged groups read as a single visual block.
+      r.el.classList.toggle('group-odd',  stripe % 2 === 0);
+      r.el.classList.toggle('group-even', stripe % 2 === 1);
+    }}
+  }}
+
+  function applySort() {{
+    rows.sort((a, b) => {{
+      let av = a[activeKey], bv = b[activeKey];
+      if (av === bv) {{
+        // Secondary sort: keep each soloist's rows together when
+        // the user sorts by something other than soloist, so the
+        // merged-cell layout still makes sense.
+        if (activeKey !== 'soloist') {{
+          if (a.soloist !== b.soloist) return a.soloist < b.soloist ? -1 : 1;
+          if (a.count !== b.count) return b.count - a.count;
+        }}
+        return 0;
+      }}
+      return (av < bv ? -1 : 1) * (activeDir === 'asc' ? 1 : -1);
+    }});
+    const frag = document.createDocumentFragment();
+    for (const r of rows) frag.appendChild(r.el);
+    tbody.appendChild(frag);
+    recomputeContinuation();
+  }}
+
   for (let i = 0; i < ths.length; i++) {{
     ths[i].addEventListener('click', () => {{
       const key = ths[i].dataset.key;
@@ -382,16 +481,12 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
       }}
       for (const th of ths) th.classList.remove('sort-active');
       ths[i].classList.add('sort-active');
-      rows.sort((a, b) => {{
-        let av = a[key], bv = b[key];
-        if (av === bv) return 0;
-        return (av < bv ? -1 : 1) * (activeDir === 'asc' ? 1 : -1);
-      }});
-      const frag = document.createDocumentFragment();
-      for (const r of rows) frag.appendChild(r.el);
-      tbody.appendChild(frag);
+      applySort();
     }});
   }}
+  fInputs.forEach(inp => inp.addEventListener('input', applyFilters));
+
+  recomputeContinuation();
 }})();
 </script>
 </body>
@@ -400,23 +495,32 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 
 
 def render(counts: dict) -> str:
-    # Sort: performances desc, soloist asc, work asc, conductor asc
+    # Default sort: keep each soloist's rows adjacent so the merged
+    # name+instrument cell makes sense. Within a soloist, list the
+    # most-performed pairings first.
     items = sorted(
         counts.items(),
-        key=lambda kv: (-kv[1], kv[0][1].lower(), kv[0][3].lower(), kv[0][4].lower()),
+        key=lambda kv: (
+            kv[0][1].lower(),   # soloist plain name
+            kv[0][2].lower(),   # instrument
+            -kv[1],             # performances desc
+            kv[0][3].lower(),   # work
+            kv[0][4].lower(),   # conductor
+        ),
     )
     body_rows = []
     distinct_soloists = set()
     for (name_html, plain_name, instrument, work, conductor), n in items:
         distinct_soloists.add(plain_name)
+        key = html_lib.escape(plain_name.lower() + "|" + instrument.lower(), quote=True)
         body_rows.append(
-            "<tr>"
-            f"<td>{name_html}</td>"
-            f"<td>{html_lib.escape(instrument)}</td>"
-            f"<td>{work}</td>"
-            f"<td>{conductor_link(conductor)}</td>"
-            f"<td style=\"text-align:right\">{n}</td>"
-            "</tr>"
+            f'<tr data-soloist-key="{key}">'
+            f'<td class="cell-soloist"><span class="cell-text">{name_html}</span></td>'
+            f'<td class="cell-instrument"><span class="cell-text">{html_lib.escape(instrument)}</span></td>'
+            f'<td class="cell-work"><span class="cell-text">{work}</span></td>'
+            f'<td class="cell-conductor"><span class="cell-text">{conductor_link(conductor)}</span></td>'
+            f'<td class="cell-count"><span class="cell-text">{n}</span></td>'
+            f'</tr>'
         )
     return PAGE_TEMPLATE.format(
         rows_count=len(items),
