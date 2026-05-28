@@ -373,7 +373,11 @@ h1 {{
 }}
 .toolbar a:hover {{ background: #B45309; }}
 
-.wrap {{ overflow-x: auto; }}
+/* IMPORTANT: the table is intentionally NOT wrapped in an
+   overflow-x:auto container — doing so would create a scrolling
+   ancestor for <thead>, scoping its position:sticky to that
+   container instead of the viewport. The body is the scroll
+   container so the thead can stick under the page-header. */
 table {{ border-collapse: collapse; width: 100%; min-width: 980px; }}
 thead tr.header-row th {{
   position: sticky;
@@ -461,7 +465,6 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
   <a href="index.html">Home</a>
 </p>
 </div>
-<div class="wrap">
 <table id="soloists">
 <thead>
 <tr class="header-row">
@@ -483,7 +486,6 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 {body}
 </tbody>
 </table>
-</div>
 <p class="footnote">Each row is one (soloist · instrument · work · conductor) combination, with the count of concerts in which that combination appeared. Click any column header to sort, type in a filter box to narrow the list, or click a number in the Performances column to open the matching rows of the master Performances in Japan list.</p>
 <script>
 (function() {{
