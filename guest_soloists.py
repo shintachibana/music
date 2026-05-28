@@ -653,13 +653,13 @@ tbody tr.group-odd   {{ background: #fff; }}
 tbody tr.group-even  {{ background: {row_alt}; }}
 tbody tr:hover {{ background: {row_hover}; }}
 td {{ padding: 6px 10px; border: 1px solid #ccc; vertical-align: middle; line-height: 1.4; }}
-td.cell-soloist    {{ font-weight: 600; white-space: nowrap; vertical-align: top; padding-top: 8px; width: 1%; }}
+td.cell-soloist    {{ font-weight: 600; white-space: nowrap; vertical-align: top; padding-top: 8px; width: 1px; }}
 /* width:1% + nowrap = shrink-to-content. The Work column has no
    explicit width and will absorb the spare horizontal space. */
-td.cell-instrument {{ white-space: nowrap; color: #555; vertical-align: top; padding-top: 8px; width: 1%; }}
+td.cell-instrument {{ white-space: nowrap; color: #555; vertical-align: top; padding-top: 8px; width: 1px; }}
 td.cell-work       {{ min-width: 320px; }}
-td.cell-conductor  {{ white-space: nowrap; width: 1%; }}
-td.cell-count      {{ text-align: right; font-weight: 700; color: {accent_d}; font-variant-numeric: tabular-nums; width: 1%; }}
+td.cell-conductor  {{ white-space: nowrap; width: 1px; }}
+td.cell-count      {{ text-align: right; font-weight: 700; color: {accent_d}; font-variant-numeric: tabular-nums; width: 1px; }}
 td.cell-count a    {{ color: inherit; border-bottom: 1px dotted {accent}; }}
 td.cell-count a:hover {{ color: {link_hover}; border-bottom-style: solid; }}
 td.cell-work a     {{ color: {link_col}; text-decoration: none; border-bottom: 1px dotted {accent_d}; }}
