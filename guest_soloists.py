@@ -43,10 +43,11 @@ BPO_MEMBERS = {
     "Guillaume Jehl",
     "Daishin Kashimoto",
     # Former BPO principals also excluded as orchestra members:
-    "Ottomar Borwitzky",   # principal cello
-    "Thomas Brandis",      # concertmaster (1962–1983)
-    "Wolfram Christ",      # principal viola (1979–1999)
-    "Rainer Kussmaul",     # concertmaster (1992–2000)
+    "Ottomar Borwitzky",      # principal cello
+    "Thomas Brandis",         # concertmaster (1962–1983)
+    "Wolfram Christ",         # principal viola (1979–1999)
+    "Rainer Kussmaul",        # concertmaster (1992–2000)
+    "Marie-Pierre Langlamet", # principal harp
 }
 
 
@@ -78,37 +79,32 @@ INSTRUMENT_ICON = {
     "percussion":     "🥁",
 }
 
-# Voice-type badges. Each entry is (label, background-colour). Colours
-# move along the spectrum red → indigo to mirror the high → low vocal
-# range; narrator/speaker get a neutral grey.
-VOICE_BADGE = {
-    "soprano":        ("S",   "#DC2626"),  # red — highest female
-    "boy soprano":    ("S",   "#EC4899"),  # pink — treble
-    "mezzo-soprano":  ("Ms",  "#EA580C"),  # orange
-    "mezzo":          ("Ms",  "#EA580C"),
-    "alto":           ("A",   "#CA8A04"),  # amber
-    "contralto":      ("C",   "#65A30D"),  # lime — lowest female
-    "tenor":          ("T",   "#0891B2"),  # cyan
-    "baritone":       ("Br",  "#2563EB"),  # blue
-    "bass-baritone":  ("BBr", "#4F46E5"),  # indigo
-    "bass":           ("B",   "#312E81"),  # deep indigo — lowest male
-    "narrator":       ("N",   "#6B7280"),  # neutral grey
-    "speaker":        ("Sp",  "#6B7280"),
+# Voice-type emoji: a female / male singer figure that pairs with the
+# text label after it. The label ("soprano", "alto", "tenor", "bass"
+# …) provides the specific voice type, so the icon only needs to
+# convey gender.
+VOICE_FIGURE = {
+    "soprano":        "👩‍🎤",   # woman singer
+    "mezzo-soprano":  "👩‍🎤",
+    "mezzo":          "👩‍🎤",
+    "alto":           "👩‍🎤",
+    "contralto":      "👩‍🎤",
+    "boy soprano":    "👦",            # boy
+    "tenor":          "👨‍🎤",   # man singer
+    "baritone":       "👨‍🎤",
+    "bass-baritone":  "👨‍🎤",
+    "bass":           "👨‍🎤",
+    "narrator":       "🗣️",
+    "speaker":        "🗣️",
 }
 
 
 def instrument_icon_html(instr: str) -> str:
     """Return the HTML for the small icon rendered before the
-    instrument name. Voices get a coloured letter badge so each
-    voice type is distinguishable; everything else gets an emoji."""
+    instrument name. Voices get a female / male singer figure;
+    instruments get an emoji of the instrument family."""
     key = instr.lower().strip()
-    if key in VOICE_BADGE:
-        label, color = VOICE_BADGE[key]
-        return (
-            f'<span class="voice-badge" style="background:{color}"'
-            f' aria-hidden="true">{label}</span>'
-        )
-    emoji = INSTRUMENT_ICON.get(key, "🎵")
+    emoji = VOICE_FIGURE.get(key) or INSTRUMENT_ICON.get(key, "🎵")
     return f'<span class="instr-icon" aria-hidden="true">{emoji}</span>'
 
 
@@ -410,21 +406,6 @@ thead tr.filter-row th {{
   font-size: 15px;
   vertical-align: -1px;
   line-height: 1;
-}}
-.voice-badge {{
-  display: inline-block;
-  min-width: 22px;
-  height: 18px;
-  margin-right: 6px;
-  padding: 0 5px;
-  border-radius: 9px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 10.5px;
-  line-height: 18px;
-  color: #fff;
-  letter-spacing: 0.5px;
-  vertical-align: 1px;
 }}
 thead tr.filter-row input {{
   width: 100%;
@@ -740,7 +721,7 @@ def render(counts: dict) -> str:
                 f'<td class="cell-work">{work}</td>'
                 f'<td class="cell-conductor">{conductor_link(conductor)}</td>'
                 f'<td class="cell-count">'
-                f'<a href="{drill_url}" title="Show these performances in the master list">{count}</a>'
+                f'<a href="{drill_url}" target="_blank" rel="noopener" title="Show these performances in the master list (opens in a new tab)">{count}</a>'
                 f'</td>'
                 f'</tr>'
             )
