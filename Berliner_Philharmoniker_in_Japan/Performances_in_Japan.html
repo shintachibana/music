@@ -430,12 +430,11 @@ thead select option { background: #fff; color: #222; }
   Object.keys(URL_COL).forEach(function (key) {
     var v = params.get(key);
     if (!v) return;
-    if (key === 'conductor') {
-      var condSel = document.querySelector('thead select[data-col="3"]');
-      var hasExact = condSel && Array.from(condSel.options)
-        .some(function (o) { return o.value === v; });
-      if (hasExact) { condSel.value = v; activeParams.push({ label: key, value: v }); return; }
-    }
+    // Always substring-match URL filters. We deliberately do NOT
+    // route conductor URLs through the dropdown's exact-match path
+    // any more: that broke drill-down links pointing at a single
+    // member of a joint-conductor cell ("Mehta / Ozawa" didn't
+    // match an exact ?conductor=Seiji Ozawa).
     urlFilters[URL_COL[key]] = v;
     activeParams.push({ label: key, value: v });
   });

@@ -127,6 +127,15 @@ SOLOIST_INSTRUMENT_OVERRIDE = {
 }
 
 
+# When a source row lists JOINT conductors (e.g. "Zubin Mehta / Seiji
+# Ozawa") but only one of them actually led the piece a particular
+# soloist performed, this map credits the right one. Keyed by
+# (soloist_lowercase, work_substring_lowercase).
+SOLOIST_CONDUCTOR_OVERRIDE = {
+    ("anne-sophie mutter", "nostalghia"): "Seiji Ozawa",
+}
+
+
 # Matches the inline "VPO principal" / "BPO Stimmführer" / "Wiener
 # Philharmoniker Konzertmeister" hint that the source tables already
 # carry inside the (instrument, …) parenthetical. Any soloist with
@@ -523,7 +532,17 @@ def aggregate(perf_html: str, members: set[str]):
             instrument_clean = clean_instrument(instrument, plain_name)
             matched_works = works_for_instrument(works_plain, instrument_clean)
             for w in matched_works:
-                for cond in conductors:
+                # Per-(soloist, work) conductor override: when the
+                # source row has joint conductors but only one of them
+                # actually led this piece, credit only that one.
+                override = None
+                w_low = w.lower()
+                for (s_key, work_substr), cond_name in SOLOIST_CONDUCTOR_OVERRIDE.items():
+                    if s_key == plain_name.lower() and work_substr in w_low:
+                        override = cond_name
+                        break
+                effective_conductors = [override] if override else conductors
+                for cond in effective_conductors:
                     key = (name_html, plain_name, instrument_clean, w, cond)
                     counts[key] = counts.get(key, 0) + 1
     return counts, work_html_by_plain
