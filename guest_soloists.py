@@ -183,6 +183,7 @@ ORCHESTRAS = {
 # the same microphone for every singer.
 INSTRUMENT_ICON = {
     "piano":          "🎹",
+    "piano-conductor": "🎹",
     "harpsichord":    "🎹",
     "organ":          "🎹",
     "violin":         "🎻",
@@ -238,7 +239,8 @@ def instrument_icon_html(instr: str) -> str:
 # as featuring this instrument. Vocal types map to the magic string
 # "VOCAL" which is handled by VOCAL_WORK_REGEX.
 INSTR_TO_WORK_KEYWORDS = {
-    "piano":          ["klavier", "tripelkonzert"],
+    "piano":           ["klavier", "tripelkonzert"],
+    "piano-conductor": ["klavier", "tripelkonzert"],
     "violin":         ["violin", "sinfonia concertante", "doppelkonzert", "tripelkonzert"],
     "violin i":       ["violin", "sinfonia concertante", "doppelkonzert"],
     "violin ii":      ["violin", "sinfonia concertante", "doppelkonzert"],
@@ -274,6 +276,20 @@ INSTR_TO_WORK_KEYWORDS = {
 }
 
 # Words / patterns identifying a work that requires vocal soloists.
+# Curated overrides for works whose title gives no hint of the
+# featured instrument. The key is a lowercase substring to look for
+# in the work title; the value is the list of instrument categories
+# for which that work counts as "matching".
+WORK_INSTRUMENT_OVERRIDES = {
+    "nostalghia":         ["violin"],          # Takemitsu, violin + strings
+    "burleske":           ["piano"],           # R. Strauss
+    "wanderer-fantasie":  ["piano"],           # Schubert (soloistic forms)
+    "totentanz":          ["piano"],           # Liszt (piano + orchestra)
+    "rhapsody on a theme of paganini": ["piano"],
+    "isle of the dead":   [],                  # purely orchestral — no soloist
+}
+
+
 VOCAL_WORK_REGEX = re.compile(
     r"\b(lied|requiem|te deum|stabat|missa|kantate|cantata|"
     r"vorspiel und liebestod|liebestod|choral|"
@@ -367,19 +383,41 @@ def is_vocal_work(work_text: str) -> bool:
 
 
 def works_for_instrument(works, instrument: str):
-    """Return the subset of `works` that match this instrument. If no
-    keyword maps to the instrument or no work matches, return the
-    full list so the soloist still appears against the concert's
-    repertoire rather than disappearing."""
+    """Return the subset of `works` that match this instrument.
+
+    The match combines (a) standard substring keywords for the
+    instrument family (e.g. "klavier" / "violin") and (b) the
+    curated WORK_INSTRUMENT_OVERRIDES table for non-standard
+    concertos whose title doesn't say "Konzert" / "Violin" / etc.
+
+    For UNKNOWN instruments (no mapping in INSTR_TO_WORK_KEYWORDS) we
+    fall back to the full programme so the soloist still appears. For
+    KNOWN instruments where nothing matches, we return the empty set
+    — better to drop the soloist for that concert than to falsely
+    credit them with works they didn't play (e.g. crediting a violin
+    soloist for the symphony heard the same evening).
+    """
     instr_low = re.sub(r"^[0-9]+\.\s*", "", instrument.lower()).strip()
     keywords = INSTR_TO_WORK_KEYWORDS.get(instr_low)
     if not keywords:
         return works
-    if keywords == ["VOCAL"]:
-        matched = [w for w in works if is_vocal_work(w)]
-    else:
-        matched = [w for w in works if any(k in w.lower() for k in keywords)]
-    return matched or works
+    # Build the extra-keyword list from the override table
+    extras = [k for k, instrs in WORK_INSTRUMENT_OVERRIDES.items()
+              if instr_low in [i.lower() for i in instrs]]
+    excludes = [k for k, instrs in WORK_INSTRUMENT_OVERRIDES.items()
+                if instrs == []]
+    def kw_match(w_low: str) -> bool:
+        if keywords == ["VOCAL"]:
+            base = is_vocal_work(w_low)
+        else:
+            base = any(k in w_low for k in keywords)
+        if not base and not any(e in w_low for e in extras):
+            return False
+        # explicit non-soloist works (e.g. orchestral tone poems)
+        if any(x in w_low for x in excludes):
+            return False
+        return True
+    return [w for w in works if kw_match(w.lower())]
 
 
 def conductor_link(name: str) -> str:
@@ -562,11 +600,13 @@ tbody tr.group-odd   {{ background: #fff; }}
 tbody tr.group-even  {{ background: {row_alt}; }}
 tbody tr:hover {{ background: {row_hover}; }}
 td {{ padding: 6px 10px; border: 1px solid #ccc; vertical-align: middle; line-height: 1.4; }}
-td.cell-soloist    {{ font-weight: 600; white-space: nowrap; vertical-align: top; padding-top: 8px; }}
-td.cell-instrument {{ white-space: nowrap; color: #555; vertical-align: top; padding-top: 8px; }}
+td.cell-soloist    {{ font-weight: 600; white-space: nowrap; vertical-align: top; padding-top: 8px; width: 1%; }}
+/* width:1% + nowrap = shrink-to-content. The Work column has no
+   explicit width and will absorb the spare horizontal space. */
+td.cell-instrument {{ white-space: nowrap; color: #555; vertical-align: top; padding-top: 8px; width: 1%; }}
 td.cell-work       {{ min-width: 320px; }}
-td.cell-conductor  {{ white-space: nowrap; }}
-td.cell-count      {{ text-align: right; font-weight: 700; color: {accent_d}; font-variant-numeric: tabular-nums; }}
+td.cell-conductor  {{ white-space: nowrap; width: 1%; }}
+td.cell-count      {{ text-align: right; font-weight: 700; color: {accent_d}; font-variant-numeric: tabular-nums; width: 1%; }}
 td.cell-count a    {{ color: inherit; border-bottom: 1px dotted {accent}; }}
 td.cell-count a:hover {{ color: {link_hover}; border-bottom-style: solid; }}
 td.cell-work a     {{ color: {link_col}; text-decoration: none; border-bottom: 1px dotted {accent_d}; }}
