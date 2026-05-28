@@ -424,7 +424,7 @@ def wpo_analysis_html(totals: dict, details: dict, concerts: dict) -> str:
 
     body = "\n\n".join(blocks)
     return f"""<section class="analysis">
-<h2>Programme tendencies — conductors with more than ten concerts</h2>
+<h2>Program Tendencies — conductors with more than ten performances</h2>
 <p class="lede">Repertoire patterns across each conductor's documented Japan tours with the orchestra. WPO is self-governing — there is no <em>Chefdirigent</em> tradition — so the dozen below are simply the long-form guest collaborators.</p>
 
 {body}
