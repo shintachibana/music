@@ -278,7 +278,7 @@ def bpo_analysis_html(details: dict) -> str:
         return " · ".join(f"<b>{c}</b>&nbsp;{v}" for c, v in tops)
 
     return f"""<section class="analysis">
-<h2>Programme tendencies — BPO Chefdirigenten</h2>
+<h2>Program Tendencies — BPO Chief Conductors</h2>
 <p class="lede">Patterns across each chief conductor's recorded Japan-tour repertoire.</p>
 
 <h3>{linked_name("Herbert von Karajan")}<span class="years"> · 1957 – 1988</span></h3>
