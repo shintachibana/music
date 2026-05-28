@@ -81,13 +81,23 @@ h1 {
   /* Soft radial vignette in the accent palette — clear white-cream
      in the centre where the largest bubble sits, deepening toward
      the corners. Makes the portraits pop against the frame and
-     ties the chart to the page's accent colour. */
+     ties the chart to the page's accent colour. The concerts chart
+     uses the full-strength gradient; the works chart (#chart-works)
+     overrides this rule with a paler variant so the two frames are
+     visibly distinct at a glance. */
   background:
     radial-gradient(circle at center,
-      rgba(255,255,255,0.85) 0%,
+      rgba(255,255,255,0.90) 0%,
       rgba(254,215,170,0.55)        45%,
       rgba(217,119,6,0.32)      100%);
   box-shadow: 0 2px 14px rgba(0,0,0,0.10);
+}
+#chart-works {
+  background:
+    radial-gradient(circle at center,
+      rgba(255,255,255,0.96) 0%,
+      rgba(254,235,200,0.30)   45%,
+      rgba(217,119,6,0.14) 100%);
 }
 .chart svg {
   width: 100%;

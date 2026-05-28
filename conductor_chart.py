@@ -442,8 +442,10 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict, venu
         accent_d = "#B45309"
         accent_rgba = "rgba(180,83,9,0.25)"
         notes_color = "%23D97706"
-        chart_grad_mid   = "rgba(254,215,170,0.55)"   # peach
-        chart_grad_outer = "rgba(217,119,6,0.32)"     # amber edge
+        chart_grad_mid   = "rgba(254,215,170,0.55)"   # peach (concerts chart)
+        chart_grad_outer = "rgba(217,119,6,0.32)"     # amber edge (concerts chart)
+        chart_grad_mid_light   = "rgba(254,235,200,0.30)"  # paler peach (works chart)
+        chart_grad_outer_light = "rgba(217,119,6,0.14)"    # paler amber edge (works chart)
         analysis_section = bpo_analysis_html(details)
         extra_nav = ('<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
                      '<a href="Audience_Analysis.html">Audience Statistics</a>\n  ')
@@ -456,8 +458,10 @@ def build_page(orchestra: str, totals: dict, details: dict, concerts: dict, venu
         accent_d = "#831234"
         accent_rgba = "rgba(159,18,57,0.25)"
         notes_color = "%239F1239"
-        chart_grad_mid   = "rgba(251,207,232,0.55)"   # pale rose
-        chart_grad_outer = "rgba(159,18,57,0.30)"     # burgundy edge
+        chart_grad_mid   = "rgba(251,207,232,0.55)"   # pale rose (concerts chart)
+        chart_grad_outer = "rgba(159,18,57,0.30)"     # burgundy edge (concerts chart)
+        chart_grad_mid_light   = "rgba(253,228,240,0.30)"  # paler rose (works chart)
+        chart_grad_outer_light = "rgba(159,18,57,0.14)"    # paler burgundy (works chart)
         analysis_section = wpo_analysis_html(totals, details, concerts)
         extra_nav = '<a href="Program_Trend_by_Era.html">Program Trend by Era</a>\n  '
         concerts_href = "Performances_in_Japan.html"
@@ -584,13 +588,23 @@ h1 {{
   /* Soft radial vignette in the accent palette — clear white-cream
      in the centre where the largest bubble sits, deepening toward
      the corners. Makes the portraits pop against the frame and
-     ties the chart to the page's accent colour. */
+     ties the chart to the page's accent colour. The concerts chart
+     uses the full-strength gradient; the works chart (#chart-works)
+     overrides this rule with a paler variant so the two frames are
+     visibly distinct at a glance. */
   background:
     radial-gradient(circle at center,
-      rgba(255,255,255,0.85) 0%,
+      rgba(255,255,255,0.90) 0%,
       {chart_grad_mid}        45%,
       {chart_grad_outer}      100%);
   box-shadow: 0 2px 14px rgba(0,0,0,0.10);
+}}
+#chart-works {{
+  background:
+    radial-gradient(circle at center,
+      rgba(255,255,255,0.96) 0%,
+      {chart_grad_mid_light}   45%,
+      {chart_grad_outer_light} 100%);
 }}
 .chart svg {{
   width: 100%;
