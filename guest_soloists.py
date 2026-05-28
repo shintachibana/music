@@ -13,6 +13,7 @@ Usage:
 """
 import html as html_lib
 import re
+import sys
 from pathlib import Path
 from urllib.parse import quote
 
@@ -83,6 +84,96 @@ BPO_MEMBERS = {
     "Wolfram Christ",         # principal viola (1979–1999)
     "Rainer Kussmaul",        # concertmaster (1992–2000)
     "Marie-Pierre Langlamet", # principal harp
+}
+
+# Wiener Philharmoniker members. The WPO source data tends to annotate
+# its own players inline (e.g. "Karl Öhlberger (bassoon, VPO
+# principal)"), so most of the exclusion is automatic — see
+# is_orchestra_member_annotation() below. This explicit set is for
+# names where the annotation is missing.
+WPO_MEMBERS: set[str] = set()
+
+
+# Matches the inline "VPO principal" / "BPO Stimmführer" / "Wiener
+# Philharmoniker Konzertmeister" hint that the source tables already
+# carry inside the (instrument, …) parenthetical. Any soloist with
+# this annotation is excluded as an orchestra member regardless of
+# whether the explicit MEMBERS set lists them.
+ORCH_MEMBER_MARKERS = re.compile(
+    r"\b("
+    r"(?:vpo|bpo|wpo|"
+    r"wiener\s+philharmoniker|berliner\s+philharmoniker)"
+    r"\s+"
+    r"(?:principal|stimmf[üu]hrer|konzertmeister|member|musician)"
+    r")\b",
+    re.IGNORECASE,
+)
+
+
+def is_orchestra_member_annotation(instrument: str) -> bool:
+    return bool(ORCH_MEMBER_MARKERS.search(instrument))
+
+
+def clean_instrument(instrument: str) -> str:
+    """Strip orchestra-membership annotations from the displayed
+    instrument string. 'bassoon, VPO principal' → 'bassoon'."""
+    s = ORCH_MEMBER_MARKERS.sub("", instrument)
+    s = re.sub(r"\s*,\s*$", "", s).strip()
+    s = re.sub(r"\s+", " ", s)
+    return s
+
+
+# Per-orchestra config: source/output paths, palette, exclusion set,
+# and the explanatory sentence shown in the subhead.
+ORCHESTRAS = {
+    "bpo": {
+        "name": "Berliner Philharmoniker",
+        "src":  "Berliner_Philharmoniker_in_Japan/Performances_in_Japan.html",
+        "out":  "Berliner_Philharmoniker_in_Japan/Guest_Soloists.html",
+        "members": BPO_MEMBERS,
+        "exclusion_note": (
+            "Players who are themselves members of the Berliner "
+            "Philharmoniker (Bendix-Balgley, Pahud, Mayer, Dohr, "
+            "Kashimoto, etc.) are excluded."
+        ),
+        "palette": {
+            "bgcol":         "#FFF8EC",
+            "accent":        "#D97706",
+            "accent_d":      "#B45309",
+            "accent_rgba":   "rgba(180,83,9,0.25)",
+            "row_alt":       "#FDF1E3",
+            "row_hover":     "#FFF4D9",
+            "link_col":      "#78350F",
+            "link_hover":    "#3F1D08",
+            "input_border":  "#c9a87a",
+            "notes_primary": "%23D97706",
+            "notes_accent":  "%239F1239",
+        },
+    },
+    "wpo": {
+        "name": "Wiener Philharmoniker",
+        "src":  "Wiener_Philharmoniker_in_Japan/Performances_in_Japan.html",
+        "out":  "Wiener_Philharmoniker_in_Japan/Guest_Soloists.html",
+        "members": WPO_MEMBERS,
+        "exclusion_note": (
+            "Players annotated as Wiener Philharmoniker members in "
+            "the source data (e.g. \"(bassoon, VPO principal)\") are "
+            "auto-excluded."
+        ),
+        "palette": {
+            "bgcol":         "#FBF1F4",
+            "accent":        "#9F1239",
+            "accent_d":      "#831234",
+            "accent_rgba":   "rgba(159,18,57,0.25)",
+            "row_alt":       "#F9E2EA",
+            "row_hover":     "#FCD2DD",
+            "link_col":      "#831234",
+            "link_hover":    "#5C0B23",
+            "input_border":  "#D8A6B7",
+            "notes_primary": "%239F1239",
+            "notes_accent":  "%23831234",
+        },
+    },
 }
 
 
@@ -185,7 +276,7 @@ INSTR_TO_WORK_KEYWORDS = {
 # Words / patterns identifying a work that requires vocal soloists.
 VOCAL_WORK_REGEX = re.compile(
     r"\b(lied|requiem|te deum|stabat|missa|kantate|cantata|"
-    r"vorspiel und liebestod|choral|"
+    r"vorspiel und liebestod|liebestod|choral|"
     r"\(staged opera\)|\(concert performance\)|"
     r"sinfonie nr\. 9 d-moll op\. 125|"
     r"mahler:[^|]*sinfonie nr\. 2|"
@@ -301,14 +392,15 @@ def conductor_link(name: str) -> str:
     )
 
 
-def aggregate(perf_html: str):
+def aggregate(perf_html: str, members: set[str]):
     """Walk the source table and accumulate
     counts[(name_html, plain_name, instrument, work, conductor)] = n.
 
-    Also collects a side map `work_html_by_plain` so the Work column
-    can be rendered with the de.wikipedia anchor preserved (the
-    counter key stays anchor-free so identical works still collapse
-    into one row).
+    `members` is the orchestra-specific explicit-exclusion set; any
+    soloist whose row carries an inline "VPO principal" /
+    "BPO Stimmführer" annotation is auto-excluded on top of that.
+
+    Returns (counts, work_html_by_plain).
     """
     m = re.search(r"<tbody>(.*?)</tbody>", perf_html, re.DOTALL)
     if not m:
@@ -324,24 +416,24 @@ def aggregate(perf_html: str):
             continue
         conductors = [c.strip() for c in conductors_raw.split("/") if c.strip()]
         works_plain, works_html = parse_program_both(tds[4])
-        # filter placeholders in lockstep so the two lists stay aligned
         kept = [(p, h) for p, h in zip(works_plain, works_html)
                 if not is_placeholder(p)]
         if not kept:
             continue
         works_plain = [p for p, _ in kept]
         works_html  = [h for _, h in kept]
-        # First wins for the anchored display form — the master table
-        # is consistent about which Wikipedia URL each work links to.
         for p, h in kept:
             work_html_by_plain.setdefault(p, h)
         for name_html, plain_name, instrument in parse_soloists(tds[6]):
-            if plain_name in BPO_MEMBERS:
+            if plain_name in members:
                 continue
-            matched_works = works_for_instrument(works_plain, instrument)
+            if is_orchestra_member_annotation(instrument):
+                continue
+            instrument_clean = clean_instrument(instrument)
+            matched_works = works_for_instrument(works_plain, instrument_clean)
             for w in matched_works:
                 for cond in conductors:
-                    key = (name_html, plain_name, instrument, w, cond)
+                    key = (name_html, plain_name, instrument_clean, w, cond)
                     counts[key] = counts.get(key, 0) + 1
     return counts, work_html_by_plain
 
@@ -370,18 +462,18 @@ body {{
   margin: 0;
   padding: 0 20px 24px;
   color: #222;
-  background-color: #FFF8EC;
-  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%23D97706' fill-opacity='0.16'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.15'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%23D97706' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.14'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%230F766E' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23D97706' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%239F1239' fill-opacity='0.14'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-color: {bgcol};
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='{notes_primary}' fill-opacity='0.16'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.15'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='{notes_primary}' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='{notes_accent}' fill-opacity='0.14'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%230F766E' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='{notes_primary}' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='{notes_accent}' fill-opacity='0.14'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat;
 }}
 .page-header {{
   position: sticky;
   top: 0;
   z-index: 5;
-  background-color: #FFF8EC;
+  background-color: {bgcol};
   margin: 0 -20px 0;
   padding: 14px 20px 12px;
-  box-shadow: 0 2px 0 #FFF8EC;
+  box-shadow: 0 2px 0 {bgcol};
 }}
 h1 {{
   font-size: 20px;
@@ -412,10 +504,10 @@ h1 {{
   text-decoration: none;
   border-radius: 4px;
   color: #fff;
-  background: #D97706;
-  box-shadow: 0 1px 3px rgba(180,83,9,0.25);
+  background: {accent};
+  box-shadow: 0 1px 3px {accent_rgba};
 }}
-.toolbar a:hover {{ background: #B45309; }}
+.toolbar a:hover {{ background: {accent_d}; }}
 
 /* IMPORTANT: the table is intentionally NOT wrapped in an
    overflow-x:auto container — doing so would create a scrolling
@@ -426,11 +518,11 @@ table {{ border-collapse: collapse; width: 100%; min-width: 980px; }}
 thead tr.header-row th {{
   position: sticky;
   top: var(--header-h, 0px);
-  background: #D97706;
+  background: {accent};
   color: #fff;
   font-weight: bold;
   padding: 8px 10px;
-  border: 1px solid #B45309;
+  border: 1px solid {accent_d};
   text-align: left;
   white-space: nowrap;
   z-index: 3;
@@ -442,8 +534,8 @@ thead tr.header-row th.sort-active .arrow {{ opacity: 1; }}
 thead tr.filter-row th {{
   position: sticky;
   top: calc(var(--header-h, 0px) + var(--col-header-h, 36px));
-  background: #FDF1E3;
-  border: 1px solid #B45309;
+  background: {row_alt};
+  border: 1px solid {accent_d};
   padding: 4px 6px;
   cursor: default;
   z-index: 2;
@@ -460,35 +552,35 @@ thead tr.filter-row input {{
   font: inherit;
   font-size: 12px;
   padding: 3px 6px;
-  border: 1px solid #c9a87a;
+  border: 1px solid {input_border};
   border-radius: 3px;
   background: #fff;
   color: #222;
 }}
-thead tr.filter-row input:focus {{ outline: 2px solid #D97706; outline-offset: 0; }}
+thead tr.filter-row input:focus {{ outline: 2px solid {accent}; outline-offset: 0; }}
 tbody tr.group-odd   {{ background: #fff; }}
-tbody tr.group-even  {{ background: #FDF1E3; }}
-tbody tr:hover {{ background: #FFF4D9; }}
+tbody tr.group-even  {{ background: {row_alt}; }}
+tbody tr:hover {{ background: {row_hover}; }}
 td {{ padding: 6px 10px; border: 1px solid #ccc; vertical-align: middle; line-height: 1.4; }}
 td.cell-soloist    {{ font-weight: 600; white-space: nowrap; vertical-align: top; padding-top: 8px; }}
 td.cell-instrument {{ white-space: nowrap; color: #555; vertical-align: top; padding-top: 8px; }}
 td.cell-work       {{ min-width: 320px; }}
 td.cell-conductor  {{ white-space: nowrap; }}
-td.cell-count      {{ text-align: right; font-weight: 700; color: #B45309; font-variant-numeric: tabular-nums; }}
-td.cell-count a    {{ color: inherit; border-bottom: 1px dotted #D97706; }}
-td.cell-count a:hover {{ color: #7c2d12; border-bottom-style: solid; }}
-td.cell-work a     {{ color: #78350F; text-decoration: none; border-bottom: 1px dotted #B45309; }}
-td.cell-work a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
+td.cell-count      {{ text-align: right; font-weight: 700; color: {accent_d}; font-variant-numeric: tabular-nums; }}
+td.cell-count a    {{ color: inherit; border-bottom: 1px dotted {accent}; }}
+td.cell-count a:hover {{ color: {link_hover}; border-bottom-style: solid; }}
+td.cell-work a     {{ color: {link_col}; text-decoration: none; border-bottom: 1px dotted {accent_d}; }}
+td.cell-work a:hover {{ color: {link_hover}; border-bottom-style: solid; }}
 td.cell-work em    {{ font-style: italic; }}
-td a {{ color: #78350F; text-decoration: none; border-bottom: 1px dotted #B45309; }}
-td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
+td a {{ color: {link_col}; text-decoration: none; border-bottom: 1px dotted {accent_d}; }}
+td a:hover {{ color: {link_hover}; border-bottom-style: solid; }}
 .footnote {{ max-width: 880px; margin: 22px auto 0; text-align: center; font-size: 12px; color: #777; line-height: 1.55; }}
 </style>
 </head>
 <body>
 <div class="page-header">
-<h1>Berliner Philharmoniker — Guest Soloists in Japan</h1>
-<p class="subhead">{rows_count} distinct soloist · work · conductor pairings across {n_soloists} guest soloists. Players who are themselves members of the Berliner Philharmoniker (Bendix-Balgley, Pahud, Mayer, Dohr, Kashimoto, etc.) are excluded. Click any number in the Performances column to drill into the matching rows in the master Performances list.</p>
+<h1>{orchestra_name} — Guest Soloists in Japan</h1>
+<p class="subhead">{rows_count} distinct soloist · work · conductor pairings across {n_soloists} guest soloists. {exclusion_note} Click any number in the Performances column to drill into the matching rows in the master Performances list.</p>
 <p class="toolbar">
   <a href="Performances_in_Japan.html">Performances in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
@@ -715,7 +807,7 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 """
 
 
-def render(counts: dict, work_html_by_plain: dict) -> str:
+def render(counts: dict, work_html_by_plain: dict, orchestra: dict) -> str:
     # Strict alphabetical default sort. The Soloist + Instrument cells
     # are then merged via rowspan for every adjacent group sharing the
     # same (soloist, instrument).
@@ -783,20 +875,31 @@ def render(counts: dict, work_html_by_plain: dict) -> str:
         rows_count=len(items),
         n_soloists=len(distinct_soloists),
         body="\n".join(body_rows),
+        orchestra_name=orchestra["name"],
+        exclusion_note=orchestra["exclusion_note"],
+        **orchestra["palette"],
     )
 
 
 def main():
-    src = Path("Berliner_Philharmoniker_in_Japan/Performances_in_Japan.html")
-    out = Path("Berliner_Philharmoniker_in_Japan/Guest_Soloists.html")
-    counts, work_html_by_plain = aggregate(src.read_text(encoding="utf-8"))
-    out.write_text(render(counts, work_html_by_plain), encoding="utf-8")
-    print(f"Wrote {out}")
-    soloists = {key[1] for key in counts}
-    linked   = sum(1 for h in work_html_by_plain.values() if '<a ' in h)
-    print(f"  {len(counts)} rows, {len(soloists)} distinct soloists, "
-          f"{sum(counts.values())} performance attributions, "
-          f"{linked}/{len(work_html_by_plain)} works linked to Wikipedia")
+    keys = sys.argv[1:] if len(sys.argv) > 1 else ["bpo", "wpo"]
+    for key in keys:
+        orch = ORCHESTRAS.get(key.lower())
+        if not orch:
+            print(f"Unknown orchestra '{key}'. Use 'bpo' or 'wpo'.", file=sys.stderr)
+            sys.exit(1)
+        src = Path(orch["src"])
+        out = Path(orch["out"])
+        counts, work_html_by_plain = aggregate(
+            src.read_text(encoding="utf-8"), orch["members"],
+        )
+        out.write_text(render(counts, work_html_by_plain, orch), encoding="utf-8")
+        soloists = {k[1] for k in counts}
+        linked   = sum(1 for h in work_html_by_plain.values() if '<a ' in h)
+        print(f"Wrote {out}")
+        print(f"  {len(counts)} rows, {len(soloists)} distinct soloists, "
+              f"{sum(counts.values())} performance attributions, "
+              f"{linked}/{len(work_html_by_plain)} works linked to Wikipedia")
 
 
 if __name__ == "__main__":

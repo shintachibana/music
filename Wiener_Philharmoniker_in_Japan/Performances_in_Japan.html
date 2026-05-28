@@ -704,7 +704,7 @@ thead input[type="text"]::placeholder { color: #E8D89A; }
   //     ?work=Title (audience-analysis and program-ranking
   //     drill-downs). Each param other than year is a substring match
   //     on its column.
-  var URL_COL = { conductor: 3, composer: 4, work: 4 };
+  var URL_COL = { conductor: 3, composer: 4, work: 4, soloist: 6 };
   var params = new URLSearchParams(window.location.search);
   var initYear = params.get('year');
   if (initYear) {
