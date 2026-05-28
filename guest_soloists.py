@@ -97,10 +97,12 @@ WPO_MEMBERS: set[str] = {
     "Rainer Honeck",       # concertmaster
     "Rainer Küchl",        # concertmaster (1971–2016)
     "Tobias Lea",          # viola
-    "Volkhard Steude",     # concertmaster (corrected from "Steure")
-    "Volkhard Steure",     # name as it appears in the request
+    "Volkhard Steude",     # concertmaster
+    "Volkhard Steure",     # alternate spelling as it sometimes appears
     "Péter Somodári",      # principal cello
-    "Scheiwein",           # surname-only entry in the source
+    "Scheiwein",           # alternate spelling
+    "Schalwein",           # surname-only entry in the source (1975 cello)
+    "Wolfgang Schulz",     # principal flute (1973–2003)
 }
 
 
@@ -262,6 +264,8 @@ VOICE_FIGURE = {
     "bass":           "👨‍🎤",
     "narrator":       "🗣️",
     "speaker":        "🗣️",
+    "chorus":         "👥",
+    "choir":          "👥",
 }
 
 
@@ -312,6 +316,8 @@ INSTR_TO_WORK_KEYWORDS = {
     "bass-baritone":  ["VOCAL"],
     "narrator":       ["VOCAL"],
     "speaker":        ["VOCAL"],
+    "chorus":         ["VOCAL"],
+    "choir":          ["VOCAL"],
 }
 
 # Words / patterns identifying a work that requires vocal soloists.
@@ -344,6 +350,9 @@ VOCAL_WORK_REGEX = re.compile(
     r"\bmahler:[^|]*sinfonie nr\. 4|"
     r"\bmahler:[^|]*sinfonie nr\. 8|"
     r"\bwesendonck|\brückert|"
+    # Brahms's choral / vocal-soloist works that don't include an
+    # obvious vocal keyword in the title:
+    r"\balt-rhapsodie|\bschicksalslied|\bnänie|\bgesang der parzen|"
     r"\bmatthäus|\bjohannes-passion|"
     r"\borph[éeé]e|\borfeo|\bschöpfung|\bmessias",
     re.IGNORECASE,
