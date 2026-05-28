@@ -89,9 +89,40 @@ BPO_MEMBERS = {
 # Wiener Philharmoniker members. The WPO source data tends to annotate
 # its own players inline (e.g. "Karl Öhlberger (bassoon, VPO
 # principal)"), so most of the exclusion is automatic — see
-# is_orchestra_member_annotation() below. This explicit set is for
-# names where the annotation is missing.
-WPO_MEMBERS: set[str] = set()
+# is_orchestra_member_annotation() below. The explicit set below is
+# for soloists whose row didn't carry the "VPO principal" annotation.
+WPO_MEMBERS: set[str] = {
+    "Peter Schmidl",       # principal clarinet
+    "Heinrich Koll",       # principal viola
+    "Rainer Honeck",       # concertmaster
+    "Rainer Küchl",        # concertmaster (1971–2016)
+    "Tobias Lea",          # viola
+    "Volkhard Steude",     # concertmaster (corrected from "Steure")
+    "Volkhard Steure",     # name as it appears in the request
+    "Péter Somodári",      # principal cello
+    "Scheiwein",           # surname-only entry in the source
+}
+
+
+# Opera-role labels that appear in the source data instead of a voice
+# type. Mapping them to the canonical voice type lets the merge by
+# (soloist, instrument) actually merge those rows.
+ROLE_TO_VOICE = {
+    "sophie":        "soprano",         # Der Rosenkavalier
+    "marschallin":   "soprano",
+    "octavian":      "mezzo-soprano",
+    "baron ochs":    "bass",
+    "ochs":          "bass",
+}
+
+
+# Per-soloist instrument override — collapses inconsistent labels for
+# the same person (e.g. Rudolf Buchbinder appears as "(piano-
+# conductor)" some years and "(piano)" others) into a single canonical
+# label so all their rows merge under one rowspan.
+SOLOIST_INSTRUMENT_OVERRIDE = {
+    "rudolf buchbinder": "piano",
+}
 
 
 # Matches the inline "VPO principal" / "BPO Stimmführer" / "Wiener
@@ -114,13 +145,21 @@ def is_orchestra_member_annotation(instrument: str) -> bool:
     return bool(ORCH_MEMBER_MARKERS.search(instrument))
 
 
-def clean_instrument(instrument: str) -> str:
-    """Strip orchestra-membership annotations from the displayed
-    instrument string. 'bassoon, VPO principal' → 'bassoon'."""
+def clean_instrument(instrument: str, soloist: str = "") -> str:
+    """Normalise the displayed instrument string:
+      • strip "VPO principal" / "BPO Stimmführer" annotations
+      • map opera role names (Sophie, Marschallin, Octavian, Baron
+        Ochs, …) to the canonical voice type
+      • collapse per-soloist label drift (Buchbinder's
+        "piano-conductor" + "piano" → both "piano")
+    """
     s = ORCH_MEMBER_MARKERS.sub("", instrument)
     s = re.sub(r"\s*,\s*$", "", s).strip()
     s = re.sub(r"\s+", " ", s)
-    return s
+    forced = SOLOIST_INSTRUMENT_OVERRIDE.get(soloist.lower())
+    if forced:
+        return forced
+    return ROLE_TO_VOICE.get(s.lower(), s)
 
 
 # Per-orchestra config: source/output paths, palette, exclusion set,
@@ -291,17 +330,22 @@ WORK_INSTRUMENT_OVERRIDES = {
 
 
 VOCAL_WORK_REGEX = re.compile(
-    r"\b(lied|requiem|te deum|stabat|missa|kantate|cantata|"
-    r"vorspiel und liebestod|liebestod|choral|"
+    # Each word-starting alternative gets its own \b so it only
+    # matches at a word boundary; paren-starting markers
+    # (e.g. "(staged opera)") deliberately omit \b because the char
+    # before "(" is usually a space, which never counts as a word
+    # boundary against "(".
+    r"\blied|\brequiem|\bte deum|\bstabat|\bmissa|\bkantate|\bcantata|"
+    r"\bvorspiel und liebestod|\bliebestod|\bchoral|"
     r"\(staged opera\)|\(concert performance\)|"
-    r"sinfonie nr\. 9 d-moll op\. 125|"
-    r"mahler:[^|]*sinfonie nr\. 2|"
-    r"mahler:[^|]*sinfonie nr\. 3|"
-    r"mahler:[^|]*sinfonie nr\. 4|"
-    r"mahler:[^|]*sinfonie nr\. 8|"
-    r"wesendonck|rückert|"
-    r"matthäus|johannes-passion|"
-    r"orph[éeé]e|orfeo|schöpfung|messias)",
+    r"\bsinfonie nr\. 9 d-moll op\. 125|"
+    r"\bmahler:[^|]*sinfonie nr\. 2|"
+    r"\bmahler:[^|]*sinfonie nr\. 3|"
+    r"\bmahler:[^|]*sinfonie nr\. 4|"
+    r"\bmahler:[^|]*sinfonie nr\. 8|"
+    r"\bwesendonck|\brückert|"
+    r"\bmatthäus|\bjohannes-passion|"
+    r"\borph[éeé]e|\borfeo|\bschöpfung|\bmessias",
     re.IGNORECASE,
 )
 
@@ -467,7 +511,7 @@ def aggregate(perf_html: str, members: set[str]):
                 continue
             if is_orchestra_member_annotation(instrument):
                 continue
-            instrument_clean = clean_instrument(instrument)
+            instrument_clean = clean_instrument(instrument, plain_name)
             matched_works = works_for_instrument(works_plain, instrument_clean)
             for w in matched_works:
                 for cond in conductors:
