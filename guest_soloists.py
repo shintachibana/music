@@ -338,18 +338,11 @@ tbody tr.group-odd   {{ background: #fff; }}
 tbody tr.group-even  {{ background: #FDF1E3; }}
 tbody tr:hover {{ background: #FFF4D9; }}
 td {{ padding: 6px 10px; border: 1px solid #ccc; vertical-align: middle; line-height: 1.4; }}
-td.cell-soloist    {{ font-weight: 600; white-space: nowrap; }}
-td.cell-instrument {{ white-space: nowrap; color: #555; }}
+td.cell-soloist    {{ font-weight: 600; white-space: nowrap; vertical-align: top; padding-top: 8px; }}
+td.cell-instrument {{ white-space: nowrap; color: #555; vertical-align: top; padding-top: 8px; }}
 td.cell-work       {{ min-width: 320px; }}
 td.cell-conductor  {{ white-space: nowrap; }}
 td.cell-count      {{ text-align: right; font-weight: 700; color: #B45309; font-variant-numeric: tabular-nums; }}
-/* Continuation rows visually merge with the row above for the
-   soloist + instrument cells: top border is removed and the cell
-   text is hidden but the cell still occupies its grid slot. */
-tr.cont td.cell-soloist .cell-text,
-tr.cont td.cell-instrument .cell-text {{ visibility: hidden; }}
-tr.cont td.cell-soloist,
-tr.cont td.cell-instrument {{ border-top: 1px solid transparent; }}
 td a {{ color: #78350F; text-decoration: none; border-bottom: 1px dotted #B45309; }}
 td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 .footnote {{ max-width: 880px; margin: 22px auto 0; text-align: center; font-size: 12px; color: #777; line-height: 1.55; }}
@@ -396,18 +389,98 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
   const ths   = table.tHead.rows[0].cells;
   const fInputs = table.tHead.querySelectorAll('input.col-filter');
   const KEYS = ['soloist','instrument','work','conductor','count'];
-  // Cache each row's lowercased cell text + numeric count for filtering / sorting.
-  const rows  = Array.from(tbody.rows).map(tr => ({{
-    el:  tr,
-    soloist:    tr.cells[0].textContent.trim().toLowerCase(),
-    instrument: tr.cells[1].textContent.trim().toLowerCase(),
-    work:       tr.cells[2].textContent.trim().toLowerCase(),
-    conductor:  tr.cells[3].textContent.trim().toLowerCase(),
-    count:      parseInt(tr.cells[4].textContent.trim(), 10) || 0,
-    soloistKey: tr.dataset.soloistKey,
-  }}));
+
+  // Build the in-memory row list. The first row of each (soloist,
+  // instrument) group is rendered with 5 cells; continuation rows
+  // are rendered with only 3 (work, conductor, count). We need to
+  // know the soloist & instrument HTML for every row so that we can
+  // rebuild rowspans after any sort or filter reorders the table.
+  const soloistHTMLByKey    = {{}};
+  const instrumentHTMLByKey = {{}};
+  for (const tr of tbody.rows) {{
+    if (!tr.dataset.cont) {{
+      soloistHTMLByKey[tr.dataset.soloistKey]    = tr.cells[0].innerHTML;
+      instrumentHTMLByKey[tr.dataset.soloistKey] = tr.cells[1].innerHTML;
+    }}
+  }}
+
+  const rows = Array.from(tbody.rows).map(tr => {{
+    const isCont = !!tr.dataset.cont;
+    const offset = isCont ? 0 : 2;
+    const key    = tr.dataset.soloistKey;
+    return {{
+      el:  tr,
+      soloistKey: key,
+      isCont,
+      soloist:    soloistHTMLByKey[key].replace(/<[^>]+>/g, '').trim().toLowerCase(),
+      instrument: instrumentHTMLByKey[key].replace(/<[^>]+>/g, '').trim().toLowerCase(),
+      work:       tr.cells[offset    ].textContent.trim().toLowerCase(),
+      conductor:  tr.cells[offset + 1].textContent.trim().toLowerCase(),
+      count:      parseInt(tr.cells[offset + 2].textContent.trim(), 10) || 0,
+    }};
+  }});
+
   let activeKey = 'soloist';
   let activeDir = 'asc';
+
+  function flattenRows() {{
+    // Restore every row to the 5-cell flat form. Any rowspans get
+    // wiped; missing soloist/instrument cells get re-inserted so the
+    // row has its own copy of those cells again.
+    for (const r of rows) {{
+      const tr = r.el;
+      if (tr.cells.length < 5) {{
+        const wCell = tr.cells[0];
+        const tdInstr = document.createElement('td');
+        tdInstr.className = 'cell-instrument';
+        tdInstr.innerHTML = instrumentHTMLByKey[r.soloistKey];
+        tr.insertBefore(tdInstr, wCell);
+        const tdSol = document.createElement('td');
+        tdSol.className = 'cell-soloist';
+        tdSol.innerHTML = soloistHTMLByKey[r.soloistKey];
+        tr.insertBefore(tdSol, tdInstr);
+      }}
+      tr.cells[0].removeAttribute('rowspan');
+      tr.cells[1].removeAttribute('rowspan');
+    }}
+  }}
+
+  function rebuildGroups() {{
+    // Step 1: every row owns its own 5 cells with no rowspans.
+    flattenRows();
+    // Step 2: walk visible rows in DOM order, merge consecutive rows
+    //         that share the same (soloist, instrument) key by setting
+    //         a rowspan on the first row's cell-soloist / cell-instrument
+    //         and removing those cells from the continuation rows.
+    const visible = rows.filter(r => r.el.style.display !== 'none');
+    let i = 0;
+    while (i < visible.length) {{
+      let j = i;
+      while (j < visible.length && visible[j].soloistKey === visible[i].soloistKey) j++;
+      const groupSize = j - i;
+      if (groupSize > 1) {{
+        visible[i].el.cells[0].rowSpan = groupSize;
+        visible[i].el.cells[1].rowSpan = groupSize;
+        for (let k = i + 1; k < j; k++) {{
+          // Remove cell-soloist (index 0) and cell-instrument (then 0 again).
+          visible[k].el.deleteCell(0);
+          visible[k].el.deleteCell(0);
+        }}
+      }}
+      i = j;
+    }}
+    // Step 3: alternate group-level banding so each merged block reads
+    //         as a single visual unit.
+    let prev = null, stripe = 0;
+    for (const r of visible) {{
+      if (r.soloistKey !== prev) {{
+        if (prev !== null) stripe++;
+        prev = r.soloistKey;
+      }}
+      r.el.classList.toggle('group-odd',  stripe % 2 === 0);
+      r.el.classList.toggle('group-even', stripe % 2 === 1);
+    }}
+  }}
 
   function applyFilters() {{
     const filters = [];
@@ -427,47 +500,27 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
       if (visible && minCount !== null && r.count < minCount) visible = false;
       r.el.style.display = visible ? '' : 'none';
     }}
-    recomputeContinuation();
-  }}
-
-  function recomputeContinuation() {{
-    let prev = null;
-    let stripe = 0;
-    for (const r of rows) {{
-      if (r.el.style.display === 'none') continue;
-      if (r.soloistKey === prev) {{
-        r.el.classList.add('cont');
-      }} else {{
-        r.el.classList.remove('cont');
-        if (prev !== null) stripe++;  // alternate banding per soloist group
-        prev = r.soloistKey;
-      }}
-      // Banding follows the soloist group, not the raw row index, so
-      // merged groups read as a single visual block.
-      r.el.classList.toggle('group-odd',  stripe % 2 === 0);
-      r.el.classList.toggle('group-even', stripe % 2 === 1);
-    }}
+    rebuildGroups();
   }}
 
   function applySort() {{
     rows.sort((a, b) => {{
       let av = a[activeKey], bv = b[activeKey];
       if (av === bv) {{
-        // Secondary sort: keep each soloist's rows together when
-        // the user sorts by something other than soloist, so the
-        // merged-cell layout still makes sense.
+        // Keep each soloist's rows together when the user sorts by
+        // something other than soloist, so the merge still reads.
         if (activeKey !== 'soloist') {{
           if (a.soloist !== b.soloist) return a.soloist < b.soloist ? -1 : 1;
-          if (a.count !== b.count) return b.count - a.count;
         }}
         return 0;
       }}
       return (av < bv ? -1 : 1) * (activeDir === 'asc' ? 1 : -1);
     }});
+    flattenRows();   // ensure every row owns its full cell set before reordering
     const frag = document.createDocumentFragment();
     for (const r of rows) frag.appendChild(r.el);
     tbody.appendChild(frag);
-    recomputeContinuation();
+    rebuildGroups();
   }}
 
   for (let i = 0; i < ths.length; i++) {{
@@ -486,7 +539,17 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
   }}
   fInputs.forEach(inp => inp.addEventListener('input', applyFilters));
 
-  recomputeContinuation();
+  // Initial render already has rowspans baked in by the generator,
+  // so we only need to set the group-banding classes once.
+  let prev = null, stripe = 0;
+  for (const r of rows) {{
+    if (r.soloistKey !== prev) {{
+      if (prev !== null) stripe++;
+      prev = r.soloistKey;
+    }}
+    r.el.classList.toggle('group-odd',  stripe % 2 === 0);
+    r.el.classList.toggle('group-even', stripe % 2 === 1);
+  }}
 }})();
 </script>
 </body>
@@ -495,33 +558,55 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 
 
 def render(counts: dict) -> str:
-    # Default sort: keep each soloist's rows adjacent so the merged
-    # name+instrument cell makes sense. Within a soloist, list the
-    # most-performed pairings first.
+    # Strict alphabetical default sort. The Soloist + Instrument cells
+    # are then merged via rowspan for every adjacent group sharing the
+    # same (soloist, instrument).
     items = sorted(
         counts.items(),
         key=lambda kv: (
             kv[0][1].lower(),   # soloist plain name
             kv[0][2].lower(),   # instrument
-            -kv[1],             # performances desc
             kv[0][3].lower(),   # work
             kv[0][4].lower(),   # conductor
         ),
     )
+
+    # Pre-compute group sizes so the first row in each group can carry
+    # the rowspan on the merged cells.
     body_rows = []
     distinct_soloists = set()
-    for (name_html, plain_name, instrument, work, conductor), n in items:
-        distinct_soloists.add(plain_name)
-        key = html_lib.escape(plain_name.lower() + "|" + instrument.lower(), quote=True)
-        body_rows.append(
-            f'<tr data-soloist-key="{key}">'
-            f'<td class="cell-soloist"><span class="cell-text">{name_html}</span></td>'
-            f'<td class="cell-instrument"><span class="cell-text">{html_lib.escape(instrument)}</span></td>'
-            f'<td class="cell-work"><span class="cell-text">{work}</span></td>'
-            f'<td class="cell-conductor"><span class="cell-text">{conductor_link(conductor)}</span></td>'
-            f'<td class="cell-count"><span class="cell-text">{n}</span></td>'
-            f'</tr>'
-        )
+    n = len(items)
+    i = 0
+    while i < n:
+        (name_html_i, plain_name_i, instrument_i, *_), _ = items[i]
+        j = i
+        while (j < n
+               and items[j][0][1] == plain_name_i
+               and items[j][0][2] == instrument_i):
+            j += 1
+        group_size = j - i
+        key = html_lib.escape(plain_name_i.lower() + "|" + instrument_i.lower(), quote=True)
+        for k in range(i, j):
+            (name_html, plain_name, instrument, work, conductor), count = items[k]
+            distinct_soloists.add(plain_name)
+            if k == i:
+                rowspan = f' rowspan="{group_size}"' if group_size > 1 else ""
+                row = (
+                    f'<tr data-soloist-key="{key}">'
+                    f'<td class="cell-soloist"{rowspan}>{name_html}</td>'
+                    f'<td class="cell-instrument"{rowspan}>{html_lib.escape(instrument)}</td>'
+                )
+            else:
+                row = f'<tr data-soloist-key="{key}" data-cont="1">'
+            row += (
+                f'<td class="cell-work">{work}</td>'
+                f'<td class="cell-conductor">{conductor_link(conductor)}</td>'
+                f'<td class="cell-count">{count}</td>'
+                f'</tr>'
+            )
+            body_rows.append(row)
+        i = j
+
     return PAGE_TEMPLATE.format(
         rows_count=len(items),
         n_soloists=len(distinct_soloists),
