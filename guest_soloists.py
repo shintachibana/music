@@ -42,7 +42,56 @@ BPO_MEMBERS = {
     "Stefan Dohr",
     "Guillaume Jehl",
     "Daishin Kashimoto",
+    # Former BPO principals also excluded as orchestra members:
+    "Ottomar Borwitzky",   # principal cello
+    "Thomas Brandis",      # concertmaster (1962–1983)
+    "Wolfram Christ",      # principal viola (1979–1999)
+    "Rainer Kussmaul",     # concertmaster (1992–2000)
 }
+
+
+# Single-character / emoji "icon" rendered next to each instrument
+# name. Emoji rendering is consistent across modern browsers and
+# avoids external image dependencies.
+INSTRUMENT_ICON = {
+    "piano":          "🎹",
+    "harpsichord":    "🎹",
+    "organ":          "🎹",
+    "violin":         "🎻",
+    "violin i":       "🎻",
+    "violin ii":      "🎻",
+    "viola":          "🎻",
+    "cello":          "🎻",
+    "violoncello":    "🎻",
+    "double bass":    "🎻",
+    "harp":           "🎼",
+    "guitar":         "🎸",
+    "flute":          "🎶",
+    "oboe":           "🎶",
+    "clarinet":       "🎶",
+    "bassoon":        "🎶",
+    "english horn":   "🎶",
+    "horn":           "🎺",
+    "trumpet":        "🎺",
+    "trombone":       "🎺",
+    "percussion":     "🥁",
+    "soprano":        "🎤",
+    "boy soprano":    "🎤",
+    "alto":           "🎤",
+    "mezzo":          "🎤",
+    "mezzo-soprano":  "🎤",
+    "contralto":      "🎤",
+    "tenor":          "🎤",
+    "baritone":       "🎤",
+    "bass":           "🎤",
+    "bass-baritone":  "🎤",
+    "narrator":       "🗣️",
+    "speaker":        "🗣️",
+}
+
+
+def instrument_icon(instr: str) -> str:
+    return INSTRUMENT_ICON.get(instr.lower().strip(), "🎵")
 
 
 # Instrument → list of case-insensitive substrings that mark a work
@@ -302,9 +351,9 @@ h1 {{
 
 .wrap {{ overflow-x: auto; }}
 table {{ border-collapse: collapse; width: 100%; min-width: 980px; }}
-thead th {{
+thead tr.header-row th {{
   position: sticky;
-  top: 0;
+  top: var(--header-h, 0px);
   background: #D97706;
   color: #fff;
   font-weight: bold;
@@ -312,18 +361,27 @@ thead th {{
   border: 1px solid #B45309;
   text-align: left;
   white-space: nowrap;
-  z-index: 2;
+  z-index: 3;
   cursor: pointer;
   user-select: none;
 }}
-thead th .arrow {{ font-size: 11px; margin-left: 4px; opacity: 0.55; }}
-thead th.sort-active .arrow {{ opacity: 1; }}
+thead tr.header-row th .arrow {{ font-size: 11px; margin-left: 4px; opacity: 0.55; }}
+thead tr.header-row th.sort-active .arrow {{ opacity: 1; }}
 thead tr.filter-row th {{
+  position: sticky;
+  top: calc(var(--header-h, 0px) + var(--col-header-h, 36px));
   background: #FDF1E3;
   border: 1px solid #B45309;
   padding: 4px 6px;
   cursor: default;
   z-index: 2;
+}}
+.instr-icon {{
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 15px;
+  vertical-align: -1px;
+  line-height: 1;
 }}
 thead tr.filter-row input {{
   width: 100%;
@@ -367,7 +425,7 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 <div class="wrap">
 <table id="soloists">
 <thead>
-<tr>
+<tr class="header-row">
   <th data-key="soloist"    data-type="text" class="sort-active" data-sort-dir="asc">Soloist<span class="arrow">▾</span></th>
   <th data-key="instrument" data-type="text">Instrument<span class="arrow">▾</span></th>
   <th data-key="work"       data-type="text">Work<span class="arrow">▾</span></th>
@@ -390,9 +448,21 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 <p class="footnote">Each row is one (soloist · instrument · work · conductor) combination, with the count of concerts in which that combination appeared. Click any column header to sort, type in a filter box to narrow the list, or click a number in the Performances column to open the matching rows of the master Performances in Japan list.</p>
 <script>
 (function() {{
+  // Measure the sticky page-header + table header-row heights and
+  // expose them as CSS variables so each sticky band can be offset
+  // by the right amount. Re-measure on resize.
+  function measureStickyOffsets() {{
+    const ph = document.querySelector('.page-header');
+    const hr = document.querySelector('thead tr.header-row');
+    if (ph) document.documentElement.style.setProperty('--header-h', ph.offsetHeight + 'px');
+    if (hr) document.documentElement.style.setProperty('--col-header-h', hr.offsetHeight + 'px');
+  }}
+  measureStickyOffsets();
+  window.addEventListener('resize', measureStickyOffsets);
+
   const table = document.getElementById('soloists');
   const tbody = table.tBodies[0];
-  const ths   = table.tHead.rows[0].cells;
+  const ths   = table.tHead.querySelector('tr.header-row').cells;
   const fInputs = table.tHead.querySelectorAll('input.col-filter');
   const KEYS = ['soloist','instrument','work','conductor','count'];
 
@@ -597,10 +667,13 @@ def render(counts: dict) -> str:
             distinct_soloists.add(plain_name)
             if k == i:
                 rowspan = f' rowspan="{group_size}"' if group_size > 1 else ""
+                icon = instrument_icon(instrument)
                 row = (
                     f'<tr data-soloist-key="{key}">'
                     f'<td class="cell-soloist"{rowspan}>{name_html}</td>'
-                    f'<td class="cell-instrument"{rowspan}>{html_lib.escape(instrument)}</td>'
+                    f'<td class="cell-instrument"{rowspan}>'
+                    f'<span class="instr-icon" aria-hidden="true">{icon}</span>'
+                    f'{html_lib.escape(instrument)}</td>'
                 )
             else:
                 row = f'<tr data-soloist-key="{key}" data-cont="1">'
