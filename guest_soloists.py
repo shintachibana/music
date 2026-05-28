@@ -50,9 +50,10 @@ BPO_MEMBERS = {
 }
 
 
-# Single-character / emoji "icon" rendered next to each instrument
-# name. Emoji rendering is consistent across modern browsers and
-# avoids external image dependencies.
+# For instruments the icon is an emoji of the instrument family. For
+# vocal types each voice gets its OWN distinctly-coloured letter
+# badge (S / Ms / A / C / T / Br / B …) so the table no longer shows
+# the same microphone for every singer.
 INSTRUMENT_ICON = {
     "piano":          "🎹",
     "harpsichord":    "🎹",
@@ -75,23 +76,40 @@ INSTRUMENT_ICON = {
     "trumpet":        "🎺",
     "trombone":       "🎺",
     "percussion":     "🥁",
-    "soprano":        "🎤",
-    "boy soprano":    "🎤",
-    "alto":           "🎤",
-    "mezzo":          "🎤",
-    "mezzo-soprano":  "🎤",
-    "contralto":      "🎤",
-    "tenor":          "🎤",
-    "baritone":       "🎤",
-    "bass":           "🎤",
-    "bass-baritone":  "🎤",
-    "narrator":       "🗣️",
-    "speaker":        "🗣️",
+}
+
+# Voice-type badges. Each entry is (label, background-colour). Colours
+# move along the spectrum red → indigo to mirror the high → low vocal
+# range; narrator/speaker get a neutral grey.
+VOICE_BADGE = {
+    "soprano":        ("S",   "#DC2626"),  # red — highest female
+    "boy soprano":    ("S",   "#EC4899"),  # pink — treble
+    "mezzo-soprano":  ("Ms",  "#EA580C"),  # orange
+    "mezzo":          ("Ms",  "#EA580C"),
+    "alto":           ("A",   "#CA8A04"),  # amber
+    "contralto":      ("C",   "#65A30D"),  # lime — lowest female
+    "tenor":          ("T",   "#0891B2"),  # cyan
+    "baritone":       ("Br",  "#2563EB"),  # blue
+    "bass-baritone":  ("BBr", "#4F46E5"),  # indigo
+    "bass":           ("B",   "#312E81"),  # deep indigo — lowest male
+    "narrator":       ("N",   "#6B7280"),  # neutral grey
+    "speaker":        ("Sp",  "#6B7280"),
 }
 
 
-def instrument_icon(instr: str) -> str:
-    return INSTRUMENT_ICON.get(instr.lower().strip(), "🎵")
+def instrument_icon_html(instr: str) -> str:
+    """Return the HTML for the small icon rendered before the
+    instrument name. Voices get a coloured letter badge so each
+    voice type is distinguishable; everything else gets an emoji."""
+    key = instr.lower().strip()
+    if key in VOICE_BADGE:
+        label, color = VOICE_BADGE[key]
+        return (
+            f'<span class="voice-badge" style="background:{color}"'
+            f' aria-hidden="true">{label}</span>'
+        )
+    emoji = INSTRUMENT_ICON.get(key, "🎵")
+    return f'<span class="instr-icon" aria-hidden="true">{emoji}</span>'
 
 
 # Instrument → list of case-insensitive substrings that mark a work
@@ -296,11 +314,17 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <title>Berliner Philharmoniker — Guest Soloists in Japan</title>
 <style>
 * {{ box-sizing: border-box; }}
+:root {{
+  /* Sensible defaults — JS refines these to the live measurements
+     for the page-header and the table's column-header row. */
+  --header-h: 132px;
+  --col-header-h: 38px;
+}}
 body {{
   font-family: Arial, sans-serif;
   font-size: 13px;
   margin: 0;
-  padding: 60px 20px;
+  padding: 0 20px 24px;
   color: #222;
   background-color: #FFF8EC;
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%23D97706' fill-opacity='0.16'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.15'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%23D97706' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.14'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%230F766E' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23D97706' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%239F1239' fill-opacity='0.14'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
@@ -311,8 +335,8 @@ body {{
   top: 0;
   z-index: 5;
   background-color: #FFF8EC;
-  margin: 0 -20px 14px;
-  padding: 12px 20px 12px;
+  margin: 0 -20px 0;
+  padding: 14px 20px 12px;
   box-shadow: 0 2px 0 #FFF8EC;
 }}
 h1 {{
@@ -382,6 +406,21 @@ thead tr.filter-row th {{
   font-size: 15px;
   vertical-align: -1px;
   line-height: 1;
+}}
+.voice-badge {{
+  display: inline-block;
+  min-width: 22px;
+  height: 18px;
+  margin-right: 6px;
+  padding: 0 5px;
+  border-radius: 9px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 10.5px;
+  line-height: 18px;
+  color: #fff;
+  letter-spacing: 0.5px;
+  vertical-align: 1px;
 }}
 thead tr.filter-row input {{
   width: 100%;
@@ -458,7 +497,16 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
     if (hr) document.documentElement.style.setProperty('--col-header-h', hr.offsetHeight + 'px');
   }}
   measureStickyOffsets();
+  // Also re-measure after the page is fully laid out (fonts loaded,
+  // images sized, etc.) so the defaults declared in :root get
+  // replaced with the actual rendered heights.
+  if (document.readyState !== 'complete') {{
+    window.addEventListener('load', measureStickyOffsets);
+  }}
   window.addEventListener('resize', measureStickyOffsets);
+  // One more pass on the next animation frame to catch any late
+  // reflow (e.g. subhead wrap once the system font kicks in).
+  requestAnimationFrame(measureStickyOffsets);
 
   const table = document.getElementById('soloists');
   const tbody = table.tBodies[0];
@@ -667,13 +715,12 @@ def render(counts: dict) -> str:
             distinct_soloists.add(plain_name)
             if k == i:
                 rowspan = f' rowspan="{group_size}"' if group_size > 1 else ""
-                icon = instrument_icon(instrument)
+                icon_html = instrument_icon_html(instrument)
                 row = (
                     f'<tr data-soloist-key="{key}">'
                     f'<td class="cell-soloist"{rowspan}>{name_html}</td>'
                     f'<td class="cell-instrument"{rowspan}>'
-                    f'<span class="instr-icon" aria-hidden="true">{icon}</span>'
-                    f'{html_lib.escape(instrument)}</td>'
+                    f'{icon_html}{html_lib.escape(instrument)}</td>'
                 )
             else:
                 row = f'<tr data-soloist-key="{key}" data-cont="1">'
