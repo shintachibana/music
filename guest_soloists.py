@@ -14,6 +14,7 @@ Usage:
 import html as html_lib
 import re
 from pathlib import Path
+from urllib.parse import quote
 
 # Reuse helpers from conductor_chart.py (lives in the same directory).
 from conductor_chart import (
@@ -256,29 +257,32 @@ body {{
   background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg font-family='Georgia,serif'%3E%3Ctext x='15' y='48' font-size='38' transform='rotate(-12 30 38)' fill='%23D97706' fill-opacity='0.16'%3E♫%3C/text%3E%3Ctext x='120' y='30' font-size='26' fill='%230F766E' fill-opacity='0.15'%3E♪%3C/text%3E%3Ctext x='175' y='95' font-size='32' transform='rotate(15 188 80)' fill='%23D97706' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='45' y='125' font-size='30' fill='%239F1239' fill-opacity='0.14'%3E♩%3C/text%3E%3Ctext x='135' y='165' font-size='28' transform='rotate(-8 148 155)' fill='%230F766E' fill-opacity='0.15'%3E♫%3C/text%3E%3Ctext x='80' y='195' font-size='34' fill='%23D97706' fill-opacity='0.16'%3E♬%3C/text%3E%3Ctext x='195' y='185' font-size='22' fill='%239F1239' fill-opacity='0.14'%3E♪%3C/text%3E%3C/g%3E%3C/svg%3E");
   background-repeat: repeat;
 }}
-h1 {{
-  font-size: 20px;
-  margin: 0;
-  padding: 0 0 18px;
-  text-align: center;
+.page-header {{
   position: sticky;
   top: 0;
   z-index: 5;
   background-color: #FFF8EC;
+  margin: 0 -20px 14px;
+  padding: 12px 20px 12px;
+  box-shadow: 0 2px 0 #FFF8EC;
+}}
+h1 {{
+  font-size: 20px;
+  margin: 0 0 4px;
+  padding: 0;
+  text-align: center;
 }}
 .subhead {{
   text-align: center;
   font-size: 13px;
   color: #555;
-  margin: -8px 0 14px;
+  margin: 0 auto 10px;
+  max-width: 1080px;
+  line-height: 1.5;
 }}
 .toolbar {{
-  position: sticky;
-  top: 52px;
-  z-index: 4;
-  background-color: #FFF8EC;
   margin: 0;
-  padding: 4px 0 18px;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -315,8 +319,6 @@ thead th {{
 thead th .arrow {{ font-size: 11px; margin-left: 4px; opacity: 0.55; }}
 thead th.sort-active .arrow {{ opacity: 1; }}
 thead tr.filter-row th {{
-  position: sticky;
-  top: 36px;
   background: #FDF1E3;
   border: 1px solid #B45309;
   padding: 4px 6px;
@@ -343,14 +345,17 @@ td.cell-instrument {{ white-space: nowrap; color: #555; vertical-align: top; pad
 td.cell-work       {{ min-width: 320px; }}
 td.cell-conductor  {{ white-space: nowrap; }}
 td.cell-count      {{ text-align: right; font-weight: 700; color: #B45309; font-variant-numeric: tabular-nums; }}
+td.cell-count a    {{ color: inherit; border-bottom: 1px dotted #D97706; }}
+td.cell-count a:hover {{ color: #7c2d12; border-bottom-style: solid; }}
 td a {{ color: #78350F; text-decoration: none; border-bottom: 1px dotted #B45309; }}
 td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 .footnote {{ max-width: 880px; margin: 22px auto 0; text-align: center; font-size: 12px; color: #777; line-height: 1.55; }}
 </style>
 </head>
 <body>
+<div class="page-header">
 <h1>Berliner Philharmoniker — Guest Soloists in Japan</h1>
-<p class="subhead">{rows_count} distinct soloist · work · conductor pairings across {n_soloists} guest soloists. Players who are themselves members of the Berliner Philharmoniker (Bendix-Balgley, Pahud, Mayer, Dohr, Kashimoto, etc.) are excluded.</p>
+<p class="subhead">{rows_count} distinct soloist · work · conductor pairings across {n_soloists} guest soloists. Players who are themselves members of the Berliner Philharmoniker (Bendix-Balgley, Pahud, Mayer, Dohr, Kashimoto, etc.) are excluded. Click any number in the Performances column to drill into the matching rows in the master Performances list.</p>
 <p class="toolbar">
   <a href="Performances_in_Japan.html">Performances in Japan</a>
   <a href="Program_Ranking.html">Program Ranking</a>
@@ -358,6 +363,7 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
   <a href="Composer_Chart.html">Performances by Composer</a>
   <a href="index.html">Home</a>
 </p>
+</div>
 <div class="wrap">
 <table id="soloists">
 <thead>
@@ -373,7 +379,7 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
   <th><input type="search" class="col-filter" data-col="1" placeholder="filter instrument…"></th>
   <th><input type="search" class="col-filter" data-col="2" placeholder="filter work…"></th>
   <th><input type="search" class="col-filter" data-col="3" placeholder="filter conductor…"></th>
-  <th><input type="search" class="col-filter" data-col="4" placeholder="≥ count"></th>
+  <th>&nbsp;</th>
 </tr>
 </thead>
 <tbody>
@@ -381,7 +387,7 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 </tbody>
 </table>
 </div>
-<p class="footnote">Each row is one (soloist · instrument · work · conductor) combination, with the count of concerts in which that combination appeared. Click any column header to sort. Type in a filter box to narrow the list — the Performances filter accepts plain text ("3") or "≥ 3" / "3+" to mean "at least 3".</p>
+<p class="footnote">Each row is one (soloist · instrument · work · conductor) combination, with the count of concerts in which that combination appeared. Click any column header to sort, type in a filter box to narrow the list, or click a number in the Performances column to open the matching rows of the master Performances in Japan list.</p>
 <script>
 (function() {{
   const table = document.getElementById('soloists');
@@ -598,10 +604,22 @@ def render(counts: dict) -> str:
                 )
             else:
                 row = f'<tr data-soloist-key="{key}" data-cont="1">'
+            # Click-through to the matching rows in the master
+            # Performances list: ?soloist=…&conductor=…&work=… are
+            # substring-matched against the source table.
+            work_plain = re.sub(r"<[^>]+>", "", work).strip()
+            drill_url = (
+                f"Performances_in_Japan.html?"
+                f"soloist={quote(plain_name)}"
+                f"&conductor={quote(conductor)}"
+                f"&work={quote(work_plain)}"
+            )
             row += (
                 f'<td class="cell-work">{work}</td>'
                 f'<td class="cell-conductor">{conductor_link(conductor)}</td>'
-                f'<td class="cell-count">{count}</td>'
+                f'<td class="cell-count">'
+                f'<a href="{drill_url}" title="Show these performances in the master list">{count}</a>'
+                f'</td>'
                 f'</tr>'
             )
             body_rows.append(row)

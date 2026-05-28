@@ -411,7 +411,7 @@ thead select option { background: #fff; color: #222; }
   //     ?year=YYYY, ?conductor=Name (era page), or ?composer=Name /
   //     ?work=Title (audience-analysis bar drill-down). Each param
   //     other than year is a substring match on its column.
-  var URL_COL = { conductor: 3, composer: 4, work: 4 };
+  var URL_COL = { conductor: 3, composer: 4, work: 4, soloist: 6 };
   var params = new URLSearchParams(window.location.search);
   var initYear = params.get('year');
   if (initYear) {
