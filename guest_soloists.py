@@ -26,6 +26,41 @@ from conductor_chart import (
 )
 
 
+def parse_program_both(prog_html: str):
+    """Variant of conductor_chart.parse_program that returns TWO
+    parallel lists for each work in the program cell:
+      • out_plain — text + <em> tags only (used as a stable matching
+        key for the counter)
+      • out_html  — text + <em> + <a href="..."> tags preserved
+        (used to render the Work column as a clickable link to the
+        Wikipedia article the master Performances list already
+        points to)
+    """
+    lines = re.split(r"<br\s*/?>", prog_html)
+    out_plain, out_html = [], []
+    current_composer = None
+    for raw in lines:
+        text_html  = re.sub(r"<(?!/?(?:em|a)\b)[^>]+>", "", raw)
+        text_html  = re.sub(r"\s+", " ", text_html).strip()
+        text_plain = re.sub(r"</?a\b[^>]*>", "", text_html)
+        if not text_plain:
+            continue
+        plain_only = re.sub(r"<[^>]+>", "", text_plain)
+        m = re.match(r"^([^\W\d_][^:\d\n]{0,40}?):\s+(.+)$", plain_only)
+        if m and m.group(1)[0].isupper() and len(m.group(1)) < 45:
+            current_composer = m.group(1).strip()
+            out_plain.append(text_plain)
+            out_html.append(text_html)
+        else:
+            if current_composer:
+                out_plain.append(f"{current_composer}: {text_plain}")
+                out_html.append(f"{current_composer}: {text_html}")
+            else:
+                out_plain.append(text_plain)
+                out_html.append(text_html)
+    return out_plain, out_html
+
+
 # Names the user identified as Berliner Philharmoniker members rather
 # than guest soloists. Matching is by name only (instrument may vary,
 # e.g. "Noah Bendix-Balgley (violin I)" vs. "(violin)").
@@ -268,13 +303,18 @@ def conductor_link(name: str) -> str:
 
 def aggregate(perf_html: str):
     """Walk the source table and accumulate
-    counts[(name_html, plain_name, instrument, work, conductor)] = n
-    Soloist URLs are preserved through `name_html`.
+    counts[(name_html, plain_name, instrument, work, conductor)] = n.
+
+    Also collects a side map `work_html_by_plain` so the Work column
+    can be rendered with the de.wikipedia anchor preserved (the
+    counter key stays anchor-free so identical works still collapse
+    into one row).
     """
     m = re.search(r"<tbody>(.*?)</tbody>", perf_html, re.DOTALL)
     if not m:
-        return {}
+        return {}, {}
     counts = {}
+    work_html_by_plain = {}
     for row in re.findall(r"<tr>.*?</tr>", m.group(1), re.DOTALL):
         tds = re.findall(r"<td>(.*?)</td>", row, re.DOTALL)
         if len(tds) < 7:
@@ -283,19 +323,27 @@ def aggregate(perf_html: str):
         if not conductors_raw:
             continue
         conductors = [c.strip() for c in conductors_raw.split("/") if c.strip()]
-        works = parse_program(tds[4])
-        works = [w for w in works if not is_placeholder(w)]
-        if not works:
+        works_plain, works_html = parse_program_both(tds[4])
+        # filter placeholders in lockstep so the two lists stay aligned
+        kept = [(p, h) for p, h in zip(works_plain, works_html)
+                if not is_placeholder(p)]
+        if not kept:
             continue
+        works_plain = [p for p, _ in kept]
+        works_html  = [h for _, h in kept]
+        # First wins for the anchored display form — the master table
+        # is consistent about which Wikipedia URL each work links to.
+        for p, h in kept:
+            work_html_by_plain.setdefault(p, h)
         for name_html, plain_name, instrument in parse_soloists(tds[6]):
             if plain_name in BPO_MEMBERS:
                 continue
-            matched_works = works_for_instrument(works, instrument)
+            matched_works = works_for_instrument(works_plain, instrument)
             for w in matched_works:
                 for cond in conductors:
                     key = (name_html, plain_name, instrument, w, cond)
                     counts[key] = counts.get(key, 0) + 1
-    return counts
+    return counts, work_html_by_plain
 
 
 # --------------------------------------------------------------------------
@@ -429,6 +477,9 @@ td.cell-conductor  {{ white-space: nowrap; }}
 td.cell-count      {{ text-align: right; font-weight: 700; color: #B45309; font-variant-numeric: tabular-nums; }}
 td.cell-count a    {{ color: inherit; border-bottom: 1px dotted #D97706; }}
 td.cell-count a:hover {{ color: #7c2d12; border-bottom-style: solid; }}
+td.cell-work a     {{ color: #78350F; text-decoration: none; border-bottom: 1px dotted #B45309; }}
+td.cell-work a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
+td.cell-work em    {{ font-style: italic; }}
 td a {{ color: #78350F; text-decoration: none; border-bottom: 1px dotted #B45309; }}
 td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 .footnote {{ max-width: 880px; margin: 22px auto 0; text-align: center; font-size: 12px; color: #777; line-height: 1.55; }}
@@ -664,7 +715,7 @@ td a:hover {{ color: #3F1D08; border-bottom-style: solid; }}
 """
 
 
-def render(counts: dict) -> str:
+def render(counts: dict, work_html_by_plain: dict) -> str:
     # Strict alphabetical default sort. The Soloist + Instrument cells
     # are then merged via rowspan for every adjacent group sharing the
     # same (soloist, instrument).
@@ -707,9 +758,9 @@ def render(counts: dict) -> str:
                 )
             else:
                 row = f'<tr data-soloist-key="{key}" data-cont="1">'
-            # Click-through to the matching rows in the master
-            # Performances list: ?soloist=…&conductor=…&work=… are
-            # substring-matched against the source table.
+            # Anchor-preserved form of the work for the Work cell;
+            # plain text (no tags) for the URL drill-down filter.
+            work_html  = work_html_by_plain.get(work, work)
             work_plain = re.sub(r"<[^>]+>", "", work).strip()
             drill_url = (
                 f"Performances_in_Japan.html?"
@@ -718,7 +769,7 @@ def render(counts: dict) -> str:
                 f"&work={quote(work_plain)}"
             )
             row += (
-                f'<td class="cell-work">{work}</td>'
+                f'<td class="cell-work">{work_html}</td>'
                 f'<td class="cell-conductor">{conductor_link(conductor)}</td>'
                 f'<td class="cell-count">'
                 f'<a href="{drill_url}" target="_blank" rel="noopener" title="Show these performances in the master list (opens in a new tab)">{count}</a>'
@@ -738,12 +789,14 @@ def render(counts: dict) -> str:
 def main():
     src = Path("Berliner_Philharmoniker_in_Japan/Performances_in_Japan.html")
     out = Path("Berliner_Philharmoniker_in_Japan/Guest_Soloists.html")
-    counts = aggregate(src.read_text(encoding="utf-8"))
-    out.write_text(render(counts), encoding="utf-8")
+    counts, work_html_by_plain = aggregate(src.read_text(encoding="utf-8"))
+    out.write_text(render(counts, work_html_by_plain), encoding="utf-8")
     print(f"Wrote {out}")
     soloists = {key[1] for key in counts}
+    linked   = sum(1 for h in work_html_by_plain.values() if '<a ' in h)
     print(f"  {len(counts)} rows, {len(soloists)} distinct soloists, "
-          f"{sum(counts.values())} performance attributions")
+          f"{sum(counts.values())} performance attributions, "
+          f"{linked}/{len(work_html_by_plain)} works linked to Wikipedia")
 
 
 if __name__ == "__main__":
