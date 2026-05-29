@@ -362,6 +362,12 @@ VOCAL_WORK_REGEX = re.compile(
     # Brahms's choral / vocal-soloist works that don't include an
     # obvious vocal keyword in the title:
     r"\balt-rhapsodie|\bschicksalslied|\bnänie|\bgesang der parzen|"
+    # Beethoven Egmont op. 84 = full incidental music (Klärchens
+    # Lieder + Goethe narration). The pattern intentionally matches
+    # "egmont op. 84" with the space so it ONLY catches the full
+    # work; "Egmont-Ouvertüre op. 84" has a hyphen between Egmont
+    # and op., so it doesn't match.
+    r"\begmont op\. 84\b|"
     r"\bmatthäus|\bjohannes-passion|"
     r"\borph[éeé]e|\borfeo|\bschöpfung|\bmessias",
     re.IGNORECASE,
@@ -440,8 +446,16 @@ def parse_soloists(td_html: str):
         yield name_html, plain_name, instrument
 
 
+def _strip_em(s: str) -> str:
+    """Drop <em>/</em> tags so keyword matching sees a flat string.
+    Without this, work titles like "<em>Egmont</em> op. 84" miss
+    substring matches that span the boundary between the italicised
+    title and the catalogue number."""
+    return re.sub(r"</?em\b[^>]*>", "", s)
+
+
 def is_vocal_work(work_text: str) -> bool:
-    return bool(VOCAL_WORK_REGEX.search(work_text))
+    return bool(VOCAL_WORK_REGEX.search(_strip_em(work_text)))
 
 
 def works_for_instrument(works, instrument: str):
@@ -479,7 +493,7 @@ def works_for_instrument(works, instrument: str):
         if any(x in w_low for x in excludes):
             return False
         return True
-    return [w for w in works if kw_match(w.lower())]
+    return [w for w in works if kw_match(_strip_em(w).lower())]
 
 
 def conductor_link(name: str) -> str:
