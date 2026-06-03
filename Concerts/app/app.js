@@ -46,7 +46,7 @@ function matchesFilters(c, f) {
   if (f.date && c.date !== f.date) return false;
   if (f.bundesland) {
     const v = venueById(c.venue_id);
-    const bl = (v && v.bundesland) || "";
+    const bl = (v && v.bundesland) || c.bundesland || "";
     if (bl !== f.bundesland) return false;
   }
   if (f.city) {
@@ -217,11 +217,11 @@ function renderTable() {
   tbody.innerHTML = rows
     .map((c) => {
       const v = venueMap[c.venue_id] || {};
-      const tag = BL_TAG[v.bundesland] || "";
+      const bundesland = v.bundesland || c.bundesland || "";
+      const tag = BL_TAG[bundesland] || "";
       const city = v.city || c.city || "";
       const venueName = v.name || c.venue || "";
       const venueSite = v.website || "";
-      const bundesland = v.bundesland || "";
       const venueCell = venueSite
         ? `<a href="${escape(venueSite)}" target="_blank" rel="noopener">${escape(venueName)}</a>`
         : escape(venueName);
@@ -276,11 +276,31 @@ function wireFilters(onChange) {
   }
 }
 
+// ===== Sticky-top measurement =====
+
+function updateStickyTopHeight() {
+  const el = document.querySelector(".sticky-top");
+  if (!el) return;
+  const h = el.getBoundingClientRect().height;
+  document.documentElement.style.setProperty("--sticky-top-height", `${Math.ceil(h)}px`);
+}
+
+function watchStickyTop() {
+  updateStickyTopHeight();
+  if ("ResizeObserver" in window) {
+    const ro = new ResizeObserver(() => updateStickyTopHeight());
+    const el = document.querySelector(".sticky-top");
+    if (el) ro.observe(el);
+  }
+  window.addEventListener("resize", updateStickyTopHeight);
+}
+
 // ===== Bootstrap =====
 
 (async () => {
   await loadData();
   fillCommonControls();
+  watchStickyTop();
   if (document.getElementById("map")) {
     setupMap();
     wireFilters(renderMap);

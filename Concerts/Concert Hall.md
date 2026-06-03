@@ -45,3 +45,63 @@ _29 entries across Baden-Württemberg, Bayern, and Hessen._
 | Hessen | Bad Vilbel | VILCO Kongress- und Kulturforum | Concert Hall | 1000 | Guest orchestras | <https://www.vilco-badvilbel.de> |
 | Hessen | Marburg | Erwin-Piscator-Haus | Concert Hall | 900 | Marburger Konzertverein (guest) | <https://www.marburg.de> |
 | Hessen | Gießen | Kongresshalle Gießen | Concert Hall | 1000 | Philharmonisches Orchester Gießen | <https://www.giessen.de> |
+
+## Additional venues (from ensemble concerts)
+
+_Venues that appear in scraped concerts but aren't in the original 29-venue list. 40 venues across 3 Bundesländer._
+
+### Baden-Württemberg
+
+| City | Venue | # concerts |
+|---|---|---|
+| Baden-Baden | Museum Frieder Burda | 1 |
+| Heilbronn | Kiliansplatz | 1 |
+| Ludwigsburg | Forum am Schlosspark Ludwigsburg | 1 |
+| Ludwigsburg | Schloss | 1 |
+| Ludwigsburg | Schloss, Ordenssaal | 1 |
+| Neuenstein | Rittersaal Schloss Neuenstein | 1 |
+| Pforzheim | CongressCentrum | 1 |
+| Pforzheim | Foyer Theater Pforzheim | 2 |
+| Pforzheim | Großes Haus, Theater Pforzheim | 2 |
+| Ulm | Großes Haus, Theater Ulm | 2 |
+| Ulm | Kornhaus | 1 |
+
+### Bayern
+
+| City | Venue | # concerts |
+|---|---|---|
+| Amberg | Stadttheater | 1 |
+| Amberg | Stadttheater Amberg | 1 |
+| Erlangen | Kulturinsel Wöhrmühle | 1 |
+| Forchheim | Schloss Jägersburg | 1 |
+| Herrenchiemsee | Schloss Herrenchiemsee, Spiegelsaal | 1 |
+| Hof | Festsaal, Freiheitshalle Hof | 3 |
+| München | Allerheiligen Hofkirche | 1 |
+| München | Alter Rathaussaal | 1 |
+| München | Museum Villa Stuck | 1 |
+| München | Pinakothek der Moderne | 1 |
+| München | Villa Stuck | 1 |
+| Neumarkt i.d. OPf. | Historischer Reitstadel | 1 |
+| Nürnberg | Germanisches Nationalmuseum | 1 |
+| Nürnberg | Gustav-Adolf-Gedächtniskirche | 1 |
+| Nürnberg | Opernhaus | 6 |
+| Nürnberg | Serenadenhof | 7 |
+| Selb | Rosenthal-Theater Selb | 1 |
+| Stammbach | Marienkirche Stammbach | 1 |
+| Thierstein | Burg Thierstein | 1 |
+| Weißenburg | Bergwaldtheater | 1 |
+| Würzburg | Kaisersaal der Residenz | 2 |
+
+### Hessen
+
+| City | Venue | # concerts |
+|---|---|---|
+| Eltville am Rhein | Kloster Eberbach | 1 |
+| Frankfurt am Main | Bockenheimer Depot | 1 |
+| Frankfurt am Main | Haus Der Deutschen Ensemble Akademie, Anbau | 1 |
+| Frankfurt am Main | Haus der Deutschen Ensemble Akademie, Anbau | 1 |
+| Frankfurt am Main | Holzfoyer | 1 |
+| Frankfurt am Main | Römer, Kaisersaal | 1 |
+| Kronberg | Casals Forum | 1 |
+| Weilburg | Schloss, Renaissancehof | 1 |
+

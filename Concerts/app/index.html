@@ -8,16 +8,16 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="top">
-    <h1>Classical Concerts</h1>
-    <span style="color:var(--muted);font-size:0.85rem">BW · Bayern · Hessen</span>
-    <nav>
-      <a href="index.html" class="active">Map</a>
-      <a href="table.html">Table</a>
-    </nav>
-  </header>
+  <div class="sticky-top">
+    <header class="top">
+      <h1>Classical Concerts</h1>
+      <span style="color:var(--muted);font-size:0.85rem">BW · Bayern · Hessen</span>
+      <nav>
+        <a href="index.html" class="active">Map</a>
+        <a href="table.html">Table</a>
+      </nav>
+    </header>
 
-  <div class="wrap">
     <div class="filter-bar">
       <div>
         <label for="f-month">Month</label>
@@ -48,7 +48,9 @@
       </div>
       <div class="stats" id="stats">No filter set — map is empty</div>
     </div>
+  </div>
 
+  <div class="wrap">
     <div id="map"></div>
     <p class="empty-hint" id="hint">Set at least one filter above to populate the map.</p>
   </div>
