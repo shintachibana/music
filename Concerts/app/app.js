@@ -46,11 +46,13 @@ function matchesFilters(c, f) {
   if (f.date && c.date !== f.date) return false;
   if (f.bundesland) {
     const v = venueById(c.venue_id);
-    if (!v || v.bundesland !== f.bundesland) return false;
+    const bl = (v && v.bundesland) || "";
+    if (bl !== f.bundesland) return false;
   }
   if (f.city) {
     const v = venueById(c.venue_id);
-    if (!v || v.city !== f.city) return false;
+    const city = (v && v.city) || c.city || "";
+    if (city !== f.city) return false;
   }
   if (f.performer) {
     const t = f.performer.toLowerCase();
@@ -79,7 +81,10 @@ function matchesFilters(c, f) {
 }
 
 function uniqueCities() {
-  return [...new Set(VENUES.map((v) => v.city))].sort();
+  const cities = new Set();
+  for (const v of VENUES) if (v.city) cities.add(v.city);
+  for (const c of CONCERTS) if (c.city) cities.add(c.city);
+  return [...cities].sort();
 }
 
 function fillCommonControls(idPrefix = "") {
@@ -210,12 +215,15 @@ function renderTable() {
     .map((c) => {
       const v = venueMap[c.venue_id] || {};
       const tag = BL_TAG[v.bundesland] || "";
+      const city = v.city || c.city || "";
+      const venueName = v.name || c.venue || "";
+      const bundesland = v.bundesland || "";
       const prog = c.program.map((p) => `${p.composer || ""}: ${p.work || ""}`).join("\n");
       return `<tr>
         <td>${escape(c.date || "")}${c.time ? "<br><small style='color:var(--muted)'>" + escape(c.time) + "</small>" : ""}</td>
-        <td><span class="bl-tag ${tag}">${tag}</span> ${escape(v.bundesland || "")}</td>
-        <td>${escape(v.city || "")}</td>
-        <td>${escape(v.name || "")}</td>
+        <td>${tag ? `<span class="bl-tag ${tag}">${tag}</span> ` : ""}${escape(bundesland)}</td>
+        <td>${escape(city)}</td>
+        <td>${escape(venueName)}</td>
         <td>${escape(c.performers.join("; "))}</td>
         <td class="program">${escape(prog)}</td>
         <td>${c.url ? `<a href="${escape(c.url)}" target="_blank" rel="noopener">↗</a>` : ""}</td>

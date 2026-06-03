@@ -1120,7 +1120,3024 @@
           "work": "Sinfonie Nr. 2 e-Moll op. 27"
         }
       ]
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.swr.de/symphonieorchester",
+      "time": "20:00",
+      "title": "Kammerkonzert: Werke von Dohnányi, Ravel und D'Rivera",
+      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-06-06-2026-baden-baden-100.html",
+      "city": "Baden-Baden",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Mitglieder des SWR Symphonieorchesters",
+        "Raphael Sachs"
+      ],
+      "program": [
+        {
+          "composer": "Dohnányi",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "D'Rivera",
+          "work": "Kammermusikwerk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.swr.de/symphonieorchester",
+      "time": "16:00",
+      "title": "Kammerkonzert: Werke von Dohnányi, Ravel und D'Rivera",
+      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-07-06-2026-stuttgart-100.html",
+      "city": "Stuttgart",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Mitglieder des SWR Symphonieorchesters",
+        "Frank-Michael Guthmann"
+      ],
+      "program": [
+        {
+          "composer": "Dohnányi",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "D'Rivera",
+          "work": "Kammermusikwerk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-08",
+      "source_url": "https://www.swr.de/symphonieorchester",
+      "time": "20:00",
+      "title": "Kammerkonzert: Werke von Dohnányi, Ravel und D'Rivera",
+      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-08-06-2026-freiburg-100.html",
+      "city": "Freiburg",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Mitglieder des SWR Symphonieorchesters",
+        "Matvey Demin"
+      ],
+      "program": [
+        {
+          "composer": "Dohnányi",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "D'Rivera",
+          "work": "Kammermusikwerk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-11",
+      "source_url": "https://www.swr.de/symphonieorchester",
+      "time": "20:00",
+      "title": "Riccardo Minasi dirigiert Werke von Wagner, Bartók und Dvořák",
+      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-11-06-2026-stuttgart-100.html",
+      "city": "Stuttgart",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Riccardo Minasi (Dirigent)",
+        "Antoine Tamestit (Viola)"
+      ],
+      "program": [
+        {
+          "composer": "Wagner",
+          "work": "Orchesterwerk"
+        },
+        {
+          "composer": "Bartók",
+          "work": "Orchesterwerk"
+        },
+        {
+          "composer": "Dvořák",
+          "work": "Orchesterwerk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-12",
+      "source_url": "https://www.swr.de/symphonieorchester",
+      "time": "20:00",
+      "title": "Riccardo Minasi dirigiert Werke von Wagner, Bartók und Dvořák",
+      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-12-06-2026-stuttgart-100.html",
+      "city": "Stuttgart",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Riccardo Minasi (Dirigent)",
+        "Antoine Tamestit (Viola)"
+      ],
+      "program": [
+        {
+          "composer": "Wagner",
+          "work": "Orchesterwerk"
+        },
+        {
+          "composer": "Bartók",
+          "work": "Orchesterwerk"
+        },
+        {
+          "composer": "Dvořák",
+          "work": "Orchesterwerk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.swr.de/symphonieorchester",
+      "time": "19:00",
+      "title": "Riccardo Minasi dirigiert Werke von Wagner, Bartók und Dvořák",
+      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-14-06-2026-freiburg-100.html",
+      "city": "Freiburg",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Riccardo Minasi (Dirigent)",
+        "Antoine Tamestit (Viola)"
+      ],
+      "program": [
+        {
+          "composer": "Wagner",
+          "work": "Orchesterwerk"
+        },
+        {
+          "composer": "Bartók",
+          "work": "Orchesterwerk"
+        },
+        {
+          "composer": "Dvořák",
+          "work": "Orchesterwerk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-18",
+      "source_url": "https://www.swr.de/symphonieorchester",
+      "time": "20:00",
+      "title": "SWR Symphonieorchester & Vokalensemble",
+      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-18-06-2026-freiburg-104.html",
+      "city": "Freiburg",
+      "performers": [
+        "SWR Symphonieorchester",
+        "SWR Vokalensemble",
+        "Antoine Tamestit"
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.swr.de/kultur/musik/konzertkalender-frontmoddetail-100.html?swx_egCategory=swrclassic-so&swx_egMonth=all",
+      "time": "20:00",
+      "title": "Kammerkonzert: Werke von Dohnányi, Ravel und D'Rivera",
+      "url": "https://tickets.swrservice.de/webshop/webticket/shop?event=1149",
+      "venue": "Museum Frieder Burda",
+      "city": "Baden-Baden",
+      "performers": [
+        "SWR Symphonieorchester",
+        "SWR Symphonieorchester (Mitglieder)"
+      ],
+      "program": [
+        {
+          "composer": "Dohnányi",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "D'Rivera",
+          "work": "Kammermusikwerk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.swr.de/kultur/musik/konzertkalender-frontmoddetail-100.html?swx_egCategory=swrclassic-so&swx_egMonth=2026-06",
+      "time": "20:00",
+      "title": "Kammerkonzert: Werke von Dohnányi, Ravel und D'Rivera",
+      "url": "https://tickets.swrservice.de/webshop/webticket/shop?event=1149",
+      "venue": "Museum Frieder Burda",
+      "city": "Baden-Baden",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Mitglieder des SWR Symphonieorchesters"
+      ],
+      "program": [
+        {
+          "composer": "Dohnányi",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "D'Rivera",
+          "work": "Kammermusikwerk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "SWR Symphonieorchester"
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.theater-pforzheim.de/spielplan/konzerte.html",
+      "title": "Zu den Sternen",
+      "url": "https://www.theater-pforzheim.de/veranstaltungen/ansicht-veranstaltungen/event/eventDetail/1970-01-01_0100/6-sinfoniekonzert-1.html",
+      "venue": "CongressCentrum",
+      "city": "Pforzheim",
+      "performers": [
+        "Badische Philharmonie Pforzheim"
+      ],
+      "venue_id": null,
+      "ensemble": "Badische Philharmonie Pforzheim"
+    },
+    {
+      "date": "2026-06-26",
+      "source_url": "https://www.theater-pforzheim.de/spielplan/konzerte.html",
+      "title": "Krabbelkonzert",
+      "url": "https://www.theater-pforzheim.de/veranstaltungen/ansicht-veranstaltungen/event/eventDetail/1970-01-01_0100/krabbelkonzert-1.html",
+      "venue": "Foyer Theater Pforzheim",
+      "city": "Pforzheim",
+      "performers": [
+        "Badische Philharmonie Pforzheim"
+      ],
+      "venue_id": null,
+      "ensemble": "Badische Philharmonie Pforzheim"
+    },
+    {
+      "date": "2026-06-27",
+      "source_url": "https://www.theater-pforzheim.de/spielplan/konzerte.html",
+      "title": "Krabbelkonzert",
+      "url": "https://www.theater-pforzheim.de/veranstaltungen/ansicht-veranstaltungen/event/eventDetail/1970-01-01_0100/krabbelkonzert-1.html",
+      "venue": "Foyer Theater Pforzheim",
+      "city": "Pforzheim",
+      "performers": [
+        "Badische Philharmonie Pforzheim"
+      ],
+      "venue_id": null,
+      "ensemble": "Badische Philharmonie Pforzheim"
+    },
+    {
+      "date": "2026-07-15",
+      "source_url": "https://www.theater-pforzheim.de/spielplan/konzerte.html",
+      "title": "Side by Side",
+      "url": "https://www.theater-pforzheim.de/veranstaltungen/ansicht-veranstaltungen/event/eventDetail/1970-01-01_0100/side-by-side-2.html",
+      "venue": "Großes Haus, Theater Pforzheim",
+      "city": "Pforzheim",
+      "performers": [
+        "Badische Philharmonie Pforzheim"
+      ],
+      "venue_id": null,
+      "ensemble": "Badische Philharmonie Pforzheim"
+    },
+    {
+      "date": "2026-07-18",
+      "source_url": "https://www.theater-pforzheim.de/spielplan/konzerte.html",
+      "title": "Glanzlichtergala",
+      "url": "https://www.theater-pforzheim.de/veranstaltungen/ansicht-veranstaltungen/event/eventDetail/1970-01-01_0100/glanzlichtergala.html",
+      "venue": "Großes Haus, Theater Pforzheim",
+      "city": "Pforzheim",
+      "performers": [
+        "Badische Philharmonie Pforzheim"
+      ],
+      "venue_id": null,
+      "ensemble": "Badische Philharmonie Pforzheim"
+    },
+    {
+      "date": "2026-06-04",
+      "source_url": "https://www.theater-ulm.de",
+      "time": "17:00",
+      "title": "DIE MEISTERSINGER VON NÜRNBERG – PREMIERE",
+      "url": "https://www.theater-ulm.de/spielplan/stuecke/die-meistersinger-von-nuernberg",
+      "venue": "Großes Haus, Theater Ulm",
+      "city": "Ulm",
+      "performers": [
+        "Philharmonisches Orchester der Stadt Ulm"
+      ],
+      "program": [
+        {
+          "composer": "Richard Wagner",
+          "work": "Die Meistersinger von Nürnberg – Oper in drei Aufzügen"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Philharmonisches Orchester der Stadt Ulm"
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.theater-ulm.de",
+      "time": "17:00",
+      "title": "DIE MEISTERSINGER VON NÜRNBERG",
+      "url": "https://www.theater-ulm.de/spielplan/stuecke/die-meistersinger-von-nuernberg",
+      "venue": "Großes Haus, Theater Ulm",
+      "city": "Ulm",
+      "performers": [
+        "Philharmonisches Orchester der Stadt Ulm"
+      ],
+      "program": [
+        {
+          "composer": "Richard Wagner",
+          "work": "Die Meistersinger von Nürnberg – Oper in drei Aufzügen"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Philharmonisches Orchester der Stadt Ulm"
+    },
+    {
+      "date": "2026-06-09",
+      "source_url": "https://www.wko-heilbronn.de",
+      "time": "19:00",
+      "title": "Kammermusik : Väter der Klamotte",
+      "url": "https://www.wko-heilbronn.de/konzerte/kammermusik-vaeter-der-klamotte",
+      "venue": "Unter der Pyramide, Kreissparkasse Heilbronn",
+      "city": "Heilbronn",
+      "performers": [
+        "Württembergisches Kammerorchester Heilbronn",
+        "Ingmar Lazar",
+        "Zohar Lerner",
+        "Götz Engelhardt",
+        "Georg Oyen"
+      ],
+      "program": [
+        {
+          "composer": "Raff",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "Godard",
+          "work": "Kammermusikwerk"
+        },
+        {
+          "composer": "Knorr",
+          "work": "Kammermusikwerk"
+        }
+      ],
+      "venue_id": "heilbronn-harmonie-heilbronn",
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-10",
+      "source_url": "https://www.wko-heilbronn.de",
+      "time": "19:30",
+      "title": "Niklas Liepe, Violine : Romantisch",
+      "url": "https://www.wko-heilbronn.de/konzerte/niklas-liepe-violine",
+      "venue": "Stadttheater",
+      "city": "Amberg",
+      "performers": [
+        "Niklas Liepe",
+        "Joseph Bastian",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Clyne",
+          "work": "Werk"
+        },
+        {
+          "composer": "Mendelssohn Bartholdy",
+          "work": "Werk"
+        },
+        {
+          "composer": "Beethoven",
+          "work": "Werk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-18",
+      "source_url": "https://www.wko-heilbronn.de",
+      "time": "19:30",
+      "title": "Pascal Schumacher, Vibraphon : Minimal Vibes für großes Orchester",
+      "url": "https://www.wko-heilbronn.de/konzerte/pascal-schumacher-vibraphon",
+      "venue": "Harmonie",
+      "city": "Heilbronn",
+      "performers": [
+        "Pascal Schumacher",
+        "Risto Joost",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Farrenc",
+          "work": "Werk"
+        },
+        {
+          "composer": "Greenstein",
+          "work": "Werk"
+        },
+        {
+          "composer": "Brahms",
+          "work": "Werk"
+        }
+      ],
+      "venue_id": "heilbronn-harmonie-heilbronn",
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-19",
+      "source_url": "https://www.wko-heilbronn.de",
+      "time": "19:30",
+      "title": "Pascal Schumacher, Vibraphon : Minimal Vibes für großes Orchester",
+      "url": "https://www.wko-heilbronn.de/konzerte/pascal-schumacher-vibraphon",
+      "venue": "Kornhaus",
+      "city": "Ulm",
+      "performers": [
+        "Pascal Schumacher",
+        "Risto Joost",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Farrenc",
+          "work": "Werk"
+        },
+        {
+          "composer": "Greenstein",
+          "work": "Werk"
+        },
+        {
+          "composer": "Brahms",
+          "work": "Werk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-27",
+      "source_url": "https://www.wko-heilbronn.de",
+      "time": "19:00",
+      "title": "Concerti Brillanti : Kronberg Academy",
+      "url": "https://www.wko-heilbronn.de/konzerte/kronberg-academy",
+      "venue": "Casals Forum",
+      "city": "Kronberg",
+      "performers": [
+        "Studierende der Kronberg Academy",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-04",
+      "source_url": "https://www.wko-heilbronn.de",
+      "time": "19:30",
+      "title": "Klassik Open Air Heilbronn : Frank Dupree, Klavier & Leitung",
+      "url": "https://www.wko-heilbronn.de/konzerte/klassik-open-air-heilbronn-26",
+      "venue": "Kiliansplatz",
+      "city": "Heilbronn",
+      "performers": [
+        "Frank Dupree",
+        "Frank Dupree Trio",
+        "Šima Fagott",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "De Falla",
+          "work": "Werk"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Werk"
+        },
+        {
+          "composer": "Francaix",
+          "work": "Werk"
+        },
+        {
+          "composer": "Milhaud",
+          "work": "Werk"
+        },
+        {
+          "composer": "Fauré",
+          "work": "Werk"
+        },
+        {
+          "composer": "Mancini",
+          "work": "Werk"
+        },
+        {
+          "composer": "Legrand",
+          "work": "Werk"
+        },
+        {
+          "composer": "Cosma",
+          "work": "Werk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-17",
+      "source_url": "https://www.wko-heilbronn.de",
+      "time": "20:00",
+      "title": "Ragnhild Hemsing, Violine & Hardangerfiedel : Weilburger Schlosskonzerte",
+      "url": "https://www.wko-heilbronn.de/konzerte/ragnhild-hemsing-violine-hardangerfiedel",
+      "venue": "Schloss, Renaissancehof",
+      "city": "Weilburg",
+      "performers": [
+        "Ragnhild Hemsing",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Sibelius",
+          "work": "Werk"
+        },
+        {
+          "composer": "Grieg",
+          "work": "Werk"
+        },
+        {
+          "composer": "Hemsing",
+          "work": "Werk"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-09",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "19:00",
+      "title": "Kammermusik : Väter der Klamotte",
+      "url": "https://www.wko-heilbronn.de/konzerte/kammermusik-vaeter-der-klamotte",
+      "venue": "Unter der Pyramide, Kreissparkasse Heilbronn",
+      "city": "Heilbronn",
+      "performers": [
+        "Württembergisches Kammerorchester Heilbronn",
+        "Ingmar Lazar",
+        "Zohar Lerner",
+        "Götz Engelhardt",
+        "Georg Oyen"
+      ],
+      "program": [
+        {
+          "composer": "Raff",
+          "work": "Werk von Raff"
+        },
+        {
+          "composer": "Godard",
+          "work": "Werk von Godard"
+        },
+        {
+          "composer": "Knorr",
+          "work": "Werk von Knorr"
+        }
+      ],
+      "venue_id": "heilbronn-harmonie-heilbronn",
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-10",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "19:30",
+      "title": "Niklas Liepe, Violine : Romantisch",
+      "url": "https://www.wko-heilbronn.de/konzerte/niklas-liepe-violine",
+      "venue": "Stadttheater Amberg",
+      "city": "Amberg",
+      "performers": [
+        "Niklas Liepe (Violine)",
+        "Joseph Bastian (Dirigent)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Clyne",
+          "work": "Werk von Clyne"
+        },
+        {
+          "composer": "Mendelssohn Bartholdy",
+          "work": "Werk von Mendelssohn Bartholdy"
+        },
+        {
+          "composer": "Beethoven",
+          "work": "Werk von Beethoven"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-18",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "19:30",
+      "title": "Pascal Schumacher, Vibraphon : Minimal Vibes für großes Orchester",
+      "url": "https://www.wko-heilbronn.de/konzerte/pascal-schumacher-vibraphon",
+      "venue": "Harmonie",
+      "city": "Heilbronn",
+      "performers": [
+        "Pascal Schumacher (Vibraphon)",
+        "Risto Joost (Dirigent)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Farrenc",
+          "work": "Werk von Farrenc"
+        },
+        {
+          "composer": "Greenstein",
+          "work": "Werk von Greenstein"
+        },
+        {
+          "composer": "Brahms",
+          "work": "Werk von Brahms"
+        }
+      ],
+      "venue_id": "heilbronn-harmonie-heilbronn",
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-19",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "19:30",
+      "title": "Pascal Schumacher, Vibraphon : Minimal Vibes für großes Orchester",
+      "url": "https://www.wko-heilbronn.de/konzerte/pascal-schumacher-vibraphon",
+      "venue": "Kornhaus",
+      "city": "Ulm",
+      "performers": [
+        "Pascal Schumacher (Vibraphon)",
+        "Risto Joost (Dirigent)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Farrenc",
+          "work": "Werk von Farrenc"
+        },
+        {
+          "composer": "Greenstein",
+          "work": "Werk von Greenstein"
+        },
+        {
+          "composer": "Brahms",
+          "work": "Werk von Brahms"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-27",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "19:00",
+      "title": "Concerti Brillanti : Kronberg Academy",
+      "url": "https://www.wko-heilbronn.de/konzerte/kronberg-academy",
+      "venue": "Casals Forum",
+      "city": "Kronberg",
+      "performers": [
+        "Studierende der Kronberg Academy",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-04",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "19:30",
+      "title": "Klassik Open Air Heilbronn : Frank Dupree, Klavier & Leitung",
+      "url": "https://www.wko-heilbronn.de/konzerte/klassik-open-air-heilbronn-26",
+      "venue": "Kiliansplatz",
+      "city": "Heilbronn",
+      "performers": [
+        "Frank Dupree (Klavier & Leitung)",
+        "Frank Dupree Trio",
+        "Šima Fagott",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "De Falla",
+          "work": "Werk von De Falla"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Werk von Ravel"
+        },
+        {
+          "composer": "Francaix",
+          "work": "Werk von Francaix"
+        },
+        {
+          "composer": "Milhaud",
+          "work": "Werk von Milhaud"
+        },
+        {
+          "composer": "Fauré",
+          "work": "Werk von Fauré"
+        },
+        {
+          "composer": "Mancini",
+          "work": "Werk von Mancini"
+        },
+        {
+          "composer": "Legrand",
+          "work": "Werk von Legrand"
+        },
+        {
+          "composer": "Cosma",
+          "work": "Werk von Cosma"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-15",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "20:00",
+      "title": "Ragnhild Hemsing, Violine & Hardangerfiedel : Ludwigsburger Schlossfestspiele",
+      "url": "https://www.wko-heilbronn.de/konzerte/ragnhild-hemsing-violine-hardangerfiedel",
+      "venue": "Schloss, Ordenssaal",
+      "city": "Ludwigsburg",
+      "performers": [
+        "Ragnhild Hemsing (Violine & Hardangerfiedel)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Sibelius",
+          "work": "Werk von Sibelius"
+        },
+        {
+          "composer": "Grieg",
+          "work": "Werk von Grieg"
+        },
+        {
+          "composer": "Hemsing",
+          "work": "Werk von Hemsing"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-16",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "20:00",
+      "title": "Jonas Palm, Violoncello : Ludwigsburger Schlossfestspiele",
+      "url": "https://www.wko-heilbronn.de/konzerte/jonas-palm-violoncello",
+      "venue": "Schloss",
+      "city": "Ludwigsburg",
+      "performers": [
+        "Jonas Palm (Violoncello)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-17",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
+      "time": "20:00",
+      "title": "Ragnhild Hemsing, Violine & Hardangerfiedel : Weilburger Schlosskonzerte",
+      "url": "https://www.wko-heilbronn.de/konzerte/ragnhild-hemsing-violine-hardangerfiedel",
+      "venue": "Schloss, Renaissancehof",
+      "city": "Weilburg",
+      "performers": [
+        "Ragnhild Hemsing (Violine & Hardangerfiedel)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Sibelius",
+          "work": "Werk von Sibelius"
+        },
+        {
+          "composer": "Grieg",
+          "work": "Werk von Grieg"
+        },
+        {
+          "composer": "Hemsing",
+          "work": "Werk von Hemsing"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-10",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
+      "time": "19:30",
+      "title": "Niklas Liepe, Violine : Romantisch",
+      "url": "https://www.wko-heilbronn.de/konzerte/niklas-liepe-violine",
+      "venue": "Stadttheater",
+      "city": "Amberg",
+      "performers": [
+        "Niklas Liepe (Violine)",
+        "Joseph Bastian",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Anna Clyne",
+          "work": "Werk von Clyne"
+        },
+        {
+          "composer": "Felix Mendelssohn Bartholdy",
+          "work": "Werk von Mendelssohn Bartholdy"
+        },
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Werk von Beethoven"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-27",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
+      "time": "19:00",
+      "title": "Concerti Brillanti : Kronberg Academy",
+      "url": "https://www.wko-heilbronn.de/konzerte/kronberg-academy",
+      "venue": "Casals Forum",
+      "city": "Kronberg",
+      "performers": [
+        "Studierende der Kronberg Academy",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-04",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
+      "time": "19:30",
+      "title": "Klassik Open Air Heilbronn : Frank Dupree, Klavier & Leitung",
+      "url": "https://www.wko-heilbronn.de/konzerte/klassik-open-air-heilbronn-26",
+      "venue": "Kiliansplatz",
+      "city": "Heilbronn",
+      "performers": [
+        "Frank Dupree (Klavier & Leitung)",
+        "Frank Dupree Trio",
+        "Šima Fagott",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Manuel de Falla",
+          "work": "Werk von De Falla"
+        },
+        {
+          "composer": "Maurice Ravel",
+          "work": "Werk von Ravel"
+        },
+        {
+          "composer": "Jean Françaix",
+          "work": "Werk von Françaix"
+        },
+        {
+          "composer": "Darius Milhaud",
+          "work": "Werk von Milhaud"
+        },
+        {
+          "composer": "Gabriel Fauré",
+          "work": "Werk von Fauré"
+        },
+        {
+          "composer": "Henry Mancini",
+          "work": "Werk von Mancini"
+        },
+        {
+          "composer": "Michel Legrand",
+          "work": "Werk von Legrand"
+        },
+        {
+          "composer": "Vladimir Cosma",
+          "work": "Werk von Cosma"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-15",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
+      "time": "20:00",
+      "title": "Ragnhild Hemsing, Violine & Hardangerfiedel : Ludwigsburger Schlossfestspiele",
+      "url": "https://www.wko-heilbronn.de/konzerte/ragnhild-hemsing-violine-hardangerfiedel",
+      "venue": "Schloss, Ordenssaal",
+      "city": "Ludwigsburg",
+      "performers": [
+        "Ragnhild Hemsing (Violine & Hardangerfiedel)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Jean Sibelius",
+          "work": "Werk von Sibelius"
+        },
+        {
+          "composer": "Edvard Grieg",
+          "work": "Werk von Grieg"
+        },
+        {
+          "composer": "Ragnhild Hemsing",
+          "work": "Werk von Hemsing"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-16",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
+      "time": "20:00",
+      "title": "Jonas Palm, Violoncello : Ludwigsburger Schlossfestspiele",
+      "url": "https://www.wko-heilbronn.de/konzerte/jonas-palm-violoncello",
+      "venue": "Schloss",
+      "city": "Ludwigsburg",
+      "performers": [
+        "Jonas Palm (Violoncello)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-07-17",
+      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
+      "time": "20:00",
+      "title": "Ragnhild Hemsing, Violine & Hardangerfiedel : Weilburger Schlosskonzerte",
+      "url": "https://www.wko-heilbronn.de/konzerte/ragnhild-hemsing-violine-hardangerfiedel",
+      "venue": "Schloss, Renaissancehof",
+      "city": "Weilburg",
+      "performers": [
+        "Ragnhild Hemsing (Violine & Hardangerfiedel)",
+        "Württembergisches Kammerorchester Heilbronn"
+      ],
+      "program": [
+        {
+          "composer": "Jean Sibelius",
+          "work": "Werk von Sibelius"
+        },
+        {
+          "composer": "Edvard Grieg",
+          "work": "Werk von Grieg"
+        },
+        {
+          "composer": "Ragnhild Hemsing",
+          "work": "Werk von Hemsing"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Württembergisches Kammerorchester Heilbronn"
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "11:00",
+      "title": "10. Sinfoniekonzert",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/10-sinfoniekonzert/?id_datum=4351",
+      "venue": "Alte Oper Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-08",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "20:00",
+      "title": "10. Sinfoniekonzert",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/10-sinfoniekonzert/?id_datum=4352",
+      "venue": "Alte Oper Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-04",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "18:00",
+      "title": "Turandot",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/turandot/?id_datum=4552",
+      "venue": "Opernhaus Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "program": [
+        {
+          "composer": "Giacomo Puccini",
+          "work": "Turandot"
+        }
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "19:00",
+      "title": "Bluthochzeit",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/bluthochzeit/?id_datum=4567",
+      "venue": "Opernhaus Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Fortner",
+          "work": "Bluthochzeit"
+        }
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "18:00",
+      "title": "Tancredi",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/tancredi/?id_datum=4569",
+      "venue": "Opernhaus Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "program": [
+        {
+          "composer": "Gioachino Rossini",
+          "work": "Tancredi"
+        }
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-11",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "19:00",
+      "title": "Tancredi",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/tancredi/?id_datum=4570",
+      "venue": "Opernhaus Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "program": [
+        {
+          "composer": "Gioachino Rossini",
+          "work": "Tancredi"
+        }
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-13",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "19:00",
+      "title": "Der Triumph von Zeit und Erkenntnis",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/der-triumph/?id_datum=4577",
+      "venue": "Bockenheimer Depot",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "program": [
+        {
+          "composer": "Georg Friedrich Händel",
+          "work": "Der Triumph von Zeit und Erkenntnis"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-13",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "19:00",
+      "title": "Macbeth",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/macbeth_2/?id_datum=4561",
+      "venue": "Opernhaus Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "program": [
+        {
+          "composer": "Giuseppe Verdi",
+          "work": "Macbeth"
+        }
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.oper-frankfurt.de/de/spielplan/",
+      "time": "11:00",
+      "title": "Kammermusik",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/konzerte/kammermusik/?id_datum=4378",
+      "venue": "Holzfoyer",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Mitglieder der Paul-Hindemith Orchester-Akademie"
+      ],
+      "venue_id": null,
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.oper-frankfurt.de/de/konzerte/museumskonzerte/",
+      "time": "11:00",
+      "title": "10. Sinfoniekonzert",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/10-sinfoniekonzert/?id_datum=4351",
+      "venue": "Alte Oper Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-08",
+      "source_url": "https://www.oper-frankfurt.de/de/konzerte/museumskonzerte/",
+      "time": "20:00",
+      "title": "10. Sinfoniekonzert",
+      "url": "https://www.oper-frankfurt.de/de/spielplan/10-sinfoniekonzert/?id_datum=4352",
+      "venue": "Alte Oper Frankfurt",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Opern- und Museumsorchester Frankfurt",
+        "Frankfurter Opern- und Museumsorchester"
+      ],
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "ensemble": "Opern- und Museumsorchester Frankfurt"
+    },
+    {
+      "date": "2026-06-03",
+      "source_url": "https://www.ensemble-modern.com",
+      "time": "09:45",
+      "title": "Donnerblech und Fliegenfang",
+      "url": "https://www.ensemble-modern.com/de/projekte/kita-und-familienkonzerte-2026",
+      "venue": "Haus der Deutschen Ensemble Akademie, Anbau",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Ensemble Modern"
+      ],
+      "venue_id": null,
+      "ensemble": "Ensemble Modern"
+    },
+    {
+      "date": "2026-06-03",
+      "source_url": "https://www.ensemble-modern.com",
+      "time": "11:00",
+      "title": "Donnerblech und Fliegenfang",
+      "url": "https://www.ensemble-modern.com/de/projekte/kita-und-familienkonzerte-2026",
+      "venue": "Haus der Deutschen Ensemble Akademie, Anbau",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Ensemble Modern"
+      ],
+      "venue_id": null,
+      "ensemble": "Ensemble Modern"
+    },
+    {
+      "date": "2026-06-02",
+      "source_url": "https://www.ensemble-modern.com/de/kalender",
+      "time": "09:45",
+      "title": "Donnerblech und Fliegenfang – Inszeniertes Kitakonzert für Kinder von 3-6 Jahren",
+      "url": "https://www.ensemble-modern.com/de/kalender/2026-06-02/9726#k-9726",
+      "venue": "Haus Der Deutschen Ensemble Akademie, Anbau",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Ensemble Modern",
+        "Mitglieder des Ensemble Modern",
+        "Gabriele Baba (Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Gabriele Baba & Ensemble Modern",
+          "work": "Donnerblech und Fliegenfang (2026)"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Ensemble Modern"
+    },
+    {
+      "date": "2026-06-02",
+      "source_url": "https://www.ensemble-modern.com/de/kalender",
+      "time": "11:00",
+      "title": "Donnerblech und Fliegenfang – Inszeniertes Kitakonzert für Kinder von 3-6 Jahren",
+      "url": "https://www.ensemble-modern.com/de/kalender/2026-06-02/9727#k-9727",
+      "venue": "Haus Der Deutschen Ensemble Akademie, Anbau",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Ensemble Modern",
+        "Mitglieder des Ensemble Modern",
+        "Gabriele Baba (Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Gabriele Baba & Ensemble Modern",
+          "work": "Donnerblech und Fliegenfang (2026)"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Ensemble Modern"
+    },
+    {
+      "date": "2026-06-02",
+      "source_url": "https://www.ensemble-modern.com/de/kalender",
+      "time": "17:00",
+      "title": "Verleihung der Goethe-Plakette der Stadt Frankfurt am Main an Dr. Thomas Jahn",
+      "url": "https://www.ensemble-modern.com/de/kalender/2026-06-02/9691#k-9691",
+      "venue": "Römer, Kaisersaal",
+      "city": "Frankfurt am Main",
+      "performers": [
+        "Ensemble Modern",
+        "Mitglieder des Ensemble Modern",
+        "Thomas Mittler (Horn)",
+        "Sava Stoianov (Trompete)",
+        "Till Künkler (Posaune)"
+      ],
+      "program": [
+        {
+          "composer": "Hermann Kretzschmar",
+          "work": "Sathoti Games (2026) (Uraufführung)"
+        },
+        {
+          "composer": "Márton Illés",
+          "work": "Én-kör I"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Ensemble Modern"
+    },
+    {
+      "date": "2026-06-08",
+      "source_url": "https://www.staatstheater-wiesbaden.de",
+      "title": "Lieder-Soiree: Jonathan Macker und Sascha Zarrabi",
+      "url": "http://www.staatstheater-wiesbaden.de/spielplan/a-z/lieder-soiree-08-06/",
+      "city": "Wiesbaden",
+      "performers": [
+        "Hessisches Staatsorchester Wiesbaden",
+        "Jonathan Macker",
+        "Sascha Zarrabi"
+      ],
+      "venue_id": null,
+      "ensemble": "Hessisches Staatsorchester Wiesbaden"
+    },
+    {
+      "date": "2026-06-17",
+      "source_url": "https://www.staatstheater-wiesbaden.de",
+      "title": "Così fan tutte",
+      "url": "http://www.staatstheater-wiesbaden.de/spielplan/a-z/cosi-fan-tutte-25-26/",
+      "venue": "Hessisches Staatstheater Wiesbaden",
+      "city": "Wiesbaden",
+      "performers": [
+        "Hessisches Staatsorchester Wiesbaden"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Così fan tutte"
+        }
+      ],
+      "venue_id": "wiesbaden-kurhaus-wiesbaden-friedrich-von-thiersch-saal",
+      "ensemble": "Hessisches Staatsorchester Wiesbaden"
+    },
+    {
+      "date": "2026-06-28",
+      "source_url": "https://www.staatstheater-wiesbaden.de",
+      "title": "8. Sinfoniekonzert – Konzertfest: Planeten",
+      "url": "http://www.staatstheater-wiesbaden.de/spielplan/a-z/8-sinfoniekonzert/",
+      "venue": "Hessisches Staatstheater Wiesbaden",
+      "city": "Wiesbaden",
+      "performers": [
+        "Hessisches Staatsorchester Wiesbaden",
+        "GMD Leo McFall",
+        "Chor des Hessischen Staatstheaters Wiesbaden",
+        "Chor der Stadt Wiesbaden"
+      ],
+      "venue_id": "wiesbaden-kurhaus-wiesbaden-friedrich-von-thiersch-saal",
+      "ensemble": "Hessisches Staatsorchester Wiesbaden"
+    },
+    {
+      "date": "2026-06-08",
+      "source_url": "https://www.mphil.de",
+      "time": "19:00",
+      "title": "Konzert der Orchesterakademie",
+      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/konzert-der-orchesterakademie",
+      "venue": "Allerheiligen Hofkirche",
+      "city": "München",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Mitglieder der Orchesterakademie"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchner Philharmoniker"
+    },
+    {
+      "date": "2026-06-11",
+      "source_url": "https://www.mphil.de",
+      "time": "19:30",
+      "title": "Regenbogen-Konzert",
+      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/regenbogen-konzert-20260611",
+      "venue": "Alter Rathaussaal",
+      "city": "München",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Victoria Margasyuk (Violine)",
+        "Josef Hundsbichler (Bratsche)",
+        "Friederike Luise Arnholdt (Violoncello)",
+        "Michael Neumann (Kontrabass)",
+        "Paul Rivinius (Klavier)"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchner Philharmoniker"
+    },
+    {
+      "date": "2026-06-13",
+      "source_url": "https://www.mphil.de",
+      "time": "19:00",
+      "title": "Mahler / Strauss / Martinů / Borodin",
+      "venue": "Isarphilharmonie",
+      "city": "München",
+      "performers": [
+        "Münchner Philharmoniker"
+      ],
+      "program": [
+        {
+          "composer": "Mahler",
+          "work": ""
+        },
+        {
+          "composer": "Strauss",
+          "work": ""
+        },
+        {
+          "composer": "Martinů",
+          "work": ""
+        },
+        {
+          "composer": "Borodin",
+          "work": ""
+        }
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchner Philharmoniker"
+    },
+    {
+      "date": "2026-06-05",
+      "source_url": "https://www.m-k-o.eu",
+      "time": "14:30",
+      "title": "Öffentliche Durchlaufprobe mit Jörg Widmann",
+      "url": "https://www.m-k-o.eu/event-detail/4042/25---26%20S%C3%BCdamerikatour%20(%2B%20Festtag%20Gasteig)",
+      "venue": "Isarphilharmonie, Gasteig HP8",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann"
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.m-k-o.eu",
+      "time": "17:00",
+      "title": "MKO Inside",
+      "url": "https://www.m-k-o.eu/event-detail/3859/25---26%20S%C3%BCdamerikatour%20(%2B%20Festtag%20Gasteig)",
+      "venue": "Isarphilharmonie, Gasteig HP8",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann"
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.m-k-o.eu",
+      "time": "15:30",
+      "title": "MKO Inside – ein Klangerlebnis mit dem Münchener Kammerorchester",
+      "url": "https://www.m-k-o.eu/event-detail/3860/25---26%20S%C3%BCdamerikatour%20(%2B%20Festtag%20Gasteig)",
+      "venue": "Isarphilharmonie, Gasteig HP8",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann"
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-11",
+      "source_url": "https://www.m-k-o.eu",
+      "time": "20:00",
+      "title": "Jubiläumskonzert 75 Jahre MKO",
+      "url": "https://www.m-k-o.eu/event-detail/2972/25---26%20Abo%208/",
+      "venue": "Isarphilharmonie",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann"
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.m-k-o.eu",
+      "title": "São Paulo",
+      "city": "São Paulo",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-15",
+      "source_url": "https://www.m-k-o.eu",
+      "title": "São Paulo",
+      "city": "São Paulo",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-17",
+      "source_url": "https://www.m-k-o.eu",
+      "title": "São Paulo",
+      "city": "São Paulo",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-18",
+      "source_url": "https://www.m-k-o.eu",
+      "title": "São Paulo",
+      "city": "São Paulo",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-04",
+      "source_url": "https://www.m-k-o.eu",
+      "title": "KOMPONISTINNENPORTRÄT NINA ŠENK (*1982)",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Bas Wiegers"
+      ],
+      "program": [
+        {
+          "composer": "Nina Šenk",
+          "work": "Komponistinnenporträt"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-11",
+      "source_url": "https://www.m-k-o.eu",
+      "title": "Kammermusikfest",
+      "url": "https://www.m-k-o.eu/event-detail/3122/25---26%20MKO-Kammermusikfest/",
+      "venue": "Villa Stuck",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-13",
+      "source_url": "https://www.m-k-o.eu",
+      "title": "Erlangen",
+      "city": "Erlangen",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Enrico Onofri"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-19",
+      "source_url": "https://www.m-k-o.eu",
+      "title": "Herrenchiemsee Festspiele",
+      "venue": "Herrenchiemsee",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Enrico Onofri"
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-05",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "14:30",
+      "title": "Öffentliche Durchlaufprobe mit Jörg Widmann",
+      "url": "https://www.m-k-o.eu/event-detail/4042/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
+      "venue": "Isarphilharmonie, Gasteig HP8",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "17:00",
+      "title": "MKO Inside",
+      "url": "https://www.m-k-o.eu/event-detail/3859/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
+      "venue": "Isarphilharmonie, Gasteig HP8",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "15:30",
+      "title": "MKO Inside – ein Klangerlebnis mit dem Münchener Kammerorchester",
+      "url": "https://www.m-k-o.eu/event-detail/3860/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
+      "venue": "Isarphilharmonie, Gasteig HP8",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-11",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "20:00",
+      "title": "Jubiläumskonzert 75 Jahre MKO",
+      "url": "https://www.m-k-o.eu/event-detail/2972/25---26%20Abo%208",
+      "venue": "Isarphilharmonie, Gasteig HP8",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Tölzer Knabenchor",
+        "Claron McFadden, Sopran",
+        "Johannes Berger, Orgel",
+        "Geneviève Tschumi, Alt",
+        "Lukas Siebert, Tenor",
+        "Krešimir Stražanac, Bass",
+        "Jörg Widmann, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Felix Mendelssohn-Bartholdy",
+          "work": "Werke"
+        },
+        {
+          "composer": "Jörg Widmann",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "17:30",
+      "title": "São Paulo",
+      "url": "https://www.m-k-o.eu/event-detail/2981/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
+      "venue": "Teatro Cultura Artistica",
+      "city": "São Paulo",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann, Leitung und Klarinette",
+        "Jörg Widmann, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Felix Mendelssohn-Bartholdy",
+          "work": "Werke"
+        },
+        {
+          "composer": "Jörg Widmann",
+          "work": "Werke"
+        },
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Werke"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-15",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "20:00",
+      "title": "São Paulo",
+      "url": "https://www.m-k-o.eu/event-detail/2988/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
+      "venue": "Teatro Cultura Artistica",
+      "city": "São Paulo",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann, Leitung und Klarinette",
+        "Jörg Widmann, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Felix Mendelssohn-Bartholdy",
+          "work": "Werke"
+        },
+        {
+          "composer": "Jörg Widmann",
+          "work": "Werke"
+        },
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Werke"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-17",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "20:00",
+      "title": "São Paulo",
+      "url": "https://www.m-k-o.eu/event-detail/2989/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
+      "venue": "Teatro Cultura Artistica",
+      "city": "São Paulo",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann, Leitung und Klarinette",
+        "Jörg Widmann, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Felix Mendelssohn-Bartholdy",
+          "work": "Werke"
+        },
+        {
+          "composer": "Jörg Widmann",
+          "work": "Werke"
+        },
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Werke"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-18",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "20:00",
+      "title": "São Paulo",
+      "url": "https://www.m-k-o.eu/event-detail/2990/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
+      "venue": "Teatro Cultura Artistica",
+      "city": "São Paulo",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Jörg Widmann, Leitung und Klarinette",
+        "Jörg Widmann, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Felix Mendelssohn-Bartholdy",
+          "work": "Werke"
+        },
+        {
+          "composer": "Jörg Widmann",
+          "work": "Werke"
+        },
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Werke"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-04",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "22:00",
+      "title": "KOMPONISTINNENPORTRÄT NINA ŠENK (*1982)",
+      "url": "https://www.m-k-o.eu/event-detail/3007/25---26%20PdM%203",
+      "venue": "Pinakothek der Moderne",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Christoph Walder, Horn",
+        "Anders Nyqvist, Trompete",
+        "Krassimir Sterev, Akkordeon",
+        "Bas Wiegers, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Nina Šenk",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-11",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "18:00",
+      "title": "KAMMERMUSIKFEST",
+      "url": "https://www.m-k-o.eu/event-detail/3122/25---26%20MKO-Kammermusikfest",
+      "venue": "Museum Villa Stuck",
+      "city": "München",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Musikerinnen und Musiker des Münchener Kammerorchesters"
+      ],
+      "program": [
+        {
+          "composer": "Joseph Haydn",
+          "work": "Werke"
+        },
+        {
+          "composer": "Dmitri Schostakowitsch",
+          "work": "Werke"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        },
+        {
+          "composer": "Egon Wellesz",
+          "work": "Werke"
+        },
+        {
+          "composer": "György Kurtág",
+          "work": "Werke"
+        },
+        {
+          "composer": "Johannes Bernardus Van Bree",
+          "work": "Werke"
+        },
+        {
+          "composer": "Hanns Eisler",
+          "work": "Werke"
+        },
+        {
+          "composer": "Charles Ives",
+          "work": "Werke"
+        },
+        {
+          "composer": "Béla Bartók",
+          "work": "Werke"
+        },
+        {
+          "composer": "Claude Debussy",
+          "work": "Werke"
+        },
+        {
+          "composer": "Grazyna Bacewicz",
+          "work": "Werke"
+        },
+        {
+          "composer": "Miklós Rózsa",
+          "work": "Werke"
+        },
+        {
+          "composer": "Caroline Shaw",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-13",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "19:30",
+      "title": "Erlangen – Klassik am Fluss",
+      "url": "https://www.m-k-o.eu/event-detail/3612/25---26%20Erlangen",
+      "venue": "Kulturinsel Wöhrmühle",
+      "city": "Erlangen",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Martynas Levickis, Akkordeon",
+        "Enrico Onofri, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        },
+        {
+          "composer": "Astor Piazzolla",
+          "work": "Werke"
+        },
+        {
+          "composer": "Niccolò Paganini",
+          "work": "Werke"
+        },
+        {
+          "composer": "Felix Mendelssohn-Bartholdy",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-19",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "19:00",
+      "title": "Herrenchiemsee Festspiele – Europäische Linien",
+      "url": "https://www.m-k-o.eu/event-detail/3138/25---26%20Herrenchiemsee",
+      "venue": "Schloss Herrenchiemsee, Spiegelsaal",
+      "city": "Herrenchiemsee",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Arsenii Moon, Klavier",
+        "Enrico Onofri, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        },
+        {
+          "composer": "Frédéric Chopin",
+          "work": "Werke"
+        },
+        {
+          "composer": "Felix Mendelssohn-Bartholdy",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-22",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "19:30",
+      "title": "Rheingau Musik Festival – Venezianische Barock- und Trompetenklänge",
+      "url": "https://www.m-k-o.eu/event-detail/3132/25---26%20Rheingau%20Musik%20Festival",
+      "venue": "Kloster Eberbach",
+      "city": "Eltville am Rhein",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Lucienne Renaudin Vary, Trompete",
+        "Malin Broman, Leitung und Konzertmeisterin"
+      ],
+      "program": [
+        {
+          "composer": "Domenico Cimarosa",
+          "work": "Werke"
+        },
+        {
+          "composer": "Alessandro Marcello",
+          "work": "Werke"
+        },
+        {
+          "composer": "Antonio Vivaldi",
+          "work": "Werke"
+        },
+        {
+          "composer": "Jean-Baptiste Arban",
+          "work": "Werke"
+        },
+        {
+          "composer": "Luigi Boccherini",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-07-30",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+      "time": "21:00",
+      "title": "V01CES//B0­D1EZ",
+      "url": "https://www.m-k-o.eu/event-detail/3660/25---26%20Biennale",
+      "venue": "Forum am Schlosspark Ludwigsburg",
+      "city": "Ludwigsburg",
+      "performers": [
+        "Münchener Kammerorchester",
+        "Henrique Lencastre, Tenor",
+        "Marc Hajjar, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Hans Werner Henze",
+          "work": "Werke"
+        },
+        {
+          "composer": "Piyawat Louilarpprasert",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Münchener Kammerorchester"
+    },
+    {
+      "date": "2026-06-13",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "20:00",
+      "title": "FIESTA Y FANTASÍA – Spanisch.Sinnlich.Spritzig",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/fiesta-y-fantasiaspanischsinnlichspritzig",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "17:00",
+      "title": "ZU GAST IN NEUENSTEIN – FIESTA Y FANTASÍA – Spanisch.Sinnlich.Spritzig",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-in-neuensteinfiesta-y-fantasia-spanischsinnlichspritzig",
+      "venue": "Rittersaal Schloss Neuenstein",
+      "city": "Neuenstein",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-16",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "20:00",
+      "title": "STARS VON MORGEN – Gastkonzert der Hochschule für Musik Nürnberg",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/stars-von-morgengastkonzert-der-hochschule-fuer-musik-nuernberg",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker",
+        "Hochschule für Musik Nürnberg"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-19",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "20:00",
+      "title": "SYMPHONISCHE SOMMERNACHT – Von Nürnberg auf dem Weg nach Wien",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/symphonische-sommernachtvon-nuernberg-auf-dem-weg-nach-wien",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-21",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "11:00",
+      "title": "ZU GAST IM WIENER MUSIKVEREIN",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-im-wiener-musikverein",
+      "venue": "Musikverein Goldener Saal",
+      "city": "Wien",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-24",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "20:00",
+      "title": "SINFONÍA DEL TANGO – Eine Nacht in Buenos Aires",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/sinfonia-del-tangoeine-nacht-in-buenos-aires",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-27",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "20:00",
+      "title": "THE BEAUTY X JURASSIC PARK – Kino für die Ohren",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/the-beauty-x-jurassic-parkkino-fuer-die-ohren",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-28",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "20:00",
+      "title": "THE BEAUTY X JURASSIC PARK – Kino für die Ohren",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/the-beauty-x-jurassic-parkkino-fuer-die-ohren-1",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-07-04",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "18:00",
+      "title": "ZU GAST IN WEISSENBURG",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-in-weissenburg",
+      "venue": "Bergwaldtheater",
+      "city": "Weißenburg",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-07-09",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "19:00",
+      "title": "ZU GAST IN NEUMARKT",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-in-neumarkt",
+      "venue": "Historischer Reitstadel",
+      "city": "Neumarkt i.d. OPf.",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-07-10",
+      "source_url": "https://www.nuernbergersymphoniker.de",
+      "time": "20:00",
+      "title": "SCHÖNE STIMMEN – Das Beste aus der Welt der Oper",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/schoene-stimmendas-beste-aus-der-welt-der-oper",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-10",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
+      "time": "20:00",
+      "title": "A NIGHT ON BROADWAY – Curtain up! für die Welt des Musicals",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/a-night-on-broadwaycurtain-up-fuer-die-welt-des-musicals",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker",
+        "Roberta Valentini (Vocals)",
+        "Philipp Büttner (Vocals)",
+        "Bernd Steixner (Leitung)"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-13",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
+      "time": "20:00",
+      "title": "FIESTA Y FANTASÍA – Spanisch.Sinnlich.Spritzig",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/fiesta-y-fantasiaspanischsinnlichspritzig",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker",
+        "Fetén Fetén (Duo)",
+        "Adrien Perruchon (Leitung)"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
+      "time": "17:00",
+      "title": "ZU GAST IN NEUENSTEIN – FIESTA Y FANTASÍA – Spanisch.Sinnlich.Spritzig",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-in-neuensteinfiesta-y-fantasia-spanischsinnlichspritzig",
+      "venue": "Rittersaal Schloss Neuenstein",
+      "city": "Neuenstein",
+      "performers": [
+        "Nürnberger Symphoniker",
+        "Fetén Fetén (Duo)",
+        "Adrien Perruchon (Leitung)"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-16",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
+      "time": "20:00",
+      "title": "STARS VON MORGEN – Gastkonzert der Hochschule für Musik Nürnberg",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/stars-von-morgengastkonzert-der-hochschule-fuer-musik-nuernberg",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker",
+        "Sinfonieorchester der Hochschule für Musik Nürnberg",
+        "Lidia Rubio (Tuba)",
+        "Anton Vogel (Kontrabass)",
+        "Guido Johannes Rumstadt (Leitung)"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-19",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
+      "time": "20:00",
+      "title": "SYMPHONISCHE SOMMERNACHT – Von Nürnberg auf dem Weg nach Wien",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/symphonische-sommernachtvon-nuernberg-auf-dem-weg-nach-wien",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker",
+        "Stefan Aprodu (Violine)",
+        "Michiaki Ueno (Violoncello)",
+        "Yuki Miyagi (Leitung)"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-21",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
+      "time": "11:00",
+      "title": "ZU GAST IM WIENER MUSIKVEREIN",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-im-wiener-musikverein",
+      "venue": "Musikverein Goldener Saal",
+      "city": "Wien",
+      "performers": [
+        "Nürnberger Symphoniker",
+        "Stefan Aprodu (Violine)",
+        "Michiaki Ueno (Violoncello)",
+        "Yuki Miyagi (Leitung)"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-24",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
+      "time": "20:00",
+      "title": "SINFONÍA DEL TANGO – Eine Nacht in Buenos Aires",
+      "url": "https://www.nuernbergersymphoniker.de/konzert/sinfonia-del-tangoeine-nacht-in-buenos-aires",
+      "venue": "Serenadenhof",
+      "city": "Nürnberg",
+      "performers": [
+        "Nürnberger Symphoniker",
+        "Michael Dolak (Bandoneon)",
+        "Norbert Nagel (Klarinette, Saxofon, Bassklarinette)",
+        "Norbert Nagel (Leitung)"
+      ],
+      "venue_id": null,
+      "ensemble": "Nürnberger Symphoniker"
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.staatstheater-nuernberg.de/spielplan-25-26",
+      "time": "11:00",
+      "title": "Dreiklang in der Gustav-Adolf-Gedächtniskirche",
+      "url": "https://www.staatstheater-nuernberg.de/spielplan-25-26/dreiklang-in-der-gustav-adolf-gedaechtniskirche/07-06-2026/1100",
+      "venue": "Gustav-Adolf-Gedächtniskirche",
+      "city": "Nürnberg",
+      "performers": [
+        "Staatsphilharmonie Nürnberg"
+      ],
+      "venue_id": null,
+      "ensemble": "Staatsphilharmonie Nürnberg"
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.staatstheater-nuernberg.de/spielplan-25-26",
+      "time": "17:00",
+      "title": "Ein Fall für Figaro",
+      "url": "https://www.staatstheater-nuernberg.de/spielplan-25-26/ein-fall-fuer-figaro/07-06-2026/1700",
+      "venue": "Opernhaus",
+      "city": "Nürnberg",
+      "performers": [
+        "Staatsphilharmonie Nürnberg"
+      ],
+      "program": [
+        {
+          "composer": "Gioacchino Rossini",
+          "work": "Ein Fall für Figaro (Musikalische Komödie nach Rossini)"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Staatsphilharmonie Nürnberg"
+    },
+    {
+      "date": "2026-06-08",
+      "source_url": "https://www.staatstheater-nuernberg.de/spielplan-25-26",
+      "time": "10:30",
+      "title": "Ein Fall für Figaro",
+      "url": "https://www.staatstheater-nuernberg.de/spielplan-25-26/ein-fall-fuer-figaro/08-06-2026/1030",
+      "venue": "Opernhaus",
+      "city": "Nürnberg",
+      "performers": [
+        "Staatsphilharmonie Nürnberg"
+      ],
+      "program": [
+        {
+          "composer": "Gioacchino Rossini",
+          "work": "Ein Fall für Figaro (Musikalische Komödie nach Rossini)"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Staatsphilharmonie Nürnberg"
+    },
+    {
+      "date": "2026-06-09",
+      "source_url": "https://www.staatstheater-nuernberg.de/spielplan-25-26",
+      "time": "10:30",
+      "title": "Ein Fall für Figaro",
+      "url": "https://www.staatstheater-nuernberg.de/spielplan-25-26/ein-fall-fuer-figaro/09-06-2026/1030",
+      "venue": "Opernhaus",
+      "city": "Nürnberg",
+      "performers": [
+        "Staatsphilharmonie Nürnberg"
+      ],
+      "program": [
+        {
+          "composer": "Gioacchino Rossini",
+          "work": "Ein Fall für Figaro (Musikalische Komödie nach Rossini)"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Staatsphilharmonie Nürnberg"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.staatstheater-nuernberg.de/spielplan-25-26",
+      "time": "19:00",
+      "title": "Der Freischütz",
+      "url": "https://www.staatstheater-nuernberg.de/spielplan-25-26/der-freischuetz/06-06-2026/1900",
+      "venue": "Opernhaus",
+      "city": "Nürnberg",
+      "performers": [
+        "Staatsphilharmonie Nürnberg"
+      ],
+      "program": [
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Der Freischütz"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Staatsphilharmonie Nürnberg"
+    },
+    {
+      "date": "2026-06-09",
+      "source_url": "https://www.staatstheater-nuernberg.de/spielplan-25-26",
+      "time": "19:30",
+      "title": "Der Freischütz",
+      "url": "https://www.staatstheater-nuernberg.de/spielplan-25-26/der-freischuetz/09-06-2026/1930",
+      "venue": "Opernhaus",
+      "city": "Nürnberg",
+      "performers": [
+        "Staatsphilharmonie Nürnberg"
+      ],
+      "program": [
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Der Freischütz"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Staatsphilharmonie Nürnberg"
+    },
+    {
+      "date": "2026-06-10",
+      "source_url": "https://www.staatstheater-nuernberg.de/spielplan-25-26",
+      "time": "19:00",
+      "title": "Lulu",
+      "url": "https://www.staatstheater-nuernberg.de/spielplan-25-26/lulu/10-06-2026/1900",
+      "venue": "Opernhaus",
+      "city": "Nürnberg",
+      "performers": [
+        "Staatsphilharmonie Nürnberg"
+      ],
+      "program": [
+        {
+          "composer": "Alban Berg",
+          "work": "Lulu"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Staatsphilharmonie Nürnberg"
+    },
+    {
+      "date": "2026-06-11",
+      "source_url": "https://www.staatstheater-nuernberg.de/spielplan-25-26",
+      "time": "13:00",
+      "title": "9. Lunchkonzert",
+      "url": "https://www.staatstheater-nuernberg.de/spielplan-25-26/9-lunchkonzert/11-06-2026/1300",
+      "venue": "Germanisches Nationalmuseum",
+      "city": "Nürnberg",
+      "performers": [
+        "Staatsphilharmonie Nürnberg"
+      ],
+      "venue_id": null,
+      "ensemble": "Staatsphilharmonie Nürnberg"
+    },
+    {
+      "date": "2026-06-03",
+      "source_url": "https://www.bamberger-symphoniker.de",
+      "time": "20:00",
+      "title": "Zu Gast beim Mozartfest Würzburg",
+      "url": "https://www.bamberger-symphoniker.de/programm-tickets/konzertuebersicht/zu-gast-beim-mozartfest-wuerzburg-03-06-2026.html",
+      "venue": "Kaisersaal der Residenz",
+      "city": "Würzburg",
+      "performers": [
+        "Bamberger Symphoniker",
+        "Dinis Sousa (Dirigent)",
+        "Tianwa Yang (Violine)"
+      ],
+      "program": [
+        {
+          "composer": "Igor Strawinski",
+          "work": "Konzert für Streicher in D »Basler Konzert«"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Konzert für Violine und Orchester Nr. 2 D-Dur KV 211"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Symphonie Nr. 38 D-Dur KV 504 »Prager«"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Bamberger Symphoniker"
+    },
+    {
+      "date": "2026-06-04",
+      "source_url": "https://www.bamberger-symphoniker.de",
+      "time": "20:00",
+      "title": "Zu Gast beim Mozartfest Würzburg",
+      "url": "https://www.bamberger-symphoniker.de/programm-tickets/konzertuebersicht/zu-gast-beim-mozartfest-wuerzburg-04-06-2026.html",
+      "venue": "Kaisersaal der Residenz",
+      "city": "Würzburg",
+      "performers": [
+        "Bamberger Symphoniker",
+        "Dinis Sousa (Dirigent)",
+        "Tianwa Yang (Violine)"
+      ],
+      "program": [
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Konzert für Violine und Orchester D-Dur op. 61"
+        },
+        {
+          "composer": "Igor Strawinski",
+          "work": "Konzert für Streicher in D »Basler Konzert«"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Symphonie Nr. 38 D-Dur KV 504 »Prager«"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Bamberger Symphoniker"
+    },
+    {
+      "date": "2026-06-05",
+      "source_url": "https://www.bamberger-symphoniker.de",
+      "time": "20:00",
+      "title": "VR Bank Bamberg-Forchheim Open Air",
+      "url": "https://www.bamberger-symphoniker.de/programm-tickets/konzertuebersicht/vr-bank-bamberg-forchheim-open-air-05-06-2026.html",
+      "venue": "Schloss Jägersburg",
+      "city": "Forchheim",
+      "performers": [
+        "Bamberger Symphoniker",
+        "Dinis Sousa (Dirigent)",
+        "Tianwa Yang (Violine)"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Die Hochzeit des Figaro - Ouvertüre KV 492"
+        },
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Konzert für Violine und Orchester D-Dur op. 61"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Symphonie Nr. 38 D-Dur KV 504 »Prager«"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Bamberger Symphoniker"
+    },
+    {
+      "date": "2026-06-15",
+      "source_url": "https://www.bamberger-symphoniker.de/abos/aboreihen.html",
+      "title": "B 8-UM-18-Uhr Abo",
+      "city": "Bamberg",
+      "performers": [
+        "Bamberger Symphoniker",
+        "Jakub Hrůša (Dirigent)",
+        "Koch",
+        "Winters",
+        "Weissová",
+        "Spence",
+        "Atkins"
+      ],
+      "program": [
+        {
+          "composer": "Feld",
+          "work": ""
+        },
+        {
+          "composer": "Janáček",
+          "work": ""
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Bamberger Symphoniker"
+    },
+    {
+      "date": "2026-06-12",
+      "source_url": "https://www.hofer-symphoniker.de",
+      "time": "19:00",
+      "title": "Kammerkonzert – Eine Reise um die Welt",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/kammerkonzert-stammbach-12-06-2026/",
+      "city": "Stammbach",
+      "performers": [
+        "Hofer Symphoniker",
+        "Ensembles der Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.hofer-symphoniker.de",
+      "time": "18:00",
+      "title": "Open-Air-Kammerkonzert – Thiersteiner Burgsommer",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/thiersteiner-burgsommer-2026/",
+      "performers": [
+        "Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-06-19",
+      "source_url": "https://www.hofer-symphoniker.de",
+      "time": "19:30",
+      "title": "10. Symphoniekonzert – In Freundschaft",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/10-symphoniekonzert-2026/",
+      "performers": [
+        "Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-06-25",
+      "source_url": "https://www.hofer-symphoniker.de",
+      "time": "19:30",
+      "title": "Symphoniekonzert",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/symphoniekonzert-selb-juni-2026/",
+      "venue": "Rosenthal-Theater Selb",
+      "city": "Selb",
+      "performers": [
+        "Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-06-12",
+      "source_url": "https://www.hofer-symphoniker.de/konzerte-tickets-events/",
+      "time": "19:00",
+      "title": "Kammerkonzert – Eine Reise um die Welt",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/kammerkonzert-stammbach-12-06-2026/",
+      "venue": "Marienkirche Stammbach",
+      "city": "Stammbach",
+      "performers": [
+        "Hofer Symphoniker",
+        "Ensembles der Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.hofer-symphoniker.de/konzerte-tickets-events/",
+      "time": "18:00",
+      "title": "Thiersteiner Burgsommer",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/thiersteiner-burgsommer-2026/",
+      "venue": "Burg Thierstein",
+      "city": "Thierstein",
+      "performers": [
+        "Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-06-19",
+      "source_url": "https://www.hofer-symphoniker.de/konzerte-tickets-events/",
+      "time": "19:30",
+      "title": "10. Symphoniekonzert – In Freundschaft",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/10-symphoniekonzert-2026/",
+      "venue": "Festsaal, Freiheitshalle Hof",
+      "city": "Hof",
+      "performers": [
+        "Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-06-25",
+      "source_url": "https://www.hofer-symphoniker.de/konzerte-tickets-events/",
+      "time": "19:30",
+      "title": "Symphoniekonzert",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/symphoniekonzert-selb-juni-2026/",
+      "venue": "Rosenthal-Theater Selb",
+      "city": "Selb",
+      "performers": [
+        "Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-07-10",
+      "source_url": "https://www.hofer-symphoniker.de/konzerte-tickets-events/",
+      "time": "19:30",
+      "title": "11. Symphoniekonzert",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/11-symphoniekonzert-2026/",
+      "venue": "Festsaal, Freiheitshalle Hof",
+      "city": "Hof",
+      "performers": [
+        "Hofer Symphoniker"
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
+    },
+    {
+      "date": "2026-06-19",
+      "source_url": "https://www.hofer-symphoniker.de/konzerte-tickets/10-symphoniekonzert-2026/",
+      "time": "19:30",
+      "title": "10. Symphoniekonzert 2026 – In Freundschaft",
+      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/10-symphoniekonzert-2026/",
+      "venue": "Festsaal, Freiheitshalle Hof",
+      "city": "Hof",
+      "performers": [
+        "Hofer Symphoniker",
+        "Martijn Dendievel (Chefdirigent)",
+        "Andrei Ioniță (Violoncello)"
+      ],
+      "program": [
+        {
+          "composer": "Mieczysław Weinberg",
+          "work": "Cellokonzert c-Moll op. 43"
+        },
+        {
+          "composer": "Dmitrij Schostakowitsch",
+          "work": "Symphonie Nr. 10 e-Moll op. 93"
+        }
+      ],
+      "venue_id": null,
+      "ensemble": "Hofer Symphoniker"
     }
   ],
-  "enriched_at": "2026-06-03"
+  "enriched_at": "2026-06-03",
+  "_ensemble_state": {
+    "stuttgart-swr-symphonieorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.swr.de/symphonieorchester",
+        "https://www.swr.de/kultur/musik/konzertkalender-frontmoddetail-100.html?swx_egCategory=swrclassic-so&swx_egMonth=all",
+        "https://www.swr.de/swr-symphonieorchester/konzerte-tickets-100.html",
+        "https://www.swr.de/swr-symphonieorchester/spielplan-100.html",
+        "https://www.swr.de/kultur/musik/konzertkalender-frontmoddetail-100.html?swx_egCategory=swrclassic-so&swx_egMonth=2026-06"
+      ],
+      "concert_count": 9
+    },
+    "stuttgart-staatsorchester-stuttgart": {
+      "status": "done",
+      "tried": [
+        "https://www.staatsorchester-stuttgart.de"
+      ],
+      "concert_count": 0
+    },
+    "stuttgart-stuttgarter-philharmoniker": {
+      "status": "done",
+      "tried": [
+        "https://www.stuttgarter-philharmoniker.de",
+        "https://www.stuttgarter-philharmoniker.de/konzertprogramm-aktuell.html",
+        "https://www.stuttgarter-philharmoniker.de/programm-vorschau.html"
+      ],
+      "concert_count": 0
+    },
+    "stuttgart-stuttgarter-kammerorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.stuttgarter-kammerorchester.de"
+      ],
+      "concert_count": 0
+    },
+    "reutlingen-württembergische-philharmonie-reutlingen": {
+      "status": "done",
+      "tried": [
+        "https://www.wuerttembergische-philharmonie.de",
+        "https://www.wuerttembergische-philharmonie.de/musik/alle-konzerte/",
+        "https://www.wuerttembergische-philharmonie.de/musik/sinfoniekonzerte/"
+      ],
+      "concert_count": 0
+    },
+    "freiburg-philharmonisches-orchester-freiburg": {
+      "status": "done",
+      "tried": [
+        "https://www.theater.freiburg.de",
+        "https://www.theater.freiburg.de/de_DE/spielplan",
+        "https://www.theater.freiburg.de/de_DE/programm"
+      ],
+      "concert_count": 0
+    },
+    "freiburg-freiburger-barockorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.barockorchester.de",
+        "https://barockorchester.de/konzertkalender/",
+        "https://barockorchester.de/konzertreihen/"
+      ],
+      "concert_count": 0
+    },
+    "karlsruhe-badische-staatskapelle": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater.karlsruhe.de/staatskapelle"
+      ],
+      "concert_count": 0
+    },
+    "heidelberg-philharmonisches-orchester-heidelberg": {
+      "status": "done",
+      "tried": [
+        "https://www.theaterheidelberg.de",
+        "https://www.theaterheidelberg.de/de/kalender/",
+        "https://www.theaterheidelberg.de/de/sparten/155-konzert"
+      ],
+      "concert_count": 0
+    },
+    "mannheim-nationaltheater-orchester-mannheim": {
+      "status": "done",
+      "tried": [
+        "https://www.nationaltheater-mannheim.de",
+        "https://www.nationaltheater-mannheim.de/spielplan/",
+        "https://www.nationaltheater-mannheim.de/das-theater/festivals/mannheimer-sommer-2026/"
+      ],
+      "concert_count": 0
+    },
+    "baden-baden-philharmonie-baden-baden": {
+      "status": "done",
+      "tried": [
+        "https://www.philharmonie.baden-baden.de"
+      ],
+      "concert_count": 0
+    },
+    "pforzheim-badische-philharmonie-pforzheim": {
+      "status": "done",
+      "tried": [
+        "https://www.theater-pforzheim.de",
+        "https://www.theater-pforzheim.de/spielplan/konzerte.html",
+        "https://www.theater-pforzheim.de/spielplan.html"
+      ],
+      "concert_count": 5
+    },
+    "ulm-philharmonisches-orchester-der-stadt-ulm": {
+      "status": "done",
+      "tried": [
+        "https://www.theater-ulm.de",
+        "https://www.theater-ulm.de/spielplan",
+        "https://www.theater-ulm.de/spielplan/musiktheater",
+        "https://www.theater-ulm.de/konzerte",
+        "https://www.theater-ulm.de/spielplan/konzert",
+        "https://www.theater-ulm.de/programm",
+        "https://www.theater-ulm.de/kalender"
+      ],
+      "concert_count": 2
+    },
+    "konstanz-südwestdeutsche-philharmonie-konstanz": {
+      "status": "done",
+      "tried": [
+        "https://www.swp-konstanz.de"
+      ],
+      "concert_count": 0
+    },
+    "heilbronn-württembergisches-kammerorchester-heilbronn": {
+      "status": "done",
+      "tried": [
+        "https://www.wko-heilbronn.de",
+        "https://www.wko-heilbronn.de/konzerte/?cat=31",
+        "https://www.wko-heilbronn.de/konzerte/?cat=26"
+      ],
+      "concert_count": 22
+    },
+    "frankfurt-am-main-hr-sinfonieorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.hr-sinfonieorchester.de",
+        "https://www.hr-sinfonieorchester.de/konzerte/konzertkalender/index.html",
+        "https://www.hr-sinfonieorchester.de/konzerte/konzerte-26-27/index.html"
+      ],
+      "concert_count": 0
+    },
+    "frankfurt-am-main-opern--und-museumsorchester-frankfurt": {
+      "status": "done",
+      "tried": [
+        "https://www.oper-frankfurt.de",
+        "https://www.oper-frankfurt.de/de/spielplan/",
+        "https://www.oper-frankfurt.de/de/konzerte/museumskonzerte/"
+      ],
+      "concert_count": 11
+    },
+    "frankfurt-am-main-frankfurt-chamber-orchestra": {
+      "status": "done",
+      "tried": [
+        "https://www.frankfurtchamberorchestra.org"
+      ],
+      "concert_count": 0
+    },
+    "frankfurt-am-main-camerata-frankfurt": {
+      "status": "done",
+      "tried": [
+        "https://www.camerata-frankfurt.de"
+      ],
+      "concert_count": 0
+    },
+    "frankfurt-am-main-ensemble-modern": {
+      "status": "done",
+      "tried": [
+        "https://www.ensemble-modern.com",
+        "https://www.ensemble-modern.com/de/kalender",
+        "https://www.ensemble-modern.com/de/projekte/aktuelle"
+      ],
+      "concert_count": 5
+    },
+    "frankfurt-am-main-frankfurter-bachkonzerte-ensemble": {
+      "status": "done",
+      "tried": [
+        "https://www.bachkonzerte.de"
+      ],
+      "concert_count": 0
+    },
+    "wiesbaden-hessisches-staatsorchester-wiesbaden": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-wiesbaden.de",
+        "https://www.staatstheater-wiesbaden.de/spielplan/kalender/",
+        "https://www.staatstheater-wiesbaden.de/spielplan/konzerte-25-26/"
+      ],
+      "concert_count": 3
+    },
+    "kassel-staatsorchester-kassel": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-kassel.de",
+        "https://www.staatstheater-kassel.de/spielplan/konzerte",
+        "https://www.staatstheater-kassel.de/kalender"
+      ],
+      "concert_count": 0
+    },
+    "darmstadt-staatsorchester-darmstadt": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-darmstadt.de",
+        "https://www.staatstheater-darmstadt.de/spielplan/",
+        "https://www.staatstheater-darmstadt.de/spielplan/konzert/",
+        "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+        "https://www.staatstheater-darmstadt.de/spielplan/?kategorie=76"
+      ],
+      "concert_count": 0
+    },
+    "münchen-bayerisches-staatsorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.staatsoper.de/en/staatsorchester"
+      ],
+      "concert_count": 0
+    },
+    "münchen-symphonieorchester-des-bayerischen-rundfunks": {
+      "status": "done",
+      "tried": [
+        "https://www.br-so.com",
+        "https://www.brso.de/en/concerts-tickets/event-calendar/",
+        "https://www.brso.de/en/concerts-tickets/"
+      ],
+      "concert_count": 0
+    },
+    "münchen-münchner-philharmoniker": {
+      "status": "done",
+      "tried": [
+        "https://www.mphil.de",
+        "https://www.mphil.de/kalender",
+        "https://www.mphil.de/konzerte-und-karten/saison-2026-27"
+      ],
+      "concert_count": 3
+    },
+    "münchen-münchener-kammerorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.m-k-o.eu",
+        "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
+        "https://www.m-k-o.eu/programm/konzertreihen/"
+      ],
+      "concert_count": 26
+    },
+    "münchen-concerto-münchen": {
+      "status": "done",
+      "tried": [
+        "https://www.concerto-muenchen.de",
+        "https://www.concerto-muenchen.de/konzerte",
+        "https://www.concerto-muenchen.de/concerts"
+      ],
+      "concert_count": 0
+    },
+    "nürnberg-nürnberger-symphoniker": {
+      "status": "done",
+      "tried": [
+        "https://www.nuernbergersymphoniker.de",
+        "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
+        "https://www.nuernbergersymphoniker.de/konzerte/symphonische-konzerte"
+      ],
+      "concert_count": 18
+    },
+    "nürnberg-staatsphilharmonie-nürnberg": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-nuernberg.de",
+        "https://www.staatstheater-nuernberg.de/spielplan-25-26?sparte=Konzert&veranstaltungsart=&scrollposition=&loadedslices=",
+        "https://www.staatstheater-nuernberg.de/spielplan-25-26"
+      ],
+      "concert_count": 8
+    },
+    "augsburg-augsburger-philharmoniker": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-augsburg.de",
+        "https://www.staatstheater-augsburg.de/spielplan",
+        "https://www.staatstheater-augsburg.de/kalender"
+      ],
+      "concert_count": 0
+    },
+    "bamberg-bamberger-symphoniker": {
+      "status": "done",
+      "tried": [
+        "https://www.bamberger-symphoniker.de",
+        "https://www.bamberger-symphoniker.de/programm-tickets/konzertuebersicht.html",
+        "https://www.bamberger-symphoniker.de/abos/aboreihen.html"
+      ],
+      "concert_count": 4
+    },
+    "hof-hofer-symphoniker": {
+      "status": "done",
+      "tried": [
+        "https://www.hofer-symphoniker.de",
+        "https://www.hofer-symphoniker.de/konzerte-tickets-events/",
+        "https://www.hofer-symphoniker.de/konzerte-tickets/10-symphoniekonzert-2026/"
+      ],
+      "concert_count": 10
+    },
+    "augsburg-bayerische-kammerphilharmonie": {
+      "status": "done",
+      "tried": [
+        "https://www.bayerische-kammerphilharmonie.de"
+      ],
+      "concert_count": 0
+    }
+  }
 }
