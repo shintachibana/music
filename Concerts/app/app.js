@@ -42,6 +42,7 @@ function venueById(id) {
 }
 
 function matchesFilters(c, f) {
+  if (f.venue_id && c.venue_id !== f.venue_id) return false;
   if (f.month && c.month !== +f.month) return false;
   if (f.date && c.date !== f.date) return false;
   if (f.bundesland) {
@@ -114,6 +115,10 @@ function getFilters() {
     const el = document.getElementById("f-" + k);
     if (el) f[k] = el.value.trim();
   }
+  // venue_id comes from the URL only (set when the user clicks a map marker)
+  const params = new URLSearchParams(window.location.search);
+  const venueId = params.get("venue_id");
+  if (venueId) f.venue_id = venueId;
   return f;
 }
 
@@ -167,8 +172,15 @@ function renderMap() {
       iconSize: [28, 28],
       iconAnchor: [14, 14],
     });
-    const m = L.marker([v.lat, v.lng], { icon });
-    m.bindPopup(renderPopup(v, concerts));
+    const m = L.marker([v.lat, v.lng], { icon, title: `${v.name} — ${concerts.length} concert${concerts.length === 1 ? "" : "s"} (click to view in table)` });
+    m.on("click", () => {
+      const params = new URLSearchParams({ venue_id: v.id });
+      // Carry the active map filters into the table view too
+      for (const [k, val] of Object.entries(f)) {
+        if (val) params.set(k, val);
+      }
+      window.open(`table.html?${params.toString()}`, "_blank");
+    });
     m.addTo(markerLayer);
   }
   const venueCount = byVenue.size;
@@ -282,6 +294,29 @@ function wireFilters(onChange) {
   }
 }
 
+// ===== Venue banner (table page only) =====
+
+function renderVenueBanner() {
+  const banner = document.getElementById("venue-banner");
+  if (!banner) return;
+  const params = new URLSearchParams(window.location.search);
+  const venueId = params.get("venue_id");
+  if (!venueId) {
+    banner.style.display = "none";
+    return;
+  }
+  const v = venueById(venueId);
+  if (!v) {
+    banner.style.display = "none";
+    return;
+  }
+  const baseUrl = window.location.pathname; // strip query
+  banner.innerHTML =
+    `<span>Filtered to <strong>${escape(v.name)}</strong> · ${escape(v.city)}</span>` +
+    ` <a href="${baseUrl}" class="clear-link">show all concerts</a>`;
+  banner.style.display = "flex";
+}
+
 // ===== Sticky-top measurement =====
 
 function updateStickyTopHeight() {
@@ -313,6 +348,14 @@ function watchStickyTop() {
     renderMap();
   }
   if (document.getElementById("concerts-table")) {
+    // Pre-fill visible filters from the URL (so a marker click can carry context)
+    const params = new URLSearchParams(window.location.search);
+    for (const k of ["month", "date", "bundesland", "city", "performer", "composer", "work", "search"]) {
+      const v = params.get(k);
+      const el = document.getElementById("f-" + k);
+      if (v && el) el.value = v;
+    }
+    renderVenueBanner();
     document.querySelectorAll("th[data-sort]").forEach((th) => {
       th.addEventListener("click", () => {
         const key = th.dataset.sort;

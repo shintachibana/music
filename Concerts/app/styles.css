@@ -114,6 +114,25 @@ header.top nav a:hover, header.top nav a.active {
   font-size: 0.95rem;
 }
 
+.venue-banner {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.venue-banner .clear-link {
+  color: var(--accent);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
 .leaflet-popup-content { margin: 10px 14px; max-width: 320px; }
 .popup-venue { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
 .popup-city {
