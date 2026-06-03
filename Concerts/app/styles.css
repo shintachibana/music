@@ -163,8 +163,8 @@ table.concerts th:nth-child(1), table.concerts td:nth-child(1) { width: 9%; }   
 table.concerts th:nth-child(2), table.concerts td:nth-child(2) { width: 12%; }  /* Bundesland */
 table.concerts th:nth-child(3), table.concerts td:nth-child(3) { width: 9%; }   /* City */
 table.concerts th:nth-child(4), table.concerts td:nth-child(4) { width: 13%; }  /* Venue */
-table.concerts th:nth-child(5), table.concerts td:nth-child(5) { width: 14%; }  /* Performer (≈ half of previous) */
-table.concerts th:nth-child(6), table.concerts td:nth-child(6) { width: 39%; }  /* Program (≈ 1.5× previous) */
+table.concerts th:nth-child(5), table.concerts td:nth-child(5) { width: 18%; }  /* Performer (+25% from 14%) */
+table.concerts th:nth-child(6), table.concerts td:nth-child(6) { width: 35%; }  /* Program */
 table.concerts th:nth-child(7), table.concerts td:nth-child(7) { width: 4%; }   /* Link */
 table.concerts td { word-wrap: break-word; overflow-wrap: anywhere; }
 table.concerts td a { color: var(--accent); text-decoration: none; }
