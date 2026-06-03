@@ -344,6 +344,11 @@ function watchStickyTop() {
   watchStickyTop();
   if (document.getElementById("map")) {
     setupMap();
+    // Default to the current month so the map isn't empty on first load
+    const monthSel = document.getElementById("f-month");
+    if (monthSel && !monthSel.value) {
+      monthSel.value = String(new Date().getMonth() + 1);
+    }
     wireFilters(renderMap);
     renderMap();
   }
