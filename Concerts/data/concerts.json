@@ -3196,6 +3196,356 @@
       "venue_id": null,
       "ensemble": "Hofer Symphoniker",
       "bundesland": "Bayern"
+    },
+    {
+      "venue_id": "muenchen-isarphilharmonie",
+      "date": "2026-06-11",
+      "source_url": "https://www.mphil.de",
+      "time": "19:30",
+      "title": "Regenbogen-Konzert",
+      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/regenbogen-konzert-20260611",
+      "performers": [
+        "Victoria Margasyuk, Violine",
+        "Josef Hundsbichler, Bratsche",
+        "Friederike Luise Arnholdt, Violoncello",
+        "Michael Neumann, Kontrabass",
+        "Paul Rivinius, Klavier"
+      ]
+    },
+    {
+      "venue_id": "muenchen-isarphilharmonie",
+      "date": "2026-06-13",
+      "source_url": "https://www.mphil.de",
+      "time": "19:00",
+      "title": "Mahler · Strauss · Martinů · Borodin",
+      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/strauss-borodin-mahler-martinu-2026-06-13-19",
+      "performers": [
+        "Jakub Hrůša, Dirigent",
+        "Corinne Winters, Sopran",
+        "Jiří Brückler, Bariton",
+        "Philharmonischer Chor München",
+        "Münchner Philharmoniker"
+      ],
+      "program": [
+        {
+          "composer": "Gustav Mahler",
+          "work": "Adagietto aus der 5. Symphonie"
+        },
+        {
+          "composer": "Richard Strauss",
+          "work": "Vier letzte Lieder"
+        },
+        {
+          "composer": "Bohuslav Martinů",
+          "work": "Polní mše für Bariton, Männerchor und Ensemble"
+        },
+        {
+          "composer": "Alexander Borodin",
+          "work": "Polowetzer Tänze"
+        }
+      ]
+    },
+    {
+      "venue_id": "muenchen-isarphilharmonie",
+      "date": "2026-06-14",
+      "source_url": "https://www.mphil.de",
+      "time": "11:00",
+      "title": "Mahler · Strauss · Martinů · Borodin",
+      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/strauss-borodin-mahler-martinu-2026-06-14-11",
+      "performers": [
+        "Jakub Hrůša, Dirigent",
+        "Corinne Winters, Sopran",
+        "Jiří Brückler, Bariton",
+        "Philharmonischer Chor München",
+        "Münchner Philharmoniker"
+      ],
+      "program": [
+        {
+          "composer": "Gustav Mahler",
+          "work": "Adagietto aus der 5. Symphonie"
+        },
+        {
+          "composer": "Richard Strauss",
+          "work": "Vier letzte Lieder"
+        },
+        {
+          "composer": "Bohuslav Martinů",
+          "work": "Polní mše für Bariton, Männerchor und Ensemble"
+        },
+        {
+          "composer": "Alexander Borodin",
+          "work": "Polowetzer Tänze"
+        }
+      ]
+    },
+    {
+      "date": "2026-06-05",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "Freiburger Barockorchester",
+      "url": "https://webshop.staatstheater-darmstadt.de/de/produktion/21bd4f39-454c-4772-9662-f80d209d4273/1302",
+      "venue": "Kleines Haus, Staatstheater Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Staatsorchester Darmstadt",
+        "Freiburger Barockorchester",
+        "Alexander Chance (Countertenor)"
+      ],
+      "program": [
+        {
+          "composer": "Antonio Vivaldi",
+          "work": "Werke"
+        },
+        {
+          "composer": "Arcangelo Corelli",
+          "work": "Werke"
+        },
+        {
+          "composer": "Pietro Locatelli",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "venue_id": "darmstadt-staatstheater-darmstadt",
+      "date": "2026-06-06",
+      "source_url": "https://www.staatstheater-darmstadt.de",
+      "title": "Concert de la loge: Der verzauberte Wald",
+      "url": "https://www.staatstheater-darmstadt.de/veranstaltungen/barockfest-der-verzauberte-wald.2219/#event-12389",
+      "performers": [
+        "Concert de la Loge"
+      ]
+    },
+    {
+      "date": "2026-06-07",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "Concerti per il flauto",
+      "url": "https://webshop.staatstheater-darmstadt.de/de/produktion/21bd4f39-454c-4772-9662-f80d209d4273/1304",
+      "venue": "Kleines Haus, Staatstheater Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Staatsorchester Darmstadt",
+        "Darmstädter Barocksolisten",
+        "Dorothee Oberlinger (Blockflöte)"
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "date": "2026-06-03",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "Tea Time Barock",
+      "venue": "Foyer Großes Haus, Staatstheater Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Staatsorchester Darmstadt"
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "date": "2026-06-04",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "Lacrimae — Tränen der Freude und Trauer",
+      "url": "https://webshop.staatstheater-darmstadt.de/de/produktion/21bd4f39-454c-4772-9662-f80d209d4273/1301",
+      "venue": "Foyer Großes Haus, Staatstheater Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Staatsorchester Darmstadt",
+        "Lena Sutor Wernich (Alt)",
+        "Alon Sariel (Mandoline/Laute)",
+        "Vincent Kibildis (Harfe)"
+      ],
+      "program": [
+        {
+          "composer": "John Dowland",
+          "work": "Werke"
+        },
+        {
+          "composer": "Barbara Strozzi",
+          "work": "Werke"
+        },
+        {
+          "composer": "Francesca Caccini",
+          "work": "Werke"
+        },
+        {
+          "composer": "Rosa Giacinta Badalla",
+          "work": "Werke"
+        },
+        {
+          "composer": "Elena Postumi",
+          "work": "Werke (UA)"
+        }
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "date": "2026-06-06",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "Der verzauberte Wald",
+      "url": "https://webshop.staatstheater-darmstadt.de/de/produktion/21bd4f39-454c-4772-9662-f80d209d4273/1303",
+      "venue": "Großes Haus, Staatstheater Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Staatsorchester Darmstadt",
+        "Concert de la Loge",
+        "Julie Roset (Sopran)",
+        "Adèle Charvet (Mezzo)",
+        "Julien Chauvin (Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Georg Friedrich Händel",
+          "work": "Werke"
+        },
+        {
+          "composer": "Antonio Vivaldi",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "date": "2026-06-10",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "Polnische Spuren im Barock",
+      "url": "https://webshop.staatstheater-darmstadt.de/de/produktion/21bd4f39-454c-4772-9662-f80d209d4273/1305",
+      "venue": "Kleines Haus, Staatstheater Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Staatsorchester Darmstadt",
+        "Arte dei Suonatori",
+        "Marcin Świątkiewicz (Cembalo)",
+        "Krzysztof Firlus (Viola da Gamba)"
+      ],
+      "program": [
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Werke"
+        },
+        {
+          "composer": "Carl Heinrich Graun",
+          "work": "Werke"
+        },
+        {
+          "composer": "Georg Philipp Telemann",
+          "work": "Werke"
+        },
+        {
+          "composer": "Johann Gottlieb Goldberg",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "date": "2026-06-13",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "Dancing Queen – von ABBA bis Rameau",
+      "url": "https://webshop.staatstheater-darmstadt.de/de/produktion/21bd4f39-454c-4772-9662-f80d209d4273/1306",
+      "venue": "Großes Haus, Staatstheater Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Staatsorchester Darmstadt",
+        "lautten compagney Berlin",
+        "Asya Fateyeva (Saxophon)"
+      ],
+      "program": [
+        {
+          "composer": "Jean-Philippe Rameau",
+          "work": "Werke"
+        }
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "Il Mio Tesoro – Arien aus Neapel",
+      "url": "https://webshop.staatstheater-darmstadt.de/de/produktion/21bd4f39-454c-4772-9662-f80d209d4273/1307",
+      "venue": "Großes Haus, Staatstheater Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Carlotta Colombo (Sopran)",
+        "Margherita Maria Sala (Mezzo)",
+        "Staatsorchester Darmstadt",
+        "Alessandro Quarta (Leitung)",
+        "Gernot Wojnarowicz (Moderation)"
+      ],
+      "program": [
+        {
+          "composer": "Georg Friedrich Händel",
+          "work": "Arien"
+        },
+        {
+          "composer": "Alessandro Scarlatti",
+          "work": "Arien"
+        },
+        {
+          "composer": "Johann Adolf Hasse",
+          "work": "Arien"
+        }
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "date": "2026-06-14",
+      "source_url": "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+      "ensemble": "Staatsorchester Darmstadt",
+      "title": "h-Moll Messe",
+      "url": "https://www.ztix.de/ev-stadtkg-darmstadt/events/bach-messe-h-moll-YJKk0l",
+      "venue": "Evangelische Stadtkirche Darmstadt",
+      "city": "Darmstadt",
+      "performers": [
+        "Staatsorchester Darmstadt",
+        "Sophie Rosenfelder (Sopran)",
+        "Hanna Roos (Alt)",
+        "Christian Rathgeber (Tenor)",
+        "Matthias Horn (Bass)",
+        "Darmstädter Kantorei",
+        "Darmstädter Barocksolisten",
+        "Christian Roß (Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Messe h-Moll BWV 232"
+        }
+      ],
+      "venue_id": "darmstadt-staatstheater-darmstadt"
+    },
+    {
+      "date": "2026-07-13",
+      "source_url": "https://www.staatstheater-augsburg.de/konzert_25",
+      "ensemble": "Augsburger Philharmoniker",
+      "title": "Denkmal",
+      "url": "https://www.staatstheater-augsburg.de/8_sinfoniekonzert_denkmal",
+      "venue": "Kongress am Park",
+      "city": "Augsburg",
+      "performers": [
+        "Augsburger Philharmoniker"
+      ],
+      "venue_id": "augsburg-kongress-am-park"
+    },
+    {
+      "date": "2026-07-14",
+      "source_url": "https://www.staatstheater-augsburg.de/konzert_25",
+      "ensemble": "Augsburger Philharmoniker",
+      "title": "Denkmal",
+      "url": "https://www.staatstheater-augsburg.de/8_sinfoniekonzert_denkmal",
+      "venue": "Kongress am Park",
+      "city": "Augsburg",
+      "performers": [
+        "Augsburger Philharmoniker"
+      ],
+      "venue_id": "augsburg-kongress-am-park"
     }
   ],
   "enriched_at": "2026-06-03",
@@ -3493,6 +3843,349 @@
         "https://www.hofer-symphoniker.de",
         "https://www.hofer-symphoniker.de/konzerte-tickets-events/",
         "https://www.hofer-symphoniker.de/konzerte-tickets/10-symphoniekonzert-2026/"
+      ],
+      "concert_count": 10
+    },
+    "augsburg-bayerische-kammerphilharmonie": {
+      "status": "done",
+      "tried": [
+        "https://www.bayerische-kammerphilharmonie.de"
+      ],
+      "concert_count": 0
+    }
+  },
+  "_js_state": {
+    "freiburg-im-breisgau-konzerthaus-freiburg": {
+      "status": "done",
+      "tried": [
+        "https://www.konzerthaus.freiburg.de",
+        "https://www.konzerthaus.freiburg.de/veranstaltungskalender",
+        "https://www.konzerthaus.freiburg.de/formate/konzerte"
+      ],
+      "concert_count": 0
+    },
+    "karlsruhe-konzerthaus-karlsruhe": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater.karlsruhe.de"
+      ],
+      "concert_count": 0
+    },
+    "mannheim-rosengarten-mannheim-mozartsaal": {
+      "status": "done",
+      "tried": [
+        "https://www.rosengarten-mannheim.de"
+      ],
+      "concert_count": 0
+    },
+    "heidelberg-heidelberg-congress-center-stadthalle": {
+      "status": "done",
+      "tried": [
+        "https://www.heidelberg-congress-center.com"
+      ],
+      "concert_count": 0
+    },
+    "ulm-congress-centrum-ulm": {
+      "status": "done",
+      "tried": [
+        "https://www.ccu-ulm.de"
+      ],
+      "concert_count": 0
+    },
+    "ravensburg-konzerthaus-ravensburg": {
+      "status": "done",
+      "tried": [
+        "https://www.konzerthaus-ravensburg.de"
+      ],
+      "concert_count": 0
+    },
+    "heilbronn-harmonie-heilbronn": {
+      "status": "done",
+      "tried": [
+        "https://www.harmonie-heilbronn.de",
+        "https://www.harmonie-heilbronn.de/veranstaltungen",
+        "https://www.heilbronn.de/tourismus/veranstaltungskalender.html"
+      ],
+      "concert_count": 0
+    },
+    "muenchen-isarphilharmonie": {
+      "status": "done",
+      "tried": [
+        "https://www.mphil.de",
+        "https://www.mphil.de/kalender",
+        "https://www.mphil.de/konzerte-und-karten/saison-2026-27"
+      ],
+      "concert_count": 3
+    },
+    "muenchen-herkulessaal": {
+      "status": "done",
+      "tried": [
+        "https://www.br-so.com",
+        "https://www.brso.de/en/concerts-tickets/event-calendar/",
+        "https://www.brso.de/en/concerts-tickets/"
+      ],
+      "concert_count": 0
+    },
+    "muenchen-nationaltheater-muenchen": {
+      "status": "done",
+      "tried": [
+        "https://www.staatsoper.de",
+        "https://www.staatsoper.de/spielplan.html",
+        "https://www.staatsoper.de/konzerte.html"
+      ],
+      "concert_count": 0
+    },
+    "nuernberg-meistersingerhalle": {
+      "status": "done",
+      "tried": [
+        "https://www.meistersingerhalle.de"
+      ],
+      "concert_count": 0
+    },
+    "augsburg-kongress-am-park": {
+      "status": "done",
+      "tried": [
+        "https://www.kongress-am-park.de"
+      ],
+      "concert_count": 0
+    },
+    "bamberg-konzerthalle-bamberg-joseph-keilberth-saal": {
+      "status": "done",
+      "tried": [
+        "https://www.konzerthalle-bamberg.de"
+      ],
+      "concert_count": 0
+    },
+    "regensburg-audimax-regensburg-concert-series": {
+      "status": "done",
+      "tried": [
+        "https://www.regensburg.de",
+        "https://www.regensburg.de/kultur/veranstaltungen",
+        "https://www.regensburg.de/kultur/musik/konzerte"
+      ],
+      "concert_count": 0
+    },
+    "wiesbaden-kurhaus-wiesbaden-friedrich-von-thiersch-saal": {
+      "status": "done",
+      "tried": [
+        "https://www.wiesbaden.de",
+        "https://www.wiesbaden.de/leben-in-wiesbaden/freizeit/veranstaltungskalender/veranstaltungssuche",
+        "https://www.wiesbaden.de/leben-in-wiesbaden/freizeit/veranstaltungskalender/aktuelle-meldungen"
+      ],
+      "concert_count": 0
+    },
+    "darmstadt-staatstheater-darmstadt": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-darmstadt.de",
+        "https://www.staatstheater-darmstadt.de/spielplan/",
+        "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+        "https://www.staatstheater-darmstadt.de/spielplan/konzerte/",
+        "https://www.staatstheater-darmstadt.de/spielplan/kalender/"
+      ],
+      "concert_count": 3
+    },
+    "kassel-staatstheater-kassel": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-kassel.de"
+      ],
+      "concert_count": 0
+    },
+    "wetzlar-stadthalle-wetzlar": {
+      "status": "done",
+      "tried": [
+        "https://www.stadthalle-wetzlar.de"
+      ],
+      "concert_count": 0
+    },
+    "fulda-schlosstheater-fulda": {
+      "status": "done",
+      "tried": [
+        "https://www.fulda.de"
+      ],
+      "concert_count": 0
+    },
+    "bad-vilbel-vilco-kongress-und-kulturforum": {
+      "status": "done",
+      "tried": [
+        "https://www.vilco-badvilbel.de"
+      ],
+      "concert_count": 0
+    },
+    "marburg-erwin-piscator-haus": {
+      "status": "done",
+      "tried": [
+        "https://www.marburg.de"
+      ],
+      "concert_count": 0
+    },
+    "giessen-kongresshalle-giessen": {
+      "status": "done",
+      "tried": [
+        "https://www.giessen.de"
+      ],
+      "concert_count": 0
+    },
+    "stuttgart-staatsorchester-stuttgart": {
+      "status": "done",
+      "tried": [
+        "https://www.staatsorchester-stuttgart.de"
+      ],
+      "concert_count": 0
+    },
+    "stuttgart-stuttgarter-philharmoniker": {
+      "status": "done",
+      "tried": [
+        "https://www.stuttgarter-philharmoniker.de"
+      ],
+      "concert_count": 0
+    },
+    "stuttgart-stuttgarter-kammerorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.stuttgarter-kammerorchester.de"
+      ],
+      "concert_count": 0
+    },
+    "reutlingen-württembergische-philharmonie-reutlingen": {
+      "status": "done",
+      "tried": [
+        "https://www.wuerttembergische-philharmonie.de"
+      ],
+      "concert_count": 0
+    },
+    "freiburg-philharmonisches-orchester-freiburg": {
+      "status": "done",
+      "tried": [
+        "https://www.theater.freiburg.de"
+      ],
+      "concert_count": 0
+    },
+    "freiburg-freiburger-barockorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.barockorchester.de"
+      ],
+      "concert_count": 0
+    },
+    "karlsruhe-badische-staatskapelle": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater.karlsruhe.de/staatskapelle"
+      ],
+      "concert_count": 0
+    },
+    "heidelberg-philharmonisches-orchester-heidelberg": {
+      "status": "done",
+      "tried": [
+        "https://www.theaterheidelberg.de"
+      ],
+      "concert_count": 0
+    },
+    "mannheim-nationaltheater-orchester-mannheim": {
+      "status": "done",
+      "tried": [
+        "https://www.nationaltheater-mannheim.de"
+      ],
+      "concert_count": 0
+    },
+    "baden-baden-philharmonie-baden-baden": {
+      "status": "done",
+      "tried": [
+        "https://www.philharmonie.baden-baden.de"
+      ],
+      "concert_count": 0
+    },
+    "konstanz-südwestdeutsche-philharmonie-konstanz": {
+      "status": "done",
+      "tried": [
+        "https://www.swp-konstanz.de"
+      ],
+      "concert_count": 0
+    },
+    "frankfurt-am-main-hr-sinfonieorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.hr-sinfonieorchester.de",
+        "https://www.hr-sinfonieorchester.de/konzerte/konzertkalender/index.html",
+        "https://www.hr-sinfonieorchester.de/konzerte/index.html"
+      ],
+      "concert_count": 0
+    },
+    "frankfurt-am-main-frankfurt-chamber-orchestra": {
+      "status": "done",
+      "tried": [
+        "https://www.frankfurtchamberorchestra.org"
+      ],
+      "concert_count": 0
+    },
+    "frankfurt-am-main-camerata-frankfurt": {
+      "status": "done",
+      "tried": [
+        "https://www.camerata-frankfurt.de"
+      ],
+      "concert_count": 0
+    },
+    "frankfurt-am-main-frankfurter-bachkonzerte-ensemble": {
+      "status": "done",
+      "tried": [
+        "https://www.bachkonzerte.de"
+      ],
+      "concert_count": 0
+    },
+    "kassel-staatsorchester-kassel": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-kassel.de",
+        "https://www.staatstheater-kassel.de/play-schedule?section=Konzert",
+        "https://www.staatstheater-kassel.de/play-schedule?season=2025%2F2026"
+      ],
+      "concert_count": 9
+    },
+    "darmstadt-staatsorchester-darmstadt": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-darmstadt.de",
+        "https://www.staatstheater-darmstadt.de/spielplan/",
+        "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+        "https://www.staatstheater-darmstadt.de/veranstaltungen/barockfest-freiburger-barockorchester.2214/#event-13187"
+      ],
+      "concert_count": 13
+    },
+    "münchen-bayerisches-staatsorchester": {
+      "status": "done",
+      "tried": [
+        "https://www.staatsoper.de/en/staatsorchester",
+        "https://www.staatsoper.de/en/spielplan",
+        "https://www.staatsoper.de/en/staatsorchester/konzerte"
+      ],
+      "concert_count": 0
+    },
+    "münchen-symphonieorchester-des-bayerischen-rundfunks": {
+      "status": "done",
+      "tried": [
+        "https://www.br-so.com",
+        "https://www.brso.de/en/concerts-tickets/event-calendar/",
+        "https://www.brso.de/en/concerts-tickets/"
+      ],
+      "concert_count": 0
+    },
+    "münchen-concerto-münchen": {
+      "status": "done",
+      "tried": [
+        "https://www.concerto-muenchen.de",
+        "https://www.concerto-muenchen.de/konzerte",
+        "https://www.concerto-muenchen.de/concerts"
+      ],
+      "concert_count": 0
+    },
+    "augsburg-augsburger-philharmoniker": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-augsburg.de",
+        "https://www.staatstheater-augsburg.de/spielplan",
+        "https://www.staatstheater-augsburg.de/konzert_25"
       ],
       "concert_count": 10
     },
