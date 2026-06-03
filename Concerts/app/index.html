@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Concerts — BW / Bayern / Hessen</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>Classical Concerts</h1>
+    <span style="color:var(--muted);font-size:0.85rem">BW · Bayern · Hessen</span>
+    <nav>
+      <a href="index.html" class="active">Map</a>
+      <a href="table.html">Table</a>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <div class="filter-bar">
+      <div>
+        <label for="f-month">Month</label>
+        <select id="f-month"><option value="">Any</option></select>
+      </div>
+      <div>
+        <label for="f-date">Date (YYYY-MM-DD)</label>
+        <input type="date" id="f-date" />
+      </div>
+      <div>
+        <label for="f-city">City</label>
+        <select id="f-city"><option value="">Any</option></select>
+      </div>
+      <div>
+        <label for="f-performer">Performer contains</label>
+        <input type="text" id="f-performer" placeholder="e.g. Philharmoniker" />
+      </div>
+      <div>
+        <label for="f-composer">Composer contains</label>
+        <input type="text" id="f-composer" placeholder="e.g. Beethoven" />
+      </div>
+      <div>
+        <label for="f-work">Work contains</label>
+        <input type="text" id="f-work" placeholder="e.g. Symphony" />
+      </div>
+      <div style="grid-column: span 1; display:flex; gap:8px; align-items:flex-end;">
+        <button id="clear-filters" class="clear-btn">Clear all</button>
+      </div>
+      <div class="stats" id="stats">No filter set — map is empty</div>
+    </div>
+
+    <div id="map"></div>
+    <p class="empty-hint" id="hint">Set at least one filter above to populate the map.</p>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

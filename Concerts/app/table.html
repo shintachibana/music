@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Concerts table — BW / Bayern / Hessen</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>Classical Concerts</h1>
+    <span style="color:var(--muted);font-size:0.85rem">BW · Bayern · Hessen</span>
+    <nav>
+      <a href="index.html">Map</a>
+      <a href="table.html" class="active">Table</a>
+    </nav>
+  </header>
+
+  <div class="wrap">
+    <div class="filter-bar">
+      <div>
+        <label for="f-search">Free text search</label>
+        <input type="text" id="f-search" placeholder="composer, work, performer, venue, city…" />
+      </div>
+      <div>
+        <label for="f-month">Month</label>
+        <select id="f-month"><option value="">Any</option></select>
+      </div>
+      <div>
+        <label for="f-bundesland">Bundesland</label>
+        <select id="f-bundesland">
+          <option value="">Any</option>
+          <option value="Baden-Württemberg">Baden-Württemberg</option>
+          <option value="Bayern">Bayern</option>
+          <option value="Hessen">Hessen</option>
+        </select>
+      </div>
+      <div>
+        <label for="f-city">City</label>
+        <select id="f-city"><option value="">Any</option></select>
+      </div>
+      <div>
+        <button id="clear-filters" class="clear-btn">Clear all</button>
+      </div>
+      <div class="stats" id="stats">…</div>
+    </div>
+
+    <table class="concerts" id="concerts-table">
+      <thead>
+        <tr>
+          <th data-sort="date">Date</th>
+          <th data-sort="bundesland">Bundesland</th>
+          <th data-sort="city">City</th>
+          <th data-sort="venue">Venue</th>
+          <th data-sort="performers">Performer</th>
+          <th data-sort="program">Program</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p class="empty-hint" id="hint" style="display:none">No concerts match the current filters.</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

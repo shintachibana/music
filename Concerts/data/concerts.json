@@ -1,0 +1,763 @@
+{
+  "_state": {
+    "stuttgart-liederhalle-stuttgart-beethoven-saal": {
+      "status": "done",
+      "tried": [
+        "https://www.liederhalle-stuttgart.de",
+        "https://www.liederhalle-stuttgart.de/eventkalender",
+        "https://www.liederhalle-stuttgart.de/eventkalender/?tx_bbevents_list%5Baction%5D=list&tx_bbevents_list%5Bcontroller%5D=Event",
+        "https://www.liederhalle-stuttgart.de/veranstaltungen",
+        "https://www.liederhalle-stuttgart.de/eventkalender?tx_bbevents_events%5Barguments%5D%5BcurrentPage%5D=1"
+      ],
+      "concert_count": 1
+    },
+    "freiburg-im-breisgau-konzerthaus-freiburg": {
+      "status": "done",
+      "tried": [
+        "https://www.konzerthaus.freiburg.de",
+        "https://www.konzerthaus.freiburg.de/veranstaltungskalender",
+        "https://www.konzerthaus.freiburg.de/formate/konzerte"
+      ],
+      "concert_count": 0
+    },
+    "karlsruhe-konzerthaus-karlsruhe": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater.karlsruhe.de"
+      ],
+      "concert_count": 0
+    },
+    "mannheim-rosengarten-mannheim-mozartsaal": {
+      "status": "done",
+      "tried": [
+        "https://www.rosengarten-mannheim.de"
+      ],
+      "concert_count": 0
+    },
+    "heidelberg-heidelberg-congress-center-stadthalle": {
+      "status": "done",
+      "tried": [
+        "https://www.heidelberg-congress-center.com"
+      ],
+      "concert_count": 0
+    },
+    "ulm-congress-centrum-ulm": {
+      "status": "done",
+      "tried": [
+        "https://www.ccu-ulm.de"
+      ],
+      "concert_count": 0
+    },
+    "baden-baden-festspielhaus-baden-baden": {
+      "status": "done",
+      "tried": [
+        "https://www.festspielhaus.de",
+        "https://www.festspielhaus.de/programm/",
+        "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      ],
+      "concert_count": 9
+    },
+    "ravensburg-konzerthaus-ravensburg": {
+      "status": "done",
+      "tried": [
+        "https://www.konzerthaus-ravensburg.de"
+      ],
+      "concert_count": 0
+    },
+    "reutlingen-stadthalle-reutlingen": {
+      "status": "done",
+      "tried": [
+        "https://www.stadthalle-reutlingen.de",
+        "https://www.stadthalle-reutlingen.de/veranstaltungen",
+        "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
+      ],
+      "concert_count": 10
+    },
+    "heilbronn-harmonie-heilbronn": {
+      "status": "done",
+      "tried": [
+        "https://www.harmonie-heilbronn.de",
+        "https://www.harmonie-heilbronn.de/veranstaltungen.html",
+        "https://www.heilbronn.de/tourismus/veranstaltungskalender.html"
+      ],
+      "concert_count": 0
+    },
+    "muenchen-isarphilharmonie": {
+      "status": "done",
+      "tried": [
+        "https://www.mphil.de",
+        "https://www.mphil.de/kalender",
+        "https://www.mphil.de/konzerte-und-karten/kalender",
+        "https://www.mphil.de/konzerte-und-karten/saison-2025-26"
+      ],
+      "concert_count": 0
+    },
+    "muenchen-herkulessaal": {
+      "status": "done",
+      "tried": [
+        "https://www.br-so.com",
+        "https://www.brso.de/en/concerts-tickets/event-calendar/",
+        "https://www.brso.de/en/concerts-tickets/"
+      ],
+      "concert_count": 0
+    },
+    "muenchen-prinzregententheater": {
+      "status": "done",
+      "tried": [
+        "https://www.prinzregententheater.de",
+        "https://theaterakademie.de/de/theater/programm",
+        "https://theaterakademie.de/de/theater/programm/spielzeit-2025-2026"
+      ],
+      "concert_count": 3
+    },
+    "muenchen-nationaltheater-muenchen": {
+      "status": "done",
+      "tried": [
+        "https://www.staatsoper.de"
+      ],
+      "concert_count": 0
+    },
+    "nuernberg-meistersingerhalle": {
+      "status": "done",
+      "tried": [
+        "https://www.meistersingerhalle.de"
+      ],
+      "concert_count": 0
+    },
+    "augsburg-kongress-am-park": {
+      "status": "done",
+      "tried": [
+        "https://www.kongress-am-park.de"
+      ],
+      "concert_count": 0
+    },
+    "bamberg-konzerthalle-bamberg-joseph-keilberth-saal": {
+      "status": "done",
+      "tried": [
+        "https://www.konzerthalle-bamberg.de"
+      ],
+      "concert_count": 0
+    },
+    "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal": {
+      "status": "done",
+      "tried": [
+        "https://www.hfm-wuerzburg.de",
+        "https://www.hfm-wuerzburg.de/veranstaltungen/kalender",
+        "https://www.hfm-wuerzburg.de/veranstaltungen/formate"
+      ],
+      "concert_count": 3
+    },
+    "bayreuth-markgraefliches-opernhaus": {
+      "status": "done",
+      "tried": [
+        "https://www.bayreuth-wilhelmine.de",
+        "https://www.bayreuth-wilhelmine.de/deutsch/aktuell/veranst.asp",
+        "https://www.bayreuth-wilhelmine.de/deutsch/aktuell/fuehr.asp"
+      ],
+      "concert_count": 2
+    },
+    "regensburg-audimax-regensburg-concert-series": {
+      "status": "done",
+      "tried": [
+        "https://www.regensburg.de",
+        "https://www.regensburg.de/veranstaltungen",
+        "https://www.regensburg.de/kultur/veranstaltungen-des-kulturreferats"
+      ],
+      "concert_count": 0
+    },
+    "frankfurt-am-main-alte-oper-frankfurt": {
+      "status": "done",
+      "tried": [
+        "https://www.alteoper.de",
+        "https://www.alteoper.de/en/programme",
+        "https://www.alteoper.de/en/season-2026-27"
+      ],
+      "concert_count": 7
+    },
+    "wiesbaden-kurhaus-wiesbaden-friedrich-von-thiersch-saal": {
+      "status": "done",
+      "tried": [
+        "https://www.wiesbaden.de",
+        "https://www.wiesbaden.de/leben-in-wiesbaden/freizeit/veranstaltungskalender/veranstaltungssuche",
+        "https://www.kurhaus-wiesbaden.de/programm",
+        "https://www.wiesbaden.de/tourismus/kultur/musik",
+        "https://www.wiesbaden.de/leben-in-wiesbaden/freizeit/veranstaltungskalender/veranstaltungssuche.php?kategorie=Konzerte+%2F+Musik&location=Kurhaus",
+        "https://www.kurhaus-wiesbaden.de/veranstaltungen",
+        "https://www.wiesbaden.de/leben-in-wiesbaden/freizeit/veranstaltungskalender/veranstaltungssuche?fil-3=160434"
+      ],
+      "concert_count": 0
+    },
+    "darmstadt-staatstheater-darmstadt": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-darmstadt.de",
+        "https://www.staatstheater-darmstadt.de/spielplan/",
+        "https://www.staatstheater-darmstadt.de/spielplan/konzert/",
+        "https://www.staatstheater-darmstadt.de/spielplan/barockfest",
+        "https://www.staatstheater-darmstadt.de/spielplan/?kategorie=76"
+      ],
+      "concert_count": 0
+    },
+    "kassel-staatstheater-kassel": {
+      "status": "done",
+      "tried": [
+        "https://www.staatstheater-kassel.de",
+        "https://www.staatstheater-kassel.de/spielplan",
+        "https://www.staatstheater-kassel.de/programm"
+      ],
+      "concert_count": 0
+    },
+    "wetzlar-stadthalle-wetzlar": {
+      "status": "done",
+      "tried": [
+        "https://www.stadthalle-wetzlar.de"
+      ],
+      "concert_count": 0
+    },
+    "fulda-schlosstheater-fulda": {
+      "status": "done",
+      "tried": [
+        "https://www.fulda.de",
+        "https://www.fulda.de/kultur-freizeit/veranstaltungen/",
+        "https://www.fulda.de/kultur-freizeit/theater-konzerte/",
+        "https://www.fulda.de/kultur-freizeit/spielplan/",
+        "https://www.fulda.de/kultur-freizeit/veranstaltungen/veranstaltungskalender/",
+        "https://www.fulda.de/kultur-freizeit/theater-konzerte/schlosstheater/",
+        "https://www.fulda.de/kultur-freizeit/theater-konzerte/spielplan/"
+      ],
+      "concert_count": 0
+    },
+    "bad-vilbel-vilco-kongress-und-kulturforum": {
+      "status": "done",
+      "tried": [
+        "https://www.vilco-badvilbel.de"
+      ],
+      "concert_count": 0
+    },
+    "marburg-erwin-piscator-haus": {
+      "status": "done",
+      "tried": [
+        "https://www.marburg.de",
+        "https://www.marburg.de/kultur-und-tourismus/kunst-und-kultur/musik-und-festivals/",
+        "https://www.marburg.de/aktuelles/veranstaltungen/",
+        "https://www.marburg.de/kultur-und-tourismus/kunst-und-kultur/theater-und-literatur/"
+      ],
+      "concert_count": 0
+    },
+    "giessen-kongresshalle-giessen": {
+      "status": "done",
+      "tried": [
+        "https://www.giessen.de",
+        "https://www.giessen.de/Erleben/Veranstaltungen/",
+        "https://www.giessen.de/Erleben/Kultur/Musik-Festivals/"
+      ],
+      "concert_count": 0
+    }
+  },
+  "scraped_at": "2026-06-03",
+  "concerts": [
+    {
+      "venue_id": "stuttgart-liederhalle-stuttgart-beethoven-saal",
+      "date": "2026-06-11",
+      "time": "20:00",
+      "title": "SWR Symphonieorchester: Riccardo Minasi",
+      "url": "https://www.liederhalle-stuttgart.de/veranstaltung/swr-symphonieorchester-riccardo-minasi-1",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Riccardo Minasi"
+      ],
+      "source_url": "https://www.liederhalle-stuttgart.de"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-06-26",
+      "title": "Yannick Nézet-Séguin",
+      "url": "https://www.festspielhaus.de/veranstaltungen/yannick-nezet-seguin-2026/",
+      "performers": [
+        "Yannick Nézet-Séguin",
+        "Chamber Orchestra of Europe"
+      ],
+      "program": [
+        {
+          "composer": "Schubert",
+          "work": "Werke"
+        },
+        {
+          "composer": "Weber",
+          "work": "Werke"
+        },
+        {
+          "composer": "Mendelssohn",
+          "work": "Werke"
+        }
+      ],
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-06-27",
+      "title": "Krabbelkonzert",
+      "url": "https://www.festspielhaus.de/veranstaltungen/krabbelkonzert-2026/",
+      "performers": [
+        "Chamber Orchestra of Europe"
+      ],
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-06-27",
+      "title": "Yannick & Friends",
+      "url": "https://www.festspielhaus.de/veranstaltungen/yannick-friends-2026/",
+      "performers": [
+        "Yannick Nézet-Séguin"
+      ],
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-06-28",
+      "title": "Yannick Nézet-Séguin",
+      "url": "https://www.festspielhaus.de/veranstaltungen/yannick-nezet-seguin-chamber-orchestra-of-europe/",
+      "performers": [
+        "Yannick Nézet-Séguin",
+        "Chamber Orchestra of Europe"
+      ],
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-07-04",
+      "title": "London Symphony Orchestra",
+      "url": "https://www.festspielhaus.de/veranstaltungen/london-symphony-orchestra-2026/",
+      "performers": [
+        "London Symphony Orchestra",
+        "Yannick Nézet-Séguin",
+        "Yuja Wang"
+      ],
+      "program": [
+        {
+          "composer": "Rachmaninow",
+          "work": "Sinfonie Nr. 2"
+        },
+        {
+          "composer": "Prokofjew",
+          "work": "Klavierkonzert Nr. 3"
+        }
+      ],
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-07-05",
+      "title": "Wagner & Beethoven",
+      "url": "https://www.festspielhaus.de/veranstaltungen/wagner-beethoven/",
+      "performers": [
+        "London Symphony Orchestra",
+        "Antonio Pappano",
+        "Vilde Frang",
+        "Sarah Jakubiak",
+        "Clay Hilley"
+      ],
+      "program": [
+        {
+          "composer": "Beethoven",
+          "work": "Violinkonzert"
+        },
+        {
+          "composer": "Wagner",
+          "work": "Liebestod aus Tristan und Isolde"
+        }
+      ],
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-07-11",
+      "title": "IM.PULS",
+      "url": "https://www.festspielhaus.de/veranstaltungen/im-puls-2026/",
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-07-11",
+      "time": "18:00",
+      "title": "Mitsingfest",
+      "url": "https://www.festspielhaus.de/veranstaltungen/mitsingfest/",
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "baden-baden-festspielhaus-baden-baden",
+      "date": "2026-07-12",
+      "title": "Hope & Zukerman",
+      "url": "https://www.festspielhaus.de/veranstaltungen/mehta-hope-zukerman/",
+      "performers": [
+        "Daniel Hope",
+        "Pinchas Zukerman",
+        "Zürcher Kammerorchester"
+      ],
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-06-15",
+      "time": "20:00",
+      "title": "8. Sinfoniekonzert",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-97/2026-06-15",
+      "performers": [
+        "Württembergische Philharmonie Reutlingen",
+        "Christina Landshamer (Sopran)",
+        "Gerhild Romberger (Alt)",
+        "Philharmonia Chor Stuttgart",
+        "Württembergischer Kammerchor",
+        "Ariane Matiakh (Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Gustav Mahler",
+          "work": "Sinfonie Nr. 2 c-Moll \"Auferstehungs-Sinfonie\""
+        }
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-06-21",
+      "time": "11:00",
+      "title": "Das etwas André-Konzert",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-99/2026-06-21",
+      "performers": [
+        "Württembergische Philharmonie Reutlingen",
+        "André Gatzke (Moderation)",
+        "Paul Taubitz (Leitung)"
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-06-25",
+      "time": "20:00",
+      "title": "7. Kaleidoskop: Baptiste Trotignon",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-100/2026-06-25",
+      "performers": [
+        "Württembergische Philharmonie Reutlingen",
+        "Baptiste Trotignon (Klavier)",
+        "Ariane Matiakh (Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Baptiste Trotignon",
+          "work": "\"L'air de rien.\" - Concertino für Klavier und Orchester"
+        },
+        {
+          "composer": "Baptiste Trotignon",
+          "work": "Arrangements von Broadway Songs"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Klavierkonzert F-Dur KV 37 (mit Improvisationen)"
+        }
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-06-28",
+      "time": "19:00",
+      "title": "Sommerkonzert",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Junge-Sinfonie-Reutlingen-5/2026-06-28",
+      "performers": [
+        "Junge Sinfonie Reutlingen",
+        "Katerina Zhiyuan Luo (Guzheng)",
+        "Adrian Jelinek (Leitung)",
+        "Konrad S. Heinz (Leitung)"
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-07-19",
+      "time": "19:00",
+      "title": "Sommerkonzert",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Nachwuchsorchester-der-Jungen-Sinfonie-Reutlingen-5/2026-07-19",
+      "performers": [
+        "Nachwuchsorchester der Jungen Sinfonie Reutlingen"
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-06-15",
+      "time": "20:00",
+      "title": "8. Sinfoniekonzert",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-97/2026-06-15",
+      "performers": [
+        "Württembergische Philharmonie Reutlingen",
+        "Christina Landshamer (Sopran)",
+        "Gerhild Romberger (Alt)",
+        "Philharmonia Chor Stuttgart",
+        "Württembergischer Kammerchor",
+        "Ariane Matiakh (Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Gustav Mahler",
+          "work": "Sinfonie Nr. 2 c-Moll \"Auferstehungs-Sinfonie\""
+        }
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-06-21",
+      "time": "11:00",
+      "title": "Das etwas André-Konzert",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-99/2026-06-21",
+      "performers": [
+        "Württembergische Philharmonie Reutlingen",
+        "André Gatzke (Moderation)",
+        "Paul Taubitz (Leitung)"
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-06-25",
+      "time": "20:00",
+      "title": "7. Kaleidoskop: Baptiste Trotignon",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-100/2026-06-25",
+      "performers": [
+        "Württembergische Philharmonie Reutlingen",
+        "Baptiste Trotignon (Klavier)",
+        "Ariane Matiakh (Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Baptiste Trotignon",
+          "work": "\"L'air de rien.\" - Concertino für Klavier und Orchester"
+        },
+        {
+          "composer": "Baptiste Trotignon",
+          "work": "Eigene Arrangements von Broadway Songs"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Klavierkonzert F-Dur KV 37 (mit Improvisationen)"
+        }
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-06-28",
+      "time": "19:00",
+      "title": "Sommerkonzert",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Junge-Sinfonie-Reutlingen-5/2026-06-28",
+      "performers": [
+        "Junge Sinfonie Reutlingen",
+        "Katerina Zhiyuan Luo (Guzheng)",
+        "Adrian Jelinek (Leitung)",
+        "Konrad S. Heinz (Leitung)"
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
+    },
+    {
+      "venue_id": "reutlingen-stadthalle-reutlingen",
+      "date": "2026-07-19",
+      "time": "19:00",
+      "title": "Sommerkonzert",
+      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Nachwuchsorchester-der-Jungen-Sinfonie-Reutlingen-5/2026-07-19",
+      "performers": [
+        "Nachwuchsorchester der Jungen Sinfonie Reutlingen"
+      ],
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
+    },
+    {
+      "venue_id": "muenchen-prinzregententheater",
+      "date": "2026-06-10",
+      "time": "19:30",
+      "title": "Münchner Rundfunkorchester: Ivan Repušić & Friends",
+      "url": "https://www.rundfunkorchester.de/konzerte/ivan-repusic-friends/",
+      "performers": [
+        "Münchner Rundfunkorchester",
+        "Ivan Repušić"
+      ],
+      "source_url": "https://www.prinzregententheater.de"
+    },
+    {
+      "venue_id": "muenchen-prinzregententheater",
+      "date": "2026-06-10",
+      "time": "19:30",
+      "title": "Münchner Rundfunkorchester: Ivan Repušić & Friends",
+      "url": "https://www.rundfunkorchester.de/konzerte/ivan-repusic-friends/",
+      "performers": [
+        "Münchner Rundfunkorchester",
+        "Ivan Repušić"
+      ],
+      "source_url": "https://theaterakademie.de/de/theater/programm"
+    },
+    {
+      "venue_id": "muenchen-prinzregententheater",
+      "date": "2026-06-13",
+      "time": "15:00",
+      "title": "Arien Zeigen",
+      "url": "https://theaterakademie.de/de/theater/programm/arien-zeigen",
+      "performers": [
+        "Studiengang Musiktheater/Operngesang, Bayerische Theaterakademie August Everding"
+      ],
+      "source_url": "https://theaterakademie.de/de/theater/programm"
+    },
+    {
+      "venue_id": "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal",
+      "date": "2026-06-03",
+      "time": "12:00",
+      "title": "Musik publik",
+      "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-03_1200/musik-publik-15",
+      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender"
+    },
+    {
+      "venue_id": "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal",
+      "date": "2026-06-05",
+      "time": "12:00",
+      "title": "Musik publik",
+      "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-05_1200/musik-publik-15",
+      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender"
+    },
+    {
+      "venue_id": "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal",
+      "date": "2026-06-08",
+      "time": "18:00",
+      "title": "Exotische Hölzer",
+      "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-08_1800/exotische-hoelzer-2",
+      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender"
+    },
+    {
+      "venue_id": "bayreuth-markgraefliches-opernhaus",
+      "date": "2026-06-12",
+      "time": "19:30",
+      "title": "Orient.Okzident",
+      "url": "https://musica-bayreuth.de/events/orient-okzident/",
+      "performers": [
+        "Bad Reichenhaller Philharmoniker"
+      ],
+      "program": [
+        {
+          "composer": "Mozart",
+          "work": "Ouvertüre zu Die Entführung aus dem Serail"
+        },
+        {
+          "composer": "Nino Rota",
+          "work": "Divertimento für Kontrabass und Orchester"
+        },
+        {
+          "composer": "Rimsky-Korsakov",
+          "work": "Scheherazade"
+        }
+      ],
+      "source_url": "https://www.bayreuth-wilhelmine.de/deutsch/aktuell/veranst.asp"
+    },
+    {
+      "venue_id": "bayreuth-markgraefliches-opernhaus",
+      "date": "2026-07-19",
+      "time": "19:30",
+      "title": "Don Giovanni-Gala",
+      "url": "https://www.hofkapelle-muenchen.de",
+      "performers": [
+        "Hofkapelle München"
+      ],
+      "program": [
+        {
+          "composer": "Mozart",
+          "work": "Don Giovanni (Highlights)"
+        }
+      ],
+      "source_url": "https://www.bayreuth-wilhelmine.de/deutsch/aktuell/veranst.asp"
+    },
+    {
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "date": "2026-06-06",
+      "time": "20:00",
+      "title": "Alexander Malofeev, Klavier",
+      "url": "https://www.alteoper.de/en/programme/alexander-malofeev-klavier/18360",
+      "performers": [
+        "Alexander Malofeev"
+      ],
+      "source_url": "https://www.alteoper.de"
+    },
+    {
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "date": "2026-06-06",
+      "time": "20:00",
+      "title": "Orchestra of the 18th Century",
+      "url": "https://www.alteoper.de/en/programme/orchestra-of-the-18th-century/18485",
+      "performers": [
+        "Orchestra of the 18th Century",
+        "Jean Guihen Queyras"
+      ],
+      "source_url": "https://www.alteoper.de"
+    },
+    {
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "date": "2026-06-08",
+      "time": "20:00",
+      "title": "Frankfurter Opern- und Museumsorchester – Wiedersehen mit einem Freund",
+      "url": "https://www.alteoper.de/en/programme/frankfurter-opern-und-museumsorchester/18468",
+      "performers": [
+        "Frankfurter Opern- und Museumsorchester",
+        "Sebastian Weigle"
+      ],
+      "source_url": "https://www.alteoper.de"
+    },
+    {
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "date": "2026-06-12",
+      "time": "20:00",
+      "title": "hr-Sinfonieorchester – Brahms 4",
+      "url": "https://www.alteoper.de/en/programme/hr-sinfonieorchester/18583",
+      "performers": [
+        "hr-Sinfonieorchester",
+        "Vilde Frang"
+      ],
+      "program": [
+        {
+          "composer": "Brahms",
+          "work": "Symphony No. 4"
+        }
+      ],
+      "source_url": "https://www.alteoper.de"
+    },
+    {
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "date": "2026-06-06",
+      "time": "20:00",
+      "title": "Alexander Malofeev, Klavier",
+      "url": "https://www.alteoper.de/en/programme/alexander-malofeev-klavier/18360",
+      "performers": [
+        "Alexander Malofeev"
+      ],
+      "source_url": "https://www.alteoper.de/en/programme"
+    },
+    {
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "date": "2026-06-06",
+      "time": "20:00",
+      "title": "Orchestra of the 18th Century",
+      "url": "https://www.alteoper.de/en/programme/orchestra-of-the-18th-century/18485",
+      "performers": [
+        "Orchestra of the 18th Century"
+      ],
+      "source_url": "https://www.alteoper.de/en/programme"
+    },
+    {
+      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
+      "date": "2026-06-07",
+      "time": "11:00",
+      "title": "Frankfurter Opern- und Museumsorchester – Wiedersehen mit einem Freund",
+      "url": "https://www.alteoper.de/en/programme/frankfurter-opern-und-museumsorchester/18467",
+      "performers": [
+        "Frankfurter Opern- und Museumsorchester",
+        "Sebastian Weigle"
+      ],
+      "source_url": "https://www.alteoper.de/en/programme"
+    }
+  ]
+}
