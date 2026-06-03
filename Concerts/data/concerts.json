@@ -499,116 +499,6 @@
       "performers": [
         "Württembergische Philharmonie Reutlingen",
         "Baptiste Trotignon (Klavier)",
-        "Ariane Matiakh (Leitung)"
-      ],
-      "program": [
-        {
-          "composer": "Baptiste Trotignon",
-          "work": "\"L'air de rien.\" - Concertino für Klavier und Orchester"
-        },
-        {
-          "composer": "Baptiste Trotignon",
-          "work": "Arrangements von Broadway Songs"
-        },
-        {
-          "composer": "Wolfgang Amadeus Mozart",
-          "work": "Klavierkonzert F-Dur KV 37 (mit Improvisationen)"
-        }
-      ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
-    },
-    {
-      "venue_id": "reutlingen-stadthalle-reutlingen",
-      "date": "2026-06-28",
-      "time": "19:00",
-      "title": "Sommerkonzert",
-      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Junge-Sinfonie-Reutlingen-5/2026-06-28",
-      "performers": [
-        "Junge Sinfonie Reutlingen",
-        "Katerina Zhiyuan Luo (Guzheng)",
-        "Adrian Jelinek (Leitung)",
-        "Konrad S. Heinz (Leitung)"
-      ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen",
-      "program": [
-        {
-          "composer": "Beethoven",
-          "work": "Sinfonie Nr. 1 C-Dur op. 21"
-        },
-        {
-          "composer": "Carl Maria von Weber",
-          "work": "Ouvertüre zu Turandot op. 37"
-        },
-        {
-          "composer": "Zhanhao He",
-          "work": "The Fragrance of Jasmine"
-        },
-        {
-          "composer": "Yixuan Hu",
-          "work": "Early Spring: Blossom (Guzheng-Konzert, Uraufführung)"
-        },
-        {
-          "composer": "Holst",
-          "work": "Japanische Suite op. 33"
-        }
-      ]
-    },
-    {
-      "venue_id": "reutlingen-stadthalle-reutlingen",
-      "date": "2026-07-19",
-      "time": "19:00",
-      "title": "Sommerkonzert",
-      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Nachwuchsorchester-der-Jungen-Sinfonie-Reutlingen-5/2026-07-19",
-      "performers": [
-        "Nachwuchsorchester der Jungen Sinfonie Reutlingen",
-        "Maria Eiche (Leitung)"
-      ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
-    },
-    {
-      "venue_id": "reutlingen-stadthalle-reutlingen",
-      "date": "2026-06-15",
-      "time": "20:00",
-      "title": "8. Sinfoniekonzert",
-      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-97/2026-06-15",
-      "performers": [
-        "Württembergische Philharmonie Reutlingen",
-        "Christina Landshamer (Sopran)",
-        "Gerhild Romberger (Alt)",
-        "Philharmonia Chor Stuttgart",
-        "Württembergischer Kammerchor",
-        "Ariane Matiakh (Leitung)"
-      ],
-      "program": [
-        {
-          "composer": "Gustav Mahler",
-          "work": "Sinfonie Nr. 2 c-Moll \"Auferstehungs-Sinfonie\""
-        }
-      ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
-    },
-    {
-      "venue_id": "reutlingen-stadthalle-reutlingen",
-      "date": "2026-06-21",
-      "time": "11:00",
-      "title": "Das etwas André-Konzert",
-      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-99/2026-06-21",
-      "performers": [
-        "Württembergische Philharmonie Reutlingen",
-        "André Gatzke (Moderation)",
-        "Paul Taubitz (Leitung)"
-      ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
-    },
-    {
-      "venue_id": "reutlingen-stadthalle-reutlingen",
-      "date": "2026-06-25",
-      "time": "20:00",
-      "title": "7. Kaleidoskop: Baptiste Trotignon",
-      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Wuerttembergische-Philharmonie-Reutlingen-100/2026-06-25",
-      "performers": [
-        "Württembergische Philharmonie Reutlingen",
-        "Baptiste Trotignon (Klavier)",
         "Ariane Matiakh (Leitung)",
         "Ariane Matiakh (Dirigentin)"
       ],
@@ -630,42 +520,6 @@
     },
     {
       "venue_id": "reutlingen-stadthalle-reutlingen",
-      "date": "2026-06-28",
-      "time": "19:00",
-      "title": "Sommerkonzert",
-      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Junge-Sinfonie-Reutlingen-5/2026-06-28",
-      "performers": [
-        "Junge Sinfonie Reutlingen",
-        "Katerina Zhiyuan Luo (Guzheng)",
-        "Adrian Jelinek (Leitung)",
-        "Konrad S. Heinz (Leitung)"
-      ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik",
-      "program": [
-        {
-          "composer": "Beethoven",
-          "work": "Sinfonie Nr. 1 C-Dur op. 21"
-        },
-        {
-          "composer": "Carl Maria von Weber",
-          "work": "Ouvertüre zu Turandot op. 37"
-        },
-        {
-          "composer": "Zhanhao He",
-          "work": "The Fragrance of Jasmine"
-        },
-        {
-          "composer": "Yixuan Hu",
-          "work": "Early Spring: Blossom (Guzheng-Konzert, Uraufführung)"
-        },
-        {
-          "composer": "Holst",
-          "work": "Japanische Suite op. 33"
-        }
-      ]
-    },
-    {
-      "venue_id": "reutlingen-stadthalle-reutlingen",
       "date": "2026-07-19",
       "time": "19:00",
       "title": "Sommerkonzert",
@@ -674,7 +528,7 @@
         "Nachwuchsorchester der Jungen Sinfonie Reutlingen",
         "Maria Eiche (Leitung)"
       ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
     },
     {
       "venue_id": "muenchen-prinzregententheater",
@@ -693,21 +547,6 @@
     },
     {
       "venue_id": "muenchen-prinzregententheater",
-      "date": "2026-06-10",
-      "time": "19:30",
-      "title": "Münchner Rundfunkorchester: Ivan Repušić & Friends",
-      "url": "https://www.rundfunkorchester.de/konzerte/ivan-repusic-friends/",
-      "performers": [
-        "Münchner Rundfunkorchester",
-        "Ivan Repušić, Dirigent",
-        "Emmanuel Pahud",
-        "Krassimira Stoyanova",
-        "Charles Castronovo"
-      ],
-      "source_url": "https://theaterakademie.de/de/theater/programm"
-    },
-    {
-      "venue_id": "muenchen-prinzregententheater",
       "date": "2026-06-13",
       "time": "15:00",
       "title": "Arien Zeigen",
@@ -723,153 +562,6 @@
         "KS Prof. Andreas Schmidt (Leitung)"
       ],
       "source_url": "https://theaterakademie.de/de/theater/programm"
-    },
-    {
-      "venue_id": "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal",
-      "date": "2026-06-03",
-      "time": "12:00",
-      "title": "Musik publik",
-      "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-03_1200/musik-publik-15",
-      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender",
-      "performers": [
-        "Elizara Valcheva, Klavier",
-        "Zaruhi Karamijyan, Klavier",
-        "Waka Yamada, Klavier",
-        "Prof. Matthias Tschirch (Moderation)",
-        "Prof. Tobias Usbeck (Betreuung)"
-      ],
-      "program": [
-        {
-          "composer": "Beethoven",
-          "work": "Klaviersonate Nr. 30 in E-Dur, Op. 109"
-        },
-        {
-          "composer": "Schubert",
-          "work": "Klaviersonate Nr. 16 in a-Moll, D845 (3. Scherzo & 4. Rondo)"
-        },
-        {
-          "composer": "Chopin",
-          "work": "4 Mazurken, Op. 24 (Nr. 1 & 2)"
-        }
-      ]
-    },
-    {
-      "venue_id": "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal",
-      "date": "2026-06-05",
-      "time": "12:00",
-      "title": "Musik publik",
-      "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-05_1200/musik-publik-15",
-      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender",
-      "performers": [
-        "Heping Wang, Klavier",
-        "Youxiang Jiang, Oboe",
-        "Klasse Prof. Bernd Glemser",
-        "Klasse Prof. Domenico Orlando",
-        "Moderation: Dr. Lilo Kunkel",
-        "Andreas Lehmann"
-      ],
-      "program": [
-        {
-          "composer": "Schubert",
-          "work": "Klaviersonate in c-Moll, D 958"
-        },
-        {
-          "composer": "Schumann",
-          "work": "5 Stücke im Volkston, Op. 102 (Auswahl: Nr. II, III, IV)"
-        }
-      ]
-    },
-    {
-      "venue_id": "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal",
-      "date": "2026-06-08",
-      "time": "18:00",
-      "title": "Exotische Hölzer",
-      "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-08_1800/exotische-hoelzer-2",
-      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender",
-      "performers": [
-        "Klasse Ulrich Büsing",
-        "Klasse Jürgen Fenner",
-        "Klasse Haruko Nakajima",
-        "Daria Vorobiova, Piccolo",
-        "Anna Honisch, Piccolo",
-        "Hayun Park, Piccolo",
-        "Alba Farina Castano, Baritonsaxophon",
-        "Miho Outekhin, Klavier",
-        "Jonas Kalin, Bassklarinette/Bassetthorn",
-        "Junming Zhu, Sopransaxophon",
-        "Simon Mehling, Kontrafagott",
-        "Barbara Anton, Klavier",
-        "Hanna Richter, Englischhorn",
-        "Cornelius Müller, Bassklarinette/Bassetthorn",
-        "Chanhee Park, Altflöte",
-        "Alexander Perlovskij, Es-Klarinette/Klarinette",
-        "Melina Weiß, Bassklarinette",
-        "Umberto Filineri, Kontrafagott",
-        "Yi-Hsuan Chiu, Sopransaxophon",
-        "Sonja Besler, Baritonsaxophon",
-        "Mebuki Sumi, Piccolo/Bassflöte/Querflöte",
-        "Elena Krodel, Bassklarinette",
-        "Ida Marie Reimer, Querflöte/Piccolo",
-        "Charlotte Geier, Querflöte"
-      ],
-      "program": [
-        {
-          "composer": "Boismortier",
-          "work": "Sonate en trio in d-Moll op. 7 Nr. 4 (Fassung für drei Piccoloflöten)"
-        },
-        {
-          "composer": "Demerssemann",
-          "work": "Fantaisie sur un thème original"
-        },
-        {
-          "composer": "Jolivet",
-          "work": "Ascèses für Bassklarinette solo (Auswahl)"
-        },
-        {
-          "composer": "Ravel",
-          "work": "Sonatine (Auswahl: 1. Modéré, 2. Mouvement de menuet)"
-        },
-        {
-          "composer": "Mozart",
-          "work": "Konzert für Fagott und Orchester KV 191, 2. Satz Andante ma Adagio (Fassung für Kontrafagott und Klavier)"
-        },
-        {
-          "composer": "Rodin",
-          "work": "Rezitativ und Arie für Englischhorn solo"
-        },
-        {
-          "composer": "Schoeck",
-          "work": "Sonate für Bassklarinette und Klavier op. 41, 1. Gemessen"
-        },
-        {
-          "composer": "Bach",
-          "work": "Contrapunctus Nr. 1 aus Die Kunst der Fuge BWV 1080 (arr. Thomas Sattel)"
-        },
-        {
-          "composer": "Earle Brown",
-          "work": "December 1952 – Improvisation für Holzbläser"
-        },
-        {
-          "composer": "Dehnhard",
-          "work": "Wake up! für Piccoloflöte und Wecker"
-        },
-        {
-          "composer": "Wagner",
-          "work": "Gebet der Elisabeth aus Tannhäuser (arr. Ulrich Büsing für Klarinette, Bassetthorn und Bassklarinette)"
-        },
-        {
-          "composer": "Bach",
-          "work": "Suite Nr. 1 für Violoncello solo BWV 1007, Menuet I & II, Gigue (gespielt auf Bassklarinette)"
-        },
-        {
-          "composer": "Ravel",
-          "work": "Ma mère L'Oye für Flötenquartett (arr. M. Orriss): Pavane, Petit Poucet, Laideronnette"
-        },
-        {
-          "composer": "Bach",
-          "work": "Contrapunctus VIII a 3 aus Die Kunst der Fuge BWV 1080 (arr. Ulrich Büsing für Klarinette, Bassetthorn und Bassklarinette)"
-        }
-      ]
     },
     {
       "venue_id": "bayreuth-markgraefliches-opernhaus",
@@ -1029,74 +721,6 @@
         }
       ],
       "source_url": "https://www.alteoper.de"
-    },
-    {
-      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
-      "date": "2026-06-06",
-      "time": "20:00",
-      "title": "Alexander Malofeev, Klavier",
-      "url": "https://www.alteoper.de/en/programme/alexander-malofeev-klavier/18360",
-      "performers": [
-        "Alexander Malofeev, Klavier"
-      ],
-      "source_url": "https://www.alteoper.de/en/programme",
-      "program": [
-        {
-          "composer": "Schubert",
-          "work": "Drei Klavierstücke D 946"
-        },
-        {
-          "composer": "Grieg",
-          "work": "Aus Holbergs Zeit – Suite im alten Stil op. 40"
-        },
-        {
-          "composer": "Sibelius",
-          "work": "5 Stücke für Klavier op. 75 \"Die Bäume\""
-        },
-        {
-          "composer": "Skrjabin",
-          "work": "Valse op. 38"
-        },
-        {
-          "composer": "Arthur Lourié",
-          "work": "5 Préludes fragiles op. 1"
-        },
-        {
-          "composer": "Rachmaninow",
-          "work": "Sonate Nr. 2 b-moll op. 36"
-        }
-      ]
-    },
-    {
-      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
-      "date": "2026-06-06",
-      "time": "20:00",
-      "title": "Orchestra of the 18th Century",
-      "url": "https://www.alteoper.de/en/programme/orchestra-of-the-18th-century/18485",
-      "performers": [
-        "Orchestra of the 18th Century",
-        "Richard Egarr, conductor",
-        "Jean-Guihen Queyras, cello"
-      ],
-      "source_url": "https://www.alteoper.de/en/programme",
-      "program": [
-        {
-          "composer": "Johann Sebastian Bach",
-          "work": "Suite Nr. 3 D-Dur BWV 1068"
-        },
-        {
-          "composer": "Carl Philipp Emanuel Bach",
-          "work": "Violoncellokonzert A-Dur Wq 172"
-        },
-        {
-          "composer": "Mendelssohn",
-          "work": "Die Hebriden op. 26"
-        },
-        {
-          "composer": "Mendelssohn",
-          "work": "Sinfonie Nr. 5 in D-Dur op. 107 \"Reformationssinfonie\""
-        }
-      ]
     },
     {
       "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
@@ -1321,35 +945,6 @@
       "performers": [
         "SWR Symphonieorchester",
         "SWR Symphonieorchester (Mitglieder)"
-      ],
-      "program": [
-        {
-          "composer": "Dohnányi",
-          "work": "Kammermusikwerk"
-        },
-        {
-          "composer": "Ravel",
-          "work": "Kammermusikwerk"
-        },
-        {
-          "composer": "D'Rivera",
-          "work": "Kammermusikwerk"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "SWR Symphonieorchester"
-    },
-    {
-      "date": "2026-06-06",
-      "source_url": "https://www.swr.de/kultur/musik/konzertkalender-frontmoddetail-100.html?swx_egCategory=swrclassic-so&swx_egMonth=2026-06",
-      "time": "20:00",
-      "title": "Kammerkonzert: Werke von Dohnányi, Ravel und D'Rivera",
-      "url": "https://tickets.swrservice.de/webshop/webticket/shop?event=1149",
-      "venue": "Museum Frieder Burda",
-      "city": "Baden-Baden",
-      "performers": [
-        "SWR Symphonieorchester",
-        "Mitglieder des SWR Symphonieorchesters"
       ],
       "program": [
         {
@@ -1691,38 +1286,6 @@
       "ensemble": "Württembergisches Kammerorchester Heilbronn"
     },
     {
-      "date": "2026-06-09",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
-      "time": "19:00",
-      "title": "Kammermusik : Väter der Klamotte",
-      "url": "https://www.wko-heilbronn.de/konzerte/kammermusik-vaeter-der-klamotte",
-      "venue": "Unter der Pyramide, Kreissparkasse Heilbronn",
-      "city": "Heilbronn",
-      "performers": [
-        "Württembergisches Kammerorchester Heilbronn",
-        "Ingmar Lazar",
-        "Zohar Lerner",
-        "Götz Engelhardt",
-        "Georg Oyen"
-      ],
-      "program": [
-        {
-          "composer": "Raff",
-          "work": "Werk von Raff"
-        },
-        {
-          "composer": "Godard",
-          "work": "Werk von Godard"
-        },
-        {
-          "composer": "Knorr",
-          "work": "Werk von Knorr"
-        }
-      ],
-      "venue_id": "heilbronn-harmonie-heilbronn",
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
       "date": "2026-06-10",
       "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
       "time": "19:30",
@@ -1753,132 +1316,6 @@
       "ensemble": "Württembergisches Kammerorchester Heilbronn"
     },
     {
-      "date": "2026-06-18",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
-      "time": "19:30",
-      "title": "Pascal Schumacher, Vibraphon : Minimal Vibes für großes Orchester",
-      "url": "https://www.wko-heilbronn.de/konzerte/pascal-schumacher-vibraphon",
-      "venue": "Harmonie",
-      "city": "Heilbronn",
-      "performers": [
-        "Pascal Schumacher (Vibraphon)",
-        "Risto Joost (Dirigent)",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "program": [
-        {
-          "composer": "Farrenc",
-          "work": "Werk von Farrenc"
-        },
-        {
-          "composer": "Greenstein",
-          "work": "Werk von Greenstein"
-        },
-        {
-          "composer": "Brahms",
-          "work": "Werk von Brahms"
-        }
-      ],
-      "venue_id": "heilbronn-harmonie-heilbronn",
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-06-19",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
-      "time": "19:30",
-      "title": "Pascal Schumacher, Vibraphon : Minimal Vibes für großes Orchester",
-      "url": "https://www.wko-heilbronn.de/konzerte/pascal-schumacher-vibraphon",
-      "venue": "Kornhaus",
-      "city": "Ulm",
-      "performers": [
-        "Pascal Schumacher (Vibraphon)",
-        "Risto Joost (Dirigent)",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "program": [
-        {
-          "composer": "Farrenc",
-          "work": "Werk von Farrenc"
-        },
-        {
-          "composer": "Greenstein",
-          "work": "Werk von Greenstein"
-        },
-        {
-          "composer": "Brahms",
-          "work": "Werk von Brahms"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-06-27",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
-      "time": "19:00",
-      "title": "Concerti Brillanti : Kronberg Academy",
-      "url": "https://www.wko-heilbronn.de/konzerte/kronberg-academy",
-      "venue": "Casals Forum",
-      "city": "Kronberg",
-      "performers": [
-        "Studierende der Kronberg Academy",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-07-04",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
-      "time": "19:30",
-      "title": "Klassik Open Air Heilbronn : Frank Dupree, Klavier & Leitung",
-      "url": "https://www.wko-heilbronn.de/konzerte/klassik-open-air-heilbronn-26",
-      "venue": "Kiliansplatz",
-      "city": "Heilbronn",
-      "performers": [
-        "Frank Dupree (Klavier & Leitung)",
-        "Frank Dupree Trio",
-        "Šima Fagott",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "program": [
-        {
-          "composer": "De Falla",
-          "work": "Werk von De Falla"
-        },
-        {
-          "composer": "Ravel",
-          "work": "Werk von Ravel"
-        },
-        {
-          "composer": "Francaix",
-          "work": "Werk von Francaix"
-        },
-        {
-          "composer": "Milhaud",
-          "work": "Werk von Milhaud"
-        },
-        {
-          "composer": "Fauré",
-          "work": "Werk von Fauré"
-        },
-        {
-          "composer": "Mancini",
-          "work": "Werk von Mancini"
-        },
-        {
-          "composer": "Legrand",
-          "work": "Werk von Legrand"
-        },
-        {
-          "composer": "Cosma",
-          "work": "Werk von Cosma"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
       "date": "2026-07-15",
       "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
       "time": "20:00",
@@ -1918,204 +1355,6 @@
       "performers": [
         "Jonas Palm (Violoncello)",
         "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-07-17",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=31",
-      "time": "20:00",
-      "title": "Ragnhild Hemsing, Violine & Hardangerfiedel : Weilburger Schlosskonzerte",
-      "url": "https://www.wko-heilbronn.de/konzerte/ragnhild-hemsing-violine-hardangerfiedel",
-      "venue": "Schloss, Renaissancehof",
-      "city": "Weilburg",
-      "performers": [
-        "Ragnhild Hemsing (Violine & Hardangerfiedel)",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "program": [
-        {
-          "composer": "Sibelius",
-          "work": "Werk von Sibelius"
-        },
-        {
-          "composer": "Grieg",
-          "work": "Werk von Grieg"
-        },
-        {
-          "composer": "Hemsing",
-          "work": "Werk von Hemsing"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-06-10",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
-      "time": "19:30",
-      "title": "Niklas Liepe, Violine : Romantisch",
-      "url": "https://www.wko-heilbronn.de/konzerte/niklas-liepe-violine",
-      "venue": "Stadttheater",
-      "city": "Amberg",
-      "performers": [
-        "Niklas Liepe (Violine)",
-        "Joseph Bastian",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "program": [
-        {
-          "composer": "Anna Clyne",
-          "work": "Werk von Clyne"
-        },
-        {
-          "composer": "Felix Mendelssohn Bartholdy",
-          "work": "Werk von Mendelssohn Bartholdy"
-        },
-        {
-          "composer": "Ludwig van Beethoven",
-          "work": "Werk von Beethoven"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-06-27",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
-      "time": "19:00",
-      "title": "Concerti Brillanti : Kronberg Academy",
-      "url": "https://www.wko-heilbronn.de/konzerte/kronberg-academy",
-      "venue": "Casals Forum",
-      "city": "Kronberg",
-      "performers": [
-        "Studierende der Kronberg Academy",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-07-04",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
-      "time": "19:30",
-      "title": "Klassik Open Air Heilbronn : Frank Dupree, Klavier & Leitung",
-      "url": "https://www.wko-heilbronn.de/konzerte/klassik-open-air-heilbronn-26",
-      "venue": "Kiliansplatz",
-      "city": "Heilbronn",
-      "performers": [
-        "Frank Dupree (Klavier & Leitung)",
-        "Frank Dupree Trio",
-        "Šima Fagott",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "program": [
-        {
-          "composer": "Manuel de Falla",
-          "work": "Werk von De Falla"
-        },
-        {
-          "composer": "Maurice Ravel",
-          "work": "Werk von Ravel"
-        },
-        {
-          "composer": "Jean Françaix",
-          "work": "Werk von Françaix"
-        },
-        {
-          "composer": "Darius Milhaud",
-          "work": "Werk von Milhaud"
-        },
-        {
-          "composer": "Gabriel Fauré",
-          "work": "Werk von Fauré"
-        },
-        {
-          "composer": "Henry Mancini",
-          "work": "Werk von Mancini"
-        },
-        {
-          "composer": "Michel Legrand",
-          "work": "Werk von Legrand"
-        },
-        {
-          "composer": "Vladimir Cosma",
-          "work": "Werk von Cosma"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-07-15",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
-      "time": "20:00",
-      "title": "Ragnhild Hemsing, Violine & Hardangerfiedel : Ludwigsburger Schlossfestspiele",
-      "url": "https://www.wko-heilbronn.de/konzerte/ragnhild-hemsing-violine-hardangerfiedel",
-      "venue": "Schloss, Ordenssaal",
-      "city": "Ludwigsburg",
-      "performers": [
-        "Ragnhild Hemsing (Violine & Hardangerfiedel)",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "program": [
-        {
-          "composer": "Jean Sibelius",
-          "work": "Werk von Sibelius"
-        },
-        {
-          "composer": "Edvard Grieg",
-          "work": "Werk von Grieg"
-        },
-        {
-          "composer": "Ragnhild Hemsing",
-          "work": "Werk von Hemsing"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-07-16",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
-      "time": "20:00",
-      "title": "Jonas Palm, Violoncello : Ludwigsburger Schlossfestspiele",
-      "url": "https://www.wko-heilbronn.de/konzerte/jonas-palm-violoncello",
-      "venue": "Schloss",
-      "city": "Ludwigsburg",
-      "performers": [
-        "Jonas Palm (Violoncello)",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "venue_id": null,
-      "ensemble": "Württembergisches Kammerorchester Heilbronn"
-    },
-    {
-      "date": "2026-07-17",
-      "source_url": "https://www.wko-heilbronn.de/konzerte/?cat=26",
-      "time": "20:00",
-      "title": "Ragnhild Hemsing, Violine & Hardangerfiedel : Weilburger Schlosskonzerte",
-      "url": "https://www.wko-heilbronn.de/konzerte/ragnhild-hemsing-violine-hardangerfiedel",
-      "venue": "Schloss, Renaissancehof",
-      "city": "Weilburg",
-      "performers": [
-        "Ragnhild Hemsing (Violine & Hardangerfiedel)",
-        "Württembergisches Kammerorchester Heilbronn"
-      ],
-      "program": [
-        {
-          "composer": "Jean Sibelius",
-          "work": "Werk von Sibelius"
-        },
-        {
-          "composer": "Edvard Grieg",
-          "work": "Werk von Grieg"
-        },
-        {
-          "composer": "Ragnhild Hemsing",
-          "work": "Werk von Hemsing"
-        }
       ],
       "venue_id": null,
       "ensemble": "Württembergisches Kammerorchester Heilbronn"
@@ -2292,53 +1531,9 @@
       "ensemble": "Opern- und Museumsorchester Frankfurt"
     },
     {
-      "date": "2026-06-07",
-      "source_url": "https://www.oper-frankfurt.de/de/konzerte/museumskonzerte/",
-      "time": "11:00",
-      "title": "10. Sinfoniekonzert",
-      "url": "https://www.oper-frankfurt.de/de/spielplan/10-sinfoniekonzert/?id_datum=4351",
-      "venue": "Alte Oper Frankfurt",
-      "city": "Frankfurt am Main",
-      "performers": [
-        "Opern- und Museumsorchester Frankfurt",
-        "Frankfurter Opern- und Museumsorchester"
-      ],
-      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
-      "ensemble": "Opern- und Museumsorchester Frankfurt"
-    },
-    {
-      "date": "2026-06-08",
-      "source_url": "https://www.oper-frankfurt.de/de/konzerte/museumskonzerte/",
-      "time": "20:00",
-      "title": "10. Sinfoniekonzert",
-      "url": "https://www.oper-frankfurt.de/de/spielplan/10-sinfoniekonzert/?id_datum=4352",
-      "venue": "Alte Oper Frankfurt",
-      "city": "Frankfurt am Main",
-      "performers": [
-        "Opern- und Museumsorchester Frankfurt",
-        "Frankfurter Opern- und Museumsorchester"
-      ],
-      "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
-      "ensemble": "Opern- und Museumsorchester Frankfurt"
-    },
-    {
       "date": "2026-06-03",
       "source_url": "https://www.ensemble-modern.com",
       "time": "09:45",
-      "title": "Donnerblech und Fliegenfang",
-      "url": "https://www.ensemble-modern.com/de/projekte/kita-und-familienkonzerte-2026",
-      "venue": "Haus der Deutschen Ensemble Akademie, Anbau",
-      "city": "Frankfurt am Main",
-      "performers": [
-        "Ensemble Modern"
-      ],
-      "venue_id": null,
-      "ensemble": "Ensemble Modern"
-    },
-    {
-      "date": "2026-06-03",
-      "source_url": "https://www.ensemble-modern.com",
-      "time": "11:00",
       "title": "Donnerblech und Fliegenfang",
       "url": "https://www.ensemble-modern.com/de/projekte/kita-und-familienkonzerte-2026",
       "venue": "Haus der Deutschen Ensemble Akademie, Anbau",
@@ -2355,28 +1550,6 @@
       "time": "09:45",
       "title": "Donnerblech und Fliegenfang – Inszeniertes Kitakonzert für Kinder von 3-6 Jahren",
       "url": "https://www.ensemble-modern.com/de/kalender/2026-06-02/9726#k-9726",
-      "venue": "Haus Der Deutschen Ensemble Akademie, Anbau",
-      "city": "Frankfurt am Main",
-      "performers": [
-        "Ensemble Modern",
-        "Mitglieder des Ensemble Modern",
-        "Gabriele Baba (Leitung)"
-      ],
-      "program": [
-        {
-          "composer": "Gabriele Baba & Ensemble Modern",
-          "work": "Donnerblech und Fliegenfang (2026)"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "Ensemble Modern"
-    },
-    {
-      "date": "2026-06-02",
-      "source_url": "https://www.ensemble-modern.com/de/kalender",
-      "time": "11:00",
-      "title": "Donnerblech und Fliegenfang – Inszeniertes Kitakonzert für Kinder von 3-6 Jahren",
-      "url": "https://www.ensemble-modern.com/de/kalender/2026-06-02/9727#k-9727",
       "venue": "Haus Der Deutschen Ensemble Akademie, Anbau",
       "city": "Frankfurt am Main",
       "performers": [
@@ -2537,60 +1710,92 @@
     },
     {
       "date": "2026-06-05",
-      "source_url": "https://www.m-k-o.eu",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
       "time": "14:30",
       "title": "Öffentliche Durchlaufprobe mit Jörg Widmann",
-      "url": "https://www.m-k-o.eu/event-detail/4042/25---26%20S%C3%BCdamerikatour%20(%2B%20Festtag%20Gasteig)",
+      "url": "https://www.m-k-o.eu/event-detail/4042/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
       "venue": "Isarphilharmonie, Gasteig HP8",
       "city": "München",
       "performers": [
         "Münchener Kammerorchester",
-        "Jörg Widmann"
+        "Jörg Widmann, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
       ],
       "venue_id": "muenchen-isarphilharmonie",
       "ensemble": "Münchener Kammerorchester"
     },
     {
       "date": "2026-06-06",
-      "source_url": "https://www.m-k-o.eu",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
       "time": "17:00",
       "title": "MKO Inside",
-      "url": "https://www.m-k-o.eu/event-detail/3859/25---26%20S%C3%BCdamerikatour%20(%2B%20Festtag%20Gasteig)",
+      "url": "https://www.m-k-o.eu/event-detail/3859/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
       "venue": "Isarphilharmonie, Gasteig HP8",
       "city": "München",
       "performers": [
-        "Münchener Kammerorchester",
-        "Jörg Widmann"
+        "Münchener Kammerorchester"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
       ],
       "venue_id": "muenchen-isarphilharmonie",
       "ensemble": "Münchener Kammerorchester"
     },
     {
       "date": "2026-06-06",
-      "source_url": "https://www.m-k-o.eu",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
       "time": "15:30",
       "title": "MKO Inside – ein Klangerlebnis mit dem Münchener Kammerorchester",
-      "url": "https://www.m-k-o.eu/event-detail/3860/25---26%20S%C3%BCdamerikatour%20(%2B%20Festtag%20Gasteig)",
+      "url": "https://www.m-k-o.eu/event-detail/3860/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
       "venue": "Isarphilharmonie, Gasteig HP8",
       "city": "München",
       "performers": [
-        "Münchener Kammerorchester",
-        "Jörg Widmann"
+        "Münchener Kammerorchester"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Werke"
+        }
       ],
       "venue_id": "muenchen-isarphilharmonie",
       "ensemble": "Münchener Kammerorchester"
     },
     {
       "date": "2026-06-11",
-      "source_url": "https://www.m-k-o.eu",
+      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
       "time": "20:00",
       "title": "Jubiläumskonzert 75 Jahre MKO",
-      "url": "https://www.m-k-o.eu/event-detail/2972/25---26%20Abo%208/",
-      "venue": "Isarphilharmonie",
+      "url": "https://www.m-k-o.eu/event-detail/2972/25---26%20Abo%208",
+      "venue": "Isarphilharmonie, Gasteig HP8",
       "city": "München",
       "performers": [
         "Münchener Kammerorchester",
-        "Jörg Widmann"
+        "Tölzer Knabenchor",
+        "Claron McFadden, Sopran",
+        "Johannes Berger, Orgel",
+        "Geneviève Tschumi, Alt",
+        "Lukas Siebert, Tenor",
+        "Krešimir Stražanac, Bass",
+        "Jörg Widmann, Dirigent"
+      ],
+      "program": [
+        {
+          "composer": "Felix Mendelssohn-Bartholdy",
+          "work": "Werke"
+        },
+        {
+          "composer": "Jörg Widmann",
+          "work": "Werke"
+        }
       ],
       "venue_id": "muenchen-isarphilharmonie",
       "ensemble": "Münchener Kammerorchester"
@@ -2695,98 +1900,6 @@
         "Enrico Onofri"
       ],
       "venue_id": null,
-      "ensemble": "Münchener Kammerorchester"
-    },
-    {
-      "date": "2026-06-05",
-      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
-      "time": "14:30",
-      "title": "Öffentliche Durchlaufprobe mit Jörg Widmann",
-      "url": "https://www.m-k-o.eu/event-detail/4042/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
-      "venue": "Isarphilharmonie, Gasteig HP8",
-      "city": "München",
-      "performers": [
-        "Münchener Kammerorchester",
-        "Jörg Widmann, Dirigent"
-      ],
-      "program": [
-        {
-          "composer": "Wolfgang Amadeus Mozart",
-          "work": "Werke"
-        }
-      ],
-      "venue_id": "muenchen-isarphilharmonie",
-      "ensemble": "Münchener Kammerorchester"
-    },
-    {
-      "date": "2026-06-06",
-      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
-      "time": "17:00",
-      "title": "MKO Inside",
-      "url": "https://www.m-k-o.eu/event-detail/3859/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
-      "venue": "Isarphilharmonie, Gasteig HP8",
-      "city": "München",
-      "performers": [
-        "Münchener Kammerorchester"
-      ],
-      "program": [
-        {
-          "composer": "Wolfgang Amadeus Mozart",
-          "work": "Werke"
-        }
-      ],
-      "venue_id": "muenchen-isarphilharmonie",
-      "ensemble": "Münchener Kammerorchester"
-    },
-    {
-      "date": "2026-06-06",
-      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
-      "time": "15:30",
-      "title": "MKO Inside – ein Klangerlebnis mit dem Münchener Kammerorchester",
-      "url": "https://www.m-k-o.eu/event-detail/3860/25---26%20Südamerikatour%20(+%20Festtag%20Gasteig)",
-      "venue": "Isarphilharmonie, Gasteig HP8",
-      "city": "München",
-      "performers": [
-        "Münchener Kammerorchester"
-      ],
-      "program": [
-        {
-          "composer": "Wolfgang Amadeus Mozart",
-          "work": "Werke"
-        }
-      ],
-      "venue_id": "muenchen-isarphilharmonie",
-      "ensemble": "Münchener Kammerorchester"
-    },
-    {
-      "date": "2026-06-11",
-      "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
-      "time": "20:00",
-      "title": "Jubiläumskonzert 75 Jahre MKO",
-      "url": "https://www.m-k-o.eu/event-detail/2972/25---26%20Abo%208",
-      "venue": "Isarphilharmonie, Gasteig HP8",
-      "city": "München",
-      "performers": [
-        "Münchener Kammerorchester",
-        "Tölzer Knabenchor",
-        "Claron McFadden, Sopran",
-        "Johannes Berger, Orgel",
-        "Geneviève Tschumi, Alt",
-        "Lukas Siebert, Tenor",
-        "Krešimir Stražanac, Bass",
-        "Jörg Widmann, Dirigent"
-      ],
-      "program": [
-        {
-          "composer": "Felix Mendelssohn-Bartholdy",
-          "work": "Werke"
-        },
-        {
-          "composer": "Jörg Widmann",
-          "work": "Werke"
-        }
-      ],
-      "venue_id": "muenchen-isarphilharmonie",
       "ensemble": "Münchener Kammerorchester"
     },
     {
@@ -3148,85 +2261,83 @@
     },
     {
       "date": "2026-06-13",
-      "source_url": "https://www.nuernbergersymphoniker.de",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
       "time": "20:00",
       "title": "FIESTA Y FANTASÍA – Spanisch.Sinnlich.Spritzig",
       "url": "https://www.nuernbergersymphoniker.de/konzert/fiesta-y-fantasiaspanischsinnlichspritzig",
       "venue": "Serenadenhof",
       "city": "Nürnberg",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Fetén Fetén (Duo)",
+        "Adrien Perruchon (Leitung)"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker"
     },
     {
       "date": "2026-06-14",
-      "source_url": "https://www.nuernbergersymphoniker.de",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
       "time": "17:00",
       "title": "ZU GAST IN NEUENSTEIN – FIESTA Y FANTASÍA – Spanisch.Sinnlich.Spritzig",
       "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-in-neuensteinfiesta-y-fantasia-spanischsinnlichspritzig",
       "venue": "Rittersaal Schloss Neuenstein",
       "city": "Neuenstein",
       "performers": [
-        "Nürnberger Symphoniker"
-      ],
-      "venue_id": null,
-      "ensemble": "Nürnberger Symphoniker"
-    },
-    {
-      "date": "2026-06-16",
-      "source_url": "https://www.nuernbergersymphoniker.de",
-      "time": "20:00",
-      "title": "STARS VON MORGEN – Gastkonzert der Hochschule für Musik Nürnberg",
-      "url": "https://www.nuernbergersymphoniker.de/konzert/stars-von-morgengastkonzert-der-hochschule-fuer-musik-nuernberg",
-      "venue": "Serenadenhof",
-      "city": "Nürnberg",
-      "performers": [
         "Nürnberger Symphoniker",
-        "Hochschule für Musik Nürnberg"
+        "Fetén Fetén (Duo)",
+        "Adrien Perruchon (Leitung)"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker"
     },
     {
       "date": "2026-06-19",
-      "source_url": "https://www.nuernbergersymphoniker.de",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
       "time": "20:00",
       "title": "SYMPHONISCHE SOMMERNACHT – Von Nürnberg auf dem Weg nach Wien",
       "url": "https://www.nuernbergersymphoniker.de/konzert/symphonische-sommernachtvon-nuernberg-auf-dem-weg-nach-wien",
       "venue": "Serenadenhof",
       "city": "Nürnberg",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Stefan Aprodu (Violine)",
+        "Michiaki Ueno (Violoncello)",
+        "Yuki Miyagi (Leitung)"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker"
     },
     {
       "date": "2026-06-21",
-      "source_url": "https://www.nuernbergersymphoniker.de",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
       "time": "11:00",
       "title": "ZU GAST IM WIENER MUSIKVEREIN",
       "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-im-wiener-musikverein",
       "venue": "Musikverein Goldener Saal",
       "city": "Wien",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Stefan Aprodu (Violine)",
+        "Michiaki Ueno (Violoncello)",
+        "Yuki Miyagi (Leitung)"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker"
     },
     {
       "date": "2026-06-24",
-      "source_url": "https://www.nuernbergersymphoniker.de",
+      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
       "time": "20:00",
       "title": "SINFONÍA DEL TANGO – Eine Nacht in Buenos Aires",
       "url": "https://www.nuernbergersymphoniker.de/konzert/sinfonia-del-tangoeine-nacht-in-buenos-aires",
       "venue": "Serenadenhof",
       "city": "Nürnberg",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Michael Dolak (Bandoneon)",
+        "Norbert Nagel (Klarinette, Saxofon, Bassklarinette)",
+        "Norbert Nagel (Leitung)"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker"
@@ -3314,107 +2425,6 @@
         "Roberta Valentini (Vocals)",
         "Philipp Büttner (Vocals)",
         "Bernd Steixner (Leitung)"
-      ],
-      "venue_id": null,
-      "ensemble": "Nürnberger Symphoniker"
-    },
-    {
-      "date": "2026-06-13",
-      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
-      "time": "20:00",
-      "title": "FIESTA Y FANTASÍA – Spanisch.Sinnlich.Spritzig",
-      "url": "https://www.nuernbergersymphoniker.de/konzert/fiesta-y-fantasiaspanischsinnlichspritzig",
-      "venue": "Serenadenhof",
-      "city": "Nürnberg",
-      "performers": [
-        "Nürnberger Symphoniker",
-        "Fetén Fetén (Duo)",
-        "Adrien Perruchon (Leitung)"
-      ],
-      "venue_id": null,
-      "ensemble": "Nürnberger Symphoniker"
-    },
-    {
-      "date": "2026-06-14",
-      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
-      "time": "17:00",
-      "title": "ZU GAST IN NEUENSTEIN – FIESTA Y FANTASÍA – Spanisch.Sinnlich.Spritzig",
-      "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-in-neuensteinfiesta-y-fantasia-spanischsinnlichspritzig",
-      "venue": "Rittersaal Schloss Neuenstein",
-      "city": "Neuenstein",
-      "performers": [
-        "Nürnberger Symphoniker",
-        "Fetén Fetén (Duo)",
-        "Adrien Perruchon (Leitung)"
-      ],
-      "venue_id": null,
-      "ensemble": "Nürnberger Symphoniker"
-    },
-    {
-      "date": "2026-06-16",
-      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
-      "time": "20:00",
-      "title": "STARS VON MORGEN – Gastkonzert der Hochschule für Musik Nürnberg",
-      "url": "https://www.nuernbergersymphoniker.de/konzert/stars-von-morgengastkonzert-der-hochschule-fuer-musik-nuernberg",
-      "venue": "Serenadenhof",
-      "city": "Nürnberg",
-      "performers": [
-        "Nürnberger Symphoniker",
-        "Sinfonieorchester der Hochschule für Musik Nürnberg",
-        "Lidia Rubio (Tuba)",
-        "Anton Vogel (Kontrabass)",
-        "Guido Johannes Rumstadt (Leitung)"
-      ],
-      "venue_id": null,
-      "ensemble": "Nürnberger Symphoniker"
-    },
-    {
-      "date": "2026-06-19",
-      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
-      "time": "20:00",
-      "title": "SYMPHONISCHE SOMMERNACHT – Von Nürnberg auf dem Weg nach Wien",
-      "url": "https://www.nuernbergersymphoniker.de/konzert/symphonische-sommernachtvon-nuernberg-auf-dem-weg-nach-wien",
-      "venue": "Serenadenhof",
-      "city": "Nürnberg",
-      "performers": [
-        "Nürnberger Symphoniker",
-        "Stefan Aprodu (Violine)",
-        "Michiaki Ueno (Violoncello)",
-        "Yuki Miyagi (Leitung)"
-      ],
-      "venue_id": null,
-      "ensemble": "Nürnberger Symphoniker"
-    },
-    {
-      "date": "2026-06-21",
-      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
-      "time": "11:00",
-      "title": "ZU GAST IM WIENER MUSIKVEREIN",
-      "url": "https://www.nuernbergersymphoniker.de/konzert/zu-gast-im-wiener-musikverein",
-      "venue": "Musikverein Goldener Saal",
-      "city": "Wien",
-      "performers": [
-        "Nürnberger Symphoniker",
-        "Stefan Aprodu (Violine)",
-        "Michiaki Ueno (Violoncello)",
-        "Yuki Miyagi (Leitung)"
-      ],
-      "venue_id": null,
-      "ensemble": "Nürnberger Symphoniker"
-    },
-    {
-      "date": "2026-06-24",
-      "source_url": "https://www.nuernbergersymphoniker.de/konzerte/alle-konzerte",
-      "time": "20:00",
-      "title": "SINFONÍA DEL TANGO – Eine Nacht in Buenos Aires",
-      "url": "https://www.nuernbergersymphoniker.de/konzert/sinfonia-del-tangoeine-nacht-in-buenos-aires",
-      "venue": "Serenadenhof",
-      "city": "Nürnberg",
-      "performers": [
-        "Nürnberger Symphoniker",
-        "Michael Dolak (Bandoneon)",
-        "Norbert Nagel (Klarinette, Saxofon, Bassklarinette)",
-        "Norbert Nagel (Leitung)"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker"
@@ -3773,20 +2783,6 @@
       "url": "https://www.hofer-symphoniker.de/konzerte-tickets/10-symphoniekonzert-2026/",
       "venue": "Festsaal, Freiheitshalle Hof",
       "city": "Hof",
-      "performers": [
-        "Hofer Symphoniker"
-      ],
-      "venue_id": null,
-      "ensemble": "Hofer Symphoniker"
-    },
-    {
-      "date": "2026-06-25",
-      "source_url": "https://www.hofer-symphoniker.de/konzerte-tickets-events/",
-      "time": "19:30",
-      "title": "Symphoniekonzert",
-      "url": "https://www.hofer-symphoniker.de/konzerte-tickets/symphoniekonzert-selb-juni-2026/",
-      "venue": "Rosenthal-Theater Selb",
-      "city": "Selb",
       "performers": [
         "Hofer Symphoniker"
       ],

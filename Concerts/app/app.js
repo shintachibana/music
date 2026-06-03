@@ -179,8 +179,11 @@ function renderMap() {
 
 function renderPopup(v, concerts) {
   const tag = BL_TAG[v.bundesland] || "";
+  const venueHtml = v.website
+    ? `<a href="${escape(v.website)}" target="_blank" rel="noopener">${escape(v.name)}</a>`
+    : escape(v.name);
   const top = `
-    <div class="popup-venue">${escape(v.name)}</div>
+    <div class="popup-venue">${venueHtml}</div>
     <div class="popup-city">
       <span class="bl-tag ${tag}">${tag}</span>
       ${escape(v.city)}
@@ -217,13 +220,17 @@ function renderTable() {
       const tag = BL_TAG[v.bundesland] || "";
       const city = v.city || c.city || "";
       const venueName = v.name || c.venue || "";
+      const venueSite = v.website || "";
       const bundesland = v.bundesland || "";
+      const venueCell = venueSite
+        ? `<a href="${escape(venueSite)}" target="_blank" rel="noopener">${escape(venueName)}</a>`
+        : escape(venueName);
       const prog = c.program.map((p) => `${p.composer || ""}: ${p.work || ""}`).join("\n");
       return `<tr>
         <td>${escape(c.date || "")}${c.time ? "<br><small style='color:var(--muted)'>" + escape(c.time) + "</small>" : ""}</td>
         <td>${tag ? `<span class="bl-tag ${tag}">${tag}</span> ` : ""}${escape(bundesland)}</td>
         <td>${escape(city)}</td>
-        <td>${escape(venueName)}</td>
+        <td>${venueCell}</td>
         <td>${escape(c.performers.join("; "))}</td>
         <td class="program">${escape(prog)}</td>
         <td>${c.url ? `<a href="${escape(c.url)}" target="_blank" rel="noopener">↗</a>` : ""}</td>
