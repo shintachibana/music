@@ -264,9 +264,24 @@
       "url": "https://www.liederhalle-stuttgart.de/veranstaltung/swr-symphonieorchester-riccardo-minasi-1",
       "performers": [
         "SWR Symphonieorchester",
-        "Riccardo Minasi"
+        "Riccardo Minasi, Dirigent",
+        "Antoine Tamestit, Viola"
       ],
-      "source_url": "https://www.liederhalle-stuttgart.de"
+      "source_url": "https://www.liederhalle-stuttgart.de",
+      "program": [
+        {
+          "composer": "Richard Wagner",
+          "work": "Ouvertüre zur Oper \"Tannhäuser\""
+        },
+        {
+          "composer": "Béla Bartók",
+          "work": "Violakonzert Sz 120"
+        },
+        {
+          "composer": "Antonín Dvořák",
+          "work": "Sinfonie Nr. 9 e-Moll op. 95 (\"Aus der Neuen Welt\")"
+        }
+      ]
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -275,7 +290,8 @@
       "url": "https://www.festspielhaus.de/veranstaltungen/yannick-nezet-seguin-2026/",
       "performers": [
         "Yannick Nézet-Séguin",
-        "Chamber Orchestra of Europe"
+        "Chamber Orchestra of Europe",
+        "Yannick Nézet-Séguin (Dirigent)"
       ],
       "program": [
         {
@@ -291,7 +307,8 @@
           "work": "Werke"
         }
       ],
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "time": "19:00"
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -299,9 +316,14 @@
       "title": "Krabbelkonzert",
       "url": "https://www.festspielhaus.de/veranstaltungen/krabbelkonzert-2026/",
       "performers": [
-        "Chamber Orchestra of Europe"
+        "Chamber Orchestra of Europe",
+        "Ingrid Hausl (Moderation)",
+        "Marie Lloyd (Klarinette)",
+        "Julian Poore (Trompete)",
+        "Philip Nelson (Kontrabass)"
       ],
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "time": "09:00"
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -309,9 +331,10 @@
       "title": "Yannick & Friends",
       "url": "https://www.festspielhaus.de/veranstaltungen/yannick-friends-2026/",
       "performers": [
-        "Yannick Nézet-Séguin"
+        "Yannick Nézet-Séguin, Klavier"
       ],
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "time": "18:00"
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -319,10 +342,11 @@
       "title": "Yannick Nézet-Séguin",
       "url": "https://www.festspielhaus.de/veranstaltungen/yannick-nezet-seguin-chamber-orchestra-of-europe/",
       "performers": [
-        "Yannick Nézet-Séguin",
+        "Yannick Nézet-Séguin, Dirigent",
         "Chamber Orchestra of Europe"
       ],
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "time": "17:00"
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -331,8 +355,8 @@
       "url": "https://www.festspielhaus.de/veranstaltungen/london-symphony-orchestra-2026/",
       "performers": [
         "London Symphony Orchestra",
-        "Yannick Nézet-Séguin",
-        "Yuja Wang"
+        "Yannick Nézet-Séguin, Dirigent",
+        "Yuja Wang, Klavier"
       ],
       "program": [
         {
@@ -344,7 +368,8 @@
           "work": "Klavierkonzert Nr. 3"
         }
       ],
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "time": "19:00"
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -353,10 +378,10 @@
       "url": "https://www.festspielhaus.de/veranstaltungen/wagner-beethoven/",
       "performers": [
         "London Symphony Orchestra",
-        "Antonio Pappano",
-        "Vilde Frang",
-        "Sarah Jakubiak",
-        "Clay Hilley"
+        "Antonio Pappano, Dirigent",
+        "Vilde Frang, Violine",
+        "Sarah Jakubiak, Sopran",
+        "Clay Hilley, Tenor"
       ],
       "program": [
         {
@@ -368,14 +393,22 @@
           "work": "Liebestod aus Tristan und Isolde"
         }
       ],
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "time": "17:00"
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
       "date": "2026-07-11",
       "title": "IM.PULS",
       "url": "https://www.festspielhaus.de/veranstaltungen/im-puls-2026/",
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "time": "16:00",
+      "performers": [
+        "Calmus Vokalensemble (IM.PULS Projektcoaches)",
+        "Philharmonischer Chor des Helmholtz-Gymnasiums Karlsruhe (IM.PULS Projektchor)",
+        "Mateo Peñaloza Cecconi, Chorleitung",
+        "Nick-Martin Sternitzke, Moderation"
+      ]
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -383,7 +416,10 @@
       "time": "18:00",
       "title": "Mitsingfest",
       "url": "https://www.festspielhaus.de/veranstaltungen/mitsingfest/",
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "performers": [
+        "Mateo Peñaloza Cecconi (Workshopleitung)"
+      ]
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -393,9 +429,30 @@
       "performers": [
         "Daniel Hope",
         "Pinchas Zukerman",
-        "Zürcher Kammerorchester"
+        "Zürcher Kammerorchester",
+        "Daniel Hope (Violine)",
+        "Pinchas Zukerman (Violine, Viola, Dirigent)"
       ],
-      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/"
+      "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
+      "time": "18:00",
+      "program": [
+        {
+          "composer": "Mozart",
+          "work": "Konzert für Violine und Orchester G-Dur KV 216"
+        },
+        {
+          "composer": "Haydn",
+          "work": "Sinfonie D-Dur Hob I:104"
+        },
+        {
+          "composer": "Offenbach",
+          "work": "Les Larmes de Jacqueline op. 76/2, Fassung für Violoncello und Kammerorchester"
+        },
+        {
+          "composer": "Mozart",
+          "work": "Sinfonia Concertante Es-Dur KV 364"
+        }
+      ]
     },
     {
       "venue_id": "reutlingen-stadthalle-reutlingen",
@@ -409,7 +466,8 @@
         "Gerhild Romberger (Alt)",
         "Philharmonia Chor Stuttgart",
         "Württembergischer Kammerchor",
-        "Ariane Matiakh (Leitung)"
+        "Ariane Matiakh (Leitung)",
+        "Ariane Matiakh (Dirigentin)"
       ],
       "program": [
         {
@@ -471,7 +529,29 @@
         "Adrian Jelinek (Leitung)",
         "Konrad S. Heinz (Leitung)"
       ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen",
+      "program": [
+        {
+          "composer": "Beethoven",
+          "work": "Sinfonie Nr. 1 C-Dur op. 21"
+        },
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Ouvertüre zu Turandot op. 37"
+        },
+        {
+          "composer": "Zhanhao He",
+          "work": "The Fragrance of Jasmine"
+        },
+        {
+          "composer": "Yixuan Hu",
+          "work": "Early Spring: Blossom (Guzheng-Konzert, Uraufführung)"
+        },
+        {
+          "composer": "Holst",
+          "work": "Japanische Suite op. 33"
+        }
+      ]
     },
     {
       "venue_id": "reutlingen-stadthalle-reutlingen",
@@ -480,7 +560,8 @@
       "title": "Sommerkonzert",
       "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Nachwuchsorchester-der-Jungen-Sinfonie-Reutlingen-5/2026-07-19",
       "performers": [
-        "Nachwuchsorchester der Jungen Sinfonie Reutlingen"
+        "Nachwuchsorchester der Jungen Sinfonie Reutlingen",
+        "Maria Eiche (Leitung)"
       ],
       "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
     },
@@ -528,7 +609,8 @@
       "performers": [
         "Württembergische Philharmonie Reutlingen",
         "Baptiste Trotignon (Klavier)",
-        "Ariane Matiakh (Leitung)"
+        "Ariane Matiakh (Leitung)",
+        "Ariane Matiakh (Dirigentin)"
       ],
       "program": [
         {
@@ -558,7 +640,29 @@
         "Adrian Jelinek (Leitung)",
         "Konrad S. Heinz (Leitung)"
       ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
+      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik",
+      "program": [
+        {
+          "composer": "Beethoven",
+          "work": "Sinfonie Nr. 1 C-Dur op. 21"
+        },
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Ouvertüre zu Turandot op. 37"
+        },
+        {
+          "composer": "Zhanhao He",
+          "work": "The Fragrance of Jasmine"
+        },
+        {
+          "composer": "Yixuan Hu",
+          "work": "Early Spring: Blossom (Guzheng-Konzert, Uraufführung)"
+        },
+        {
+          "composer": "Holst",
+          "work": "Japanische Suite op. 33"
+        }
+      ]
     },
     {
       "venue_id": "reutlingen-stadthalle-reutlingen",
@@ -567,7 +671,8 @@
       "title": "Sommerkonzert",
       "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Nachwuchsorchester-der-Jungen-Sinfonie-Reutlingen-5/2026-07-19",
       "performers": [
-        "Nachwuchsorchester der Jungen Sinfonie Reutlingen"
+        "Nachwuchsorchester der Jungen Sinfonie Reutlingen",
+        "Maria Eiche (Leitung)"
       ],
       "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
     },
@@ -579,7 +684,10 @@
       "url": "https://www.rundfunkorchester.de/konzerte/ivan-repusic-friends/",
       "performers": [
         "Münchner Rundfunkorchester",
-        "Ivan Repušić"
+        "Ivan Repušić, Dirigent",
+        "Emmanuel Pahud",
+        "Krassimira Stoyanova",
+        "Charles Castronovo"
       ],
       "source_url": "https://www.prinzregententheater.de"
     },
@@ -591,7 +699,10 @@
       "url": "https://www.rundfunkorchester.de/konzerte/ivan-repusic-friends/",
       "performers": [
         "Münchner Rundfunkorchester",
-        "Ivan Repušić"
+        "Ivan Repušić, Dirigent",
+        "Emmanuel Pahud",
+        "Krassimira Stoyanova",
+        "Charles Castronovo"
       ],
       "source_url": "https://theaterakademie.de/de/theater/programm"
     },
@@ -602,7 +713,14 @@
       "title": "Arien Zeigen",
       "url": "https://theaterakademie.de/de/theater/programm/arien-zeigen",
       "performers": [
-        "Studiengang Musiktheater/Operngesang, Bayerische Theaterakademie August Everding"
+        "Studiengang Musiktheater/Operngesang, Bayerische Theaterakademie August Everding",
+        "Alina Berit Göke (Gesang)",
+        "Mose Lee (Gesang)",
+        "Henrique Lencastre (Gesang)",
+        "Beatriz Maia (Gesang)",
+        "Geonho Lee (Gesang)",
+        "Prof. Balázs Kovalik (Leitung)",
+        "KS Prof. Andreas Schmidt (Leitung)"
       ],
       "source_url": "https://theaterakademie.de/de/theater/programm"
     },
@@ -612,7 +730,28 @@
       "time": "12:00",
       "title": "Musik publik",
       "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-03_1200/musik-publik-15",
-      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender"
+      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender",
+      "performers": [
+        "Elizara Valcheva, Klavier",
+        "Zaruhi Karamijyan, Klavier",
+        "Waka Yamada, Klavier",
+        "Prof. Matthias Tschirch (Moderation)",
+        "Prof. Tobias Usbeck (Betreuung)"
+      ],
+      "program": [
+        {
+          "composer": "Beethoven",
+          "work": "Klaviersonate Nr. 30 in E-Dur, Op. 109"
+        },
+        {
+          "composer": "Schubert",
+          "work": "Klaviersonate Nr. 16 in a-Moll, D845 (3. Scherzo & 4. Rondo)"
+        },
+        {
+          "composer": "Chopin",
+          "work": "4 Mazurken, Op. 24 (Nr. 1 & 2)"
+        }
+      ]
     },
     {
       "venue_id": "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal",
@@ -620,7 +759,25 @@
       "time": "12:00",
       "title": "Musik publik",
       "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-05_1200/musik-publik-15",
-      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender"
+      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender",
+      "performers": [
+        "Heping Wang, Klavier",
+        "Youxiang Jiang, Oboe",
+        "Klasse Prof. Bernd Glemser",
+        "Klasse Prof. Domenico Orlando",
+        "Moderation: Dr. Lilo Kunkel",
+        "Andreas Lehmann"
+      ],
+      "program": [
+        {
+          "composer": "Schubert",
+          "work": "Klaviersonate in c-Moll, D 958"
+        },
+        {
+          "composer": "Schumann",
+          "work": "5 Stücke im Volkston, Op. 102 (Auswahl: Nr. II, III, IV)"
+        }
+      ]
     },
     {
       "venue_id": "wuerzburg-hochschule-fuer-musik-wuerzburg-konzertsaal",
@@ -628,7 +785,91 @@
       "time": "18:00",
       "title": "Exotische Hölzer",
       "url": "https://www.hfm-wuerzburg.de/kalender/event/2026-06-08_1800/exotische-hoelzer-2",
-      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender"
+      "source_url": "https://www.hfm-wuerzburg.de/veranstaltungen/kalender",
+      "performers": [
+        "Klasse Ulrich Büsing",
+        "Klasse Jürgen Fenner",
+        "Klasse Haruko Nakajima",
+        "Daria Vorobiova, Piccolo",
+        "Anna Honisch, Piccolo",
+        "Hayun Park, Piccolo",
+        "Alba Farina Castano, Baritonsaxophon",
+        "Miho Outekhin, Klavier",
+        "Jonas Kalin, Bassklarinette/Bassetthorn",
+        "Junming Zhu, Sopransaxophon",
+        "Simon Mehling, Kontrafagott",
+        "Barbara Anton, Klavier",
+        "Hanna Richter, Englischhorn",
+        "Cornelius Müller, Bassklarinette/Bassetthorn",
+        "Chanhee Park, Altflöte",
+        "Alexander Perlovskij, Es-Klarinette/Klarinette",
+        "Melina Weiß, Bassklarinette",
+        "Umberto Filineri, Kontrafagott",
+        "Yi-Hsuan Chiu, Sopransaxophon",
+        "Sonja Besler, Baritonsaxophon",
+        "Mebuki Sumi, Piccolo/Bassflöte/Querflöte",
+        "Elena Krodel, Bassklarinette",
+        "Ida Marie Reimer, Querflöte/Piccolo",
+        "Charlotte Geier, Querflöte"
+      ],
+      "program": [
+        {
+          "composer": "Boismortier",
+          "work": "Sonate en trio in d-Moll op. 7 Nr. 4 (Fassung für drei Piccoloflöten)"
+        },
+        {
+          "composer": "Demerssemann",
+          "work": "Fantaisie sur un thème original"
+        },
+        {
+          "composer": "Jolivet",
+          "work": "Ascèses für Bassklarinette solo (Auswahl)"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Sonatine (Auswahl: 1. Modéré, 2. Mouvement de menuet)"
+        },
+        {
+          "composer": "Mozart",
+          "work": "Konzert für Fagott und Orchester KV 191, 2. Satz Andante ma Adagio (Fassung für Kontrafagott und Klavier)"
+        },
+        {
+          "composer": "Rodin",
+          "work": "Rezitativ und Arie für Englischhorn solo"
+        },
+        {
+          "composer": "Schoeck",
+          "work": "Sonate für Bassklarinette und Klavier op. 41, 1. Gemessen"
+        },
+        {
+          "composer": "Bach",
+          "work": "Contrapunctus Nr. 1 aus Die Kunst der Fuge BWV 1080 (arr. Thomas Sattel)"
+        },
+        {
+          "composer": "Earle Brown",
+          "work": "December 1952 – Improvisation für Holzbläser"
+        },
+        {
+          "composer": "Dehnhard",
+          "work": "Wake up! für Piccoloflöte und Wecker"
+        },
+        {
+          "composer": "Wagner",
+          "work": "Gebet der Elisabeth aus Tannhäuser (arr. Ulrich Büsing für Klarinette, Bassetthorn und Bassklarinette)"
+        },
+        {
+          "composer": "Bach",
+          "work": "Suite Nr. 1 für Violoncello solo BWV 1007, Menuet I & II, Gigue (gespielt auf Bassklarinette)"
+        },
+        {
+          "composer": "Ravel",
+          "work": "Ma mère L'Oye für Flötenquartett (arr. M. Orriss): Pavane, Petit Poucet, Laideronnette"
+        },
+        {
+          "composer": "Bach",
+          "work": "Contrapunctus VIII a 3 aus Die Kunst der Fuge BWV 1080 (arr. Ulrich Büsing für Klarinette, Bassetthorn und Bassklarinette)"
+        }
+      ]
     },
     {
       "venue_id": "bayreuth-markgraefliches-opernhaus",
@@ -637,7 +878,9 @@
       "title": "Orient.Okzident",
       "url": "https://musica-bayreuth.de/events/orient-okzident/",
       "performers": [
-        "Bad Reichenhaller Philharmoniker"
+        "Bad Reichenhaller Philharmoniker",
+        "Philip Nelson (Kontrabass)",
+        "Daniel Spaw (Dirigent)"
       ],
       "program": [
         {
@@ -679,9 +922,35 @@
       "title": "Alexander Malofeev, Klavier",
       "url": "https://www.alteoper.de/en/programme/alexander-malofeev-klavier/18360",
       "performers": [
-        "Alexander Malofeev"
+        "Alexander Malofeev, Klavier"
       ],
-      "source_url": "https://www.alteoper.de"
+      "source_url": "https://www.alteoper.de",
+      "program": [
+        {
+          "composer": "Schubert",
+          "work": "Drei Klavierstücke D 946"
+        },
+        {
+          "composer": "Grieg",
+          "work": "Aus Holbergs Zeit – Suite im alten Stil op. 40"
+        },
+        {
+          "composer": "Sibelius",
+          "work": "5 Stücke für Klavier op. 75 \"Die Bäume\""
+        },
+        {
+          "composer": "Skrjabin",
+          "work": "Valse op. 38"
+        },
+        {
+          "composer": "Lourié",
+          "work": "5 Préludes fragiles op. 1"
+        },
+        {
+          "composer": "Rachmaninow",
+          "work": "Sonate Nr. 2 b-moll op. 36"
+        }
+      ]
     },
     {
       "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
@@ -691,9 +960,29 @@
       "url": "https://www.alteoper.de/en/programme/orchestra-of-the-18th-century/18485",
       "performers": [
         "Orchestra of the 18th Century",
-        "Jean Guihen Queyras"
+        "Jean Guihen Queyras",
+        "Richard Egarr, conductor",
+        "Jean-Guihen Queyras, cello"
       ],
-      "source_url": "https://www.alteoper.de"
+      "source_url": "https://www.alteoper.de",
+      "program": [
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Suite Nr. 3 D-Dur BWV 1068"
+        },
+        {
+          "composer": "Carl Philipp Emanuel Bach",
+          "work": "Violoncellokonzert A-Dur Wq 172"
+        },
+        {
+          "composer": "Mendelssohn",
+          "work": "Die Hebriden op. 26"
+        },
+        {
+          "composer": "Mendelssohn",
+          "work": "Sinfonie Nr. 5 in D-Dur op. 107 \"Reformationssinfonie\""
+        }
+      ]
     },
     {
       "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
@@ -703,9 +992,20 @@
       "url": "https://www.alteoper.de/en/programme/frankfurter-opern-und-museumsorchester/18468",
       "performers": [
         "Frankfurter Opern- und Museumsorchester",
-        "Sebastian Weigle"
+        "Sebastian Weigle, Leitung",
+        "Daniel Lozakovich, Violine"
       ],
-      "source_url": "https://www.alteoper.de"
+      "source_url": "https://www.alteoper.de",
+      "program": [
+        {
+          "composer": "Beethoven",
+          "work": "Violinkonzert D-Dur op. 61"
+        },
+        {
+          "composer": "Rachmaninoff",
+          "work": "Sinfonie Nr. 2 e-Moll op. 27"
+        }
+      ]
     },
     {
       "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
@@ -715,12 +1015,17 @@
       "url": "https://www.alteoper.de/en/programme/hr-sinfonieorchester/18583",
       "performers": [
         "hr-Sinfonieorchester",
-        "Vilde Frang"
+        "Vilde Frang, Violine",
+        "Alain Altinoglu, Leitung"
       ],
       "program": [
         {
+          "composer": "Bartók",
+          "work": "Violinkonzert Nr. 2"
+        },
+        {
           "composer": "Brahms",
-          "work": "Symphony No. 4"
+          "work": "Sinfonie Nr. 4 e-Moll op. 98"
         }
       ],
       "source_url": "https://www.alteoper.de"
@@ -732,9 +1037,35 @@
       "title": "Alexander Malofeev, Klavier",
       "url": "https://www.alteoper.de/en/programme/alexander-malofeev-klavier/18360",
       "performers": [
-        "Alexander Malofeev"
+        "Alexander Malofeev, Klavier"
       ],
-      "source_url": "https://www.alteoper.de/en/programme"
+      "source_url": "https://www.alteoper.de/en/programme",
+      "program": [
+        {
+          "composer": "Schubert",
+          "work": "Drei Klavierstücke D 946"
+        },
+        {
+          "composer": "Grieg",
+          "work": "Aus Holbergs Zeit – Suite im alten Stil op. 40"
+        },
+        {
+          "composer": "Sibelius",
+          "work": "5 Stücke für Klavier op. 75 \"Die Bäume\""
+        },
+        {
+          "composer": "Skrjabin",
+          "work": "Valse op. 38"
+        },
+        {
+          "composer": "Arthur Lourié",
+          "work": "5 Préludes fragiles op. 1"
+        },
+        {
+          "composer": "Rachmaninow",
+          "work": "Sonate Nr. 2 b-moll op. 36"
+        }
+      ]
     },
     {
       "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
@@ -743,9 +1074,29 @@
       "title": "Orchestra of the 18th Century",
       "url": "https://www.alteoper.de/en/programme/orchestra-of-the-18th-century/18485",
       "performers": [
-        "Orchestra of the 18th Century"
+        "Orchestra of the 18th Century",
+        "Richard Egarr, conductor",
+        "Jean-Guihen Queyras, cello"
       ],
-      "source_url": "https://www.alteoper.de/en/programme"
+      "source_url": "https://www.alteoper.de/en/programme",
+      "program": [
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Suite Nr. 3 D-Dur BWV 1068"
+        },
+        {
+          "composer": "Carl Philipp Emanuel Bach",
+          "work": "Violoncellokonzert A-Dur Wq 172"
+        },
+        {
+          "composer": "Mendelssohn",
+          "work": "Die Hebriden op. 26"
+        },
+        {
+          "composer": "Mendelssohn",
+          "work": "Sinfonie Nr. 5 in D-Dur op. 107 \"Reformationssinfonie\""
+        }
+      ]
     },
     {
       "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
@@ -755,9 +1106,21 @@
       "url": "https://www.alteoper.de/en/programme/frankfurter-opern-und-museumsorchester/18467",
       "performers": [
         "Frankfurter Opern- und Museumsorchester",
-        "Sebastian Weigle"
+        "Sebastian Weigle, Leitung",
+        "Daniel Lozakovich, Violine"
       ],
-      "source_url": "https://www.alteoper.de/en/programme"
+      "source_url": "https://www.alteoper.de/en/programme",
+      "program": [
+        {
+          "composer": "Beethoven",
+          "work": "Violinkonzert D-Dur op. 61"
+        },
+        {
+          "composer": "Rachmaninoff",
+          "work": "Sinfonie Nr. 2 e-Moll op. 27"
+        }
+      ]
     }
-  ]
+  ],
+  "enriched_at": "2026-06-03"
 }
