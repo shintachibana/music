@@ -191,8 +191,11 @@ function renderPopup(v, concerts) {
   if (concerts.length === 0) {
     return top + `<div class="popup-empty">No concerts loaded for this venue.</div>`;
   }
-  const items = concerts
-    .sort((a, b) => (a.date || "").localeCompare(b.date || ""))
+  const MAX_IN_POPUP = 10;
+  const sorted = concerts.slice().sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+  const overflow = sorted.length > MAX_IN_POPUP ? sorted.length - MAX_IN_POPUP : 0;
+  const items = sorted
+    .slice(0, MAX_IN_POPUP)
     .map((c) => `
       <div class="popup-concert">
         <span class="date">${escape(c.date || "?")}</span>
@@ -203,7 +206,10 @@ function renderPopup(v, concerts) {
         ${c.url ? `<a href="${escape(c.url)}" target="_blank" rel="noopener">Details ↗</a>` : ""}
       </div>`)
     .join("");
-  return top + `<div class="popup-concerts">${items}</div>`;
+  const overflowHtml = overflow
+    ? `<div class="popup-overflow">+ ${overflow} more concert${overflow === 1 ? "" : "s"} — see the <a href="table.html">table view</a></div>`
+    : "";
+  return top + `<div class="popup-concerts">${items}${overflowHtml}</div>`;
 }
 
 // ===== Table view =====

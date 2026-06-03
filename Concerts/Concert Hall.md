@@ -48,7 +48,7 @@ _29 entries across Baden-Württemberg, Bayern, and Hessen._
 
 ## Additional venues (from ensemble concerts)
 
-_Venues that appear in scraped concerts but aren't in the original 29-venue list. 40 venues across 3 Bundesländer._
+_Venues that appear in scraped concerts but aren't in the original 29-venue list. 39 venues across 3 Bundesländer._
 
 ### Baden-Württemberg
 
@@ -76,7 +76,6 @@ _Venues that appear in scraped concerts but aren't in the original 29-venue list
 | Forchheim | Schloss Jägersburg | 1 |
 | Herrenchiemsee | Schloss Herrenchiemsee, Spiegelsaal | 1 |
 | Hof | Festsaal, Freiheitshalle Hof | 3 |
-| München | Allerheiligen Hofkirche | 1 |
 | München | Alter Rathaussaal | 1 |
 | München | Museum Villa Stuck | 1 |
 | München | Pinakothek der Moderne | 1 |

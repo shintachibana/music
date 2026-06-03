@@ -343,7 +343,8 @@
       "url": "https://www.festspielhaus.de/veranstaltungen/yannick-nezet-seguin-chamber-orchestra-of-europe/",
       "performers": [
         "Yannick Nézet-Séguin, Dirigent",
-        "Chamber Orchestra of Europe"
+        "Chamber Orchestra of Europe",
+        "Alexandre Kantorow, Solist"
       ],
       "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
       "time": "17:00"
@@ -407,7 +408,9 @@
         "Calmus Vokalensemble (IM.PULS Projektcoaches)",
         "Philharmonischer Chor des Helmholtz-Gymnasiums Karlsruhe (IM.PULS Projektchor)",
         "Mateo Peñaloza Cecconi, Chorleitung",
-        "Nick-Martin Sternitzke, Moderation"
+        "Nick-Martin Sternitzke, Moderation",
+        "Mateo Peñaloza Cecconi (Chorleitung)",
+        "Nick-Martin Sternitzke (Moderation)"
       ]
     },
     {
@@ -519,18 +522,6 @@
       "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen?kategorie=klassik"
     },
     {
-      "venue_id": "reutlingen-stadthalle-reutlingen",
-      "date": "2026-07-19",
-      "time": "19:00",
-      "title": "Sommerkonzert",
-      "url": "https://www.stadthalle-reutlingen.de/veranstaltungen/Nachwuchsorchester-der-Jungen-Sinfonie-Reutlingen-5/2026-07-19",
-      "performers": [
-        "Nachwuchsorchester der Jungen Sinfonie Reutlingen",
-        "Maria Eiche (Leitung)"
-      ],
-      "source_url": "https://www.stadthalle-reutlingen.de/veranstaltungen"
-    },
-    {
       "venue_id": "muenchen-prinzregententheater",
       "date": "2026-06-10",
       "time": "19:30",
@@ -544,24 +535,6 @@
         "Charles Castronovo"
       ],
       "source_url": "https://www.prinzregententheater.de"
-    },
-    {
-      "venue_id": "muenchen-prinzregententheater",
-      "date": "2026-06-13",
-      "time": "15:00",
-      "title": "Arien Zeigen",
-      "url": "https://theaterakademie.de/de/theater/programm/arien-zeigen",
-      "performers": [
-        "Studiengang Musiktheater/Operngesang, Bayerische Theaterakademie August Everding",
-        "Alina Berit Göke (Gesang)",
-        "Mose Lee (Gesang)",
-        "Henrique Lencastre (Gesang)",
-        "Beatriz Maia (Gesang)",
-        "Geonho Lee (Gesang)",
-        "Prof. Balázs Kovalik (Leitung)",
-        "KS Prof. Andreas Schmidt (Leitung)"
-      ],
-      "source_url": "https://theaterakademie.de/de/theater/programm"
     },
     {
       "venue_id": "bayreuth-markgraefliches-opernhaus",
@@ -935,11 +908,41 @@
       "performers": [
         "SWR Symphonieorchester",
         "SWR Vokalensemble",
-        "Antoine Tamestit"
+        "Antoine Tamestit, Viola und Leitung"
       ],
       "venue_id": null,
       "ensemble": "SWR Symphonieorchester",
-      "bundesland": "Baden-Württemberg"
+      "bundesland": "Baden-Württemberg",
+      "program": [
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Choral \"Vor deinen Thron tret ich hiermit\" BWV 327 (für Streicher)"
+        },
+        {
+          "composer": "Paul Hindemith",
+          "work": "Trauermusik für Viola und Streicher"
+        },
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Contrapunctus I und III aus \"Die Kunst der Fuge\" BWV 1080 (für Streicher)"
+        },
+        {
+          "composer": "Alfred Schnittke",
+          "work": "Monolog für Viola und Streicher"
+        },
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Contrapunctus II und IV aus \"Die Kunst der Fuge\" BWV 1080 (für Streicher)"
+        },
+        {
+          "composer": "Dmitrij Schostakowitsch / Rudolf Barschai",
+          "work": "Kammersinfonie für Streichorchester c-Moll op. 110a"
+        },
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Choralbearbeitung \"Vor deinen Thron tret ich hiermit\" BWV 668 (für Streicher)"
+        }
+      ]
     },
     {
       "date": "2026-06-06",
@@ -979,11 +982,35 @@
       "venue": "CongressCentrum",
       "city": "Pforzheim",
       "performers": [
-        "Badische Philharmonie Pforzheim"
+        "Badische Philharmonie Pforzheim",
+        "Kinan Azmeh (Klarinette/Komponist)",
+        "Dima Orsho (Gesang)",
+        "Stamatia Gerothanasi (Solistin)",
+        "Jina Choi (Solistin)",
+        "Felipe Rojas (Solist)",
+        "Aleksandar Stefanoski (Solist)",
+        "Anne Kathrin Hönes (Rezitation)",
+        "Jan-Hendrik von Minden (Rezitation)",
+        "Daniel Inbal (Musikalische Leitung)",
+        "Chor und Extrachor des Theaters Pforzheim",
+        "Oratorienchor Pforzheim",
+        "Motettenchor Pforzheim",
+        "Jugendkantorei Pforzheim"
       ],
       "venue_id": null,
       "ensemble": "Badische Philharmonie Pforzheim",
-      "bundesland": "Baden-Württemberg"
+      "bundesland": "Baden-Württemberg",
+      "time": "18:00",
+      "program": [
+        {
+          "composer": "Kinan Azmeh",
+          "work": "Songs for Days to Come"
+        },
+        {
+          "composer": "Beethoven",
+          "work": "Sinfonie Nr. 9 in d-Moll, op. 125"
+        }
+      ]
     },
     {
       "date": "2026-06-26",
@@ -993,11 +1020,14 @@
       "venue": "Foyer Theater Pforzheim",
       "city": "Pforzheim",
       "performers": [
-        "Badische Philharmonie Pforzheim"
+        "Badische Philharmonie Pforzheim",
+        "Philipp Haag (Musikalische Leitung)",
+        "Mitglieder der Badischen Philharmonie Pforzheim"
       ],
       "venue_id": null,
       "ensemble": "Badische Philharmonie Pforzheim",
-      "bundesland": "Baden-Württemberg"
+      "bundesland": "Baden-Württemberg",
+      "time": "10:00"
     },
     {
       "date": "2026-06-27",
@@ -1007,11 +1037,14 @@
       "venue": "Foyer Theater Pforzheim",
       "city": "Pforzheim",
       "performers": [
-        "Badische Philharmonie Pforzheim"
+        "Badische Philharmonie Pforzheim",
+        "Philipp Haag (Musikalische Leitung)",
+        "Mitglieder der Badischen Philharmonie Pforzheim"
       ],
       "venue_id": null,
       "ensemble": "Badische Philharmonie Pforzheim",
-      "bundesland": "Baden-Württemberg"
+      "bundesland": "Baden-Württemberg",
+      "time": "10:00"
     },
     {
       "date": "2026-07-15",
@@ -1021,11 +1054,39 @@
       "venue": "Großes Haus, Theater Pforzheim",
       "city": "Pforzheim",
       "performers": [
-        "Badische Philharmonie Pforzheim"
+        "Badische Philharmonie Pforzheim",
+        "Daniel Inbal (Musikalische Leitung)",
+        "Projektorchester des Theaters Pforzheim",
+        "Fenella Bockmaier (Klavier, Solistin)",
+        "Sophia Xue (Klavier, Solistin)",
+        "Lucas Spataru (Violine, Solist)"
       ],
       "venue_id": null,
       "ensemble": "Badische Philharmonie Pforzheim",
-      "bundesland": "Baden-Württemberg"
+      "bundesland": "Baden-Württemberg",
+      "time": "19:00",
+      "program": [
+        {
+          "composer": "Verdi",
+          "work": "Ouvertüre aus Nabucco"
+        },
+        {
+          "composer": "Lukas Foss",
+          "work": "Elegie für Anne Frank"
+        },
+        {
+          "composer": "Mozart",
+          "work": "Klavierkonzert in C-Dur, KV 467 (Andante)"
+        },
+        {
+          "composer": "Mozart",
+          "work": "Violinkonzert in G-Dur, KV 216 (Allegro)"
+        },
+        {
+          "composer": "John Williams",
+          "work": "Star Wars Suite"
+        }
+      ]
     },
     {
       "date": "2026-07-18",
@@ -1035,11 +1096,15 @@
       "venue": "Großes Haus, Theater Pforzheim",
       "city": "Pforzheim",
       "performers": [
-        "Badische Philharmonie Pforzheim"
+        "Badische Philharmonie Pforzheim",
+        "Schauspielensemble Theater Pforzheim",
+        "Solistenensemble Theater Pforzheim",
+        "Opernchor Theater Pforzheim"
       ],
       "venue_id": null,
       "ensemble": "Badische Philharmonie Pforzheim",
-      "bundesland": "Baden-Württemberg"
+      "bundesland": "Baden-Württemberg",
+      "time": "19:00"
     },
     {
       "date": "2026-06-04",
@@ -1217,11 +1282,37 @@
       "city": "Kronberg",
       "performers": [
         "Studierende der Kronberg Academy",
-        "Württembergisches Kammerorchester Heilbronn"
+        "Württembergisches Kammerorchester Heilbronn",
+        "Itai Navon, Klavier",
+        "Sul Yoon, Violoncello",
+        "Arne Zeller, Violoncello",
+        "Michael Shaham, Violine"
       ],
       "venue_id": null,
       "ensemble": "Württembergisches Kammerorchester Heilbronn",
-      "bundesland": "Hessen"
+      "bundesland": "Hessen",
+      "program": [
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Klavierkonzert A-Dur BWV 1055"
+        },
+        {
+          "composer": "Luigi Boccherini",
+          "work": "Cellokonzert Nr. 6 D-Dur G 479"
+        },
+        {
+          "composer": "Ernest Bloch",
+          "work": "From Jewish Life – Suite für Violoncello und Klavier"
+        },
+        {
+          "composer": "Georg Kreisler",
+          "work": "Violinkonzert »In the Style of Antonio Vivaldi«"
+        },
+        {
+          "composer": "Niccolò Paganini",
+          "work": "La Campanella op. 7"
+        }
+      ]
     },
     {
       "date": "2026-07-04",
@@ -1392,10 +1483,22 @@
       "city": "Frankfurt am Main",
       "performers": [
         "Opern- und Museumsorchester Frankfurt",
-        "Frankfurter Opern- und Museumsorchester"
+        "Frankfurter Opern- und Museumsorchester",
+        "Sebastian Weigle (Dirigent)",
+        "Daniel Lozakovich (Violine)"
       ],
       "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
-      "ensemble": "Opern- und Museumsorchester Frankfurt"
+      "ensemble": "Opern- und Museumsorchester Frankfurt",
+      "program": [
+        {
+          "composer": "Beethoven",
+          "work": "Konzert für Violine und Orchester D-Dur op. 61"
+        },
+        {
+          "composer": "Rachmaninow",
+          "work": "Sinfonie Nr. 2 e-Moll op. 27"
+        }
+      ]
     },
     {
       "date": "2026-06-08",
@@ -1407,10 +1510,22 @@
       "city": "Frankfurt am Main",
       "performers": [
         "Opern- und Museumsorchester Frankfurt",
-        "Frankfurter Opern- und Museumsorchester"
+        "Frankfurter Opern- und Museumsorchester",
+        "Sebastian Weigle, Dirigent",
+        "Daniel Lozakovich, Violine"
       ],
       "venue_id": "frankfurt-am-main-alte-oper-frankfurt",
-      "ensemble": "Opern- und Museumsorchester Frankfurt"
+      "ensemble": "Opern- und Museumsorchester Frankfurt",
+      "program": [
+        {
+          "composer": "Beethoven",
+          "work": "Konzert für Violine und Orchester D-Dur op. 61"
+        },
+        {
+          "composer": "Rachmaninow",
+          "work": "Sinfonie Nr. 2 e-Moll op. 27"
+        }
+      ]
     },
     {
       "date": "2026-06-04",
@@ -1549,11 +1664,57 @@
       "city": "Frankfurt am Main",
       "performers": [
         "Opern- und Museumsorchester Frankfurt",
-        "Mitglieder der Paul-Hindemith Orchester-Akademie"
+        "Mitglieder der Paul-Hindemith Orchester-Akademie",
+        "Lukas Rommelspacher (Dirigent)",
+        "Lisa Rauchbach (Violine)",
+        "Ostap Shpik (Violine)",
+        "Marie Daniels (Viola)",
+        "Jelena Antić (Viola)",
+        "Lucija Pejković (Violoncello)",
+        "Yuki Shinohara (Kontrabass)",
+        "Cosimo Macchia (Flöte)",
+        "Ibrahim Alshaikh (Klarinette)",
+        "Matvei Iakovlev (Oboe)",
+        "Maria Martins (Fagott)",
+        "Oliver Christian (Trompete)",
+        "Julius Scholz (Trompete)",
+        "Manuel Lodes (Trompete)",
+        "Alexander Boukikov (Horn)",
+        "Jamie Reid (Posaune und Euphonium)",
+        "Thomas Förster (Tuba)",
+        "Rafael Diesch (Marimba, Pauke und Schlagzeug)",
+        "Tatiana Vassilieva (Klavier)",
+        "Vassily Dück (Akkordeon)"
       ],
       "venue_id": null,
       "ensemble": "Opern- und Museumsorchester Frankfurt",
-      "bundesland": "Hessen"
+      "bundesland": "Hessen",
+      "program": [
+        {
+          "composer": "Rainer Hoffmann",
+          "work": "PHO-Fanfare für Blechbläsersextett und Pauke"
+        },
+        {
+          "composer": "Oskar Böhme",
+          "work": "Blechbläsersextett es-Moll op. 30"
+        },
+        {
+          "composer": "Emmanuel Séjourné",
+          "work": "Concerto für Marimba und Streicher"
+        },
+        {
+          "composer": "Mozart",
+          "work": "Oboenquartett F-Dur KV 370"
+        },
+        {
+          "composer": "Hindemith",
+          "work": "Kammermusik Nr. 1 für 12 Soloinstrumente op. 24,1"
+        },
+        {
+          "composer": "Rimski-Korsakow",
+          "work": "Hummelflug"
+        }
+      ]
     },
     {
       "date": "2026-06-03",
@@ -1631,11 +1792,89 @@
       "performers": [
         "Hessisches Staatsorchester Wiesbaden",
         "Jonathan Macker",
-        "Sascha Zarrabi"
+        "Sascha Zarrabi",
+        "Jonathan Macker (Gesang/Bass)",
+        "Sascha Zarrabi (Gesang/Tenor)",
+        "Julia Palmova (Klavier)"
       ],
       "venue_id": null,
       "ensemble": "Hessisches Staatsorchester Wiesbaden",
-      "bundesland": "Hessen"
+      "bundesland": "Hessen",
+      "time": "19:00",
+      "program": [
+        {
+          "composer": "Silcher",
+          "work": "Loreley"
+        },
+        {
+          "composer": "Schumann",
+          "work": "An den Abendstern, op. 103 Nr. 4"
+        },
+        {
+          "composer": "Schumann",
+          "work": "Blaue Augen hat das Mädchen, op. 138 Nr. 9"
+        },
+        {
+          "composer": "Schumann",
+          "work": "Die beiden Grenadiere, op. 49 Nr. 1"
+        },
+        {
+          "composer": "Beethoven",
+          "work": "Der Kuss, op. 128"
+        },
+        {
+          "composer": "Beethoven",
+          "work": "Ich liebe dich, Nr. 59"
+        },
+        {
+          "composer": "Schumann",
+          "work": "Belsazar, op. 57"
+        },
+        {
+          "composer": "Schumann",
+          "work": "Du bist wie eine Blume, op. 25 Nr. 24"
+        },
+        {
+          "composer": "Schubert",
+          "work": "Du bist die Ruh, op. 59 Nr. 3"
+        },
+        {
+          "composer": "Schubert",
+          "work": "Der Doppelgänger, D 957 Nr. 13"
+        },
+        {
+          "composer": "Loewe",
+          "work": "Herr Oluf, op. 2 Nr. 2"
+        },
+        {
+          "composer": "Loewe",
+          "work": "Der Erlkönig, op. 1 Nr. 3"
+        },
+        {
+          "composer": "Grieg",
+          "work": "Zur Rosenzeit, op. 48 Nr. 5"
+        },
+        {
+          "composer": "Grieg",
+          "work": "Ein Traum, op. 48 Nr. 6"
+        },
+        {
+          "composer": "Eisler",
+          "work": "Nr. 10 Die freie Wirtschaft (aus den Tucholsky Liedern)"
+        },
+        {
+          "composer": "Eisler",
+          "work": "Nr. 11 Die Rückkehr zu Natur (aus den Tucholsky Liedern)"
+        },
+        {
+          "composer": "Eisler",
+          "work": "Nr. 21 Der Priem (aus den Tucholsky Liedern)"
+        },
+        {
+          "composer": "Schubert",
+          "work": "Nacht und Träume, op. 43 Nr. 2"
+        }
+      ]
     },
     {
       "date": "2026-06-17",
@@ -1667,26 +1906,31 @@
         "Hessisches Staatsorchester Wiesbaden",
         "GMD Leo McFall",
         "Chor des Hessischen Staatstheaters Wiesbaden",
-        "Chor der Stadt Wiesbaden"
+        "Chor der Stadt Wiesbaden",
+        "Leo McFall (Musikalische Leitung)",
+        "Alyona Rostovskaya",
+        "Fleuranne Brockway",
+        "Young Doo Park",
+        "Nathan Bryon",
+        "Aymeric Catalano (Einstudierung Chor)"
       ],
       "venue_id": "wiesbaden-kurhaus-wiesbaden-friedrich-von-thiersch-saal",
-      "ensemble": "Hessisches Staatsorchester Wiesbaden"
-    },
-    {
-      "date": "2026-06-08",
-      "source_url": "https://www.mphil.de",
-      "time": "19:00",
-      "title": "Konzert der Orchesterakademie",
-      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/konzert-der-orchesterakademie",
-      "venue": "Allerheiligen Hofkirche",
-      "city": "München",
-      "performers": [
-        "Münchner Philharmoniker",
-        "Mitglieder der Orchesterakademie"
-      ],
-      "venue_id": null,
-      "ensemble": "Münchner Philharmoniker",
-      "bundesland": "Bayern"
+      "ensemble": "Hessisches Staatsorchester Wiesbaden",
+      "time": "18:00",
+      "program": [
+        {
+          "composer": "Ralph Vaughan Williams",
+          "work": "Serenade to Music"
+        },
+        {
+          "composer": "Bruckner",
+          "work": "Te Deum"
+        },
+        {
+          "composer": "Holst",
+          "work": "Die Planeten (Auszüge)"
+        }
+      ]
     },
     {
       "date": "2026-06-11",
@@ -1702,11 +1946,69 @@
         "Josef Hundsbichler (Bratsche)",
         "Friederike Luise Arnholdt (Violoncello)",
         "Michael Neumann (Kontrabass)",
-        "Paul Rivinius (Klavier)"
+        "Paul Rivinius (Klavier)",
+        "Victoria Margasyuk, Violine",
+        "Josef Hundsbichler, Bratsche",
+        "Friederike Luise Arnholdt, Violoncello",
+        "Michael Neumann, Kontrabass",
+        "Paul Rivinius, Klavier",
+        "Rainbow Sound Orchestra Munich",
+        "Mary Ellen Kitchens, Leitung",
+        "Alexander Strauch, Leitung"
       ],
       "venue_id": null,
       "ensemble": "Münchner Philharmoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "María Luisa de Borbón",
+          "work": "Sinfonía Nr. 3 c-moll"
+        },
+        {
+          "composer": "Farrenc",
+          "work": "Symphonie Nr. 1 c-moll, 3. Satz: Moderato"
+        },
+        {
+          "composer": "Cannabich",
+          "work": "Ouverture a 15 strumenti in C-Dur"
+        },
+        {
+          "composer": "Monnot",
+          "work": "Hymne á l'amour"
+        },
+        {
+          "composer": "Florence Price",
+          "work": "Rainbow Waltz (UA der Orchesterfassung durch A. Strauch, 2026)"
+        },
+        {
+          "composer": "Ruth Crawford Seeger",
+          "work": "Rissolty Rossolty"
+        },
+        {
+          "composer": "Alexander Strauch",
+          "work": "Orlando di Lassus Suite (UA, 2025)"
+        },
+        {
+          "composer": "Leon Zmelty",
+          "work": "Farnfraktal (2022), Fassung für Streichorchester (UA, 2025)"
+        },
+        {
+          "composer": "Farrenc",
+          "work": "Klavierquintett Nr. 1 a-moll op. 30"
+        },
+        {
+          "composer": "Queen",
+          "work": "Bohemian Rhapsody, Arr. Halley Feaster"
+        },
+        {
+          "composer": "Stock / Aitken / Waterman",
+          "work": "Never Gonna Give You Up, Arr. Larry Moore"
+        },
+        {
+          "composer": "Queen",
+          "work": "Don't Stop Me Now, Arr. Johannes Christ"
+        }
+      ]
     },
     {
       "date": "2026-06-13",
@@ -2096,11 +2398,27 @@
       "performers": [
         "Nürnberger Symphoniker",
         "Fetén Fetén (Duo)",
-        "Adrien Perruchon (Leitung)"
+        "Adrien Perruchon (Leitung)",
+        "Fetén Fetén Duo",
+        "Adrien Perruchon, Leitung"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Fetén Fetén",
+          "work": "Vals para Amelia"
+        },
+        {
+          "composer": "Fetén Fetén",
+          "work": "Pasodoble del Patillas"
+        },
+        {
+          "composer": "Bizet",
+          "work": "Carmen Suite Nr. 1 & 2, Auszüge"
+        }
+      ]
     },
     {
       "date": "2026-06-14",
@@ -2113,11 +2431,29 @@
       "performers": [
         "Nürnberger Symphoniker",
         "Fetén Fetén (Duo)",
-        "Adrien Perruchon (Leitung)"
+        "Adrien Perruchon (Leitung)",
+        "Fetén Fetén Duo",
+        "Diego Galaz, Violine & Strohvioline & Phonovioline & singende Säge & Mandoline",
+        "Jorge Arribas, Akkordeon & Campingstuhl-Flöte & Flöte & Perkussion",
+        "Adrien Perruchon, Leitung"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Baden-Württemberg"
+      "bundesland": "Baden-Württemberg",
+      "program": [
+        {
+          "composer": "Fetén Fetén",
+          "work": "Vals para Amelia"
+        },
+        {
+          "composer": "Fetén Fetén",
+          "work": "Pasodoble del Patillas"
+        },
+        {
+          "composer": "Bizet",
+          "work": "Carmen Suite Nr. 1 & 2, Auszüge"
+        }
+      ]
     },
     {
       "date": "2026-06-19",
@@ -2131,11 +2467,28 @@
         "Nürnberger Symphoniker",
         "Stefan Aprodu (Violine)",
         "Michiaki Ueno (Violoncello)",
-        "Yuki Miyagi (Leitung)"
+        "Yuki Miyagi (Leitung)",
+        "Stefan Aprodu, Violine",
+        "Michiaki Ueno, Violoncello",
+        "Yuki Miyagi, Leitung"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Der Freischütz op. 77, Ouvertüre"
+        },
+        {
+          "composer": "Brahms",
+          "work": "Konzert für Violine, Violoncello und Orchester a-Moll op. 102"
+        },
+        {
+          "composer": "Brahms",
+          "work": "Symphonie Nr. 2 D-Dur op. 73"
+        }
+      ]
     },
     {
       "date": "2026-06-24",
@@ -2149,11 +2502,31 @@
         "Nürnberger Symphoniker",
         "Michael Dolak (Bandoneon)",
         "Norbert Nagel (Klarinette, Saxofon, Bassklarinette)",
-        "Norbert Nagel (Leitung)"
+        "Norbert Nagel (Leitung)",
+        "Michael Dolak, Bandoneon",
+        "Norbert Nagel, Klarinette, Saxofon und Bassklarinette"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Piazzolla",
+          "work": "Adios Nonino"
+        },
+        {
+          "composer": "Piazzolla",
+          "work": "Oblivion"
+        },
+        {
+          "composer": "Gerardo Matos Rodriguez",
+          "work": "La Cumparsita"
+        },
+        {
+          "composer": "Angel Villoldo",
+          "work": "El Choclo"
+        }
+      ]
     },
     {
       "date": "2026-06-27",
@@ -2164,11 +2537,36 @@
       "venue": "Serenadenhof",
       "city": "Nürnberg",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Chor des Labenwolf-Gymnasiums",
+        "Evan-Alexis Christ (Leitung)",
+        "Roland Kunz (Moderation)"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Bruno Coulais",
+          "work": "Musik aus Die Kinder des Monsieur Mathieu"
+        },
+        {
+          "composer": "Klaus Doldinger",
+          "work": "Musik aus Das Kanu des Manitu"
+        },
+        {
+          "composer": "John Williams",
+          "work": "Musik aus Hook"
+        },
+        {
+          "composer": "John Barry",
+          "work": "Musik aus Out of Africa"
+        },
+        {
+          "composer": "John Williams",
+          "work": "Musik aus Jurassic Park"
+        }
+      ]
     },
     {
       "date": "2026-06-28",
@@ -2179,11 +2577,36 @@
       "venue": "Serenadenhof",
       "city": "Nürnberg",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Chor des Labenwolf-Gymnasiums",
+        "Evan-Alexis Christ, Leitung",
+        "Roland Kunz, Moderation"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Bruno Coulais",
+          "work": "Musik aus Die Kinder des Monsieur Mathieu"
+        },
+        {
+          "composer": "Klaus Doldinger",
+          "work": "Musik aus Das Kanu des Manitu"
+        },
+        {
+          "composer": "John Williams",
+          "work": "Musik aus Hook"
+        },
+        {
+          "composer": "John Barry",
+          "work": "Musik aus Out of Africa"
+        },
+        {
+          "composer": "John Williams",
+          "work": "Musik aus Jurassic Park"
+        }
+      ]
     },
     {
       "date": "2026-07-04",
@@ -2194,11 +2617,28 @@
       "venue": "Bergwaldtheater",
       "city": "Weißenburg",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Jakow Pavlenko, Violine",
+        "Clara Schmidek, Violoncello",
+        "Hyunsik Shin, Leitung"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Der Freischütz op. 77, Ouvertüre"
+        },
+        {
+          "composer": "Brahms",
+          "work": "Konzert für Violine, Violoncello und Orchester a-Moll op. 102"
+        },
+        {
+          "composer": "Brahms",
+          "work": "Symphonie Nr. 2 D-Dur op. 73"
+        }
+      ]
     },
     {
       "date": "2026-07-09",
@@ -2209,11 +2649,35 @@
       "venue": "Historischer Reitstadel",
       "city": "Neumarkt i.d. OPf.",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Solistinnen und Solisten der Internationalen Meistersinger Akademie",
+        "Jonathan Darlington, Leitung"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Donizetti",
+          "work": "Werke von Donizetti"
+        },
+        {
+          "composer": "Bizet",
+          "work": "Werke von Bizet"
+        },
+        {
+          "composer": "Puccini",
+          "work": "Werke von Puccini"
+        },
+        {
+          "composer": "Rossini",
+          "work": "Werke von Rossini"
+        },
+        {
+          "composer": "Verdi",
+          "work": "Werke von Verdi"
+        }
+      ]
     },
     {
       "date": "2026-07-10",
@@ -2224,11 +2688,35 @@
       "venue": "Serenadenhof",
       "city": "Nürnberg",
       "performers": [
-        "Nürnberger Symphoniker"
+        "Nürnberger Symphoniker",
+        "Solistinnen und Solisten der Internationalen Meistersinger Akademie",
+        "Jonathan Darlington, Leitung"
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Donizetti",
+          "work": "Arien und Ensembles aus Opern"
+        },
+        {
+          "composer": "Bizet",
+          "work": "Arien und Ensembles aus Opern"
+        },
+        {
+          "composer": "Puccini",
+          "work": "Arien und Ensembles aus Opern"
+        },
+        {
+          "composer": "Rossini",
+          "work": "Arien und Ensembles aus Opern"
+        },
+        {
+          "composer": "Verdi",
+          "work": "Arien und Ensembles aus Opern"
+        }
+      ]
     },
     {
       "date": "2026-06-10",
@@ -2246,7 +2734,25 @@
       ],
       "venue_id": null,
       "ensemble": "Nürnberger Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Rodgers / Hammerstein",
+          "work": "Sound of Music (Melodien)"
+        },
+        {
+          "composer": "Frank Wildhorn",
+          "work": "Jekyll & Hyde (Melodien)"
+        },
+        {
+          "composer": "Various",
+          "work": "Bodyguard (Melodien)"
+        },
+        {
+          "composer": "Elton John / Hans Zimmer",
+          "work": "Der König der Löwen (Melodien)"
+        }
+      ]
     },
     {
       "date": "2026-06-07",
@@ -2538,7 +3044,25 @@
       ],
       "venue_id": null,
       "ensemble": "Hofer Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Piazzolla",
+          "work": "Kammermusik (nicht spezifiziert)"
+        },
+        {
+          "composer": "Korngold",
+          "work": "Kammermusik (nicht spezifiziert)"
+        },
+        {
+          "composer": "Glasunow",
+          "work": "Kammermusik (nicht spezifiziert)"
+        },
+        {
+          "composer": "Pasculli",
+          "work": "Kammermusik (nicht spezifiziert)"
+        }
+      ]
     },
     {
       "date": "2026-06-25",
@@ -2569,7 +3093,25 @@
       ],
       "venue_id": null,
       "ensemble": "Hofer Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Piazzolla",
+          "work": "Kammermusik (Werk nicht spezifiziert)"
+        },
+        {
+          "composer": "Korngold",
+          "work": "Kammermusik (Werk nicht spezifiziert)"
+        },
+        {
+          "composer": "Glasunow",
+          "work": "Kammermusik (Werk nicht spezifiziert)"
+        },
+        {
+          "composer": "Pasculli",
+          "work": "Kammermusik (Werk nicht spezifiziert)"
+        }
+      ]
     },
     {
       "date": "2026-06-14",
@@ -2595,11 +3137,23 @@
       "venue": "Festsaal, Freiheitshalle Hof",
       "city": "Hof",
       "performers": [
-        "Hofer Symphoniker"
+        "Hofer Symphoniker",
+        "Martijn Dendievel (Chefdirigent)",
+        "Andrei Ioniță (Violoncello)"
       ],
       "venue_id": null,
       "ensemble": "Hofer Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Weinberg",
+          "work": "Cellokonzert c-Moll op. 43"
+        },
+        {
+          "composer": "Schostakowitsch",
+          "work": "Symphonie Nr. 10 e-Moll op. 93"
+        }
+      ]
     },
     {
       "date": "2026-07-10",

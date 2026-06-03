@@ -153,7 +153,14 @@ def main():
     concerts = data["concerts"]
     client = Anthropic()
 
-    todo = [c for c in concerts if c.get("url") and not c.get("_enriched")]
+    # Enrich concerts that have a URL and either no program data yet, or
+    # haven't been processed in a prior pass.
+    todo = [
+        c for c in concerts
+        if c.get("url")
+        and not c.get("_enriched")
+        and len(c.get("program") or []) == 0
+    ]
     print(f"Total concerts: {len(concerts)}")
     print(f"To enrich: {len(todo)}")
     if not todo:
