@@ -191,7 +191,7 @@ function renderPopup(v, concerts) {
   if (concerts.length === 0) {
     return top + `<div class="popup-empty">No concerts loaded for this venue.</div>`;
   }
-  const MAX_IN_POPUP = 10;
+  const MAX_IN_POPUP = 5;
   const sorted = concerts.slice().sort((a, b) => (a.date || "").localeCompare(b.date || ""));
   const overflow = sorted.length > MAX_IN_POPUP ? sorted.length - MAX_IN_POPUP : 0;
   const items = sorted
