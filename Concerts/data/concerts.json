@@ -2228,15 +2228,23 @@
       "city": "München",
       "performers": [
         "Münchener Kammerorchester",
-        "Christoph Walder, Horn",
-        "Anders Nyqvist, Trompete",
-        "Krassimir Sterev, Akkordeon",
-        "Bas Wiegers, Dirigent"
+        "Bas Wiegers (Dirigent)",
+        "Christoph Walder (Horn)",
+        "Anders Nyqvist (Trompete)",
+        "Krassimir Sterev (Akkordeon)"
       ],
       "program": [
         {
           "composer": "Nina Šenk",
-          "work": "Werke"
+          "work": "Chant"
+        },
+        {
+          "composer": "Nina Šenk",
+          "work": "Flux"
+        },
+        {
+          "composer": "Nina Šenk",
+          "work": "»Figurines in the Dust« (Auftragswerk des MKO – Uraufführung)"
         }
       ],
       "venue_id": null,
