@@ -3068,20 +3068,20 @@
       "performers": [
         "Bamberger Symphoniker",
         "Jakub Hrůša (Dirigent)",
-        "Koch",
-        "Winters",
-        "Weissová",
-        "Spence",
-        "Atkins"
+        "Daniela Koch (Flöte)",
+        "Corinne Winters (Sopran)",
+        "Eliška Weissová (Mezzosopran)",
+        "Nicky Spence (Tenor)",
+        "Thomas Atkins (Tenor)"
       ],
       "program": [
         {
-          "composer": "Feld",
-          "work": ""
+          "composer": "Jindřich Feld",
+          "work": "Konzert für Flöte und Orchester"
         },
         {
-          "composer": "Janáček",
-          "work": ""
+          "composer": "Leoš Janáček",
+          "work": "»Jenůfa« – 2. Akt (konzertante Aufführung)"
         }
       ],
       "venue_id": "bamberg-konzerthalle-bamberg-joseph-keilberth-saal",
