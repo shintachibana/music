@@ -177,15 +177,17 @@ function wireAddressInput() {
 
 async function onAddressChanged(q) {
   const statusEl = document.getElementById("address-status");
-  addressLayer.clearLayers();
   if (!q) {
+    addressLayer.clearLayers();
     statusEl.textContent = "";
     _lastAddressQuery = "";
     return;
   }
-  if (q === _lastAddressQuery) return;
+  // Always re-render on a Submit click — even with the same query — so the
+  // user can re-trigger the circles if they accidentally cleared them.
   _lastAddressQuery = q;
   statusEl.textContent = "Looking up…";
+  addressLayer.clearLayers();
   try {
     const params = new URLSearchParams({
       q, format: "json", limit: "1", countrycodes: "de,at,ch",
