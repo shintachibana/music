@@ -147,8 +147,8 @@ function setupMap() {
 
 // --- Address geocoding + concentric radius circles ---
 
-const RADII_KM = [50, 100, 150, 200];
-const CIRCLE_COLORS = ["#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3"];
+const RADII_KM = [50, 100, 150, 200, 250, 300];
+const CIRCLE_COLORS = ["#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3"];
 let _lastAddressQuery = "";
 
 function wireAddressInput() {
@@ -227,8 +227,8 @@ function drawAddressOverlay(lat, lng) {
   addressLayer.addLayer(pin);
 
   RADII_KM.forEach((km, i) => {
-    const opacity = 0.7 - i * 0.12;
-    const fill = i === 0 ? 0.08 : 0.03;
+    const opacity = 0.7 - i * 0.08;
+    const fill = i === 0 ? 0.08 : 0.025;
     const circle = L.circle([lat, lng], {
       radius: km * 1000,
       color: CIRCLE_COLORS[i],
