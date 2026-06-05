@@ -1,0 +1,55 @@
+{
+  "_about": "Official-site URLs for venues that appear in ensemble concerts but aren't in the 29 canonical halls (those carry their website on venues.json). Keys must match the `venue` string in data/concerts.json exactly (whitespace + casing preserved). The table view falls back to this map when a concert's mapped venue (venue_id) has no website.",
+
+  "Serenadenhof": "https://serenadenhof.de",
+  "Opernhaus": "https://www.staatstheater-nuernberg.de",
+  "Festsaal, Freiheitshalle Hof": "https://freiheitshalle.de",
+  "Foyer Theater Pforzheim": "https://www.theater-pforzheim.de",
+  "Großes Haus, Theater Pforzheim": "https://www.theater-pforzheim.de",
+  "Großes Haus, Theater Ulm": "https://www.theater.ulm.de",
+  "Kulturinsel Wöhrmühle": "https://www.erlangen.info",
+  "Kaisersaal der Residenz": "https://www.residenz-wuerzburg.de",
+
+  "E-Werk Freiburg": "https://www.ewerk-freiburg.de",
+  "Museum Frieder Burda": "https://www.museum-frieder-burda.de",
+  "CongressCentrum": "https://www.congresscentrum-pforzheim.de",
+  "Stadttheater": "https://www.theater-amberg.de",
+  "Stadttheater Amberg": "https://www.theater-amberg.de",
+  "Kornhaus": "https://www.kornhaus-ulm.de",
+  "Casals Forum": "https://www.kronbergacademy.de/casals-forum",
+
+  "Bockenheimer Depot": "https://www.bockenheimer-depot.de",
+  "Holzfoyer": "https://www.oper-frankfurt.de",
+  "Römer, Kaisersaal": "https://frankfurt.de",
+  "Hessisches Staatstheater (Foyer Großes Haus)": "https://www.staatstheater-wiesbaden.de",
+  "Haus der Deutschen Ensemble Akademie, Anbau": "https://www.ensemble-modern.com",
+  "Haus Der Deutschen Ensemble Akademie, Anbau": "https://www.ensemble-modern.com",
+
+  "Alter Rathaussaal": "https://www.muenchen.de",
+  "Villa Stuck": "https://www.villastuck.de",
+  "Museum Villa Stuck": "https://www.villastuck.de",
+  "Pinakothek der Moderne": "https://www.pinakothek-der-moderne.de",
+  "Max-Joseph-Saal, München": "https://www.residenz-muenchen.de",
+  "Münchner Residenz, Herkulessaal": "https://www.residenz-muenchen.de",
+  "Circus-Krone-Bau": "https://www.circus-krone.com",
+
+  "Schloss Herrenchiemsee, Spiegelsaal": "https://www.herrenchiemsee.de",
+  "Kloster Eberbach": "https://kloster-eberbach.de",
+  "Schloss, Renaissancehof": "https://www.weilburg-tourismus.de",
+  "Forum am Schlosspark Ludwigsburg": "https://www.ludwigsburg.de",
+  "Rittersaal Schloss Neuenstein": "https://www.schloss-neuenstein.de",
+
+  "Bergwaldtheater": "https://www.weissenburg.info",
+  "Historischer Reitstadel": "https://www.reitstadel-neumarkt.de",
+  "Gustav-Adolf-Gedächtniskirche": "https://nuernberg-evangelisch.de",
+  "Germanisches Nationalmuseum": "https://www.gnm.de",
+  "Schloss Jägersburg": "https://www.schloss-jaegersburg.de",
+  "Rosenthal-Theater Selb": "https://www.rosenthal-theater.de",
+
+  "Evangelische Akademie, Tutzing": "https://www.ev-akademie-tutzing.de",
+  "Basilika Ottobeuren": "https://www.abtei-ottobeuren.de",
+  "Im Wizemann": "https://www.wizemann.de",
+  "Marienkirche": "https://www.hofer-symphoniker.de",
+  "Schloss, Ordenssaal": "https://www.schloss-ludwigsburg.de",
+  "Schloss": "https://www.schloss-ludwigsburg.de"
+}

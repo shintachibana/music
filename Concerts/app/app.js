@@ -13,14 +13,17 @@ const MONTH_NAMES = [
 
 let VENUES = [];
 let CONCERTS = [];
+let EXTRA_SITES = {};
 
 async function loadData() {
-  const [v, c] = await Promise.all([
+  const [v, c, extra] = await Promise.all([
     fetch("../data/venues.json").then((r) => r.json()),
     fetch("../data/concerts.json").then((r) => r.json()),
+    fetch("../data/extra_venue_sites.json").then((r) => r.json()).catch(() => ({})),
   ]);
   VENUES = v;
   CONCERTS = (c.concerts || []).map(normalizeConcert);
+  EXTRA_SITES = extra || {};
 }
 
 function normalizeConcert(c) {
@@ -357,7 +360,7 @@ function renderTable() {
       const tag = BL_TAG[bundesland] || "";
       const city = v.city || c.city || "";
       const venueName = v.name || c.venue || "";
-      const venueSite = v.website || "";
+      const venueSite = v.website || EXTRA_SITES[(c.venue || "").trim()] || "";
       const venueCell = venueSite
         ? `<a href="${escape(venueSite)}" target="_blank" rel="noopener">${escape(venueName)}</a>`
         : escape(venueName);
