@@ -342,12 +342,26 @@
       "title": "Yannick Nézet-Séguin",
       "url": "https://www.festspielhaus.de/veranstaltungen/yannick-nezet-seguin-chamber-orchestra-of-europe/",
       "performers": [
-        "Yannick Nézet-Séguin, Dirigent",
         "Chamber Orchestra of Europe",
-        "Alexandre Kantorow, Solist"
+        "Yannick Nézet-Séguin (Dirigent)",
+        "Alexandre Kantorow (Klavier)"
       ],
       "source_url": "https://www.festspielhaus.de/festivals/la-capitale-d-ete/",
-      "time": "17:00"
+      "time": "17:00",
+      "program": [
+        {
+          "composer": "Carl Maria von Weber",
+          "work": "Oberon-Ouvertüre"
+        },
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Klavierkonzert Nr. 4 G-Dur, op. 58"
+        },
+        {
+          "composer": "Franz Schubert",
+          "work": "Symphonie Nr. 8 C-Dur, D. 944 (»Die Große«)"
+        }
+      ]
     },
     {
       "venue_id": "baden-baden-festspielhaus-baden-baden",
@@ -2121,14 +2135,73 @@
       "source_url": "https://www.m-k-o.eu",
       "title": "Kammermusikfest",
       "url": "https://www.m-k-o.eu/event-detail/3122/25---26%20MKO-Kammermusikfest/",
-      "venue": "Villa Stuck",
+      "venue": "Museum Villa Stuck",
       "city": "München",
       "performers": [
-        "Münchener Kammerorchester"
+        "Münchener Kammerorchester",
+        "Sarah Maria Sun (Sopran)",
+        "Holger Falk (Bariton)",
+        "Enrico Onofri (Violine)",
+        "Bas Wiegers (Violine)",
+        "Alexander Lonquich (Klavier)"
       ],
       "venue_id": null,
       "ensemble": "Münchener Kammerorchester",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Joseph Haydn",
+          "work": "Streichquartett D-Dur, op. 64,5 (»Lerchenquartett«), Hob. III: 63"
+        },
+        {
+          "composer": "Dmitri Schostakowitsch",
+          "work": "Klavierquintett g-Moll, op. 57"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Violinsonate A-Dur, KV 526"
+        },
+        {
+          "composer": "Egon Wellesz",
+          "work": "Sonette der Elisabeth Browning für Sopran und Streichquartett"
+        },
+        {
+          "composer": "György Kurtág",
+          "work": "Kafka-Fragmente, op. 24"
+        },
+        {
+          "composer": "Johannes Bernardus Van Bree",
+          "work": "Allegro für 4 Streichquartette"
+        },
+        {
+          "composer": "Hanns Eisler",
+          "work": "Hölderlin-Fragmente aus dem Hollywooder Liederbuch"
+        },
+        {
+          "composer": "Claude Debussy",
+          "work": "Streichquartett g-Moll, op. 10"
+        },
+        {
+          "composer": "Béla Bartók",
+          "work": "44 Duos (1931)"
+        },
+        {
+          "composer": "Grażyna Bacewicz",
+          "work": "Quartetto"
+        },
+        {
+          "composer": "Miklós Rózsa",
+          "work": "Duo für 2 Violinen, op. 15a"
+        },
+        {
+          "composer": "Caroline Shaw",
+          "work": "Entr'acte: A Minuet & Trio"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Serenade Nr. 12 c-Moll, KV 388 (»Nachtmusik«)"
+        }
+      ]
     },
     {
       "date": "2026-07-13",
@@ -3059,11 +3132,27 @@
       "venue": "Rosenthal-Theater Selb",
       "city": "Selb",
       "performers": [
-        "Hofer Symphoniker"
+        "Hofer Symphoniker",
+        "Arn Goerke (Dirigent)",
+        "Hawijch Elders (Violine)"
       ],
       "venue_id": null,
       "ensemble": "Hofer Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Jacques Offenbach",
+          "work": "Ouvertüre zur Oper »Die Rheinnixen«"
+        },
+        {
+          "composer": "Max Bruch",
+          "work": "Violinkonzert Nr. 1 g-Moll, op. 26"
+        },
+        {
+          "composer": "Robert Schumann",
+          "work": "Symphonie Nr. 3 Es-Dur, op. 97 (»Rheinische«)"
+        }
+      ]
     },
     {
       "date": "2026-06-12",
@@ -3108,11 +3197,25 @@
       "venue": "Burg Thierstein",
       "city": "Thierstein",
       "performers": [
-        "Hofer Symphoniker"
+        "Ensembles der Hofer Symphoniker"
       ],
       "venue_id": null,
       "ensemble": "Hofer Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Serenade Nr. 12 c-Moll, KV 388 (»Nachtmusik«)"
+        },
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Sextett Es-Dur, op. 71"
+        },
+        {
+          "composer": "Antonín Dvořák",
+          "work": "Serenade d-Moll, op. 44"
+        }
+      ]
     },
     {
       "date": "2026-06-19",
@@ -3150,11 +3253,27 @@
       "venue": "Festsaal, Freiheitshalle Hof",
       "city": "Hof",
       "performers": [
-        "Hofer Symphoniker"
+        "Hofer Symphoniker",
+        "Martijn Dendievel (Dirigent)",
+        "Alexander Melnikov (Klavier)"
       ],
       "venue_id": null,
       "ensemble": "Hofer Symphoniker",
-      "bundesland": "Bayern"
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Felix Mendelssohn Bartholdy",
+          "work": "Ouvertüre zu Shakespeares »Ein Sommernachtstraum«, op. 21"
+        },
+        {
+          "composer": "Felix Mendelssohn Bartholdy",
+          "work": "Klavierkonzert Nr. 2 d-Moll, op. 40"
+        },
+        {
+          "composer": "Felix Mendelssohn Bartholdy",
+          "work": "Symphonie Nr. 5 d-Moll, op. 107 (»Reformations-Symphonie«)"
+        }
+      ]
     },
     {
       "date": "2026-06-19",
@@ -3182,21 +3301,6 @@
       "venue_id": null,
       "ensemble": "Hofer Symphoniker",
       "bundesland": "Bayern"
-    },
-    {
-      "venue_id": "muenchen-isarphilharmonie",
-      "date": "2026-06-11",
-      "source_url": "https://www.mphil.de",
-      "time": "19:30",
-      "title": "Regenbogen-Konzert",
-      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/regenbogen-konzert-20260611",
-      "performers": [
-        "Victoria Margasyuk, Violine",
-        "Josef Hundsbichler, Bratsche",
-        "Friederike Luise Arnholdt, Violoncello",
-        "Michael Neumann, Kontrabass",
-        "Paul Rivinius, Klavier"
-      ]
     },
     {
       "venue_id": "muenchen-isarphilharmonie",
@@ -3482,27 +3586,59 @@
       "date": "2026-07-13",
       "source_url": "https://www.staatstheater-augsburg.de/konzert_25",
       "ensemble": "Augsburger Philharmoniker",
-      "title": "Denkmal",
+      "title": "8. Sinfoniekonzert »Denkmal«",
       "url": "https://www.staatstheater-augsburg.de/8_sinfoniekonzert_denkmal",
       "venue": "Kongress am Park",
       "city": "Augsburg",
       "performers": [
-        "Augsburger Philharmoniker"
+        "Augsburger Philharmoniker",
+        "Albrecht Mayer (Oboe)"
       ],
-      "venue_id": "augsburg-kongress-am-park"
+      "venue_id": "augsburg-kongress-am-park",
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Johannes Brahms",
+          "work": "Variationen über ein Thema von Haydn, op. 56a"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart / Gotthard Odermatt",
+          "work": "Konzert für Oboe und Orchester F-Dur, KV 293 (Fragment, vervollständigt von Odermatt)"
+        },
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Symphonie Nr. 8 F-Dur, op. 93"
+        }
+      ]
     },
     {
       "date": "2026-07-14",
       "source_url": "https://www.staatstheater-augsburg.de/konzert_25",
       "ensemble": "Augsburger Philharmoniker",
-      "title": "Denkmal",
+      "title": "8. Sinfoniekonzert »Denkmal«",
       "url": "https://www.staatstheater-augsburg.de/8_sinfoniekonzert_denkmal",
       "venue": "Kongress am Park",
       "city": "Augsburg",
       "performers": [
-        "Augsburger Philharmoniker"
+        "Augsburger Philharmoniker",
+        "Albrecht Mayer (Oboe)"
       ],
-      "venue_id": "augsburg-kongress-am-park"
+      "venue_id": "augsburg-kongress-am-park",
+      "bundesland": "Bayern",
+      "program": [
+        {
+          "composer": "Johannes Brahms",
+          "work": "Variationen über ein Thema von Haydn, op. 56a"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart / Gotthard Odermatt",
+          "work": "Konzert für Oboe und Orchester F-Dur, KV 293 (Fragment, vervollständigt von Odermatt)"
+        },
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Symphonie Nr. 8 F-Dur, op. 93"
+        }
+      ]
     },
     {
       "date": "2026-06-13",
