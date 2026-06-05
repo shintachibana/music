@@ -208,14 +208,21 @@ async function onAddressChanged(q) {
 }
 
 function drawAddressOverlay(lat, lng) {
-  // Pin at the address itself
+  // Big red flag at the user's address so it's unmissable
+  const flagSvg = `
+    <svg width="34" height="42" viewBox="0 0 34 42" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5))">
+      <line x1="6" y1="42" x2="6" y2="2" stroke="#222" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M6,4 L30,4 L24,12 L30,20 L6,20 Z" fill="#e63946" stroke="#a3242f" stroke-width="1"/>
+      <circle cx="6" cy="42" r="3" fill="#222"/>
+    </svg>`;
   const pin = L.marker([lat, lng], {
     icon: L.divIcon({
-      className: "",
-      html: `<div style="background:#222;color:white;border-radius:50%;width:14px;height:14px;border:2px solid white;box-shadow:0 0 4px rgba(0,0,0,0.6)"></div>`,
-      iconSize: [14, 14],
-      iconAnchor: [7, 7],
+      className: "address-flag",
+      html: flagSvg,
+      iconSize: [34, 42],
+      iconAnchor: [6, 42],
     }),
+    zIndexOffset: 1000,
   });
   addressLayer.addLayer(pin);
 
