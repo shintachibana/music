@@ -147,8 +147,8 @@ function setupMap() {
 
 // --- Address geocoding + concentric radius circles ---
 
-const RADII_KM = [50, 100, 150, 200, 250, 300];
-const CIRCLE_COLORS = ["#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3"];
+const RADII_KM = [50, 100, 150, 200, 250];
+const CIRCLE_COLORS = ["#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3"];
 let _lastAddressQuery = "";
 
 function wireAddressInput() {
