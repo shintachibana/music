@@ -3740,6 +3740,145 @@
         }
       ],
       "url": "https://www.brso.de/konzerte/zubin-mehta-rudolf-buchbinder/"
+    },
+    {
+      "date": "2026-06-12",
+      "time": "20:00",
+      "title": "Matthias Pintscher | Streich · Reinvere · Henze",
+      "venue": "Münchner Residenz, Herkulessaal",
+      "city": "München",
+      "bundesland": "Bayern",
+      "venue_id": "muenchen-herkulessaal",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Matthias Pintscher (Dirigent)",
+        "Tamara Stefanovich (Klavier)",
+        "Aušrinė Stundytė (Sopran)",
+        "Kristi Mühling (Kannel)"
+      ],
+      "program": [
+        {
+          "composer": "Lisa Streich",
+          "work": "BLACK SWAN for piano and orchestra"
+        },
+        {
+          "composer": "Jüri Reinvere",
+          "work": "Das Lied von den zwei Erden for soprano, kannel and orchestra"
+        },
+        {
+          "composer": "Hans Werner Henze",
+          "work": "Heliogabalus Imperator - Allegoria per musica for orchestra"
+        }
+      ],
+      "url": "https://www.brso.de/en/concerts/matthias-pintscher-streich-reinvere-henze/"
+    },
+    {
+      "date": "2026-07-02",
+      "time": "20:00",
+      "title": "Sir Simon Rattle & Dame Imogen Cooper",
+      "venue": "Münchner Residenz, Herkulessaal",
+      "city": "München",
+      "bundesland": "Bayern",
+      "venue_id": "muenchen-herkulessaal",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Sir Simon Rattle (Dirigent)",
+        "Dame Imogen Cooper (Klavier)",
+        "Henrik Wiese (Flöte)",
+        "Jesús Villa Ordóñez (Fagott)",
+        "Ramón Ortega Quero (Oboe)"
+      ],
+      "program": [
+        {
+          "composer": "Henri Dutilleux",
+          "work": "Sonatine für Flöte und Klavier (orch. Kenneth Hesketh)"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Klavierkonzert B-Dur, KV 595"
+        },
+        {
+          "composer": "Henri Dutilleux",
+          "work": "Sarabande et cortège für Fagott und Klavier (orch. Kenneth Hesketh)"
+        },
+        {
+          "composer": "Henri Dutilleux",
+          "work": "Sonate für Oboe und Klavier (orch. Kenneth Hesketh)"
+        },
+        {
+          "composer": "Joseph Haydn",
+          "work": "Symphonie Nr. 90 C-Dur, Hob. I:90"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/sir-simon-rattle-imogen-cooper/"
+    },
+    {
+      "date": "2026-07-05",
+      "time": "17:00",
+      "title": "Singen mit Sir Simon – viele Chöre, ein Orchester",
+      "venue": "Circus-Krone-Bau",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Chor des Bayerischen Rundfunks",
+        "Sir Simon Rattle (Dirigent)"
+      ],
+      "program": [
+        {
+          "composer": "Aaron Copland",
+          "work": "Old American Songs"
+        },
+        {
+          "composer": "Judith Weir",
+          "work": "Storm (für Kinder- und Frauenchor)"
+        },
+        {
+          "composer": "Ralph Vaughan Williams",
+          "work": "Serenade to Music"
+        },
+        {
+          "composer": "Carl Orff",
+          "work": "Carmina Burana"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/singen-mit-sir-simon-viele-choere-ein-orchester-2/"
+    },
+    {
+      "date": "2026-07-12",
+      "time": "19:30",
+      "title": "Singen mit Sir Simon – viele Chöre, ein Orchester",
+      "venue": "Turnierplatz",
+      "city": "Bad Kissingen",
+      "bundesland": "Bayern",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Chor des Bayerischen Rundfunks",
+        "Sir Simon Rattle (Dirigent)"
+      ],
+      "program": [
+        {
+          "composer": "Aaron Copland",
+          "work": "Old American Songs"
+        },
+        {
+          "composer": "Judith Weir",
+          "work": "Storm (für Kinder- und Frauenchor)"
+        },
+        {
+          "composer": "Ralph Vaughan Williams",
+          "work": "Serenade to Music"
+        },
+        {
+          "composer": "Carl Orff",
+          "work": "Carmina Burana"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/singen-mit-sir-simon-viele-choere-ein-orchester-2/"
     }
   ],
   "enriched_at": "2026-06-03",
