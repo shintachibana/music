@@ -132,6 +132,7 @@ function anyFilterSet(f) {
 
 let mapInstance = null;
 let markerLayer = null;
+let addressLayer = null;
 
 function setupMap() {
   mapInstance = L.map("map").setView([49.2, 9.5], 7);  // centered on BW/Bayern/Hessen
@@ -140,6 +141,99 @@ function setupMap() {
     maxZoom: 18,
   }).addTo(mapInstance);
   markerLayer = L.layerGroup().addTo(mapInstance);
+  addressLayer = L.layerGroup().addTo(mapInstance);
+  wireAddressInput();
+}
+
+// --- Address geocoding + concentric radius circles ---
+
+const RADII_KM = [50, 100, 150, 200];
+const CIRCLE_COLORS = ["#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3"];
+let _addressDebounce = null;
+let _lastAddressQuery = "";
+
+function wireAddressInput() {
+  const input = document.getElementById("f-address");
+  if (!input) return;
+  input.addEventListener("input", () => {
+    clearTimeout(_addressDebounce);
+    _addressDebounce = setTimeout(() => onAddressChanged(input.value.trim()), 500);
+  });
+  // Also clear on the "Clear all" button — already wired by clearAllAddressToo below
+}
+
+async function onAddressChanged(q) {
+  const statusEl = document.getElementById("address-status");
+  addressLayer.clearLayers();
+  if (!q) {
+    statusEl.textContent = "";
+    _lastAddressQuery = "";
+    return;
+  }
+  if (q === _lastAddressQuery) return;
+  _lastAddressQuery = q;
+  statusEl.textContent = "Looking up…";
+  try {
+    const params = new URLSearchParams({
+      q, format: "json", limit: "1", countrycodes: "de,at,ch",
+    });
+    const resp = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
+      headers: { "Accept-Language": "de,en" },
+    });
+    const hits = await resp.json();
+    if (!hits.length) {
+      statusEl.textContent = "Address not found";
+      return;
+    }
+    const { lat, lon, display_name } = hits[0];
+    statusEl.textContent = `📍 ${display_name.split(",").slice(0, 3).join(", ")}`;
+    drawAddressOverlay(parseFloat(lat), parseFloat(lon));
+  } catch (e) {
+    statusEl.textContent = "Geocoding failed";
+    console.error(e);
+  }
+}
+
+function drawAddressOverlay(lat, lng) {
+  // Pin at the address itself
+  const pin = L.marker([lat, lng], {
+    icon: L.divIcon({
+      className: "",
+      html: `<div style="background:#222;color:white;border-radius:50%;width:14px;height:14px;border:2px solid white;box-shadow:0 0 4px rgba(0,0,0,0.6)"></div>`,
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
+    }),
+  });
+  addressLayer.addLayer(pin);
+
+  RADII_KM.forEach((km, i) => {
+    const opacity = 0.7 - i * 0.12;
+    const fill = i === 0 ? 0.08 : 0.03;
+    const circle = L.circle([lat, lng], {
+      radius: km * 1000,
+      color: CIRCLE_COLORS[i],
+      weight: 1.5,
+      opacity,
+      fillColor: CIRCLE_COLORS[i],
+      fillOpacity: fill,
+      interactive: false,
+    });
+    addressLayer.addLayer(circle);
+    // Label the radius at the north edge of each circle
+    const labelLat = lat + km / 111;  // ~111 km per degree of latitude
+    const label = L.marker([labelLat, lng], {
+      icon: L.divIcon({
+        className: "",
+        html: `<div style="background:white;color:#5d3fd3;font-size:0.7rem;font-weight:700;padding:1px 6px;border:1px solid #5d3fd3;border-radius:3px;white-space:nowrap;transform:translateX(-50%)">${km} km</div>`,
+        iconSize: [0, 0],
+        iconAnchor: [0, 0],
+      }),
+      interactive: false,
+    });
+    addressLayer.addLayer(label);
+  });
+  // Fit the largest circle in view
+  mapInstance.fitBounds(L.latLng(lat, lng).toBounds(RADII_KM[RADII_KM.length - 1] * 2 * 1000));
 }
 
 function renderMap() {
@@ -287,9 +381,16 @@ function wireFilters(onChange) {
   const clear = document.getElementById("clear-filters");
   if (clear) {
     clear.addEventListener("click", () => {
-      for (const id of ["f-month", "f-date", "f-bundesland", "f-city", "f-performer", "f-composer", "f-work", "f-search"]) {
+      for (const id of ["f-month", "f-date", "f-bundesland", "f-city", "f-performer", "f-composer", "f-work", "f-search", "f-address"]) {
         const el = document.getElementById(id);
         if (el) el.value = "";
+      }
+      // Also clear any address overlay drawn on the map
+      if (typeof addressLayer !== "undefined" && addressLayer) {
+        addressLayer.clearLayers();
+        _lastAddressQuery = "";
+        const s = document.getElementById("address-status");
+        if (s) s.textContent = "";
       }
       onChange();
     });
