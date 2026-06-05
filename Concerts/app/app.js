@@ -370,7 +370,7 @@ function renderTable() {
         <td>${tag ? `<span class="bl-tag ${tag}">${tag}</span> ` : ""}${escape(bundesland)}</td>
         <td>${escape(city)}</td>
         <td>${venueCell}</td>
-        <td>${escape(c.performers.join("; "))}</td>
+        <td>${escape(formatPerformers(c).join("; "))}</td>
         <td class="program">${escape(prog)}</td>
         <td>${c.url ? `<a href="${escape(c.url)}" target="_blank" rel="noopener">↗</a>` : ""}</td>
       </tr>`;
@@ -391,6 +391,24 @@ function sortBy({ key, asc }) {
 }
 
 // ===== Utils =====
+
+function formatPerformers(c) {
+  const ens = (c.ensemble || "").trim();
+  const ensNorm = ens.toLowerCase();
+  // Drop any performer entry that's just the ensemble name (so it's not listed twice)
+  let perfs = (c.performers || []).filter((p) => p && p.trim().toLowerCase() !== ensNorm);
+  if (ens) perfs = [ens, ...perfs];
+  // Normalize "Name, Role" → "Name (Role)" for entries that don't already use parens.
+  return perfs.map((p) => {
+    p = String(p).trim();
+    if (p.includes("(")) return p;
+    const m = /^(.+?),\s*([\p{L} /-]+)$/u.exec(p);
+    if (m && m[2].length <= 40) {
+      return `${m[1].trim()} (${m[2].trim()})`;
+    }
+    return p;
+  });
+}
 
 function escape(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({
