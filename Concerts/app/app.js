@@ -149,17 +149,30 @@ function setupMap() {
 
 const RADII_KM = [50, 100, 150, 200];
 const CIRCLE_COLORS = ["#5d3fd3", "#5d3fd3", "#5d3fd3", "#5d3fd3"];
-let _addressDebounce = null;
 let _lastAddressQuery = "";
 
 function wireAddressInput() {
   const input = document.getElementById("f-address");
+  const submit = document.getElementById("address-submit");
   if (!input) return;
-  input.addEventListener("input", () => {
-    clearTimeout(_addressDebounce);
-    _addressDebounce = setTimeout(() => onAddressChanged(input.value.trim()), 500);
+  const trigger = () => onAddressChanged(input.value.trim());
+  if (submit) submit.addEventListener("click", trigger);
+  // Enter key in the input also submits
+  input.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      trigger();
+    }
   });
-  // Also clear on the "Clear all" button — already wired by clearAllAddressToo below
+  // If the field is emptied, clear the overlay immediately (no need to click Submit)
+  input.addEventListener("input", () => {
+    if (!input.value.trim()) {
+      addressLayer.clearLayers();
+      _lastAddressQuery = "";
+      const s = document.getElementById("address-status");
+      if (s) s.textContent = "";
+    }
+  });
 }
 
 async function onAddressChanged(q) {
