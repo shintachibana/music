@@ -4291,6 +4291,168 @@
       "venue_id": "muenchen-isarphilharmonie",
       "ensemble": "Münchner Philharmoniker",
       "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/strauss-borodin-mahler-martinu-2026-06-13-19"
+    },
+    {
+      "venue": "Müsensaal (Rosengarten Mannheim)",
+      "city": "Mannheim",
+      "bundesland": "Baden-Württemberg",
+      "date": "2026-06-07",
+      "time": "10:00",
+      "title": "4. Familienkonzert: Instrumente & Klang",
+      "ensemble": "Mannheimer Philharmoniker",
+      "performers": [
+        "Mannheimer Philharmoniker"
+      ],
+      "program": [],
+      "url": "https://www.rosengarten-mannheim.de/veranstaltung/2-familienkonzert-instrumente-klang-ab-6-jahren-mannheimer-philharmoniker-kostenfrei-mit-voranmeldung-2"
+    },
+    {
+      "venue": "Müsensaal (Rosengarten Mannheim)",
+      "city": "Mannheim",
+      "bundesland": "Baden-Württemberg",
+      "date": "2026-06-07",
+      "time": "19:00",
+      "title": "4. Orchesterkonzert »TOSCA«",
+      "ensemble": "Mannheimer Philharmoniker",
+      "performers": [
+        "Mannheimer Philharmoniker",
+        "Boian Videnoff (Dirigent)",
+        "Kristīne Opolais (Floria Tosca)",
+        "Davide Giusti (Mario Cavaradossi)",
+        "Simone Piazzola (Barone Scarpia)"
+      ],
+      "program": [
+        {
+          "composer": "Arthur Honegger",
+          "work": "Pastorale d'été"
+        },
+        {
+          "composer": "Sergej Prokofjew",
+          "work": "Nussknacker-Suite"
+        },
+        {
+          "composer": "Beethoven",
+          "work": "Schwanensee-Suite"
+        }
+      ],
+      "url": "https://www.rosengarten-mannheim.de/veranstaltung/4-orchesterkonzert-tosca-mannheimer-philharmoniker"
+    },
+    {
+      "venue": "Wolfgang Amadeus Mozart Saal (Rosengarten Mannheim)",
+      "venue_id": "mannheim-rosengarten-mannheim-mozartsaal",
+      "city": "Mannheim",
+      "bundesland": "Baden-Württemberg",
+      "date": "2026-06-11",
+      "time": "20:00",
+      "title": "Anne-Sophie Mutter & Berliner Barock Solisten",
+      "ensemble": "Berliner Barock Solisten",
+      "performers": [
+        "Berliner Barock Solisten",
+        "Anne-Sophie Mutter (Violine & Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Darvishi",
+          "work": "»Likoo« für Violine solo"
+        },
+        {
+          "composer": "André Previn",
+          "work": "Violinkonzert Nr. 2 für Violine & Streichorchester mit zwei Cembalo-Interludes"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Violinkonzert Nr. 1 B-Dur, KV 207"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Violinkonzert Nr. 5 A-Dur, KV 219"
+        }
+      ],
+      "url": "https://www.rosengarten-mannheim.de/veranstaltung/anne-sophie-mutter"
+    },
+    {
+      "venue": "Wolfgang Amadeus Mozart Saal (Rosengarten Mannheim)",
+      "venue_id": "mannheim-rosengarten-mannheim-mozartsaal",
+      "city": "Mannheim",
+      "bundesland": "Baden-Württemberg",
+      "date": "2026-06-22",
+      "time": "20:00",
+      "title": "8. Akademiekonzert: Mozart Sinfonie 40 & Requiem",
+      "ensemble": "Musikalische Akademie",
+      "performers": [
+        "Musikalische Akademie",
+        "Rinaldo Alessandrini (Dirigent)",
+        "Seunghee Kho (Sopran)",
+        "Julia Faylenbogen (Alt)",
+        "Sung Min Song (Tenor)",
+        "Sung Ha (Bass)"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Symphonie Nr. 40 g-Moll, KV 550"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Requiem KV 626 (ergänzt von Franz Xaver Süßmayr)"
+        }
+      ],
+      "url": "https://www.rosengarten-mannheim.de/veranstaltung/8-akademiekonzert-der-musikalischen-akademie-3/2026-06-22"
+    },
+    {
+      "venue": "Wolfgang Amadeus Mozart Saal (Rosengarten Mannheim)",
+      "venue_id": "mannheim-rosengarten-mannheim-mozartsaal",
+      "city": "Mannheim",
+      "bundesland": "Baden-Württemberg",
+      "date": "2026-06-23",
+      "time": "20:00",
+      "title": "8. Akademiekonzert: Mozart Sinfonie 40 & Requiem",
+      "ensemble": "Musikalische Akademie",
+      "performers": [
+        "Musikalische Akademie",
+        "Rinaldo Alessandrini (Dirigent)",
+        "Seunghee Kho (Sopran)",
+        "Julia Faylenbogen (Alt)",
+        "Sung Min Song (Tenor)",
+        "Sung Ha (Bass)"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Symphonie Nr. 40 g-Moll, KV 550"
+        },
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Requiem KV 626 (ergänzt von Franz Xaver Süßmayr)"
+        }
+      ],
+      "url": "https://www.rosengarten-mannheim.de/veranstaltung/8-akademiekonzert-der-musikalischen-akademie-3/2026-06-23"
+    },
+    {
+      "venue": "Wolfgang Amadeus Mozart Saal (Rosengarten Mannheim)",
+      "venue_id": "mannheim-rosengarten-mannheim-mozartsaal",
+      "city": "Mannheim",
+      "bundesland": "Baden-Württemberg",
+      "date": "2026-07-20",
+      "time": "19:00",
+      "title": "SWR Symphonieorchester Abokonzert 5: ROTH · BRUCKNER",
+      "ensemble": "SWR Symphonieorchester",
+      "performers": [
+        "SWR Symphonieorchester",
+        "SWR Vokalensemble",
+        "François-Xavier Roth (Dirigent)"
+      ],
+      "program": [
+        {
+          "composer": "György Ligeti",
+          "work": "Lux aeterna für Chor a cappella"
+        },
+        {
+          "composer": "Anton Bruckner",
+          "work": "Sinfonie Nr. 8 c-Moll"
+        }
+      ],
+      "url": "https://www.rosengarten-mannheim.de/veranstaltung/swr-symphonieorchester-abokonzert-5-roth-bruckner"
     }
   ],
   "enriched_at": "2026-06-03",
