@@ -1956,37 +1956,6 @@
       ]
     },
     {
-      "date": "2026-06-13",
-      "source_url": "https://www.mphil.de",
-      "time": "19:00",
-      "title": "Mahler / Strauss / Martinů / Borodin",
-      "venue": "Isarphilharmonie",
-      "city": "München",
-      "performers": [
-        "Münchner Philharmoniker"
-      ],
-      "program": [
-        {
-          "composer": "Mahler",
-          "work": ""
-        },
-        {
-          "composer": "Strauss",
-          "work": ""
-        },
-        {
-          "composer": "Martinů",
-          "work": ""
-        },
-        {
-          "composer": "Borodin",
-          "work": ""
-        }
-      ],
-      "venue_id": "muenchen-isarphilharmonie",
-      "ensemble": "Münchner Philharmoniker"
-    },
-    {
       "date": "2026-06-05",
       "source_url": "https://www.m-k-o.eu/programm/alle-veranstaltungen/",
       "time": "14:30",
@@ -3162,39 +3131,6 @@
     },
     {
       "venue_id": "muenchen-isarphilharmonie",
-      "date": "2026-06-13",
-      "source_url": "https://www.mphil.de",
-      "time": "19:00",
-      "title": "Mahler · Strauss · Martinů · Borodin",
-      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/strauss-borodin-mahler-martinu-2026-06-13-19",
-      "performers": [
-        "Jakub Hrůša, Dirigent",
-        "Corinne Winters, Sopran",
-        "Jiří Brückler, Bariton",
-        "Philharmonischer Chor München",
-        "Münchner Philharmoniker"
-      ],
-      "program": [
-        {
-          "composer": "Gustav Mahler",
-          "work": "Adagietto aus der 5. Symphonie"
-        },
-        {
-          "composer": "Richard Strauss",
-          "work": "Vier letzte Lieder"
-        },
-        {
-          "composer": "Bohuslav Martinů",
-          "work": "Polní mše für Bariton, Männerchor und Ensemble"
-        },
-        {
-          "composer": "Alexander Borodin",
-          "work": "Polowetzer Tänze"
-        }
-      ]
-    },
-    {
-      "venue_id": "muenchen-isarphilharmonie",
       "date": "2026-06-14",
       "source_url": "https://www.mphil.de",
       "time": "11:00",
@@ -4105,6 +4041,42 @@
         }
       ],
       "url": "https://www.mphil.de/kalender"
+    },
+    {
+      "date": "2026-06-13",
+      "source_url": "https://www.mphil.de",
+      "time": "19:00",
+      "title": "Mahler · Strauss · Martinů · Borodin",
+      "venue": "Isarphilharmonie",
+      "city": "München",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Jakub Hrůša, Dirigent",
+        "Corinne Winters, Sopran",
+        "Jiří Brückler, Bariton",
+        "Philharmonischer Chor München"
+      ],
+      "program": [
+        {
+          "composer": "Gustav Mahler",
+          "work": "Adagietto aus der 5. Symphonie"
+        },
+        {
+          "composer": "Richard Strauss",
+          "work": "Vier letzte Lieder"
+        },
+        {
+          "composer": "Bohuslav Martinů",
+          "work": "Polní mše für Bariton, Männerchor und Ensemble"
+        },
+        {
+          "composer": "Alexander Borodin",
+          "work": "Polowetzer Tänze"
+        }
+      ],
+      "venue_id": "muenchen-isarphilharmonie",
+      "ensemble": "Münchner Philharmoniker",
+      "url": "https://www.mphil.de/konzerte-und-karten/kalender/konzerte/strauss-borodin-mahler-martinu-2026-06-13-19"
     }
   ],
   "enriched_at": "2026-06-03",
