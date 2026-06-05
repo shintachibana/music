@@ -395,8 +395,10 @@ function escape(s) {
   })[c]);
 }
 
-function wireFilters(onChange) {
+function wireFilters(onChange, opts) {
+  const skip = new Set((opts && opts.skipIds) || []);
   for (const id of ["f-month", "f-date", "f-bundesland", "f-city", "f-performer", "f-composer", "f-work", "f-search"]) {
+    if (skip.has(id)) continue;
     const el = document.getElementById(id);
     if (el) el.addEventListener("input", onChange);
   }
@@ -493,7 +495,19 @@ function watchStickyTop() {
         renderTable();
       });
     });
-    wireFilters(renderTable);
+    // Wire only the dropdowns to auto-apply; the search text input waits for Submit/Enter
+    wireFilters(renderTable, { skipIds: ["f-search"] });
+    const searchInput = document.getElementById("f-search");
+    const submitBtn = document.getElementById("search-submit");
+    if (submitBtn) submitBtn.addEventListener("click", renderTable);
+    if (searchInput) {
+      searchInput.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+          ev.preventDefault();
+          renderTable();
+        }
+      });
+    }
     renderTable();
   }
 })();
