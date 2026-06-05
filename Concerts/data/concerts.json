@@ -1350,43 +1350,44 @@
       "venue": "Kiliansplatz",
       "city": "Heilbronn",
       "performers": [
-        "Frank Dupree",
-        "Frank Dupree Trio",
-        "Šima Fagott",
-        "Württembergisches Kammerorchester Heilbronn"
+        "Württembergisches Kammerorchester Heilbronn",
+        "Frank Dupree (Klavier & Leitung)",
+        "Meinhard »Obi« Jenne (Drums)",
+        "Jakob Krupp (Kontrabass)",
+        "Libor Šima (Saxophon)"
       ],
       "program": [
         {
-          "composer": "De Falla",
-          "work": "Werk"
+          "composer": "Manuel de Falla",
+          "work": "Danza ritual del Fuego"
         },
         {
-          "composer": "Ravel",
-          "work": "Werk"
+          "composer": "Maurice Ravel",
+          "work": "Petite Symphonie à cordes (Auszug)"
         },
         {
-          "composer": "Francaix",
-          "work": "Werk"
+          "composer": "Jean Françaix",
+          "work": "Divertissement für Fagott und Streicher"
         },
         {
-          "composer": "Milhaud",
-          "work": "Werk"
+          "composer": "Darius Milhaud",
+          "work": "Scaramouche"
         },
         {
-          "composer": "Fauré",
-          "work": "Werk"
+          "composer": "Gabriel Fauré",
+          "work": "Pavane, op. 50"
         },
         {
-          "composer": "Mancini",
-          "work": "Werk"
+          "composer": "Henry Mancini",
+          "work": "Lujon"
         },
         {
-          "composer": "Legrand",
-          "work": "Werk"
+          "composer": "Michel Legrand",
+          "work": "You Must Believe in Spring"
         },
         {
-          "composer": "Cosma",
-          "work": "Werk"
+          "composer": "Joseph Kosma",
+          "work": "Autumn Leaves"
         }
       ],
       "venue_id": null,
