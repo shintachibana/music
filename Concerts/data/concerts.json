@@ -3546,6 +3546,200 @@
         "Augsburger Philharmoniker"
       ],
       "venue_id": "augsburg-kongress-am-park"
+    },
+    {
+      "date": "2026-06-13",
+      "time": "20:00",
+      "title": "Kammerkonzert »In memoriam«",
+      "venue": "Max-Joseph-Saal, München",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Korbinian Altenberger (Violine)",
+        "Lorenz Chen (Violine)",
+        "Benedict Hames (Viola)",
+        "Jaka Stadler (Violoncello)"
+      ],
+      "program": [
+        {
+          "composer": "Henry Purcell",
+          "work": "Chaconne g-Moll, Z. 730"
+        },
+        {
+          "composer": "Benjamin Britten",
+          "work": "Streichquartett Nr. 2 C-Dur, op. 36"
+        },
+        {
+          "composer": "Dmitrij Schostakowitsch",
+          "work": "Streichquartett Nr. 15 es-Moll, op. 144"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/kammerkonzert-in-memoriam/"
+    },
+    {
+      "date": "2026-06-14",
+      "time": "18:00",
+      "title": "Kammerkonzert »In memoriam«",
+      "venue": "Evangelische Akademie, Tutzing",
+      "city": "Tutzing",
+      "bundesland": "Bayern",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Korbinian Altenberger (Violine)",
+        "Lorenz Chen (Violine)",
+        "Benedict Hames (Viola)",
+        "Jaka Stadler (Violoncello)"
+      ],
+      "program": [
+        {
+          "composer": "Henry Purcell",
+          "work": "Chaconne g-Moll, Z. 730"
+        },
+        {
+          "composer": "Benjamin Britten",
+          "work": "Streichquartett Nr. 2 C-Dur, op. 36"
+        },
+        {
+          "composer": "Dmitrij Schostakowitsch",
+          "work": "Streichquartett Nr. 15 es-Moll, op. 144"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/kammerkonzert-in-memoriam/"
+    },
+    {
+      "date": "2026-06-18",
+      "time": "20:00",
+      "title": "Sir Simon Rattle | The Dream of Gerontius",
+      "venue": "Münchner Residenz, Herkulessaal",
+      "city": "München",
+      "bundesland": "Bayern",
+      "venue_id": "muenchen-herkulessaal",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Chor des Bayerischen Rundfunks",
+        "Sir Simon Rattle (Dirigent)",
+        "Alice Coote (Mezzosopran)",
+        "Nicky Spence (Tenor)",
+        "Lester Lynch (Bariton)"
+      ],
+      "program": [
+        {
+          "composer": "Edward Elgar",
+          "work": "The Dream of Gerontius, Oratorium für Soli, Chor und Orchester, op. 38"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/sir-simon-rattle-the-dream-of-gerontius/"
+    },
+    {
+      "date": "2026-06-19",
+      "time": "20:00",
+      "title": "Sir Simon Rattle | The Dream of Gerontius",
+      "venue": "Münchner Residenz, Herkulessaal",
+      "city": "München",
+      "bundesland": "Bayern",
+      "venue_id": "muenchen-herkulessaal",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Chor des Bayerischen Rundfunks",
+        "Sir Simon Rattle (Dirigent)",
+        "Alice Coote (Mezzosopran)",
+        "Nicky Spence (Tenor)",
+        "Lester Lynch (Bariton)"
+      ],
+      "program": [
+        {
+          "composer": "Edward Elgar",
+          "work": "The Dream of Gerontius, Oratorium für Soli, Chor und Orchester, op. 38"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/sir-simon-rattle-the-dream-of-gerontius/"
+    },
+    {
+      "date": "2026-06-21",
+      "time": "15:00",
+      "title": "Sir Simon Rattle | The Dream of Gerontius",
+      "venue": "Basilika Ottobeuren",
+      "city": "Ottobeuren",
+      "bundesland": "Bayern",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Chor des Bayerischen Rundfunks",
+        "Sir Simon Rattle (Dirigent)",
+        "Alice Coote (Mezzosopran)",
+        "Nicky Spence (Tenor)",
+        "Lester Lynch (Bariton)"
+      ],
+      "program": [
+        {
+          "composer": "Edward Elgar",
+          "work": "The Dream of Gerontius, Oratorium für Soli, Chor und Orchester, op. 38"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/sir-simon-rattle-the-dream-of-gerontius/"
+    },
+    {
+      "date": "2026-06-25",
+      "time": "20:00",
+      "title": "Zubin Mehta & Rudolf Buchbinder",
+      "venue": "Münchner Residenz, Herkulessaal",
+      "city": "München",
+      "bundesland": "Bayern",
+      "venue_id": "muenchen-herkulessaal",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Zubin Mehta (Dirigent)",
+        "Rudolf Buchbinder (Klavier)"
+      ],
+      "program": [
+        {
+          "composer": "Richard Wagner",
+          "work": "»Rienzi«-Ouvertüre"
+        },
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Klavierkonzert Nr. 3 c-Moll, op. 37"
+        },
+        {
+          "composer": "Richard Strauss",
+          "work": "»Also sprach Zarathustra«"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/zubin-mehta-rudolf-buchbinder/"
+    },
+    {
+      "date": "2026-06-26",
+      "time": "20:00",
+      "title": "Zubin Mehta & Rudolf Buchbinder",
+      "venue": "Münchner Residenz, Herkulessaal",
+      "city": "München",
+      "bundesland": "Bayern",
+      "venue_id": "muenchen-herkulessaal",
+      "ensemble": "Symphonieorchester des Bayerischen Rundfunks",
+      "performers": [
+        "Symphonieorchester des Bayerischen Rundfunks",
+        "Zubin Mehta (Dirigent)",
+        "Rudolf Buchbinder (Klavier)"
+      ],
+      "program": [
+        {
+          "composer": "Richard Wagner",
+          "work": "»Rienzi«-Ouvertüre"
+        },
+        {
+          "composer": "Ludwig van Beethoven",
+          "work": "Klavierkonzert Nr. 3 c-Moll, op. 37"
+        },
+        {
+          "composer": "Richard Strauss",
+          "work": "»Also sprach Zarathustra«"
+        }
+      ],
+      "url": "https://www.brso.de/konzerte/zubin-mehta-rudolf-buchbinder/"
     }
   ],
   "enriched_at": "2026-06-03",
