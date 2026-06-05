@@ -3224,7 +3224,11 @@
           "composer": "Alexander Borodin",
           "work": "Polowetzer Tänze"
         }
-      ]
+      ],
+      "venue": "Isarphilharmonie",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Münchner Philharmoniker"
     },
     {
       "date": "2026-06-05",
@@ -3897,6 +3901,210 @@
         }
       ],
       "url": "https://www.swrticketservice.de/veranstaltungen/detail/mittagskonzert-4"
+    },
+    {
+      "venue": "Isarphilharmonie",
+      "venue_id": "muenchen-isarphilharmonie",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Münchner Philharmoniker",
+      "date": "2026-06-18",
+      "time": "19:30",
+      "title": "Zubin Mehta · Mozart & Bruckner",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Zubin Mehta (Dirigent)",
+        "Alexandra Gruber (Klarinette)"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Klarinettenkonzert A-Dur, KV 622"
+        },
+        {
+          "composer": "Anton Bruckner",
+          "work": "Sinfonie Nr. 9 d-Moll"
+        }
+      ],
+      "url": "https://www.mphil.de/kalender"
+    },
+    {
+      "venue": "Isarphilharmonie",
+      "venue_id": "muenchen-isarphilharmonie",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Münchner Philharmoniker",
+      "date": "2026-06-19",
+      "time": "19:30",
+      "title": "Zubin Mehta · Mozart & Bruckner",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Zubin Mehta (Dirigent)",
+        "Alexandra Gruber (Klarinette)"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Klarinettenkonzert A-Dur, KV 622"
+        },
+        {
+          "composer": "Anton Bruckner",
+          "work": "Sinfonie Nr. 9 d-Moll"
+        }
+      ],
+      "url": "https://www.mphil.de/kalender"
+    },
+    {
+      "venue": "Isarphilharmonie",
+      "venue_id": "muenchen-isarphilharmonie",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Münchner Philharmoniker",
+      "date": "2026-06-20",
+      "time": "19:00",
+      "title": "Zubin Mehta · Mozart & Bruckner",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Zubin Mehta (Dirigent)",
+        "Alexandra Gruber (Klarinette)"
+      ],
+      "program": [
+        {
+          "composer": "Wolfgang Amadeus Mozart",
+          "work": "Klarinettenkonzert A-Dur, KV 622"
+        },
+        {
+          "composer": "Anton Bruckner",
+          "work": "Sinfonie Nr. 9 d-Moll"
+        }
+      ],
+      "url": "https://www.mphil.de/kalender"
+    },
+    {
+      "venue": "Isarphilharmonie",
+      "venue_id": "muenchen-isarphilharmonie",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Münchner Philharmoniker",
+      "date": "2026-06-24",
+      "time": "19:30",
+      "title": "Barbara Hannigan · Copland · Haydn · Offenbach · Weill",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Barbara Hannigan (Dirigentin & Sopran)"
+      ],
+      "program": [
+        {
+          "composer": "Aaron Copland",
+          "work": "Dance Symphony"
+        },
+        {
+          "composer": "Joseph Haydn",
+          "work": "Sinfonie Nr. 90 C-Dur, Hob. I:90"
+        },
+        {
+          "composer": "Jacques Offenbach / Manuel Rosenthal",
+          "work": "Gaîté Parisienne"
+        },
+        {
+          "composer": "Kurt Weill",
+          "work": "Ausgewählte Songs"
+        }
+      ],
+      "url": "https://www.mphil.de/kalender"
+    },
+    {
+      "venue": "Isarphilharmonie",
+      "venue_id": "muenchen-isarphilharmonie",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Münchner Philharmoniker",
+      "date": "2026-06-25",
+      "time": "19:30",
+      "title": "Barbara Hannigan · Copland · Haydn · Offenbach · Weill",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Barbara Hannigan (Dirigentin & Sopran)"
+      ],
+      "program": [
+        {
+          "composer": "Aaron Copland",
+          "work": "Dance Symphony"
+        },
+        {
+          "composer": "Joseph Haydn",
+          "work": "Sinfonie Nr. 90 C-Dur, Hob. I:90"
+        },
+        {
+          "composer": "Jacques Offenbach / Manuel Rosenthal",
+          "work": "Gaîté Parisienne"
+        },
+        {
+          "composer": "Kurt Weill",
+          "work": "Ausgewählte Songs"
+        }
+      ],
+      "url": "https://www.mphil.de/kalender"
+    },
+    {
+      "venue": "Isarphilharmonie",
+      "venue_id": "muenchen-isarphilharmonie",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Münchner Philharmoniker",
+      "date": "2026-07-02",
+      "time": "18:30",
+      "title": "Petr Popelka · Isabelle Faust · Dvořák · Henze · Strawinsky",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Petr Popelka (Dirigent)",
+        "Isabelle Faust (Violine)"
+      ],
+      "program": [
+        {
+          "composer": "Antonín Dvořák",
+          "work": "Violinkonzert a-Moll, op. 53"
+        },
+        {
+          "composer": "Hans Werner Henze",
+          "work": "Sebastian im Traum (nach einer Dichtung von Trakl)"
+        },
+        {
+          "composer": "Igor Strawinsky",
+          "work": "L'Oiseau de feu"
+        }
+      ],
+      "url": "https://www.mphil.de/kalender"
+    },
+    {
+      "venue": "Isarphilharmonie",
+      "venue_id": "muenchen-isarphilharmonie",
+      "city": "München",
+      "bundesland": "Bayern",
+      "ensemble": "Münchner Philharmoniker",
+      "date": "2026-07-03",
+      "time": "19:30",
+      "title": "Petr Popelka · Isabelle Faust · Dvořák · Henze · Strawinsky",
+      "performers": [
+        "Münchner Philharmoniker",
+        "Petr Popelka (Dirigent)",
+        "Isabelle Faust (Violine)"
+      ],
+      "program": [
+        {
+          "composer": "Antonín Dvořák",
+          "work": "Violinkonzert a-Moll, op. 53"
+        },
+        {
+          "composer": "Hans Werner Henze",
+          "work": "Sebastian im Traum (nach einer Dichtung von Trakl)"
+        },
+        {
+          "composer": "Igor Strawinsky",
+          "work": "L'Oiseau de feu"
+        }
+      ],
+      "url": "https://www.mphil.de/kalender"
     }
   ],
   "enriched_at": "2026-06-03",
