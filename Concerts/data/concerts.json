@@ -529,12 +529,81 @@
       "url": "https://www.rundfunkorchester.de/konzerte/ivan-repusic-friends/",
       "performers": [
         "Münchner Rundfunkorchester",
-        "Ivan Repušić, Dirigent",
-        "Emmanuel Pahud",
-        "Krassimira Stoyanova",
-        "Charles Castronovo"
+        "Chor des Bayerischen Rundfunks",
+        "Ivan Repušić (Dirigent)",
+        "Marina Rebeka (Sopran)",
+        "Krassimira Stoyanova (Sopran)",
+        "Charles Castronovo (Tenor)",
+        "Emmanuel Pahud (Flöte)",
+        "Dejan Lazić (Klavier)",
+        "Radovan Vlatković (Horn)",
+        "Matthias Höfs (Trompete)",
+        "Simone Rubino (Schlagzeug)"
       ],
-      "source_url": "https://www.prinzregententheater.de"
+      "source_url": "https://www.prinzregententheater.de",
+      "ensemble": "Münchner Rundfunkorchester",
+      "program": [
+        {
+          "composer": "Giuseppe Verdi",
+          "work": "Otello: Ballabili (Ballettmusik)"
+        },
+        {
+          "composer": "Giuseppe Verdi",
+          "work": "I Vespri Siciliani: Mercè, dilette amiche"
+        },
+        {
+          "composer": "Paul Dukas",
+          "work": "Villanelle für Horn und Orchester"
+        },
+        {
+          "composer": "Cécile Chaminade",
+          "work": "Concertino für Flöte und Orchester"
+        },
+        {
+          "composer": "Frano Parać",
+          "work": "Carmina Krležiana: 3. Ples Barunice"
+        },
+        {
+          "composer": "Dejan Lazić",
+          "work": "Konzert im istrischen Stil für Klavier, op. 18b"
+        },
+        {
+          "composer": "Giuseppe Verdi",
+          "work": "Nabucco: Va pensiero sull'ali dorate"
+        },
+        {
+          "composer": "Giuseppe Verdi",
+          "work": "Otello: 4. Akt, Szenen 1 & 2"
+        },
+        {
+          "composer": "Leonard Bernstein",
+          "work": "Candide: Ouverture"
+        },
+        {
+          "composer": "Michel Legrand",
+          "work": "How Do You Keep the Music Playing"
+        },
+        {
+          "composer": "Keiko Abe",
+          "work": "Prism Rhapsody für Marimba und Orchester"
+        },
+        {
+          "composer": "Giacomo Puccini",
+          "work": "Le Villi: La Tregenda. Intermezzo"
+        },
+        {
+          "composer": "Giacomo Puccini",
+          "work": "I Canti: Mentìa l'avviso"
+        },
+        {
+          "composer": "Giacomo Puccini",
+          "work": "Madama Butterfly: Bimba dagli occhi pieni di malia"
+        },
+        {
+          "composer": "Jakov Gotovac",
+          "work": "Hymne an die Freiheit für Chor und Orchester"
+        }
+      ]
     },
     {
       "venue_id": "bayreuth-markgraefliches-opernhaus",
