@@ -72,9 +72,11 @@ function matchesFilters(c, f) {
     const v = venueById(c.venue_id);
     const haystack = [
       c.title || "",
+      c.ensemble || "",
       c.performers.join(" "),
       c.program.map((p) => `${p.composer || ""} ${p.work || ""}`).join(" "),
-      v ? v.name + " " + v.city : "",
+      v ? v.name + " " + v.city : c.venue || "",
+      v ? v.city : c.city || "",
     ].join(" ").toLowerCase();
     if (!haystack.includes(t)) return false;
   }
