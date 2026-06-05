@@ -907,16 +907,16 @@
       ],
       "program": [
         {
-          "composer": "Wagner",
-          "work": "Orchesterwerk"
+          "composer": "Richard Wagner",
+          "work": "Ouvertüre zur Oper »Tannhäuser«"
         },
         {
-          "composer": "Bartók",
-          "work": "Orchesterwerk"
+          "composer": "Béla Bartók",
+          "work": "Violakonzert Sz 120"
         },
         {
-          "composer": "Dvořák",
-          "work": "Orchesterwerk"
+          "composer": "Antonín Dvořák",
+          "work": "Sinfonie Nr. 9 e-Moll, op. 95 (»Aus der Neuen Welt«)"
         }
       ],
       "venue_id": "freiburg-im-breisgau-konzerthaus-freiburg",
