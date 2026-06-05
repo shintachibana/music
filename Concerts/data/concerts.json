@@ -719,36 +719,6 @@
       ]
     },
     {
-      "date": "2026-06-06",
-      "source_url": "https://www.swr.de/symphonieorchester",
-      "time": "20:00",
-      "title": "Kammerkonzert: Werke von Dohnányi, Ravel und D'Rivera",
-      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-06-06-2026-baden-baden-100.html",
-      "city": "Baden-Baden",
-      "performers": [
-        "SWR Symphonieorchester",
-        "Mitglieder des SWR Symphonieorchesters",
-        "Raphael Sachs"
-      ],
-      "program": [
-        {
-          "composer": "Dohnányi",
-          "work": "Kammermusikwerk"
-        },
-        {
-          "composer": "Ravel",
-          "work": "Kammermusikwerk"
-        },
-        {
-          "composer": "D'Rivera",
-          "work": "Kammermusikwerk"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "SWR Symphonieorchester",
-      "bundesland": "Baden-Württemberg"
-    },
-    {
       "date": "2026-06-07",
       "source_url": "https://www.swr.de/symphonieorchester",
       "time": "16:00",
@@ -802,36 +772,6 @@
         {
           "composer": "D'Rivera",
           "work": "Kammermusikwerk"
-        }
-      ],
-      "venue_id": null,
-      "ensemble": "SWR Symphonieorchester",
-      "bundesland": "Baden-Württemberg"
-    },
-    {
-      "date": "2026-06-11",
-      "source_url": "https://www.swr.de/symphonieorchester",
-      "time": "20:00",
-      "title": "Riccardo Minasi dirigiert Werke von Wagner, Bartók und Dvořák",
-      "url": "https://www.swr.de/swr-symphonieorchester/veranstaltung-11-06-2026-stuttgart-100.html",
-      "city": "Stuttgart",
-      "performers": [
-        "SWR Symphonieorchester",
-        "Riccardo Minasi (Dirigent)",
-        "Antoine Tamestit (Viola)"
-      ],
-      "program": [
-        {
-          "composer": "Wagner",
-          "work": "Orchesterwerk"
-        },
-        {
-          "composer": "Bartók",
-          "work": "Orchesterwerk"
-        },
-        {
-          "composer": "Dvořák",
-          "work": "Orchesterwerk"
         }
       ],
       "venue_id": null,
@@ -3879,6 +3819,76 @@
         }
       ],
       "url": "https://www.brso.de/konzerte/singen-mit-sir-simon-viele-choere-ein-orchester-2/"
+    },
+    {
+      "date": "2026-06-19",
+      "time": "20:00",
+      "title": "SWR Symphonieorchester – Antoine Tamestit & »Die Kunst der Fuge«",
+      "venue": "Im Wizemann",
+      "city": "Stuttgart",
+      "bundesland": "Baden-Württemberg",
+      "ensemble": "SWR Symphonieorchester",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Antoine Tamestit (Viola & Leitung)"
+      ],
+      "program": [
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Vor deinen Thron tret ich hiermit BWV 327"
+        },
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Die Kunst der Fuge BWV 1080 (Auszüge)"
+        },
+        {
+          "composer": "Johann Sebastian Bach",
+          "work": "Vor deinen Thron tret ich hiermit BWV 668"
+        },
+        {
+          "composer": "Paul Hindemith",
+          "work": "Trauermusik"
+        },
+        {
+          "composer": "Alfred Schnittke",
+          "work": "Monolog"
+        },
+        {
+          "composer": "Schostakowitsch / Barschai",
+          "work": "Kammersinfonie c-Moll op. 110a"
+        }
+      ],
+      "url": "https://www.concerti.de/kuenstler/swr-symphonieorchester/"
+    },
+    {
+      "date": "2026-06-25",
+      "time": "13:00",
+      "title": "Mittagskonzert 4",
+      "venue": "Liederhalle",
+      "city": "Stuttgart",
+      "bundesland": "Baden-Württemberg",
+      "venue_id": "stuttgart-liederhalle-stuttgart-beethoven-saal",
+      "ensemble": "SWR Symphonieorchester",
+      "performers": [
+        "SWR Symphonieorchester",
+        "Ustina Dubitsky (Dirigentin)",
+        "Tabea Dupree (Moderation)"
+      ],
+      "program": [
+        {
+          "composer": "Bedřich Smetana",
+          "work": "Die Moldau aus »Mein Vaterland«"
+        },
+        {
+          "composer": "Benjamin Britten",
+          "work": "Four Sea Interludes aus »Peter Grimes«"
+        },
+        {
+          "composer": "Ernest Bloch",
+          "work": "Poems of the Sea"
+        }
+      ],
+      "url": "https://www.swrticketservice.de/veranstaltungen/detail/mittagskonzert-4"
     }
   ],
   "enriched_at": "2026-06-03",
